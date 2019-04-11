@@ -1,0 +1,14 @@
+{
+  "presets": [
+    [
+      "@babel/preset-react",
+      {
+        "absoluteRuntime": false
+      }
+    ]
+  ],
+  "plugins": [
+    ["babel-plugin-styled-components", 
+      { "displayName": true, "ssr": true, "preprocess": false }],
+  ]
+}
