@@ -1,14 +1,10 @@
 {
   "presets": [
-    [
-      "@babel/preset-react",
-      {
-        "absoluteRuntime": false
-      }
-    ]
+    "@babel/preset-env",
+    "@babel/preset-react"
   ],
   "plugins": [
-    ["babel-plugin-styled-components", 
-      { "displayName": true, "ssr": true, "preprocess": false }],
+    "babel-plugin-styled-components",
+    "@babel/plugin-proposal-class-properties"
   ]
 }
