@@ -1,6 +1,8 @@
 {
-  "name": "traversal-react-redux",
-  "version": "0.1.21",
+  "name": "@doctorlink/traversal-react-redux",
+  "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
+  "version": "0.1.0",
+  "description": "DoctorLink's Traversal Client Tools.",
   "dependencies": {},
   "main": "index.js",
   "repository": {
