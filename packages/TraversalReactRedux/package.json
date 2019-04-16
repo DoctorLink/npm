@@ -1,13 +1,15 @@
 {
   "name": "traversal-react-redux",
-  "version": "0.1.8",
-  "dependencies": {},  
+  "version": "0.1.21",
+  "dependencies": {},
+  "main": "index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/DoctorLink/TraversalReactRedux"
   },
   "scripts": {
-    "build": "rm -rf dist && cross-env NODE_ENV=production babel src/lib --out-dir lib --copy-files --ignore __tests__,spec.js,test.js,__snapshots__"
+    "build": "rm -rf dist && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore __tests__,spec.js,test.js,__snapshots__ && cp ./package.json lib",
+    "build:copy": "npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -21,12 +23,14 @@
   "devDependencies": {
     "@babel/cli": "^7.4.3",
     "@babel/core": "^7.4.3",
-    "@babel/plugin-transform-template-literals": "^7.2.0",
     "@babel/preset-react": "^7.0.0",
-    "cross-env": "^5.2.0",
+    "babel-plugin-styled-components": "^1.10.0",
+    "cross-env": "^5.2.0"
+  },
+  "peerDependencies": {
     "react": "^16.8.6",
     "react-dom": "^16.8.6",
-    "react-scripts": "2.1.8",
+    "react-pose": "^4.0.8",
     "styled-components": "^4.2.0"
   }
 }
