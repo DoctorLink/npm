@@ -18,6 +18,7 @@ export { default as Checkbox } from './Components/Checkbox'
 export { default as DateField } from './Components/DateField'
 export { default as InfoIcon } from './Components/InfoIcon'
 export { default as Label } from './Components/Label'
+export { default as Modal } from './Components/Modal'
 export { default as NumberField } from './Components/NumberField'
 export { default as Question } from './Components/Question'
 export { default as Radio } from './Components/Radio'
@@ -41,8 +42,10 @@ export { default as TraversalTable }  from './ComponentModules/TraversalTable'
 //Containers
 export { default as ConnectedCheckbox } from './Containers/Checkbox'
 export { default as ConnectedDateField } from './Containers/DateField'
+export { default as ConnectedModal } from './Containers/Modal'
 export { default as ConnectedNumberField } from './Containers/NumberField'
 export { default as ConnectedRadio } from './Containers/Radio'
+export { default as ConnectedSummary } from './Containers/Summary'
 export { default as ConnectedTextField } from './Containers/TextField'
 
 //Reducers
