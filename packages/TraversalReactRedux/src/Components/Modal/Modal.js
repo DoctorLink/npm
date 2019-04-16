@@ -3,18 +3,18 @@ import styled from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 
 const WrapPose = posed.div({
-  enter: {
-    opacity: 1,
-    transition: {
-      default: { duration: 150 }
+    enter: {
+        opacity: 1,
+        transition: {
+            default: { duration: 150 }
+        }
+    },
+    exit: {
+        opacity: 0,
+        transition: {
+            default: { duration: 150 }
+        }
     }
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      default: { duration: 150 }
-    }
-  }
 });
 
 const Wrap = styled(WrapPose)`
@@ -66,20 +66,20 @@ const Container = styled.div`
 
 const ContentPose = posed.div({
     enter: {
-      y: 0,
-      opacity: 1,
-      delay: 100,
-      transition: {
-        y: { type: 'spring', stiffness: 1000, damping: 15 },
-        default: { duration: 300 }
-      }
+        y: 0,
+        opacity: 1,
+        delay: 100,
+        transition: {
+            y: { type: 'spring', stiffness: 1000, damping: 15 },
+            default: { duration: 300 }
+        }
     },
     exit: {
-      y: 50,
-      opacity: 0,
-      transition: { duration: 150 }
+        y: 50,
+        opacity: 0,
+        transition: { duration: 150 }
     }
-  });
+});
 
 const Content = styled(ContentPose)`
     box-sizing: border-box;
@@ -118,12 +118,20 @@ const Icon = styled.svg`
 `
 
 class Modal extends React.Component {
+    constructor(props) {
+        super(props);
 
-    componentDidMount = () => document.addEventListener('mousedown', this.handleClickOutside);
-    componentWillUnmount = () => document.removeEventListener('mousedown', this.handleClickOutside);
+        // This binding is necessary to make `this` work in the callback
+        this.componentDidMount = this.componentDidMount.bind(this);
+        this.componentWillUnmount = this.componentWillUnmount.bind(this);
+        this.handleClickOutside = this.handleClickOutside.bind(this);
+    }
 
-    handleClickOutside = (event) => {
-        if (this.node && !this.node.contains(event.target)) 
+    componentDidMount() { document.addEventListener('mousedown', this.handleClickOutside) };
+    componentWillUnmount() { document.removeEventListener('mousedown', this.handleClickOutside) };
+
+    handleClickOutside(event) {
+        if (this.node && !this.node.contains(event.target))
             this.props.closeModal()
     }
 
