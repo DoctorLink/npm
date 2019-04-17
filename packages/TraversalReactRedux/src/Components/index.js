@@ -1,7 +1,9 @@
 export { default as Answer }  from './Answer'
+export { default as BodyContent } from './BodyContent'
 export { default as Button } from './Button'
 export { default as Checkbox } from './Checkbox'
 export { default as DateField } from './DateField'
+export { default as GlobalStyle } from './GlobalStyle'
 export { default as InfoIcon } from './InfoIcon'
 export { default as Label } from './Label'
 export { default as Modal } from './Modal'
@@ -17,6 +19,9 @@ export { default as TableHeaderRow } from './TableHeaderRow'
 export { default as TableQuestion } from './TableQuestion'
 export { default as TableQuestionRow } from './TableQuestionRow'
 export { default as TextField } from './TextField'
+export { default as Title } from './Title'
+
+
 
 export { default as SymptomReportPanelBlocks } from './SymptomReportPanelBlocks'
 export { default as SymptomReportPanelContainer } from './SymptomReportPanelContainer'
