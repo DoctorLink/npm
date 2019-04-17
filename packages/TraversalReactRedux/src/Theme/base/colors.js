@@ -13,7 +13,10 @@ const colors = {
     lightBlue100: '#00C4FA',
     orange100: '#F0A700',
     lightYellow100: '#FFED7B',
-    green100: '#19C454',
+    green100: '#19C454',    
+    danger: '#e42817',
+    moderate: '#ffa200',
+    normal: '#008000',
   };
   
   export default colors;

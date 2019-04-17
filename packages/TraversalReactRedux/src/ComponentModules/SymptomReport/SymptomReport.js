@@ -1,135 +1,18 @@
 import React from 'react'
-import styled from 'styled-components'
-import posed, { PoseGroup } from 'react-pose'
-import InfoIcon from '../InfoIcon'
-import themeColors from '../../Theme/base/colors'
+import { PoseGroup } from 'react-pose'
+import colors from '../../Theme/base/colors'
+import InfoIcon from '../../Components/InfoIcon'
+import PanelBlocks from '../../Components/SymptomReportPanelBlocks'
+import PanelContainer from '../../Components/SymptomReportPanelContainer'
+import Panel from '../../Components/SymptomReportPanel'
+import PanelHeader from '../../Components/SymptomReportPanelHeader'
+import PanelTitle from '../../Components/SymptomReportPanelTitle'
+import PanelContent from '../../Components/SymptomReportPanelContent'
+import PanelConclusion from '../../Components/SymptomReportPanelConclusion'
+import BodyText from '../../Components/SymptomReportBodyText'
+import ConclusionTitle from '../../Components/SymptomReportConclusionTitle'
+import SVG from '../../Components/SymptomReportSVG'
 
-const colors = {
-    danger: '#e42817',
-    moderate: '#ffa200',
-    normal: 'green',
-    conclusions: themeColors.brand100,
-    reasonBullets: themeColors.lightBlue100
-}
-
-const PosedBlocks = posed.div({
-    enter: {
-        staggerChildren: 200,
-        delayChildren: 200
-    }
-})
-
-const PanelBlocks = styled(PosedBlocks)`
-    margin: 0 -10px;
-`
-
-const PosedPanel = posed.div({
-    enter: {
-        opacity: 1,
-        y: '0%'
-    },
-    exit: {
-        y: '100%',
-        opacity: 0,
-    }
-})
-
-const PanelContainer = styled(PosedPanel)`
-    box-sizing: border-box;
-    padding: 0 10px;
-    float: ${p => p.float || 'left'};
-
-    @media screen and (min-width: 800px) {    
-        width: 50%;
-    }
-`
-
-const Panel = styled(PosedPanel)`
-    border-radius: 4px;
-    background-color: white;
-    box-shadow: 0px 1px 3px 0px rgba(0, 0, 0, 0.2), 0px 1px 1px 0px rgba(0, 0, 0, 0.14), 0px 2px 1px -1px rgba(0, 0, 0, 0.12);
-    margin-bottom: 30px;
-    overflow: hidden;
-    margin-right: 10px;
-
-`
-
-const PanelHeader = styled.div`
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    padding-top: 16px;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-bottom: 16px;
-    background-color: ${p => p.color || '#666'};
-
-    @media screen and (min-width: 800px) {    
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-`
-
-const PanelTitle = styled.span`
-    color: ${p => p.color || 'white'};
-    font-size: 0.875rem;
-    font-family: 'Noto Sans', sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
-    font-size: 1.5rem;
-`
-
-const PanelContent = styled.div`
-    box-sizing: border-box;
-    padding: 16px;
-    
-    &:last-child {
-        /* padding-bottom: 24px; */
-    }
-
-    @media screen and (min-width: 800px) {    
-        padding-left: 24px;
-        padding-right: 24px;
-    }
-`
-
-const PanelConclusion = styled(PanelContent)`
-    border-bottom: 1px solid #cacaca;
-    &:last-of-type {
-        border-bottom: none;
-    }
-`
-
-const BodyText = styled.p`
-    margin: 0;
-    display: block;
-    color: rgba(0, 0, 0, 0.87);
-    font-size: 1rem;
-    font-family: 'Noto Sans', sans-serif;
-    font-weight: 400;
-    line-height: 1.5;
-    font-weight: ${p => p.bold ? 'bold' : 'normal'};
-`
-
-const ConclisionTitle = styled.h6`
-    font-family: 'Noto Sans', sans-serif;
-    display: inline;
-    font-weight: normal;
-    font-size: 1.25rem;
-
-    ::after {
-        content: " "
-    }
-`
-
-const SVG = styled.svg`
-  fill: none;
-  stroke: white;
-  stroke-width: 3px;
-  stroke-linecap: round; 
-  stroke-linejoin: round;
-  margin-right: 10px;
-`
 const Icon = ({ state }) => {
     if (state === 1) return (<SVG width="24" height="24" viewBox="0 0 24 24">
         <circle cx="12" cy="12" r="10"></circle>
@@ -195,40 +78,40 @@ export default ({ conclusion, showExplanation }) => {
             </PanelContainer>
             <PanelContainer key='concs'>
                 {symptomReport.reasonConclusions && symptomReport.reasonConclusions.length > 0 && (<Panel>
-                    <PanelHeader color={colors.conclusions}>
+                    <PanelHeader color={colors.brand100}>
                         <PanelTitle>{symptomReport.reasonConclusionTitle}</PanelTitle>
                     </PanelHeader>
                     {symptomReport.reasonConclusions.map((conclusion, i) =>
                         (<PanelConclusion key={i}>
-                            <ConclisionTitle>{conclusion.displayText}</ConclisionTitle>
+                            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
                             <InfoIcon inline={true} onClick={showExplanation} explanation={conclusion.explanation} />
                             <BodyText>{conclusion.truncated}</BodyText>
                         </PanelConclusion>))}
                 </Panel>)}
                 {symptomReport.otherConclusions && symptomReport.otherConclusions.length > 0 && (<Panel>
-                    <PanelHeader color={colors.conclusions}>
+                    <PanelHeader color={colors.brand100}>
                         <PanelTitle>{symptomReport.otherConclusionTitle}</PanelTitle>
                     </PanelHeader>
                     {symptomReport.otherConclusions.map((conclusion, i) =>
                         (<PanelConclusion key={i}>
-                            <ConclisionTitle>{conclusion.displayText}</ConclisionTitle>
+                            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
                             <InfoIcon inline={true} onClick={showExplanation} explanation={conclusion.explanation} />
                         </PanelConclusion>))}
                 </Panel>)}
                 {symptomReport.informationConclusions && symptomReport.informationConclusions.length > 0 && (<Panel>
-                    <PanelHeader color={colors.conclusions}>
+                    <PanelHeader color={colors.brand100}>
                         <PanelTitle>{symptomReport.informationConclusionTitle}</PanelTitle>
                     </PanelHeader>
                     {symptomReport.informationConclusions.map((conclusion, i) =>
                         (<PanelConclusion key={i}>
-                            <ConclisionTitle>{conclusion.displayText}</ConclisionTitle>
+                            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
                             <InfoIcon inline={true} onClick={showExplanation} explanation={conclusion.explanation} />
                         </PanelConclusion>))}
                 </Panel>)}
             </PanelContainer>
             <PanelContainer key='reasons'>
                 {symptomReport.reasonBullets && symptomReport.reasonBullets.length > 0 && (<Panel>
-                    <PanelHeader color={colors.reasonBullets}>
+                    <PanelHeader color={colors.lightBlue100}>
                         <PanelTitle>{symptomReport.reasonBulletTitle}</PanelTitle>
                     </PanelHeader>
                     {symptomReport.reasonBullets.map((bullet, i) =>
