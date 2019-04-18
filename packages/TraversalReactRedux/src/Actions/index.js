@@ -32,7 +32,7 @@ export const TRAVERSAL_NEXT = 'TRAVERSAL_NEXT'
 export const traversalNext = traversal => ({ type: TRAVERSAL_NEXT, traversal })
 
 export const TRAVERSAL_PREVIOUS = 'TRAVERSAL_PREVIOUS'
-export const traversalPrevious = (traversalId, algoId, nodeId) => ({ type: TRAVERSAL_PREVIOUS, traversalId, algoId, nodeId })
+export const traversalPrevious = (traversalId, algoId, nodeId, assetId) => ({ type: TRAVERSAL_PREVIOUS, traversalId, algoId, nodeId, assetId })
 
 export const TRAVERSAL_SUMMARY_GET = 'TRAVERSAL_SUMMARY_GET'
 export const traversalSummaryGet = traversalId => ({ type: TRAVERSAL_SUMMARY_GET, traversalId })

@@ -1,9 +1,9 @@
 import * as actions from './Actions'
-import createApi from './Api'
 import * as helpers from './Helpers'
 
+export { createTraversalWebApi, createChatWebApi }  from './WebApi'
+
 export { actions }
-export { createApi }
 export { helpers }
 
 export { default as createTraversalStore }  from './Helpers/createTraversalStore'
@@ -63,13 +63,14 @@ export { default as TraversalPage } from './Pages/Traversal'
 
 export { default as TraversalApp } from './AppComponents/Traversal'
 
-export { default as rootReducer } from './Reducers'
+export { rootChatReducer, rootTraversalReducer } from './Reducers'
 export { default as traversalReducer } from './Reducers/Traversal'
+export { default as chatReducer } from './Reducers/Chat'
 export { default as conclusionReducer } from './Reducers/Conclusion'
 export { default as summaryReducer } from './Reducers/Summary'
 export { default as modalReducer } from './Reducers/Modal'
 
-export { default as createSaga } from './Sagas'
+export { default as createTraversalSaga } from './Sagas/Traversal'
 
 export { default as createAutoForwardGenerator } from './Sagas/Generators/AutoForward'
 export { default as createConclusionsGenerator } from './Sagas/Generators/Conclusions'

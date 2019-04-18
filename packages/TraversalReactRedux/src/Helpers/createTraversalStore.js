@@ -1,13 +1,13 @@
 import { createStore, applyMiddleware } from 'redux'
 import createSagaMiddleware from 'redux-saga'
-import createApi from '../Api'
-import createSaga from '../Sagas'
-import rootReducer from '../Reducers'
+import { createTraversalWebApi} from '../WebApi'
+import createSaga from '../Sagas/Traversal'
+import { rootTraversalReducer } from '../Reducers'
 
 export default (apiUrl) => {
     const sagaMiddleware = createSagaMiddleware();
-    const store = createStore(rootReducer, applyMiddleware(sagaMiddleware));
-    const api = createApi(apiUrl)
+    const store = createStore(rootTraversalReducer, applyMiddleware(sagaMiddleware));
+    const api = createTraversalWebApi(apiUrl)
     const rootSaga = createSaga(api);
     sagaMiddleware.run(rootSaga)
     return store;
