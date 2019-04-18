@@ -3,7 +3,7 @@ import * as actions from '../../Actions'
 import * as generators from '../Generators'
 
 export default (api) => function* rootSaga() {
-    yield takeLatest(actions.TRAVERSAL_START, generators.createStartGenerator(api))
+    yield takeLatest(actions.TRAVERSAL_START, generators.createStartChatGenerator(api))
     yield takeLatest(actions.TRAVERSAL_CONTINUE, generators.createContinueGenerator(api))
     yield takeLatest(actions.TRAVERSAL_NEXT, generators.createNextGenerator(api))
     yield takeLatest(actions.TRAVERSAL_PREVIOUS, generators.createPreviousGenerator(api))

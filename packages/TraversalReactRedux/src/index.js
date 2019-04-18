@@ -7,8 +7,10 @@ export { actions }
 export { helpers }
 
 export { default as createTraversalStore }  from './Helpers/createTraversalStore'
+export { default as createChatStore }  from './Helpers/createChatStore'
 export { default as createTraversalResponse }  from './Helpers/createTraversalResponse'
 export { default as flattenTraversalNodeCollection }  from './Helpers/flattenTraversalNodeCollection'
+export { default as flattenTraversalChat }  from './Helpers/flattenTraversalChat'
 
 export { default as Answer }  from './Components/Answer'
 export { default as BodyContent } from './Components/BodyContent'
@@ -60,17 +62,20 @@ export { default as ConnectedTextField } from './Containers/TextField'
 
 export { default as HomePage } from './Pages/Home'
 export { default as TraversalPage } from './Pages/Traversal'
+export { default as ChatPage } from './Pages/Chat'
 
 export { default as TraversalApp } from './AppComponents/Traversal'
+export { default as ChatApp } from './AppComponents/Chat'
 
 export { rootChatReducer, rootTraversalReducer } from './Reducers'
+
 export { default as traversalReducer } from './Reducers/Traversal'
 export { default as chatReducer } from './Reducers/Chat'
 export { default as conclusionReducer } from './Reducers/Conclusion'
 export { default as summaryReducer } from './Reducers/Summary'
 export { default as modalReducer } from './Reducers/Modal'
 
-export { default as createTraversalSaga } from './Sagas/Traversal'
+export { createTraversalSaga, createChatSaga } from './Sagas'
 
 export { default as createAutoForwardGenerator } from './Sagas/Generators/AutoForward'
 export { default as createConclusionsGenerator } from './Sagas/Generators/Conclusions'
