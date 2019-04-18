@@ -1,4 +1,4 @@
-import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL, TRAVERSAL_DIRECTION } from '../../Actions'
+import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL } from '../../Actions'
 
 const answers = (state = null, action) => {
     switch (action.type) {
@@ -31,17 +31,40 @@ const answers = (state = null, action) => {
     }
 }
 
+const questions = (state = [], action) => {
+    switch (action.type) {
+        case TOGGLE_RADIO:
+        case TOGGLE_CHECKBOX:
+        case UPDATE_TEXT:
+            const totalQuestions = state.length;
+            return state.map((question, index) => { 
+                if (totalQuestions === index + 1) {
+                    return ({ ...question, answers: answers(question.answers, action)} )
+                } else {
+                    return question;
+                }
+            })
+        case SET_TRAVERSAL:
+            return state.map((question) => ({ ...question, answers: answers(question.answers, action)} ))
+        default:
+            return state;
+    }
+}
+
 const traversal = (state = null, action) => {
     switch (action.type) {
         case TOGGLE_RADIO:
         case TOGGLE_CHECKBOX:
         case UPDATE_TEXT:
-            return { ...state, answers: answers(state.answers, action)}
-        case TRAVERSAL_DIRECTION:
-            if (state === null ) return state;
-            return { ...state, previous: action.previous }
+            return { 
+                ...state, 
+                questions: questions(state.questions, action)
+            }
         case SET_TRAVERSAL:
-            return { ...action.traversal, previous: (state == null) ? false : state.previous, answers: answers(action.traversal.answers, action)}
+            return { 
+                traversalId: action.traversal.traversalId, 
+                questions: questions(action.traversal.entities, action)
+            }
         default:
             return state
     }
