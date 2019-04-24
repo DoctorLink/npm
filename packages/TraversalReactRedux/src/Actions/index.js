@@ -19,6 +19,9 @@ export const requestTraversal = () => ({ type: REQUEST_TRAVERSAL })
 export const SET_TRAVERSAL = 'SET_TRAVERSAL'
 export const setTraversal = traversal => ({ type: SET_TRAVERSAL, traversal, receivedAt: Date.now() })
 
+export const ADD_TRAVERSAL_QUESTION = 'ADD_TRAVERSAL_QUESTION'
+export const addTraversalQuestion = traversal => ({ type: ADD_TRAVERSAL_QUESTION, traversal, receivedAt: Date.now() })
+
 export const TRAVERSAL_DIRECTION = 'TRAVERSAL_DIRECTION'
 export const traversalDirection = previous => ({ type: TRAVERSAL_DIRECTION, previous })
 

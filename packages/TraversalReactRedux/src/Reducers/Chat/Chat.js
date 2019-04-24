@@ -1,7 +1,9 @@
-import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL } from '../../Actions'
+import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL, ADD_TRAVERSAL_QUESTION, TRAVERSAL_DIRECTION } from '../../Actions'
 
 const answers = (state = null, action) => {
     switch (action.type) {
+        case ADD_TRAVERSAL_QUESTION:
+            return Object.assign({}, state, action.traversal.answers);
         case TOGGLE_RADIO:
             action.answerIds.forEach((answerId) => {
                 if (answerId === action.id)
@@ -31,43 +33,34 @@ const answers = (state = null, action) => {
     }
 }
 
-const questions = (state = [], action) => {
+const chat = (state = null, action) => {
     switch (action.type) {
         case TOGGLE_RADIO:
         case TOGGLE_CHECKBOX:
         case UPDATE_TEXT:
-            const totalQuestions = state.length;
-            return state.map((question, index) => { 
-                if (totalQuestions === index + 1) {
-                    return ({ ...question, answers: answers(question.answers, action)} )
-                } else {
-                    return question;
-                }
-            })
-        case SET_TRAVERSAL:
-            return state.map((question) => ({ ...question, answers: answers(question.answers, action)} ))
-        default:
-            return state;
-    }
-}
-
-const traversal = (state = null, action) => {
-    switch (action.type) {
-        case TOGGLE_RADIO:
-        case TOGGLE_CHECKBOX:
-        case UPDATE_TEXT:
+            if (!action.id.startsWith(state.questionIds[state.questionIds.length-1])) return state;
+            return { ...state, answers: answers(state.answers, action)}
+        case TRAVERSAL_DIRECTION:
+            if (state === null ) return state;
+            return { ...state, previous: action.previous }
+        case ADD_TRAVERSAL_QUESTION:
             return { 
                 ...state, 
-                questions: questions(state.questions, action)
+                previous: (state == null) ? false : state.previous,
+                questionIds: [ ...state.questionIds.concat(action.traversal.questionIds.filter(x=>!state.questionIds.includes(x))) ], 
+                questions: Object.assign({}, state.questions, action.traversal.questions),
+                answers: answers(state.answers, action),
+                errors: action.traversal.errors
             }
         case SET_TRAVERSAL:
             return { 
-                traversalId: action.traversal.traversalId, 
-                questions: questions(action.traversal.entities, action)
+                ...action.traversal,
+                previous: (state == null) ? false : state.previous, 
+                answers: answers(action.traversal.answers, action)
             }
         default:
             return state
     }
 }
 
-export default traversal
+export default chat
