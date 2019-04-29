@@ -1,8 +1,8 @@
 import { normalize, schema } from 'normalizr'
 
 export default json => {
-    const answer = new schema.Entity('answers', {}, { idAttribute: value => `${json.data.algoId}_${value.nodeId}_${value.questionId}_${value.answerId}` });
-    const question = new schema.Entity('questions', { answers: [answer] }, { idAttribute: (value,parent) => `${parent.algoId}_${value.nodeId}_${value.questionId}` });
+    const answer = new schema.Entity('answers', {}, { idAttribute: (value,parent) => `${parent.algoId}_${value.nodeId}_${value.questionId}_${value.answerId}` });
+    const question = new schema.Entity('questions', { answers: [answer] }, { idAttribute: value => `${value.algoId}_${value.nodeId}_${value.questionId}` });
     const error = new schema.Entity('errors', {}, { idAttribute: (value,parent) => `${json.data.algoId}_${parent.nodeId}_${value.questionId}` });
     // const node = new schema.Entity('nodes', { questions: [question],  errors: [error] }, { idAttribute: value => value.nodeId });
     const traversal = { questions: [question], errors: [error] }
@@ -15,5 +15,6 @@ export default json => {
     normalizedData.entities.assessmentType = json.data.assessmentType;
     if (!normalizedData.entities.errors) normalizedData.entities.errors = {}
 
+    console.log(normalizedData.entities)
     return normalizedData.entities
 }

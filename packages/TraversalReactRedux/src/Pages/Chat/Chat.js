@@ -32,7 +32,7 @@ const Traversal = ({ traversal, conclusion, match, dispatch }) => {
     return (<ChatComponent 
                 traversal={traversal} 
                 next={traversal => dispatch(actions.traversalNext(traversal))} 
-                previous={traversalId => dispatch(actions.traversalPrevious(traversalId))} 
+                previous={(traversalId, algoId, nodeId, assetId) => dispatch(actions.traversalPrevious(traversalId, algoId, nodeId, assetId))} 
                 showSummary={traversalId => dispatch(actions.traversalSummaryGet(traversalId))}
                 showExplanation={explanation => dispatch(actions.populateModal(explanation))}/>)
 }

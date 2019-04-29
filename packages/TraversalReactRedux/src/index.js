@@ -86,6 +86,7 @@ export { default as createContinueChatGenerator } from './Sagas/Generators/Conti
 export { default as createNextGenerator } from './Sagas/Generators/Next'
 export { default as createNextChatGenerator } from './Sagas/Generators/NextChat'
 export { default as createPreviousGenerator } from './Sagas/Generators/Previous'
+export { default as createPreviousChatGenerator } from './Sagas/Generators/PreviousChat'
 export { default as createStartGenerator } from './Sagas/Generators/Start'
 export { default as createStartChatGenerator } from './Sagas/Generators/StartChat'
 export { default as createSummaryGenerator } from './Sagas/Generators/Summary'

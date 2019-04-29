@@ -1,9 +1,7 @@
-import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL, ADD_TRAVERSAL_QUESTION, TRAVERSAL_DIRECTION } from '../../Actions'
+import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL, NEXT_TRAVERSAL_QUESTION, PREVIOUS_TRAVERSAL_QUESTION, TRAVERSAL_DIRECTION } from '../../Actions'
 
 const answers = (state = null, action) => {
     switch (action.type) {
-        case ADD_TRAVERSAL_QUESTION:
-            return Object.assign({}, state, action.traversal.answers);
         case TOGGLE_RADIO:
             action.answerIds.forEach((answerId) => {
                 if (answerId === action.id)
@@ -43,14 +41,37 @@ const chat = (state = null, action) => {
         case TRAVERSAL_DIRECTION:
             if (state === null ) return state;
             return { ...state, previous: action.previous }
-        case ADD_TRAVERSAL_QUESTION:
+        case NEXT_TRAVERSAL_QUESTION:
             return { 
                 ...state, 
                 previous: (state == null) ? false : state.previous,
                 questionIds: [ ...state.questionIds.concat(action.traversal.questionIds.filter(x=>!state.questionIds.includes(x))) ], 
                 questions: Object.assign({}, state.questions, action.traversal.questions),
-                answers: answers(state.answers, action),
-                errors: action.traversal.errors
+                answers: answers(Object.assign({}, state.answers, action.traversal.answers), action),
+                errors: action.traversal.errors,
+                algoId: action.traversal.algoId,
+                assessmentType: action.traversal.assessmentType
+            }
+        case PREVIOUS_TRAVERSAL_QUESTION:
+            var ids = [ ...state.questionIds ];
+            ids.length = ids.indexOf(action.traversal.questionIds[0]) + 1;
+            var questions = {};
+            var newAnswers = {};
+            ids.forEach(qid=> { 
+                questions[qid] = (qid in action.traversal.questions) ? action.traversal.questions[qid] : state.questions[qid];
+                questions[qid].answers.forEach(aid => {
+                    newAnswers[aid] = (aid in action.traversal.answers) ? action.traversal.answers[aid] : state.answers[aid];
+                })
+            });
+            return { 
+                ...state, 
+                previous: (state == null) ? false : state.previous,
+                questionIds: ids, 
+                questions: questions,
+                answers: answers(newAnswers, action),
+                errors: action.traversal.errors,
+                algoId: action.traversal.algoId,
+                assessmentType: action.traversal.assessmentType
             }
         case SET_TRAVERSAL:
             return { 

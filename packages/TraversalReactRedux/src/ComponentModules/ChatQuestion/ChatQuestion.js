@@ -13,16 +13,16 @@ const DisplayText = styled.div`
     display: inline-block;
 `
 
-const ChatQuestion = ({ traversalId, question, answers, jumpBack }) => 
+const ChatQuestion = ({ traversal, question, answers, jumpBack }) => 
     (<Response>
         <Question displayText={question.displayText} />
         {question.answers.map(a => {
             const answer = answers[a];
             if (!answer.controlChecked) return null;
             const text = `${(answer.controlValue ? answer.controlValue + " " : '')}${answer.displayText}`;
-            return (<DisplayText  dangerouslySetInnerHTML={{ __html: text }} />)
+            return (<DisplayText key={a} dangerouslySetInnerHTML={{ __html: text }} />)
         })}
-        <Button type="button" onClick={() => jumpBack(traversalId, question.algoId, question.nodeId, question.assetId)}>Change Answer</Button>
+        <Button type="button" onClick={() => jumpBack(traversal.traversalId, question.algoId, question.nodeId, question.questionId)}>Change Answer</Button>
     </Response>)
 
 export default ChatQuestion;

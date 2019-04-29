@@ -45,15 +45,20 @@ const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
                 const current = questionId === traversal.questionIds[traversal.questionIds.length-1]
                 return (<Collection key={questionId} mirror={traversal.previous}>
                     {current && 
-                        (<TraversalResponse
-                            question={traversal.questions[questionId]} 
-                            answers={traversal.answers} 
-                            error={traversal.errors[questionId]} 
-                            showExplanation={showExplanation} />)
+                        (<>
+                            <TraversalResponse
+                                question={traversal.questions[questionId]} 
+                                answers={traversal.answers} 
+                                error={traversal.errors[questionId]} 
+                                showExplanation={showExplanation} />   
+                            <Buttons>
+                                <Button type="button" onClick={() => next(traversal)}>Next</Button>
+                            </Buttons>
+                        </>)
                     }
                     {!current && 
                         (<ChatQuestion  
-                            traversalId={traversal.traversalId}
+                            traversal={traversal}
                             question={traversal.questions[questionId]} 
                             answers={traversal.answers}
                             jumpBack={previous} />)
@@ -61,9 +66,6 @@ const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
                 </Collection>)
             })}
         </PoseGroup>
-        <Buttons>
-            <Button type="submit" onClick={() => next(traversal)}>Next</Button>
-        </Buttons>
         <div>
             <pre style={{whiteSpace: 'pre-wrap'}}>
                 {JSON.stringify(traversal, null, 2)}
