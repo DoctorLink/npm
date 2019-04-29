@@ -1,8 +1,8 @@
-import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL, TRAVERSAL_DIRECTION } from '../../Actions'
+import * as actions from '../../Actions'
 
 const answers = (state = null, action) => {
     switch (action.type) {
-        case TOGGLE_RADIO:
+        case actions.TOGGLE_RADIO:
             action.answerIds.forEach((answerId) => {
                 if (answerId === action.id)
                     state[answerId] = { ...state[answerId], controlChecked: !state[answerId].controlChecked };
@@ -10,7 +10,7 @@ const answers = (state = null, action) => {
                     state[answerId] = { ...state[answerId], controlChecked: false, controlValue: null };
             })
             return state;
-        case TOGGLE_CHECKBOX:
+        case actions.TOGGLE_CHECKBOX:
             action.answerIds.forEach((answerId) => {
                 if (answerId === action.id)
                     state[answerId] = { ...state[answerId], controlChecked: !state[answerId].controlChecked };
@@ -18,7 +18,7 @@ const answers = (state = null, action) => {
                     state[answerId] = { ...state[answerId], controlChecked: false, controlValue: null };
             })
             return state;
-        case UPDATE_TEXT:
+        case actions.UPDATE_TEXT:
             action.answerIds.forEach((answerId) => {
                 if (answerId === action.id)
                     state[answerId] = { ...state[answerId], controlChecked: action.value && action.Value !== "", controlValue: action.value };
@@ -33,15 +33,34 @@ const answers = (state = null, action) => {
 
 const traversal = (state = null, action) => {
     switch (action.type) {
-        case TOGGLE_RADIO:
-        case TOGGLE_CHECKBOX:
-        case UPDATE_TEXT:
-            return { ...state, answers: answers(state.answers, action)}
-        case TRAVERSAL_DIRECTION:
+        case actions.TOGGLE_RADIO:
+        case actions.TOGGLE_CHECKBOX:
+        case actions.UPDATE_TEXT:
+            return { 
+                ...state, 
+                answers: answers(state.answers, action)
+            }
+        case actions.TRAVERSAL_CONTINUE:
+        case actions.TRAVERSAL_NEXT:
+        case actions.TRAVERSAL_PREVIOUS:
             if (state === null ) return state;
-            return { ...state, previous: action.previous }
-        case SET_TRAVERSAL:
-            return { ...action.traversal, previous: (state == null) ? false : state.previous, answers: answers(action.traversal.answers, action)}
+            return { 
+                ...state, 
+                loading: true 
+            }
+        case actions.TRAVERSAL_DIRECTION:
+            if (state === null ) return state;
+            return { 
+                ...state, 
+                previous: action.previous 
+            }
+        case actions.SET_TRAVERSAL:
+            return { 
+                ...action.traversal, 
+                previous: (state == null) ? false : state.previous, 
+                loading: false,
+                answers: answers(action.traversal.answers, action)
+            }
         default:
             return state
     }

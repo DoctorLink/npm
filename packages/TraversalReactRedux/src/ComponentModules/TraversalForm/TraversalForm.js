@@ -4,6 +4,7 @@ import MediaQuery from 'react-responsive'
 
 import Question from '../../Components/Question'
 import InfoIcon from '../../Components/InfoIcon'
+import Fieldset from '../../Components/Fieldset'
 
 import TraversalResponse from '../TraversalResponse'
 import TableQuestion from '../TraversalTable'
@@ -15,7 +16,7 @@ const transition = {
     damping: 100
 }
 
-const Collection = posed.div({
+const Collection = posed(Fieldset)({
     enter: {
         opacity: 1,
         x: '0',
@@ -35,12 +36,12 @@ const Collection = posed.div({
 
 
 export default ({ traversal, onSubmit, children, showExplanation }) => {
-    const { nodeIds, nodes, questions, answers, errors, previous } = traversal;
+    const { nodeIds, nodes, questions, answers, errors, previous, loading } = traversal;
     return (<form onSubmit={(e) => onSubmit(e)}>
         <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
             {nodeIds.map((nodeId) => {
                 const node = nodes[nodeId];
-                return (<Collection key={nodeId} mirror={previous}>
+                return (<Collection key={nodeId} mirror={previous} disabled={loading}>
                     {(node.questions.length !== 1 || node.isTable) && (<Question displayText={node.displayText}>
                         <InfoIcon onClick={showExplanation} explanation={node.explanation} />
                     </Question>)}
