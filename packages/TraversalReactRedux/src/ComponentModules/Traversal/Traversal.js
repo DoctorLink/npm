@@ -15,7 +15,7 @@ const Traversal = ({ traversal, next, previous, showSummary, showExplanation }) 
     (<Container>
         <Form traversal={traversal} onSubmit={(e) => { e.preventDefault(); next(traversal); }} showExplanation={showExplanation}>
             <Buttons>
-                <Button type="button" style={{marginRight: '10px'}} disabled={traversal.firstCollection || traversal.loading} onClick={() => previous(traversal.traversalId)}>Previous</Button>
+                <Button type="button" style={{marginRight: '10px'}} disabled={traversal.loading} onClick={() => previous(traversal.traversalId)}>Previous</Button>
                 <Button type="submit" disabled={traversal.loading} >Next</Button>
                 <Button type="button" style={{float: 'right'}} onClick={() => showSummary(traversal.traversalId)}>Summary</Button>
             </Buttons>

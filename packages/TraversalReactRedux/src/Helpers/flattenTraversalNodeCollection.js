@@ -14,6 +14,7 @@ export default json => {
     normalizedData.entities.algoId = normalizedData.result.algoId;
     normalizedData.entities.assessmentType = json.data.assessmentType;
     normalizedData.entities.firstCollection = json.data.firstCollection;
+    normalizedData.entities.collectionErrors = json.data.errors;
     if (!normalizedData.entities.errors) normalizedData.entities.errors = {}
 
     return normalizedData.entities

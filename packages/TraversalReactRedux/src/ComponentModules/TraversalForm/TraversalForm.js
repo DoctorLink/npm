@@ -5,6 +5,7 @@ import MediaQuery from 'react-responsive'
 import Question from '../../Components/Question'
 import InfoIcon from '../../Components/InfoIcon'
 import Fieldset from '../../Components/Fieldset'
+import ErrorText from '../../Components/ErrorText'
 
 import TraversalResponse from '../TraversalResponse'
 import TableQuestion from '../TraversalTable'
@@ -36,8 +37,9 @@ const Collection = posed(Fieldset)({
 
 
 export default ({ traversal, onSubmit, children, showExplanation }) => {
-    const { nodeIds, nodes, questions, answers, errors, previous, loading } = traversal;
+    const { nodeIds, nodes, questions, answers, errors, previous, loading, collectionErrors } = traversal;
     return (<form onSubmit={(e) => onSubmit(e)}>
+            {collectionErrors && collectionErrors.length > 0 && collectionErrors.map((error, i) => <ErrorText key={i}>{error}</ErrorText>)}
         <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
             {nodeIds.map((nodeId) => {
                 const node = nodes[nodeId];
