@@ -9,6 +9,11 @@ const DisplayText = styled.div`
     display: inline-block;
     padding: 10px;
     font-family: 'Noto Sans',sans-serif;
+
+    .e24subtext {
+        font-size: 14px;
+        font-style: italic;
+    }
 `
 
 const ErrorText = styled.div`
