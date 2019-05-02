@@ -6,6 +6,7 @@ import Question from '../../Components/Question'
 import InfoIcon from '../../Components/InfoIcon'
 import Fieldset from '../../Components/Fieldset'
 import ErrorText from '../../Components/ErrorText'
+import AlgoName from '../../Components/AlgoName'
 
 import TraversalResponse from '../TraversalResponse'
 import TableQuestion from '../TraversalTable'
@@ -39,12 +40,13 @@ const Collection = posed(Fieldset)({
 export default ({ traversal, onSubmit, children, showExplanation }) => {
     const { nodeIds, nodes, questions, answers, errors, previous, loading, collectionErrors } = traversal;
     return (<form onSubmit={(e) => onSubmit(e)}>
-            {collectionErrors && collectionErrors.length > 0 && collectionErrors.map((error, i) => <ErrorText key={i}>{error}</ErrorText>)}
+        <AlgoName>{traversal.algoName}</AlgoName>
+        {collectionErrors && collectionErrors.length > 0 && collectionErrors.map((error, i) => <ErrorText key={i}>{error}</ErrorText>)}
         <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
             {nodeIds.map((nodeId) => {
                 const node = nodes[nodeId];
                 return (<Collection key={nodeId} mirror={previous} disabled={loading}>
-                    {(node.questions.length !== 1 || node.isTable) && (<Question displayText={node.displayText}>
+                    {(node.questions.length !== 1 || node.isTable) && (<Question displayText={node.displayText} title={node.title}>
                         <InfoIcon onClick={showExplanation} explanation={node.explanation} />
                     </Question>)}
                     <MediaQuery minWidth={700}>

@@ -16,7 +16,7 @@ import DateField from '../../Containers/DateField'
 export default ({ question, answers, error, showExplanation }) => {
     const display = question.data.display ? question.data.display : [{ header: null, answers: question.answers.map(x => Number(x.split("_")[2])) }];
     return (<Response>
-        <Question displayText={question.displayText} error={error}>
+        <Question displayText={question.displayText} error={error} title={question.title}>
             <InfoIcon onClick={showExplanation} explanation={question.explanation} />
         </Question>
         {display.map((section, i) => {

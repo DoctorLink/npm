@@ -2,6 +2,7 @@ import React from 'react'
 import styled from 'styled-components'
 
 import ErrorText from '../ErrorText'
+import QuestionTitle from '../QuestionTitle'
 
 const QuestionContainer = styled.div`
     display: flex;
@@ -18,8 +19,9 @@ const DisplayText = styled.div`
     }
 `
 
-const TraversalQuestion = ({ displayText, error, children }) => {
+const TraversalQuestion = ({ displayText, error, title, children }) => {
     return (<>
+        {title && <QuestionTitle>{title}</QuestionTitle>}
         <QuestionContainer>
             <DisplayText dangerouslySetInnerHTML={{ __html: displayText }} />
             {children}
