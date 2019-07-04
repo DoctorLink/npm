@@ -11,7 +11,7 @@ const Traversal = ({ traversal, conclusion, match, dispatch }) => {
         return null;
     }
 
-    if (traversal.questions.length === 0) {
+    if (traversal.questionIds.length === 0) {
         if (traversal.assessmentType === 1) {
             if (!conclusion || conclusion.traversalId !== id || !conclusion.symptomReport) {
                 dispatch(actions.traversalSymptomReportGet(id));

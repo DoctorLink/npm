@@ -42,6 +42,15 @@ const chat = (state = null, action) => {
             if (state === null ) return state;
             return { ...state, previous: action.previous }
         case NEXT_TRAVERSAL_QUESTION:
+            if (!action.traversal.questionIds)
+                return {
+                    ...state,
+                    previous: (state == null) ? false : state.previous,
+                    questionIds: [], 
+                    errors: action.traversal.errors,
+                    algoId: action.traversal.algoId,
+                    assessmentType: action.traversal.assessmentType
+                }
             return { 
                 ...state, 
                 previous: (state == null) ? false : state.previous,
