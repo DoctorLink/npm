@@ -36,3 +36,6 @@ export { default as SymptomReportPanelConclusion } from './SymptomReportPanelCon
 export { default as SymptomReportBodyText } from './SymptomReportBodyText'
 export { default as SymptomReportConclusionTitle } from './SymptomReportConclusionTitle'
 export { default as SymptomReportSVG } from './SymptomReportSVG'
+
+
+export { default as Step } from './Step'
