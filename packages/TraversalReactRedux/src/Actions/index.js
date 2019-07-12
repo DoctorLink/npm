@@ -19,6 +19,9 @@ export const requestTraversal = () => ({ type: REQUEST_TRAVERSAL })
 export const SET_TRAVERSAL = 'SET_TRAVERSAL'
 export const setTraversal = traversal => ({ type: SET_TRAVERSAL, traversal, receivedAt: Date.now() })
 
+export const SET_CHAT_MIN_HEIGHT = 'SET_CHAT_MIN_HEIGHT'
+export const setChatMinHeight = minHeight => ({ type: SET_CHAT_MIN_HEIGHT, minHeight })
+
 export const NEXT_TRAVERSAL_QUESTION = 'NEXT_TRAVERSAL_QUESTION'
 export const nextTraversalQuestion = traversal => ({ type: NEXT_TRAVERSAL_QUESTION, traversal, receivedAt: Date.now() })
 

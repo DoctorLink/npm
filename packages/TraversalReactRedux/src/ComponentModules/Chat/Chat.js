@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useRef} from 'react'
 import styled from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 import TraversalResponse from '../TraversalResponse'
@@ -9,7 +9,7 @@ const CurrentQuestion = styled.div.attrs({ id: 'CurrentQuestion' })``
 
 const Container = styled.div`
     margin: 0 -10px;
-    /* min-height: ${props => props.minHeight}px; */
+    min-height: ${props => props.minHeight}px;
 `
 
 const Buttons = styled.div`
@@ -41,8 +41,13 @@ const Collection = posed.div({
     },
 })
 
-const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
-    (<Container>
+const Chat = ({ traversal, next, previous, setMinHeight, showExplanation }) => {
+    const containerEl = useRef(null)
+    const onNext = () => {
+        setMinHeight(containerEl.current.clientHeight)
+        next(traversal)
+    }
+    return (<Container ref={containerEl} minHeight={traversal.minHeight}>
         <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
             {traversal.questionIds.map(questionId => {
                 const current = questionId === traversal.questionIds[traversal.questionIds.length-1]
@@ -55,7 +60,7 @@ const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
                                 error={traversal.errors[questionId]} 
                                 showExplanation={showExplanation} />   
                             <Buttons>
-                                <Button type="button" onClick={() => next(traversal)}>Next</Button>
+                                <Button type="button" onClick={() => onNext()}>Next</Button>
                             </Buttons>
                         </CurrentQuestion>)
                     }
@@ -69,11 +74,7 @@ const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
                 </Collection>)
             })}
         </PoseGroup>
-        {/* <div>
-            <pre style={{whiteSpace: 'pre-wrap'}}>
-                {JSON.stringify(traversal, null, 2)}
-            </pre>
-        </div> */}
     </Container>)
+}
 
 export default Chat;

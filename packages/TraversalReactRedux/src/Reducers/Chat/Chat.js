@@ -1,4 +1,13 @@
-import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL, NEXT_TRAVERSAL_QUESTION, PREVIOUS_TRAVERSAL_QUESTION, TRAVERSAL_DIRECTION } from '../../Actions'
+import { 
+    TOGGLE_RADIO, 
+    TOGGLE_CHECKBOX, 
+    UPDATE_TEXT, 
+    SET_TRAVERSAL, 
+    NEXT_TRAVERSAL_QUESTION, 
+    PREVIOUS_TRAVERSAL_QUESTION, 
+    TRAVERSAL_DIRECTION, 
+    SET_CHAT_MIN_HEIGHT 
+} from '../../Actions'
 import answers from '../Answers'
 
 const chat = (state = null, action) => {
@@ -11,6 +20,9 @@ const chat = (state = null, action) => {
         case TRAVERSAL_DIRECTION:
             if (state === null ) return state;
             return { ...state, previous: action.previous }
+        case SET_CHAT_MIN_HEIGHT:
+            if (state === null ) return state;
+            return { ...state, minHeight: action.minHeight }
         case NEXT_TRAVERSAL_QUESTION:
             if (!action.traversal.questions)
                 return {
