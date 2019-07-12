@@ -1,35 +1,5 @@
 import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT, SET_TRAVERSAL, NEXT_TRAVERSAL_QUESTION, PREVIOUS_TRAVERSAL_QUESTION, TRAVERSAL_DIRECTION } from '../../Actions'
-
-const answers = (state = null, action) => {
-    switch (action.type) {
-        case TOGGLE_RADIO:
-            action.answerIds.forEach((answerId) => {
-                if (answerId === action.id)
-                    state[answerId] = { ...state[answerId], controlChecked: !state[answerId].controlChecked };
-                else 
-                    state[answerId] = { ...state[answerId], controlChecked: false, controlValue: null };
-            })
-            return state;
-        case TOGGLE_CHECKBOX:
-            action.answerIds.forEach((answerId) => {
-                if (answerId === action.id)
-                    state[answerId] = { ...state[answerId], controlChecked: !state[answerId].controlChecked };
-                else if (state[answerId].controlType !== "Checkbox") 
-                    state[answerId] = { ...state[answerId], controlChecked: false, controlValue: null };
-            })
-            return state;
-        case UPDATE_TEXT:
-            action.answerIds.forEach((answerId) => {
-                if (answerId === action.id)
-                    state[answerId] = { ...state[answerId], controlChecked: action.value && action.Value !== "", controlValue: action.value };
-                else if (state[answerId].controlType !== "Text") 
-                    state[answerId] = { ...state[answerId], controlChecked: false, controlValue: null };
-            })
-            return state;
-        default:
-            return state;
-    }
-}
+import answers from '../Answers'
 
 const chat = (state = null, action) => {
     switch (action.type) {
@@ -42,11 +12,11 @@ const chat = (state = null, action) => {
             if (state === null ) return state;
             return { ...state, previous: action.previous }
         case NEXT_TRAVERSAL_QUESTION:
-            if (!action.traversal.questionIds)
+            if (!action.traversal.questions)
                 return {
                     ...state,
                     previous: (state == null) ? false : state.previous,
-                    questionIds: [], 
+                    questionIds: undefined, 
                     errors: action.traversal.errors,
                     algoId: action.traversal.algoId,
                     assessmentType: action.traversal.assessmentType
@@ -86,6 +56,7 @@ const chat = (state = null, action) => {
             return { 
                 ...action.traversal,
                 previous: (state == null) ? false : state.previous, 
+                minHeight: 0, 
                 answers: answers(action.traversal.answers, action)
             }
         default:

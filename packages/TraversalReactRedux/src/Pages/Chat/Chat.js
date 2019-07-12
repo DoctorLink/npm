@@ -10,8 +10,8 @@ const Traversal = ({ traversal, conclusion, match, dispatch }) => {
         dispatch(actions.traversalContinue(id));
         return null;
     }
-
-    if (traversal.questionIds.length === 0) {
+    
+    if (!traversal.questionIds) {
         if (traversal.assessmentType === 1) {
             if (!conclusion || conclusion.traversalId !== id || !conclusion.symptomReport) {
                 dispatch(actions.traversalSymptomReportGet(id));

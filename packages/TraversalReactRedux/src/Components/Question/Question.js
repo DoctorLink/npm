@@ -12,6 +12,7 @@ const DisplayText = styled.div`
     display: inline-block;
     padding: 10px;
     font-family: 'Noto Sans',sans-serif;
+    white-space: pre-wrap;
 
     .e24subtext {
         font-size: 14px;

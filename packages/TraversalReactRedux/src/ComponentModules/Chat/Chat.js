@@ -5,8 +5,11 @@ import TraversalResponse from '../TraversalResponse'
 import ChatQuestion from '../ChatQuestion'
 import Button from '../../Components/Button'
 
+const CurrentQuestion = styled.div.attrs({ id: 'CurrentQuestion' })``
+
 const Container = styled.div`
     margin: 0 -10px;
+    /* min-height: ${props => props.minHeight}px; */
 `
 
 const Buttons = styled.div`
@@ -45,7 +48,7 @@ const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
                 const current = questionId === traversal.questionIds[traversal.questionIds.length-1]
                 return (<Collection key={questionId} mirror={traversal.previous}>
                     {current && 
-                        (<>
+                        (<CurrentQuestion>
                             <TraversalResponse
                                 question={traversal.questions[questionId]} 
                                 answers={traversal.answers} 
@@ -54,7 +57,7 @@ const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
                             <Buttons>
                                 <Button type="button" onClick={() => next(traversal)}>Next</Button>
                             </Buttons>
-                        </>)
+                        </CurrentQuestion>)
                     }
                     {!current && 
                         (<ChatQuestion  
@@ -66,11 +69,11 @@ const Chat = ({ traversal, next, previous, showSummary, showExplanation }) =>
                 </Collection>)
             })}
         </PoseGroup>
-        <div>
+        {/* <div>
             <pre style={{whiteSpace: 'pre-wrap'}}>
                 {JSON.stringify(traversal, null, 2)}
             </pre>
-        </div>
+        </div> */}
     </Container>)
 
 export default Chat;
