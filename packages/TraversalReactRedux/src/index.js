@@ -86,6 +86,7 @@ export { default as modalReducer } from './Reducers/Modal'
 export { createTraversalSaga, createChatSaga } from './Sagas'
 
 export { default as createAutoForwardGenerator } from './Sagas/Generators/AutoForward'
+export { default as createAutoForwardChatGenerator } from './Sagas/Generators/AutoForwardChat'
 export { default as createConclusionsGenerator } from './Sagas/Generators/Conclusions'
 export { default as createContinueGenerator } from './Sagas/Generators/Continue'
 export { default as createContinueChatGenerator } from './Sagas/Generators/ContinueChat'

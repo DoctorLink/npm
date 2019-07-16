@@ -5,7 +5,7 @@ export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const closeModal = () => ({ type: CLOSE_MODAL })
 
 export const TOGGLE_RADIO = 'TOGGLE_RADIO'
-export const toggleRadio = (id, answerIds) => ({ type: TOGGLE_RADIO, id, answerIds })
+export const toggleRadio = (id, answerIds, checked = undefined) => ({ type: TOGGLE_RADIO, id, answerIds, checked })
 
 export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX'
 export const toggleCheckbox = (id, answerIds) => ({ type: TOGGLE_CHECKBOX, id, answerIds })

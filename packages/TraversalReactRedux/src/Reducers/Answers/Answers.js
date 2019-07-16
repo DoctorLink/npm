@@ -5,7 +5,7 @@ const answers = (state = null, action) => {
         case TOGGLE_RADIO:
             action.answerIds.forEach((answerId) => {
                 if (answerId === action.id)
-                    state[answerId] = { ...state[answerId], controlChecked: !state[answerId].controlChecked };
+                    state[answerId] = { ...state[answerId], controlChecked: action.checked ? true  : !state[answerId].controlChecked };
                 else 
                     state[answerId] = { ...state[answerId], controlChecked: false, controlValue: null };
             })
