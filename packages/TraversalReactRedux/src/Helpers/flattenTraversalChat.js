@@ -10,6 +10,7 @@ export default json => {
     const normalizedData = normalize(json.data, traversal);
 
     normalizedData.entities.traversalId = normalizedData.result.traversalId;
+    normalizedData.entities.completed = normalizedData.result.completed;
     normalizedData.entities.questionIds = normalizedData.result.questions;
     normalizedData.entities.algoId = normalizedData.result.algoId;
     normalizedData.entities.assessmentType = json.data.assessmentType;

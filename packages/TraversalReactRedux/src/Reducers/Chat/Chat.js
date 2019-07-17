@@ -27,8 +27,7 @@ const chat = (state = null, action) => {
             if (!action.traversal.questions)
                 return {
                     ...state,
-                    previous: (state == null) ? false : state.previous,
-                    questionIds: undefined, 
+                    completed: action.traversal.completed,
                     errors: action.traversal.errors,
                     algoId: action.traversal.algoId,
                     assessmentType: action.traversal.assessmentType
@@ -39,6 +38,7 @@ const chat = (state = null, action) => {
                 questionIds: [ ...state.questionIds.concat(action.traversal.questionIds.filter(x=>!state.questionIds.includes(x))) ], 
                 questions: Object.assign({}, state.questions, action.traversal.questions),
                 answers: answers(Object.assign({}, state.answers, action.traversal.answers), action),
+                completed: action.traversal.completed,
                 errors: action.traversal.errors,
                 algoId: action.traversal.algoId,
                 assessmentType: action.traversal.assessmentType
@@ -60,6 +60,7 @@ const chat = (state = null, action) => {
                 questionIds: ids, 
                 questions: questions,
                 answers: answers(newAnswers, action),
+                completed: action.traversal.completed,
                 errors: action.traversal.errors,
                 algoId: action.traversal.algoId,
                 assessmentType: action.traversal.assessmentType
