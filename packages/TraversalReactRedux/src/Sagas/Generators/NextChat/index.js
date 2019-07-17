@@ -1,5 +1,6 @@
 import { call, put, delay } from 'redux-saga/effects'
-import { flattenTraversalChat, createChatResponse } from '../../../Helpers'
+import flattenTraversalChat from '../../../Helpers/flattenTraversalChat';
+import createChatResponse from '../../../Helpers/createChatResponse';
 import * as actions from '../../../Actions'
 
 export default (api) => function* traversalNext(action) {

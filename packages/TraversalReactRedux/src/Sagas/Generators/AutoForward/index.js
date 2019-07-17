@@ -1,8 +1,10 @@
 import { put, select } from 'redux-saga/effects'
 import * as actions from '../../../Actions'
 
-export default () => function* autoForward() {
-    const traversalState = yield select(state => state.traversal);
+const defaultStateSelector = state => state.traversal;
+
+export default (stateSelector = defaultStateSelector) => function* autoForward() {
+    const traversalState = yield select(stateSelector);
     let forward = true;
     let answeredRadioQuestions = []
     Object.entries(traversalState.answers).forEach(answerId => {

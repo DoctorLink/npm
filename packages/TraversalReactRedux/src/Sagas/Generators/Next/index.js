@@ -1,5 +1,7 @@
 import { call, put } from 'redux-saga/effects'
-import { flattenTraversalNodeCollection, createTraversalResponse } from '../../../Helpers'
+import flattenTraversalNodeCollection from '../../../Helpers/flattenTraversalNodeCollection';
+import createTraversalResponse from '../../../Helpers/createTraversalResponse';
+
 import * as actions from '../../../Actions'
 
 export default (api) => function* traversalNext(action) {
