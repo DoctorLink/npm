@@ -19,10 +19,7 @@ const chat = (state = null, action) => {
             return { ...state, answers: answers(state.answers, action)}
         case SET_CHAT_MIN_HEIGHT:
             if (state === null ) return state;
-            return { ...state, minHeight: action.minHeight }
-        case TRAVERSAL_NEXT:
-            if (state === null ) return state;
-            return { ...state, loading: true }
+            return { ...state, minHeight: action.minHeight, loading: true }
         case NEXT_TRAVERSAL_QUESTION:
             let nextQuestionIds = state.questionIds;
             let nextQuestions = state.questions;

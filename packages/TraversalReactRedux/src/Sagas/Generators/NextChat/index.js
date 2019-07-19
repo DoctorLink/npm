@@ -4,15 +4,15 @@ import createChatResponse from '../../../Helpers/createChatResponse';
 import * as actions from '../../../Actions'
 
 export default (api) => function* traversalNext(action) {
-    yield put(actions.traversalDirection(false))
+    yield put(actions.setChatMinHeight(document.getElementById(action.traversal.traversalId).clientHeight))
     try {
         const json = yield call(api.next, createChatResponse(action.traversal))
         console.log(json)
+        yield delay(500)
         yield put(actions.nextTraversalQuestion(flattenTraversalChat(json)))
-        //yield delay(500)
-        let currentQuestion = document.getElementById("CurrentQuestion")
-        if (currentQuestion)
-            currentQuestion.scrollIntoView()
+        // let currentQuestion = document.getElementById("CurrentQuestion")
+        // if (currentQuestion)
+        //     currentQuestion.scrollIntoView()
     } catch (error) {
         console.log("traversalNext error")
         console.log(error)

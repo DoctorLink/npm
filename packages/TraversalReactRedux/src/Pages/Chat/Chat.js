@@ -33,7 +33,6 @@ const Traversal = ({ traversal, conclusion, match, dispatch }) => {
                 traversal={traversal} 
                 next={traversal => dispatch(actions.traversalNext(traversal))} 
                 previous={(traversalId, algoId, nodeId, assetId) => dispatch(actions.traversalPrevious(traversalId, algoId, nodeId, assetId))} 
-                setMinHeight={minHeight => dispatch(actions.setChatMinHeight(minHeight))} 
                 showExplanation={explanation => dispatch(actions.populateModal(explanation))}/>)
 }
 
