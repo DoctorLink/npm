@@ -518,6 +518,19 @@ const Chat = ({ traversal, next, previous, setMinHeight, showExplanation }) => {
                                                         </TextFieldPadding>
                                                     </TextFieldWrapper>
                                                 }
+                                                {answer.explanation && <InfoButtonContainer>
+                                                    <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(answer.explanation); }}>
+                                                        <Lable05>
+                                                            <IconWrapper>
+                                                                <Icon viewBox="0 0 24 24">
+                                                                    <circle cx="12" cy="12" r="10"></circle>
+                                                                    <line x1="12" y1="16" x2="12" y2="12"></line>
+                                                                    <line x1="12" y1="8" x2="12" y2="8"></line>
+                                                                </Icon>
+                                                            </IconWrapper>
+                                                        </Lable05>
+                                                    </InfoButton>
+                                                </InfoButtonContainer>}
                                             </ChoiceContainer>)
                                         })}
                                     </React.Fragment>)
