@@ -228,7 +228,10 @@ const AnswersContainer = styled.div`
     
 `
 
-const SingleChoiceContainer = styled.div`
+const SingleChoiceContainer = styled.fieldset`
+    padding: 0;
+    margin: 0;
+    border: 0;
     border-top: 0;
     display: -ms-flexbox;
     display: flex;
@@ -432,15 +435,10 @@ const ConnectedTextField = connect()(({ dispatch, answer, answerId, questionAnsw
         onChange={(e) => dispatch(updateText(answerId, questionAnswerIds, e))} />))
 
 
-const Chat = ({ traversal, next, previous, setMinHeight, showExplanation }) => {
-    const containerEl = useRef(null)
-    const onNext = () => {
-        setMinHeight(containerEl.current.clientHeight)
-        next(traversal)
-    }
-    return (<Container ref={containerEl} minHeight={traversal.minHeight}>
+const Chat = ({ traversal, next, previous, showExplanation }) => {
+    return (<Container id={traversal.traversalId} minHeight={traversal.minHeight}>
         {traversal.questionIds.map((questionId) => {
-            const current = questionId === traversal.questionIds[traversal.questionIds.length - 1]
+            const current = questionId === traversal.questionIds[traversal.questionIds.length - 1] && !traversal.loading
             const question = traversal.questions[questionId]
             const answers = traversal.answers
             const error = traversal.errors[questionId]
@@ -537,7 +535,7 @@ const Chat = ({ traversal, next, previous, setMinHeight, showExplanation }) => {
                                 })}
                             </ChoiceGroupWrapper>
                             {showContinueButton && <ChoiceGroupWrapper>
-                                <RadioButton onClick={() => onNext()} disabled={disableContinued}>
+                                <RadioButton onClick={() => next(traversal)} disabled={disableContinued}>
                                     <span>Continue</span>
                                 </RadioButton>
                             </ChoiceGroupWrapper>}
