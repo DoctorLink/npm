@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useState } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import { withRouter } from 'react-router'
@@ -16,40 +16,29 @@ const Text = styled.span`
     width: 75px;
 `
 
-class Home extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = { algo: "", node: "" };
-    }
+const Home = ({dispatch, history}) => {
+    
+    const [algo, setAlgo] = useState("");
+    const [node, setNode] = useState("");
 
-    handleChange(event, state) {
-        var obj = {}
-        obj[state] = event.target.value
-        this.setState(obj);
-    }
-
-    handleSubmit(event) {
+    const handleSubmit = (event) => {
         event.preventDefault()
         let nodeId = null;
-        if (this.state.node) nodeId = this.state.node
-        this.props.dispatch(actions.traversalStart(this.state.algo, nodeId, this.props.history))
+        if (node) nodeId = node
+        dispatch(actions.traversalStart(algo, nodeId, history))
     }
 
-    render() {
-        return (
-            <form onSubmit={(e) => this.handleSubmit(e)} >
-                <Label>
-                    <Text>Algo ID:</Text>
-                    <NumberField onChange={(e) => this.handleChange(e, "algo")} />
-                </Label>
-                <Label>
-                    <Text>Node ID:</Text>
-                    <NumberField onChange={(e) => this.handleChange(e, "node")} />
-                </Label>
-                <Button type="submit">Begin</Button>
-            </form>
-        )
-    }
+    return (<form onSubmit={(e) => handleSubmit(e)} >
+        <Label>
+            <Text>Algo ID:</Text>
+            <NumberField onChange={(e) => setAlgo(e.target.value)} />
+        </Label>
+        <Label>
+            <Text>Node ID:</Text>
+            <NumberField onChange={(e) => setNode(e.target.value)} />
+        </Label>
+        <Button type="submit">Begin</Button>
+    </form>)
 }
 
 export default withRouter(connect()(Home))
