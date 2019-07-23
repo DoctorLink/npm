@@ -1,5 +1,5 @@
 import React from 'react'
-import styled from 'styled-components'
+import styled, { keyframes } from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 
 import { connect } from 'react-redux'
@@ -8,6 +8,42 @@ import { toggleRadio, toggleCheckbox, updateText } from '../../Actions'
 const transition = {
     duration: 300,
 }
+const animation = keyframes`
+  0% {
+    transform: translate3d(0, 0, 0);
+  }
+  25% {
+    transform: translate3d(0, -5px, 0);
+  }
+  50% {
+    transform: translate3d(0, 0, 0);
+  }
+  100% {
+    transform: translate3d(0, 0, 0);
+  }
+`;
+const DotsContainer = styled.div`
+  width: 40px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+const Dot = styled.div`
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background-color: black;;
+  opacity: 0.6;
+  animation: ${animation} 1.2s ${props => props.delay}s infinite ease-out;
+`;
+
+const Loader = () => (
+  <DotsContainer>
+    <Dot delay={0} />
+    <Dot delay={0.15} />
+    <Dot delay={0.3} />
+  </DotsContainer>
+);
 
 const Container = styled.div`
     margin: 0 -10px;
@@ -90,7 +126,9 @@ const PosedQuestionWrapper = posed(QuestionWrapper)({
     exit: {
         opacity: 0,
         x: '100%',
-        transition: transition
+        transition: {
+            duration: 0
+        }
     },
     preEnterPose: {
         opacity: 0,
@@ -183,7 +221,9 @@ const PosedPreviousAnswersContainer = posed(PreviousAnswersContainer)({
     exit: {
         opacity: 0,
         x: '100%',
-        transition: transition
+        transition: {
+            duration: 0
+        }
     },
     preEnterPose: {
         opacity: 0,
@@ -267,17 +307,17 @@ const ChangeAnswer = styled.div`
 const AnswersContainer = posed.div({
     enter: {
         opacity: 1,
-        x: '0',
+        delay: 1000,
         transition: transition
     },
     exit: {
         opacity: 0,
-        x: '100%',
-        transition: transition
+        transition: {
+            duration: 0
+        }
     },
     preEnterPose: {
         opacity: 0,
-        x: '-100%',
         transition: transition
     },
 })
@@ -610,6 +650,12 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                 </ChatContent>
             </ChatGroupContainer>)
         })}
+        {traversal.loading && <ChatGroupContainer >
+            <ChatContent>
+                <Loader/>
+            </ChatContent>
+        </ChatGroupContainer>}
+        
     </Container>)
 }
 
