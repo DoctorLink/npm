@@ -5,8 +5,6 @@
   "description": "DoctorLink's Traversal Client Tools.",
   "dependencies": {
     "normalizr": "^3.2.4",
-    "react": "^16.8.6",
-    "react-dom": "^16.8.6",
     "react-pose": "^4.0.8",
     "react-redux": "^5.0.7",
     "react-responsive": "^6.1.1",
@@ -44,5 +42,9 @@
     "@babel/preset-react": "^7.0.0",
     "babel-plugin-styled-components": "^1.10.0",
     "cross-env": "^5.2.0"
+  },
+  "peerDependencies": {
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   }
 }
