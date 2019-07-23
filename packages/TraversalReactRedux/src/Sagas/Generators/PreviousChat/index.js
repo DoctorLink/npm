@@ -3,7 +3,6 @@ import flattenTraversalChat from '../../../Helpers/flattenTraversalChat';
 import * as actions from '../../../Actions'
 
 export default (api) => function* traversalPrevious(action) {
-    yield put(actions.traversalDirection(true))
     try {
         const json = yield call(api.previous, action.traversalId, action.algoId, action.nodeId, action.assetId)
         yield put(actions.previousTraversalQuestion(flattenTraversalChat(json)))
@@ -11,7 +10,7 @@ export default (api) => function* traversalPrevious(action) {
         if (currentQuestion)
             currentQuestion.scrollIntoView({block: "end"})
         // yield delay(500)
-        yield put(actions.setChatMinHeight(0))
+        // yield put(actions.setChatMinHeight(0))
     } catch (error) {
         console.log("traversalPrevious error")
         console.log(error)

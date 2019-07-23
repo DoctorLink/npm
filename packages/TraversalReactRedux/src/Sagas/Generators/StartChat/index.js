@@ -3,7 +3,6 @@ import flattenTraversalChat from '../../../Helpers/flattenTraversalChat';
 import * as actions from '../../../Actions'
 
 export default (api) => function* traversalStart(action) {
-    yield put(actions.traversalDirection(false))
     try {
         const json = yield call(api.start, action.algoId, action.nodeId)
         yield put(actions.setTraversal(flattenTraversalChat(json)))

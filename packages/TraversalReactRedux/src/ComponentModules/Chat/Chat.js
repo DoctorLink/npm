@@ -1,9 +1,13 @@
-import React, { useRef } from 'react'
+import React from 'react'
 import styled from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 
 import { connect } from 'react-redux'
 import { toggleRadio, toggleCheckbox, updateText } from '../../Actions'
+
+const transition = {
+    duration: 300,
+}
 
 const Container = styled.div`
     margin: 0 -10px;
@@ -66,7 +70,6 @@ const QuestionWrapper = styled.div`
     width: 100%;
     display: inline-block;
     box-sizing: border-box;
-    margin-bottom: ${p => p.current ? '0' : '22px'};
     transition: width 300ms ease 0s;
 
     ${QuestionContent} {
@@ -77,6 +80,24 @@ const QuestionWrapper = styled.div`
         }
     }
 `
+
+const PosedQuestionWrapper = posed(QuestionWrapper)({
+    enter: {
+        opacity: 1,
+        x: '0',
+        transition: transition
+    },
+    exit: {
+        opacity: 0,
+        x: '100%',
+        transition: transition
+    },
+    preEnterPose: {
+        opacity: 0,
+        x: '-100%',
+        transition: transition
+    },
+})
 
 const InfoButtonContainer = styled.div`
     height: 100%;
@@ -149,8 +170,27 @@ const PreviousAnswersContainer = styled.div`
     max-width: 440px;
     margin-left: auto;
     overflow: hidden;
+    margin-top: 22px;
     /* animation: 300ms ease-in-out 0s 1 normal none running fNFkQA; */
 `
+
+const PosedPreviousAnswersContainer = posed(PreviousAnswersContainer)({
+    enter: {
+        opacity: 1,
+        x: '0',
+        transition: transition
+    },
+    exit: {
+        opacity: 0,
+        x: '100%',
+        transition: transition
+    },
+    preEnterPose: {
+        opacity: 0,
+        x: '-100%',
+        transition: transition
+    },
+})
 
 const PreviousAnswersContent = styled.div`
     float: right;
@@ -224,11 +264,25 @@ const ChangeAnswer = styled.div`
     transition: height 300ms ease-out 0s, opacity 300ms ease-out 0s; */
 `
 
-const AnswersContainer = styled.div`
-    
-`
+const AnswersContainer = posed.div({
+    enter: {
+        opacity: 1,
+        x: '0',
+        transition: transition
+    },
+    exit: {
+        opacity: 0,
+        x: '100%',
+        transition: transition
+    },
+    preEnterPose: {
+        opacity: 0,
+        x: '-100%',
+        transition: transition
+    },
+})
 
-const SingleChoiceContainer = styled.fieldset`
+const ChoiceWrapper = styled.fieldset`
     padding: 0;
     margin: 0;
     border: 0;
@@ -434,11 +488,27 @@ const ConnectedTextField = connect()(({ dispatch, answer, answerId, questionAnsw
         value={answer.controlValue || ""}
         onChange={(e) => dispatch(updateText(answerId, questionAnswerIds, e))} />))
 
+const ConnectedInfoIcon = connect()(({ explanation, showExplanation }) =>
+    (explanation && <InfoButtonContainer>
+        <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(explanation); }}>
+            <Lable05>
+                <IconWrapper>
+                    <Icon viewBox="0 0 24 24">
+                        <circle cx="12" cy="12" r="10"></circle>
+                        <line x1="12" y1="16" x2="12" y2="12"></line>
+                        <line x1="12" y1="8" x2="12" y2="8"></line>
+                    </Icon>
+                </IconWrapper>
+            </Lable05>
+        </InfoButton>
+    </InfoButtonContainer>))
+
 
 const Chat = ({ traversal, next, previous, showExplanation }) => {
     return (<Container id={traversal.traversalId} minHeight={traversal.minHeight}>
         {traversal.questionIds.map((questionId) => {
-            const current = questionId === traversal.questionIds[traversal.questionIds.length - 1] && !traversal.loading
+            const lastQuestion = questionId === traversal.questionIds[traversal.questionIds.length - 1]
+            const current = lastQuestion && !traversal.loading
             const question = traversal.questions[questionId]
             const answers = traversal.answers
             const error = traversal.errors[questionId]
@@ -446,119 +516,97 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
             const questionAnswers = question.answers.map(answerId => answers[answerId])
             const showContinueButton = questionAnswers.length === 0 || questionAnswers.filter(x => x.controlType !== "Radio").length > 0
             const disableContinued = questionAnswers.length > 0 && questionAnswers.filter(x => x.controlChecked).length == 0
-            return (<ChatGroupContainer key={questionId}>
+            return (<ChatGroupContainer key={questionId} id={lastQuestion ? 'CurrentQuestion' : ''}>
                 <ChatContent>
-                    <QuestionWrapper current={current}>
-                        <QuestionContent>
-                            <span dangerouslySetInnerHTML={{ __html: question.displayText }} ></span>
-                            {question.explanation && <InfoButtonContainer>
-                                <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(question.explanation); }}>
-                                    <Lable05>
-                                        <IconWrapper>
-                                            <Icon viewBox="0 0 24 24">
-                                                <circle cx="12" cy="12" r="10"></circle>
-                                                <line x1="12" y1="16" x2="12" y2="12"></line>
-                                                <line x1="12" y1="8" x2="12" y2="8"></line>
-                                            </Icon>
-                                        </IconWrapper>
-                                    </Lable05>
-                                </InfoButton>
-                            </InfoButtonContainer>}
-                        </QuestionContent>
-                    </QuestionWrapper>
-                    {current && <AnswersContainer>
-                        <SingleChoiceContainer>
-                            <ChoiceGroupWrapper>
-                                {display.map((section, i) => {
-                                    const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
-                                    return (<React.Fragment key={i}>
-                                        {/* <Section text={section.header}/> */}
-                                        {sectionAnswerKeys.map((answerId) => {
-                                            const answer = answers[answerId]
-                                            return (<ChoiceContainer key={answerId}>
-                                                {answer.controlType === "Checkbox" &&
-                                                    <ConnectedCheckboxChoiceButton
-                                                        answer={answer}
-                                                        answerId={answerId}
-                                                        questionAnswerIds={question.answers}>
-                                                        <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
-                                                    </ConnectedCheckboxChoiceButton>
-                                                }
-                                                {answer.controlType === "Radio" &&
-                                                !showContinueButton &&
-                                                    <ConnectedRadioChoiceButton
-                                                        answer={answer}
-                                                        answerId={answerId}
-                                                        questionAnswerIds={question.answers}>
-                                                        <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
-                                                    </ConnectedRadioChoiceButton>
-                                                }
-                                                {answer.controlType === "Radio" &&
-                                                showContinueButton &&
-                                                    <ConnectedRadioButton
-                                                        answer={answer}
-                                                        answerId={answerId}
-                                                        questionAnswerIds={question.answers}>
-                                                        <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
-                                                    </ConnectedRadioButton>
-                                                }
-                                                {(answer.controlType === "Text" ||
-                                                answer.controlType === "Number" ||
-                                                answer.controlType === "Date") && 
-                                                    <TextFieldWrapper>
-                                                        <TextFieldPadding>
-                                                            <TextFieldInner>
-                                                                <ConnectedTextField
-                                                                    answer={answer}
-                                                                    answerId={answerId}
-                                                                    questionAnswerIds={question.answers}/>
-                                                            </TextFieldInner>
-                                                        </TextFieldPadding>
-                                                    </TextFieldWrapper>
-                                                }
-                                                {answer.explanation && <InfoButtonContainer>
-                                                    <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(answer.explanation); }}>
-                                                        <Lable05>
-                                                            <IconWrapper>
-                                                                <Icon viewBox="0 0 24 24">
-                                                                    <circle cx="12" cy="12" r="10"></circle>
-                                                                    <line x1="12" y1="16" x2="12" y2="12"></line>
-                                                                    <line x1="12" y1="8" x2="12" y2="8"></line>
-                                                                </Icon>
-                                                            </IconWrapper>
-                                                        </Lable05>
-                                                    </InfoButton>
-                                                </InfoButtonContainer>}
-                                            </ChoiceContainer>)
-                                        })}
-                                    </React.Fragment>)
-                                })}
-                            </ChoiceGroupWrapper>
-                            {showContinueButton && <ChoiceGroupWrapper>
-                                <RadioButton onClick={() => next(traversal)} disabled={disableContinued}>
-                                    <span>Continue</span>
-                                </RadioButton>
-                            </ChoiceGroupWrapper>}
-                        </SingleChoiceContainer>
-                        {/* Notes */}
-                    </AnswersContainer>}
-                    {!current && <PreviousAnswersContainer>
-                        <PreviousAnswersContent>
-                            <div>
-                                {question.answers.map(a => {
-                                    const answer = answers[a];
-                                    if (!answer.controlChecked) return null;
-                                    const text = `${(answer.controlValue ? answer.controlValue + " " : '')}${answer.displayText}`;
-                                    return (<PreviousAnswer key={a} >
-                                        <PreviousAnswerText dangerouslySetInnerHTML={{ __html: text }} />
-                                    </PreviousAnswer>)
-                                })}
-                            </div>
-                            <ChangeAnswer onClick={() => previous(traversal.traversalId, question.algoId, question.nodeId, question.questionId)}>
-                                Click to change
-                            </ChangeAnswer>
-                        </PreviousAnswersContent>
-                    </PreviousAnswersContainer>}
+                    <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
+                        <PosedQuestionWrapper key={`Question_${questionId}`} current={current}>
+                            <QuestionContent>
+                                <span dangerouslySetInnerHTML={{ __html: question.displayText }} ></span>
+                                <ConnectedInfoIcon showExplanation={showExplanation} explanation={question.explanation} />
+                            </QuestionContent>
+                        </PosedQuestionWrapper>
+                        {current && <AnswersContainer key={`Answers_${questionId}`}>
+                            <ChoiceWrapper>
+                                <ChoiceGroupWrapper>
+                                    {display.map((section, i) => {
+                                        const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
+                                        return (<React.Fragment key={i}>
+                                            {/* <Section text={section.header}/> */}
+                                            {sectionAnswerKeys.map((answerId) => {
+                                                const answer = answers[answerId]
+                                                return (<ChoiceContainer key={answerId}>
+                                                    {answer.controlType === "Checkbox" &&
+                                                        <ConnectedCheckboxChoiceButton
+                                                            answer={answer}
+                                                            answerId={answerId}
+                                                            questionAnswerIds={question.answers}>
+                                                            <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
+                                                        </ConnectedCheckboxChoiceButton>
+                                                    }
+                                                    {answer.controlType === "Radio" &&
+                                                    !showContinueButton &&
+                                                        <ConnectedRadioChoiceButton
+                                                            answer={answer}
+                                                            answerId={answerId}
+                                                            questionAnswerIds={question.answers}>
+                                                            <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
+                                                        </ConnectedRadioChoiceButton>
+                                                    }
+                                                    {answer.controlType === "Radio" &&
+                                                    showContinueButton &&
+                                                        <ConnectedRadioButton
+                                                            answer={answer}
+                                                            answerId={answerId}
+                                                            questionAnswerIds={question.answers}>
+                                                            <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
+                                                        </ConnectedRadioButton>
+                                                    }
+                                                    {(answer.controlType === "Text" ||
+                                                    answer.controlType === "Number" ||
+                                                    answer.controlType === "Date") && 
+                                                        <TextFieldWrapper>
+                                                            <TextFieldPadding>
+                                                                <TextFieldInner>
+                                                                    <ConnectedTextField
+                                                                        answer={answer}
+                                                                        answerId={answerId}
+                                                                        questionAnswerIds={question.answers}/>
+                                                                </TextFieldInner>
+                                                            </TextFieldPadding>
+                                                        </TextFieldWrapper>
+                                                    }
+                                                    <ConnectedInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
+                                                </ChoiceContainer>)
+                                            })}
+                                        </React.Fragment>)
+                                    })}
+                                </ChoiceGroupWrapper>
+                                {showContinueButton && <ChoiceGroupWrapper>
+                                    <RadioButton onClick={() => next(traversal)} disabled={disableContinued}>
+                                        <span>Continue</span>
+                                    </RadioButton>
+                                </ChoiceGroupWrapper>}
+                            </ChoiceWrapper>
+                            {/* Notes */}
+                        </AnswersContainer>}
+                        {!current && <PosedPreviousAnswersContainer key={`PreviousAnswers_${questionId}`}>
+                            <PreviousAnswersContent>
+                                <div>
+                                    {question.answers.map(a => {
+                                        const answer = answers[a];
+                                        if (!answer.controlChecked) return null;
+                                        const text = `${(answer.controlValue ? answer.controlValue + " " : '')}${answer.displayText}`;
+                                        return (<PreviousAnswer key={a}  onClick={() => previous(traversal.traversalId, question.algoId, question.nodeId, question.questionId)}>
+                                            <PreviousAnswerText dangerouslySetInnerHTML={{ __html: text }} />
+                                        </PreviousAnswer>)
+                                    })}
+                                </div>
+                                <ChangeAnswer onClick={() => previous(traversal.traversalId, question.algoId, question.nodeId, question.questionId)}>
+                                    Click to change
+                                </ChangeAnswer>
+                            </PreviousAnswersContent>
+                        </PosedPreviousAnswersContainer>}
+                    </PoseGroup>
                 </ChatContent>
             </ChatGroupContainer>)
         })}
