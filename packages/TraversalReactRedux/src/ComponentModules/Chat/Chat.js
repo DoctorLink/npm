@@ -6,7 +6,7 @@ import Loader from '../../Components/Loader'
 import Step from '../../Components/Step'
 import ChatInfoIcon from '../../Components/ChatInfoIcon'
 import ChatQuestion from '../../Components/ChatQuestion'
-import ChatPreviousQuestion from '../../Components/ChatPreviousQuestion'
+import ChatPreviousAnswers from '../../Components/ChatPreviousAnswers'
 
 
 
@@ -42,7 +42,7 @@ const Question = posed(ChatQuestion)({
     },
 })
 
-const PosedPreviousAnswersContainer = posed(ChatPreviousQuestion)({
+const PosedPreviousAnswersContainer = posed(ChatPreviousAnswers)({
     enter: {
         opacity: 1,
         x: '0',
