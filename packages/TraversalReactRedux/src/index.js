@@ -51,7 +51,13 @@ export { default as SymptomReportConclusionTitle } from './Components/SymptomRep
 export { default as SymptomReportSVG } from './Components/SymptomReportSVG'
 
 
+export { default as Loader } from './Components/Loader'
 export { default as Step } from './Components/Step'
+export { default as ChatInfoIcon } from './Components/ChatInfoIcon'
+export { default as ChatQuestion } from './Components/ChatQuestion'
+export { default as ChatPreviousQuestion } from './Components/ChatPreviousQuestion'
+
+
 
 export { default as SymptomReport } from './ComponentModules/SymptomReport'
 export { default as Traversal }  from './ComponentModules/Traversal'
