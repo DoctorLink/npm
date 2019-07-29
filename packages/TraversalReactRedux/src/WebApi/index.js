@@ -4,13 +4,33 @@ const fetchOptions = body => ({
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     },
-    body: JSON.stringify(body)
+    body: typeof body === 'string' ? body : JSON.stringify(body)
 })
 
+const addQsParam = (qs, param, name) => {
+    var p = (qs) ? "&" : "?";
+    p += `${name}=${param}`;
+    return p
+}
+
+const startQs = (release, lang, nodeId) => {
+    var qs = "";
+    if (release) {
+        qs += addQsParam(qs, release, "releaseId");
+    }
+    if (lang) {
+        qs += addQsParam(qs, lang, "language");
+    }
+    if (nodeId) {
+        qs += addQsParam(qs, nodeId, "nodeId");
+    }
+    return qs;
+}
+
 ///POST
-const fetchTraversalStart = (api) => (algoId, nodeId) => {
-    var qs = nodeId ? `?nodeId=${nodeId}` : "";
-    return fetch(`${api}/Traversal/StartAsync/${algoId}${qs}`, fetchOptions(null))
+const fetchTraversalStart = (api) => (algoId, release, lang, nodeId, injection) => {
+    var qs = startQs(release, lang, nodeId);
+    return fetch(`${api}/Traversal/StartAsync/${algoId}${qs}`, fetchOptions(injection))
         .then(response => response.json())
 }
 
@@ -24,9 +44,9 @@ const fetchTraversalPrevious = (api) => (traversalId, algoId, nodeId) => {
         .then(response => response.json())
 }
 
-const fetchChatStart = (api) => (algoId, nodeId) => {
-    var qs = nodeId ? `?nodeId=${nodeId}` : "";
-    return fetch(`${api}/Chat/StartAsync/${algoId}${qs}`, fetchOptions(null))
+const fetchChatStart = (api) => (algoId, release, lang, nodeId, injection) => {
+    var qs = startQs(release, lang, nodeId);
+    return fetch(`${api}/Chat/StartAsync/${algoId}${qs}`, fetchOptions(injection))
         .then(response => response.json())
 }
 

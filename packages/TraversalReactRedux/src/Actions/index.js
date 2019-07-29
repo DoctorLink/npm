@@ -32,7 +32,7 @@ export const TRAVERSAL_DIRECTION = 'TRAVERSAL_DIRECTION'
 export const traversalDirection = previous => ({ type: TRAVERSAL_DIRECTION, previous })
 
 export const TRAVERSAL_START = 'TRAVERSAL_START'
-export const traversalStart = (algoId, nodeId, history) => ({ type: TRAVERSAL_START, algoId, nodeId, history })
+export const traversalStart = (algoId, release, lang, nodeId, injection, history) => ({ type: TRAVERSAL_START, algoId, release, lang, nodeId, injection, history })
 
 export const TRAVERSAL_CONTINUE = 'TRAVERSAL_CONTINUE'
 export const traversalContinue = traversalId => ({ type: TRAVERSAL_CONTINUE, traversalId })

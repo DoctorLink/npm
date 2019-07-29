@@ -5,7 +5,7 @@ import * as actions from '../../../Actions'
 export default (api) => function* traversalStart(action) {
     yield put(actions.traversalDirection(false))
     try {
-        const json = yield call(api.start, action.algoId, action.nodeId)
+        const json = yield call(api.start, action.algoId, action.release, action.lang, action.nodeId, action.injection)
         yield put(actions.setTraversal(flattenTraversalNodeCollection(json)))
         yield call(action.history.push, "/traversal/" + json.data.traversalId)
         yield call(window.scroll, 0, 0)
