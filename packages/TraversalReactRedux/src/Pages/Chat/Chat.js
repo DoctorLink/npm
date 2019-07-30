@@ -1,8 +1,14 @@
 import React from 'react'
+import styled from 'styled-components'
 import { connect } from 'react-redux'
 import * as actions from '../../Actions'
 import ChatComponent from '../../ComponentModules/Chat'
 import SymptomReport from '../../ComponentModules/SymptomReport'
+
+const Container = styled.div`
+    box-sizing: border-box;
+    padding: 0 10px;
+`
 
 const Traversal = ({ traversal, conclusion, match, dispatch }) => {
     var id = match.params['id'];
@@ -29,11 +35,13 @@ const Traversal = ({ traversal, conclusion, match, dispatch }) => {
         return conclusion.conclusions.filter(c => !c.silent).map(conc => <div key={conc.assetId}>{conc.assetId}: {conc.displayText}</div>)
     }
  
-    return (<ChatComponent 
-                traversal={traversal} 
-                next={traversal => dispatch(actions.traversalNext(traversal))} 
-                previous={(traversalId, algoId, nodeId, assetId) => dispatch(actions.traversalPrevious(traversalId, algoId, nodeId, assetId))} 
-                showExplanation={explanation => dispatch(actions.populateModal(explanation))}/>)
+    return (<Container>
+        <ChatComponent 
+            traversal={traversal} 
+            next={traversal => dispatch(actions.traversalNext(traversal))} 
+            previous={(traversalId, algoId, nodeId, assetId) => dispatch(actions.traversalPrevious(traversalId, algoId, nodeId, assetId))} 
+            showExplanation={explanation => dispatch(actions.populateModal(explanation))}/>
+    </Container>)
 }
 
 const mapStateToProps = state => ({traversal: state.traversal, conclusion: state.conclusion})
