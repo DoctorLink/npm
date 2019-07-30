@@ -12,6 +12,7 @@ import ChatTextWrapper from '../../Components/ChatTextWrapper'
 
 import Checkbox from '../../Containers/Checkbox'
 import Radio from '../../Containers/Radio'
+import TextField from '../../Containers/TextField'
 
 import { connect } from 'react-redux'
 import { updateText } from '../../Actions'
@@ -184,7 +185,7 @@ const RadioButton= styled(ChoiceButton)`
     }
 `
 
-const TextField = styled.input`
+const TextFieldComp = styled.input`
     width: 100%;
     transition: all 0.4s ease-out;
     vertical-align: baseline;
@@ -201,11 +202,6 @@ const TextField = styled.input`
     flex: 1 1 0%;
     font-size: 18px;
 `
-
-const ConnectedTextField = connect()(({ dispatch, answer, answerId, questionAnswerIds}) => 
-    (<TextField
-        value={answer.controlValue || ""}
-        onChange={(e) => dispatch(updateText(answerId, questionAnswerIds, e))} />))
 
 const Chat = ({ traversal, next, previous, showExplanation }) => {
     return (<Container id={traversal.traversalId} minHeight={traversal.minHeight}>
@@ -270,10 +266,11 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                             answer.controlType === "Number" ||
                                             answer.controlType === "Date") && 
                                                 <ChatTextWrapper>
-                                                    <ConnectedTextField
+                                                    <TextField
                                                         answer={answer}
                                                         answerId={answerId}
-                                                        questionAnswerIds={question.answers}/>
+                                                        questionAnswerIds={question.answers}
+                                                        CustomComp={TextFieldComp}/>
                                                 </ChatTextWrapper>
                                             }
                                             <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
