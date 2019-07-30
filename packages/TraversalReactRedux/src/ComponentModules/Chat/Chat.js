@@ -8,6 +8,7 @@ import ChatInfoIcon from '../../Components/ChatInfoIcon'
 import ChatQuestion from '../../Components/ChatQuestion'
 import ChatPreviousAnswers from '../../Components/ChatPreviousAnswers'
 import ChatPreviousAnswer from '../../Components/ChatPreviousAnswer'
+import ChatTextWrapper from '../../Components/ChatTextWrapper'
 
 import Checkbox from '../../Containers/Checkbox'
 import Radio from '../../Containers/Radio'
@@ -18,10 +19,6 @@ import { updateText } from '../../Actions'
 const transition = {
     duration: 300,
 }
-
-const Container = styled.div`
-    min-height: ${props => props.minHeight}px;
-`
 
 const Question = posed(ChatQuestion)({
     enter: {
@@ -63,8 +60,6 @@ const PosedPreviousAnswersContainer = posed(ChatPreviousAnswers)({
     },
 })
 
-
-
 const AnswersContainer = posed.div({
     enter: {
         opacity: 1,
@@ -82,6 +77,10 @@ const AnswersContainer = posed.div({
         transition: transition
     },
 })
+
+const Container = styled.div`
+    min-height: ${props => props.minHeight}px;
+`
 
 const InputText = styled.span`
     padding: 16px;
@@ -149,11 +148,9 @@ const ChoiceButton = styled.label`
     align-items: center;
     user-select: none;
     vertical-align: middle;
-    /* justify-content: center; */
     text-decoration: none;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
-    
     font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     display: flex;
     min-height: 36px;
@@ -187,33 +184,6 @@ const RadioButton= styled(ChoiceButton)`
     }
 `
 
-const TextFieldWrapper = styled.div`
-padding: 33px 70px;
-`
-
-const TextFieldPadding = styled.div`
-    margin-bottom: 0px;
-    padding-top: 18px;
-    padding-bottom: 18px;
-`
-
-const TextFieldInner = styled.div`
-    vertical-align: baseline;
-    display: flex;
-    height: 54px;
-    background-color: rgb(255, 255, 255);
-    box-sizing: content-box;
-    margin: 0px;
-    padding: 0px;
-    border-image: initial;
-    font: inherit inherit inherit inherit inherit inherit inherit;
-    outline: none;
-    border-width: 1px;
-    border-style: solid;
-    border-color: rgb(222, 222, 222);
-    border-radius: 4px;
-`
-
 const TextField = styled.input`
     width: 100%;
     transition: all 0.4s ease-out;
@@ -229,6 +199,7 @@ const TextField = styled.input`
     background: transparent;
     padding: 15px 18px;
     flex: 1 1 0%;
+    font-size: 18px;
 `
 
 const ConnectedTextField = connect()(({ dispatch, answer, answerId, questionAnswerIds}) => 
@@ -298,16 +269,12 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                             {(answer.controlType === "Text" ||
                                             answer.controlType === "Number" ||
                                             answer.controlType === "Date") && 
-                                                <TextFieldWrapper>
-                                                    <TextFieldPadding>
-                                                        <TextFieldInner>
-                                                            <ConnectedTextField
-                                                                answer={answer}
-                                                                answerId={answerId}
-                                                                questionAnswerIds={question.answers}/>
-                                                        </TextFieldInner>
-                                                    </TextFieldPadding>
-                                                </TextFieldWrapper>
+                                                <ChatTextWrapper>
+                                                    <ConnectedTextField
+                                                        answer={answer}
+                                                        answerId={answerId}
+                                                        questionAnswerIds={question.answers}/>
+                                                </ChatTextWrapper>
                                             }
                                             <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
                                         </ChoiceContainer>)
