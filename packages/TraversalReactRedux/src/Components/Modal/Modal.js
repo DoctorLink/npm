@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 
@@ -117,45 +117,49 @@ const Icon = styled.svg`
     width: 24px;
 `
 
-class Modal extends React.Component {
-    constructor(props) {
-        super(props);
 
-        // This binding is necessary to make `this` work in the callback
-        this.componentDidMount = this.componentDidMount.bind(this);
-        this.componentWillUnmount = this.componentWillUnmount.bind(this);
-        this.handleClickOutside = this.handleClickOutside.bind(this);
+const Modal = ({ explanation, closeModal }) => {
+    
+    let ref = useRef();
+
+    const handleClickOutside = (event) => {
+        if (ref && ref.current && !ref.current.contains(event.target))
+            closeModal()
     }
 
-    componentDidMount() { document.addEventListener('mousedown', this.handleClickOutside) };
-    componentWillUnmount() { document.removeEventListener('mousedown', this.handleClickOutside) };
-
-    handleClickOutside(event) {
-        if (this.node && !this.node.contains(event.target))
-            this.props.closeModal()
+    const handleKeydown = (event) => {
+        if (event.keyCode === 27)
+            closeModal()
     }
 
-    render() {
-        const { explanation, closeModal } = this.props
-        return (<PoseGroup>
-            {(explanation) && [<Wrap key={'wrap'}>
-                <Curtain>
-                    <Container>
-                        <Content ref={node => { this.node = node; }}>
-                            <Header>
-                                <Title>Explanation</Title>
-                                <Icon viewBox="0 0 24 24" onClick={closeModal}>
-                                    <line x1="18" y1="6" x2="6" y2="18"></line>
-                                    <line x1="6" y1="6" x2="18" y2="18"></line>
-                                </Icon>
-                            </Header>
-                            <div dangerouslySetInnerHTML={{ __html: explanation }} />
-                        </Content>
-                    </Container>
-                </Curtain>
-            </Wrap>]}
-        </PoseGroup>);
-    }
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleKeydown);
+    
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleKeydown);
+        };
+    }, []);
+
+    return (<PoseGroup>
+        {(explanation) && [<Wrap key={'wrap'}>
+            <Curtain>
+                <Container>
+                    <Content ref={ref}>
+                        <Header>
+                            <Title>Explanation</Title>
+                            <Icon viewBox="0 0 24 24" onClick={closeModal}>
+                                <line x1="18" y1="6" x2="6" y2="18"></line>
+                                <line x1="6" y1="6" x2="18" y2="18"></line>
+                            </Icon>
+                        </Header>
+                        <div dangerouslySetInnerHTML={{ __html: explanation }} />
+                    </Content>
+                </Container>
+            </Curtain>
+        </Wrap>]}
+    </PoseGroup>);
 }
 
 export default Modal
