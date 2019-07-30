@@ -13,6 +13,21 @@ const InfoButtonContainer = styled.div`
     max-height: 60px;
 `
 
+const IconWrapper = styled.span`
+    display: inline-flex;
+    -webkit-box-align: inherit;
+    align-items: inherit;
+    -webkit-box-pack: inherit;
+    justify-content: inherit;
+    border-radius: 12px;
+`
+
+const Icon = styled.svg`
+    fill: rgb(16, 24, 213);
+    width: 24px;
+    height: 24px;
+`
+
 const InfoButton = styled.button`
     background: transparent;
 
@@ -40,7 +55,7 @@ const InfoButton = styled.button`
     padding: 0;
     font-size: 1.5rem;
     text-align: center;
-    transition: background-color 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
     border-radius: 50%;
 
     position: absolute;
@@ -48,6 +63,21 @@ const InfoButton = styled.button`
     top: 50%;
     transform: translate(50%, -50%);
     z-index: 1;
+
+    &:hover {
+        /* background: #00c4fa38; */
+        ${Icon} {
+            fill: rgb(9, 14, 127);
+        }
+    }
+
+    &:focus {
+        background: #00c4fa38;
+        box-shadow: 0 0px 3px 2px #00C4FA;
+        ${IconWrapper} {
+            border-radius: 12px;
+        }
+    }
 `
 
 const Lable05 = styled.span`
@@ -57,29 +87,14 @@ const Lable05 = styled.span`
     justify-content: inherit;
 `
 
-const IconWrapper = styled.span`
-    display: inline-flex;
-    -webkit-box-align: inherit;
-    align-items: inherit;
-    -webkit-box-pack: inherit;
-    justify-content: inherit;
-`
-
-const Icon = styled.svg`
-    fill: rgb(16, 24, 213);
-    width: 24px;
-    height: 24px;
-`
-
 const InfoIcon = ({ explanation, showExplanation }) =>
     (explanation && <InfoButtonContainer>
         <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(explanation); }}>
             <Lable05>
                 <IconWrapper>
                     <Icon viewBox="0 0 24 24">
-                        <circle cx="12" cy="12" r="10"></circle>
-                        <line x1="12" y1="16" x2="12" y2="12"></line>
-                        <line x1="12" y1="8" x2="12" y2="8"></line>
+                        <path d="M0 0h24v24H0z" fill="none"/>
+                        <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm1 15h-2v-6h2v6zm0-8h-2V7h2v2z"/>
                     </Icon>
                 </IconWrapper>
             </Lable05>
