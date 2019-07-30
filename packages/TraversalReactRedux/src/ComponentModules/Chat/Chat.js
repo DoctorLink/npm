@@ -9,17 +9,17 @@ import ChatQuestion from '../../Components/ChatQuestion'
 import ChatPreviousAnswers from '../../Components/ChatPreviousAnswers'
 import ChatPreviousAnswer from '../../Components/ChatPreviousAnswer'
 
-
+import Checkbox from '../../Containers/Checkbox'
+import Radio from '../../Containers/Radio'
 
 import { connect } from 'react-redux'
-import { toggleRadio, toggleCheckbox, updateText } from '../../Actions'
+import { updateText } from '../../Actions'
 
 const transition = {
     duration: 300,
 }
 
 const Container = styled.div`
-    margin: 0 -10px;
     min-height: ${props => props.minHeight}px;
 `
 
@@ -65,24 +65,6 @@ const PosedPreviousAnswersContainer = posed(ChatPreviousAnswers)({
 
 
 
-
-const ChangeAnswer = styled.div`
-    font-size: 14px;
-    text-align: right;
-    margin-top: 10px;
-    color: rgb(117, 117, 117);
-    font-weight: bold;
-    max-width: 440px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-    margin-left: auto;
-    /* opacity: 0;
-    animation: 300ms ease-in-out 300ms 1 normal forwards running bcCCNc;
-    transition: height 300ms ease-out 0s, opacity 300ms ease-out 0s; */
-`
-
 const AnswersContainer = posed.div({
     enter: {
         opacity: 1,
@@ -100,6 +82,35 @@ const AnswersContainer = posed.div({
         transition: transition
     },
 })
+
+const InputText = styled.span`
+    padding: 16px;
+    width: 100%;
+    box-sizing: border-box;
+    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+    
+    input:focus+ & {
+        box-shadow: 0 0 2px 0.1px #00C4FA;
+    }
+    
+    input:checked+ & {
+        background-color: rgb(241,241,253);
+    }
+`
+
+const ChangeAnswer = styled.div`
+    font-size: 14px;
+    text-align: right;
+    margin-top: 10px;
+    color: rgb(117, 117, 117);
+    font-weight: bold;
+    max-width: 440px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin-left: auto;
+`
 
 const ChoiceWrapper = styled.fieldset`
     padding: 0;
@@ -121,38 +132,30 @@ const ChoiceContainer = styled.div`
     border-image: initial;
     border-top: none;
 
-    &:first-child {
-        border-top: none;
-    }
-
-    button {
-        margin: 0px;
-        border-radius: 0;
-        border: 0;
-    }
-
     &:last-child {
-        button {
+        border-bottom-left-radius: 6px;
+        border-bottom-right-radius: 6px;
+        > label, > button {
             border-bottom-left-radius: 6px;
             border-bottom-right-radius: 6px;
         }
     }
 `
 
-const ChoiceButton = styled.button.attrs({ type: 'button' })`
+const ChoiceButton = styled.label`
     box-sizing: border-box;
     outline: none;
     background: transparent;
     align-items: center;
     user-select: none;
     vertical-align: middle;
-    justify-content: center;
+    /* justify-content: center; */
     text-decoration: none;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
     
     font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    display: block;
+    display: flex;
     min-height: 36px;
     position: relative;
     cursor: pointer;
@@ -160,45 +163,20 @@ const ChoiceButton = styled.button.attrs({ type: 'button' })`
     width: 100%;
     line-height: 24px;
     white-space: pre-line;
-    padding: 16px;
+    padding: 0;
     border-image: initial;
-    border-top: none;
+    border: none;
     
     &:hover {
         background-color: rgb(241, 241, 253);
     }
-`
 
-const ChoiceGroupWrapper = styled.div`
-    &:last-child {
-        ${ChoiceContainer} {
-            &:last-child {
-                border-bottom-right-radius: 6px;
-                border-bottom-left-radius: 6px;
-                ${ChoiceButton} {
-                    border-bottom-right-radius: 6px;
-                    border-bottom-left-radius: 6px;
-                }
-            }
-        }
+    &:focus {
+        box-shadow: 0 0 2px 0.1px #00C4FA;
     }
 `
 
-const BlankChoiceButton = styled(ChoiceButton)`
-    border-width: initial;
-    border-style: none;
-    border-color: initial;
-    border-radius: 0px;
-    background-color: ${p => p.checked=== true  ? 'rgb(241, 241, 253)' : 'rgb(255, 255, 255)'};
-    color: rgb(52, 52, 52);
-    text-align: left;
-`
-
 const RadioButton= styled(ChoiceButton)`
-    border-radius: 0px 0px 6px 6px;
-    border-left: 1px solid rgb(200, 205, 215);
-    border-right: 1px solid rgb(200, 205, 215);
-    border-bottom: 1px solid rgb(200, 205, 215);
     background-color: ${p => p.checked ? 'rgb(241, 241, 253)' : 'rgb(237, 239, 241)'};
     color: black;
     text-align: center;
@@ -208,28 +186,6 @@ const RadioButton= styled(ChoiceButton)`
         opacity: 0.5;
     }
 `
-
-// const BlankChoiceLabel = styled(ChoiceLabel)`
-//     font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-//     display: block;
-//     background-color: rgb(255, 255, 255);
-//     min-height: 36px;
-//     position: relative;
-//     cursor: pointer;
-//     color: rgb(52, 52, 52);
-//     font-size: 16px;
-//     width: 100%;
-//     text-align: left;
-//     line-height: 24px;
-//     white-space: pre-line;
-//     border-width: initial;
-//     border-style: none;
-//     border-color: initial;
-//     border-image: initial;
-//     border-top: none;
-//     padding: 16px;
-//     border-radius: 0px;
-// `
 
 const TextFieldWrapper = styled.div`
 padding: 33px 70px;
@@ -275,33 +231,6 @@ const TextField = styled.input`
     flex: 1 1 0%;
 `
 
-const ConnectedCheckboxChoiceButton = connect()(({ dispatch, answer, answerId, questionAnswerIds, children }) =>
-    (<BlankChoiceButton
-        id={answerId}
-        value={true}
-        checked={answer.controlChecked}
-        onClick={() => dispatch(toggleCheckbox(answerId, questionAnswerIds))} >
-        {children}
-    </BlankChoiceButton>))
-
-const ConnectedRadioChoiceButton = connect()(({ dispatch, answer, answerId, questionAnswerIds, children }) =>
-    (<BlankChoiceButton
-        id={answerId}
-        value={true}
-        checked={answer.controlChecked}
-        onClick={() => dispatch(toggleRadio(answerId, questionAnswerIds, true))} >
-        {children}
-    </BlankChoiceButton>))
-
-const ConnectedRadioButton = connect()(({ dispatch, answer, answerId, questionAnswerIds, children }) =>
-    (<RadioButton
-        id={answerId}
-        value={true}
-        checked={answer.controlChecked}
-        onClick={() => dispatch(toggleRadio(answerId, questionAnswerIds, true))} >
-        {children}
-    </RadioButton>))
-
 const ConnectedTextField = connect()(({ dispatch, answer, answerId, questionAnswerIds}) => 
     (<TextField
         value={answer.controlValue || ""}
@@ -327,65 +256,69 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                     </Question>
                     {current && <AnswersContainer key={`Answers_${questionId}`}>
                         <ChoiceWrapper>
-                            <ChoiceGroupWrapper>
-                                {display.map((section, i) => {
-                                    const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
-                                    return (<React.Fragment key={i}>
-                                        {/* <Section text={section.header}/> */}
-                                        {sectionAnswerKeys.map((answerId) => {
-                                            const answer = answers[answerId]
-                                            return (<ChoiceContainer key={answerId}>
-                                                {answer.controlType === "Checkbox" &&
-                                                    <ConnectedCheckboxChoiceButton
+                            {display.map((section, i) => {
+                                const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
+                                return (<React.Fragment key={i}>
+                                    {/* <Section text={section.header}/> */}
+                                    {sectionAnswerKeys.map((answerId) => {
+                                        const answer = answers[answerId]
+                                        return (<ChoiceContainer key={answerId}>
+                                            {answer.controlType === "Checkbox" &&
+                                                <ChoiceButton>
+                                                    <Checkbox
+                                                        hidden={true}
                                                         answer={answer}
                                                         answerId={answerId}
-                                                        questionAnswerIds={question.answers}>
-                                                        <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
-                                                    </ConnectedCheckboxChoiceButton>
-                                                }
-                                                {answer.controlType === "Radio" &&
-                                                !showContinueButton &&
-                                                    <ConnectedRadioChoiceButton
+                                                        questionAnswerIds={question.answers} />
+                                                    <InputText dangerouslySetInnerHTML={{ __html: answer.displayText }} />
+                                                </ChoiceButton>
+                                            }
+                                            {answer.controlType === "Radio" &&
+                                            !showContinueButton &&
+                                                <ChoiceButton>
+                                                    <Radio
+                                                        hidden={true}
                                                         answer={answer}
                                                         answerId={answerId}
-                                                        questionAnswerIds={question.answers}>
-                                                        <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
-                                                    </ConnectedRadioChoiceButton>
-                                                }
-                                                {answer.controlType === "Radio" &&
-                                                showContinueButton &&
-                                                    <ConnectedRadioButton
+                                                        questionAnswerIds={question.answers} />
+                                                    <InputText dangerouslySetInnerHTML={{ __html: answer.displayText }} />
+                                                </ChoiceButton>
+                                            }
+                                            {answer.controlType === "Radio" &&
+                                            showContinueButton &&
+                                                <RadioButton>
+                                                    <Radio
+                                                        hidden={true}
                                                         answer={answer}
                                                         answerId={answerId}
-                                                        questionAnswerIds={question.answers}>
-                                                        <span dangerouslySetInnerHTML={{ __html: answer.displayText }}></span>
-                                                    </ConnectedRadioButton>
-                                                }
-                                                {(answer.controlType === "Text" ||
-                                                answer.controlType === "Number" ||
-                                                answer.controlType === "Date") && 
-                                                    <TextFieldWrapper>
-                                                        <TextFieldPadding>
-                                                            <TextFieldInner>
-                                                                <ConnectedTextField
-                                                                    answer={answer}
-                                                                    answerId={answerId}
-                                                                    questionAnswerIds={question.answers}/>
-                                                            </TextFieldInner>
-                                                        </TextFieldPadding>
-                                                    </TextFieldWrapper>
-                                                }
-                                                <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
-                                            </ChoiceContainer>)
-                                        })}
-                                    </React.Fragment>)
-                                })}
-                            </ChoiceGroupWrapper>
-                            {showContinueButton && <ChoiceGroupWrapper>
-                                <RadioButton onClick={() => next(traversal)} disabled={disableContinued}>
-                                    <span>Continue</span>
+                                                        questionAnswerIds={question.answers} />
+                                                    <InputText dangerouslySetInnerHTML={{ __html: answer.displayText }} />
+                                                </RadioButton>
+                                            }
+                                            {(answer.controlType === "Text" ||
+                                            answer.controlType === "Number" ||
+                                            answer.controlType === "Date") && 
+                                                <TextFieldWrapper>
+                                                    <TextFieldPadding>
+                                                        <TextFieldInner>
+                                                            <ConnectedTextField
+                                                                answer={answer}
+                                                                answerId={answerId}
+                                                                questionAnswerIds={question.answers}/>
+                                                        </TextFieldInner>
+                                                    </TextFieldPadding>
+                                                </TextFieldWrapper>
+                                            }
+                                            <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
+                                        </ChoiceContainer>)
+                                    })}
+                                </React.Fragment>)
+                            })}
+                            {showContinueButton && <ChoiceContainer>
+                                <RadioButton as="button" onClick={() => next(traversal)} disabled={disableContinued}>
+                                    <InputText>Continue</InputText>
                                 </RadioButton>
-                            </ChoiceGroupWrapper>}
+                            </ChoiceContainer>}
                         </ChoiceWrapper>
                         {/* Notes */}
                     </AnswersContainer>}
@@ -401,7 +334,6 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
             </Step>)
         })}
         {traversal.loading && <Step><Loader/></Step>}
-        
     </Container>)
 }
 
