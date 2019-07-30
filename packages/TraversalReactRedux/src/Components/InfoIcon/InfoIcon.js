@@ -15,6 +15,10 @@ const InfoButton = styled.div`
     flex-shrink: 0;
     vertical-align: middle;
     margin-top: ${props => (props.inline) ? '-8px' : '' };
+    
+    &:focus {
+        box-shadow: 0 0 2px 0.1px #00C4FA;
+    }
 `
 
 const Icon = styled.svg`

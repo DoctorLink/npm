@@ -10,7 +10,6 @@ const StyledInput = styled.input.attrs({type: 'date'})`
     font-family: ${p => p.theme.dateField.fontFamily};
     font-size: ${p => p.theme.dateField.fontSize}px;
     text-align: ${p => p.theme.dateField.textAlign};
-    margin: 0 ${p => p.theme.dateField.spacing}px;
     border: 0;
     border-bottom: 1px solid black;
     &:focus {

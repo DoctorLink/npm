@@ -10,7 +10,6 @@ const StyledInput = styled.input`
     font-family: ${p => p.theme.textField.fontFamily};
     font-size: ${p => p.theme.textField.fontSize}px;
     text-align: ${p => p.theme.textField.textAlign};
-    margin: 0 ${p => p.theme.textField.spacing}px;
     border: 0;
     border-bottom: 1px solid black;
     transition: all 150ms;

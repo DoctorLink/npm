@@ -4,20 +4,8 @@ import styled from 'styled-components'
 import baseTheme from '../../Theme/base/index'
 import checkboxTheme from '../../Theme/components/checkbox'
 
-const HiddenCheckbox = styled.input.attrs({ type: 'checkbox' })`
-  // Hide checkbox visually but remain accessible to screen readers.
-  // Source: https://polished.js.org/docs/#hidevisually
-  border: 0;
-  clip: rect(0 0 0 0);
-  clippath: inset(50%);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  white-space: nowrap;
-  width: 1px;
-`
+import HiddenInput from '../HiddenInput'
+
 const Icon = styled.svg`
   fill: none;
   stroke: ${props => props.theme.checkbox.icon.color};
@@ -30,7 +18,7 @@ const StyledCheckbox = styled.div`
   background: ${props => props.checked ? props.theme.checkbox.checked.color : props.theme.checkbox.unchecked.color };
   border-radius: ${props => props.theme.checkbox.borderRadius}px;
   transition: all 150ms;
-  ${HiddenCheckbox}:focus + & {
+  ${HiddenInput}:focus + & {
     box-shadow: 0 0 0 3px ${props => props.theme.checkbox.focus.color };
   }
   ${Icon} {
@@ -41,12 +29,11 @@ const StyledCheckbox = styled.div`
 const CheckboxContainer = styled.div`
   display: inline-block;
   vertical-align: middle;
-  padding: ${props => props.theme.checkbox.padding}px;
 `
 
 const Checkbox = ({ className, checked, ...props }) => (
     <CheckboxContainer className={className} theme={props.theme}>
-        <HiddenCheckbox checked={checked} {...props} />
+        <HiddenInput checked={checked} {...props} />
         <StyledCheckbox checked={checked} theme={props.theme}>
             <Icon viewBox="0 0 24 24" theme={props.theme}>
                 <polyline points="20 6 9 17 4 12" />

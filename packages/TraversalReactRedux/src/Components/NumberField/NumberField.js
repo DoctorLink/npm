@@ -10,7 +10,6 @@ const StyledInput = styled.input.attrs({type: 'number'})`
     font-family: ${p => p.theme.numberField.fontFamily};
     font-size: ${p => p.theme.numberField.fontSize}px;
     text-align: ${p => p.theme.numberField.textAlign};
-    margin: 0 ${p => p.theme.numberField.spacing}px;
     border: 0;
     border-bottom: 1px solid black;
     transition: all 150ms;
