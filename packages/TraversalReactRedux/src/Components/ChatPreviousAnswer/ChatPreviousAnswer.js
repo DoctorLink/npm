@@ -47,6 +47,10 @@ const PreviousAnswer = styled.button.attrs({ tabindex: '0' })`
         border-bottom-left-radius: 6px;
         border-bottom-right-radius: 6px;
     }
+
+    &:focus {
+        box-shadow: 0 0 5px 0 #00C4FA;
+    }
 `
 
 const PreviousAnswerText = styled.div`

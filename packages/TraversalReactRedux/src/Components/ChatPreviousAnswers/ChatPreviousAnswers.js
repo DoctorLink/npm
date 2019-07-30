@@ -7,8 +7,14 @@ import styled from 'styled-components'
 const PreviousAnswersContainer = styled.div`
     max-width: 440px;
     margin-left: auto;
-    overflow: hidden;
+    /* overflow: hidden; */
     margin-top: 22px;
+
+    :after {
+        content: "";
+        clear: both;
+        display: table;
+    }
 `
 
 const PreviousAnswersContent = styled.div`

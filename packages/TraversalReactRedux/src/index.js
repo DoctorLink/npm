@@ -56,6 +56,7 @@ export { default as Step } from './Components/Step'
 export { default as ChatInfoIcon } from './Components/ChatInfoIcon'
 export { default as ChatQuestion } from './Components/ChatQuestion'
 export { default as ChatPreviousAnswers } from './Components/ChatPreviousAnswers'
+export { default as ChatPreviousAnswer } from './Components/ChatPreviousAnswer'
 
 
 
