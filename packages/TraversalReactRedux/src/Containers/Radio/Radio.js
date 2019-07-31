@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux'
-import { toggleRadio } from '../../Actions'
+import { toggleRadio, traversalAuto } from '../../Actions'
 import RadioComp from '../../Components/Radio'
 import HiddenInput from '../../Components/HiddenInput'
 
@@ -9,11 +9,16 @@ const Radio = ({ dispatch, answer, answerId, questionAnswerIds, hidden, ...props
     return (<Comp
         type="radio"
         id={answerId}
-        value={true} 
+        value={true}                
         checked={answer.controlChecked} 
         onChange={()=>{}}
         {...props}
-        onClick={() => dispatch(toggleRadio(answerId, questionAnswerIds, true))} />)}
+        onClick={(e) => { 
+            dispatch(toggleRadio(answerId, questionAnswerIds, true));
+            if (e.type === 'click' && e.clientX !== 0 && e.clientY !== 0) {
+                dispatch(traversalAuto());
+            }
+        }} />)}
 
 Radio.defaultProps =  RadioComp.defaultProps
 

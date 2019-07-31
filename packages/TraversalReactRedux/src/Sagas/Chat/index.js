@@ -10,5 +10,5 @@ export default (api, stateSelector) => function* rootSaga() {
     yield takeLatest(actions.TRAVERSAL_SUMMARY_GET, generators.createSummaryGenerator(api))
     yield takeLatest(actions.TRAVERSAL_CONCLUSION_GET, generators.createConclusionsGenerator(api))
     yield takeLatest(actions.TRAVERSAL_SYMPTOM_REPORT_GET, generators.createSymptomReportGenerator(api))
-    yield takeLatest(actions.TOGGLE_RADIO, generators.createAutoForwardChatGenerator(stateSelector))
+    yield takeLatest(actions.TRAVERSAL_AUTO, generators.createAutoForwardChatGenerator(stateSelector))
 }

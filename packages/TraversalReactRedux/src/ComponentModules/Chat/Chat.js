@@ -4,6 +4,7 @@ import posed, { PoseGroup } from 'react-pose'
 
 import Loader from '../../Components/Loader'
 import Step from '../../Components/Step'
+import ChatForm from '../../Components/ChatForm'
 import ChatInfoIcon from '../../Components/ChatInfoIcon'
 import ChatQuestion from '../../Components/ChatQuestion'
 import ChatPreviousAnswers from '../../Components/ChatPreviousAnswers'
@@ -13,9 +14,6 @@ import ChatTextWrapper from '../../Components/ChatTextWrapper'
 import Checkbox from '../../Containers/Checkbox'
 import Radio from '../../Containers/Radio'
 import TextField from '../../Containers/TextField'
-
-import { connect } from 'react-redux'
-import { updateText } from '../../Actions'
 
 const transition = {
     duration: 300,
@@ -61,7 +59,7 @@ const PosedPreviousAnswersContainer = posed(ChatPreviousAnswers)({
     },
 })
 
-const AnswersContainer = posed.div({
+const PosedChatForm = posed(ChatForm)({
     enter: {
         opacity: 1,
         delay: 1000,
@@ -112,17 +110,6 @@ const ChangeAnswer = styled.div`
     margin-left: auto;
 `
 
-const ChoiceWrapper = styled.fieldset`
-    padding: 0;
-    margin: 0;
-    border: 0;
-    border-top: 0;
-    display: -ms-flexbox;
-    display: flex;
-    -ms-flex-direction: column;
-    flex-direction: column;
-    max-width: 440px;
-`
 
 const ChoiceContainer = styled.div`
     position: relative;
@@ -174,7 +161,7 @@ const ChoiceButton = styled.label`
     }
 `
 
-const RadioButton= styled(ChoiceButton)`
+const RadioButton = styled(ChoiceButton)`
     background-color: ${p => p.checked ? 'rgb(241, 241, 253)' : 'rgb(237, 239, 241)'};
     color: black;
     text-align: center;
@@ -204,25 +191,33 @@ const TextFieldComp = styled.input`
 `
 
 const Chat = ({ traversal, next, previous, showExplanation }) => {
-    return (<Container id={traversal.traversalId} minHeight={traversal.minHeight}>
-        {traversal.questionIds.map((questionId) => {
-            const lastQuestion = questionId === traversal.questionIds[traversal.questionIds.length - 1]
-            const current = lastQuestion && !traversal.loading
-            const question = traversal.questions[questionId]
-            const answers = traversal.answers
-            const error = traversal.errors[questionId]
+    const { traversalId, minHeight, questionIds, questions, answers, errors, loading } = traversal;
+    return (<Container id={traversalId} minHeight={minHeight}>
+        {questionIds.map((questionId) => {
+            const lastQuestion = questionId === questionIds[questionIds.length - 1]
+            const current = lastQuestion && !loading
+            const question = questions[questionId]
+            const error = errors[questionId]
             const display = question.data.display ? question.data.display : [{ header: null, answers: question.answers.map(x => Number(x.split("_")[2])) }];
             const questionAnswers = question.answers.map(answerId => answers[answerId])
             const showContinueButton = questionAnswers.length === 0 || questionAnswers.filter(x => x.controlType !== "Radio").length > 0
             const disableContinued = questionAnswers.length > 0 && questionAnswers.filter(x => x.controlChecked).length == 0
-            const jumpBack = () => previous(traversal.traversalId, question.algoId, question.nodeId, question.questionId)
+            const jumpBack = () => previous(traversalId, question.algoId, question.nodeId, question.questionId)
+            const handleSubmit = (event) => {
+                event.preventDefault()
+                next(traversal)
+            }
             return (<Step key={questionId} id={lastQuestion ? 'CurrentQuestion' : ''}>
                 <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
                     <Question key={`Question_${questionId}`} current={current} displayText={question.displayText}>
                         <ChatInfoIcon showExplanation={showExplanation} explanation={question.explanation} />
                     </Question>
-                    {current && <AnswersContainer key={`Answers_${questionId}`}>
-                        <ChoiceWrapper>
+                    {current &&
+                        <PosedChatForm
+                            key={`Answers_${questionId}`}
+                            onSubmit={(e) => handleSubmit(e)}
+                            renderSubmit={!showContinueButton}
+                            disableSubmit={disableContinued}>
                             {display.map((section, i) => {
                                 const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
                                 return (<React.Fragment key={i}>
@@ -241,7 +236,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                                 </ChoiceButton>
                                             }
                                             {answer.controlType === "Radio" &&
-                                            !showContinueButton &&
+                                                !showContinueButton &&
                                                 <ChoiceButton>
                                                     <Radio
                                                         hidden={true}
@@ -252,7 +247,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                                 </ChoiceButton>
                                             }
                                             {answer.controlType === "Radio" &&
-                                            showContinueButton &&
+                                                showContinueButton &&
                                                 <RadioButton>
                                                     <Radio
                                                         hidden={true}
@@ -263,14 +258,14 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                                 </RadioButton>
                                             }
                                             {(answer.controlType === "Text" ||
-                                            answer.controlType === "Number" ||
-                                            answer.controlType === "Date") && 
+                                                answer.controlType === "Number" ||
+                                                answer.controlType === "Date") &&
                                                 <ChatTextWrapper>
                                                     <TextField
                                                         answer={answer}
                                                         answerId={answerId}
                                                         questionAnswerIds={question.answers}
-                                                        CustomComp={TextFieldComp}/>
+                                                        CustomComp={TextFieldComp} />
                                                 </ChatTextWrapper>
                                             }
                                             <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
@@ -279,13 +274,13 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                 </React.Fragment>)
                             })}
                             {showContinueButton && <ChoiceContainer>
-                                <RadioButton as="button" onClick={() => next(traversal)} disabled={disableContinued}>
+                                <RadioButton as="button" type="submit" disabled={disableContinued}>
                                     <InputText>Continue</InputText>
                                 </RadioButton>
                             </ChoiceContainer>}
-                        </ChoiceWrapper>
-                        {/* Notes */}
-                    </AnswersContainer>}
+                            {/* Notes */}
+                        </PosedChatForm>
+                    }
                     {!current && <PosedPreviousAnswersContainer key={`PreviousAnswers_${questionId}`}>
                         <div>
                             {question.answers.map(a => (<ChatPreviousAnswer key={a} jumpBack={jumpBack} answer={answers[a]} />))}
@@ -297,7 +292,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                 </PoseGroup>
             </Step>)
         })}
-        {traversal.loading && <Step><Loader/></Step>}
+        {loading && <Step><Loader /></Step>}
     </Container>)
 }
 

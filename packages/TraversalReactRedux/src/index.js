@@ -53,6 +53,7 @@ export { default as SymptomReportSVG } from './Components/SymptomReportSVG'
 
 export { default as Loader } from './Components/Loader'
 export { default as Step } from './Components/Step'
+export { default as ChatForm } from './Components/ChatForm'
 export { default as ChatInfoIcon } from './Components/ChatInfoIcon'
 export { default as ChatQuestion } from './Components/ChatQuestion'
 export { default as ChatPreviousAnswers } from './Components/ChatPreviousAnswers'

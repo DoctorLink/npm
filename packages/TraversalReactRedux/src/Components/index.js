@@ -40,6 +40,7 @@ export { default as SymptomReportSVG } from './SymptomReportSVG'
 
 export { default as Loader } from './Loader'
 export { default as Step } from './Step'
+export { default as ChatForm } from './ChatForm'
 export { default as ChatInfoIcon } from './ChatInfoIcon'
 export { default as ChatQuestion } from './ChatQuestion'
 export { default as ChatPreviousAnswers } from './ChatPreviousAnswers'
