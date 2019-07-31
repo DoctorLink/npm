@@ -59,6 +59,7 @@ export { default as ChatQuestion } from './Components/ChatQuestion'
 export { default as ChatPreviousAnswers } from './Components/ChatPreviousAnswers'
 export { default as ChatPreviousAnswer } from './Components/ChatPreviousAnswer'
 export { default as ChatTextWrapper } from './Components/ChatTextWrapper'
+export { default as ChatTextField } from './Components/ChatTextField'
 
 
 

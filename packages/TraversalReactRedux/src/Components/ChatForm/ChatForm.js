@@ -19,6 +19,7 @@ const Form = styled.form`
     flex-direction: column;
     max-width: 440px;
 `
+
 const ChatForm = React.forwardRef(({renderSubmit, disableSubmit ,...props}, ref) => (<Form ref={ref} {...props}>
     {renderSubmit && <HiddenSubmit disabled={disableSubmit} />}
     {props.children}

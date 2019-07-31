@@ -10,6 +10,7 @@ import ChatQuestion from '../../Components/ChatQuestion'
 import ChatPreviousAnswers from '../../Components/ChatPreviousAnswers'
 import ChatPreviousAnswer from '../../Components/ChatPreviousAnswer'
 import ChatTextWrapper from '../../Components/ChatTextWrapper'
+import ChatTextField from '../../Components/ChatTextField'
 
 import Checkbox from '../../Containers/Checkbox'
 import Radio from '../../Containers/Radio'
@@ -172,24 +173,6 @@ const RadioButton = styled(ChoiceButton)`
     }
 `
 
-const TextFieldComp = styled.input`
-    width: 100%;
-    transition: all 0.4s ease-out;
-    vertical-align: baseline;
-    color: rgb(87, 87, 87);
-    margin: 0px;
-    font: inherit inherit inherit inherit inherit inherit inherit;
-    outline: none;
-    border-width: initial;
-    border-style: none;
-    border-color: initial;
-    border-image: initial;
-    background: transparent;
-    padding: 15px 18px;
-    flex: 1 1 0%;
-    font-size: 18px;
-`
-
 const Chat = ({ traversal, next, previous, showExplanation }) => {
     const { traversalId, minHeight, questionIds, questions, answers, errors, loading } = traversal;
     return (<Container id={traversalId} minHeight={minHeight}>
@@ -265,7 +248,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                                         answer={answer}
                                                         answerId={answerId}
                                                         questionAnswerIds={question.answers}
-                                                        CustomComp={TextFieldComp} />
+                                                        CustomComp={ChatTextField} />
                                                 </ChatTextWrapper>
                                             }
                                             <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
