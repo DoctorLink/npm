@@ -104,7 +104,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
             }
             return (<Step key={questionId} id={lastQuestion ? 'CurrentQuestion' : ''}>
                 <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
-                    <Question key={`Question_${questionId}`} current={current} displayText={question.displayText}>
+                    <Question key={`Question_${questionId}`} current={current} displayText={question.displayText} error={error}>
                         <ChatInfoIcon showExplanation={showExplanation} explanation={question.explanation} />
                     </Question>
                     {current &&

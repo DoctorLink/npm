@@ -57,10 +57,16 @@ const QuestionWrapper = styled.div`
     }
 `
 
+const ErrorText = styled.div`
+    font-size: 12px;
+    color: rgb(179, 0, 0);
+`
+
 const ChatQuestion = React.forwardRef(({ displayText, error, title, current, children }, ref) =>
     (<QuestionWrapper current={current} ref={ref}>
         <QuestionContent>
             <span dangerouslySetInnerHTML={{ __html: displayText }} ></span>
+            {error && <ErrorText>{error.text}</ErrorText>}
             {children}
         </QuestionContent>
     </QuestionWrapper>))
