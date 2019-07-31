@@ -21,10 +21,25 @@ const PreviousAnswersContent = styled.div`
     float: right;
 `
 
-const PreviousQuestion = React.forwardRef(({ children }, ref) =>
+const ChangeAnswer = styled.div`
+    font-size: 14px;
+    text-align: right;
+    margin-top: 10px;
+    color: rgb(117, 117, 117);
+    font-weight: bold;
+    max-width: 440px;
+    display: flex;
+    -webkit-box-pack: justify;
+    justify-content: space-between;
+    flex-direction: row-reverse;
+    margin-left: auto;
+`
+
+const PreviousQuestion = React.forwardRef(({ jumpBack, children }, ref) =>
     (<PreviousAnswersContainer ref={ref}>
         <PreviousAnswersContent>
-            {children}
+            <div>{children}</div>
+            <ChangeAnswer onClick={jumpBack}>Click to change</ChangeAnswer>
         </PreviousAnswersContent>
     </PreviousAnswersContainer>))
 

@@ -85,20 +85,6 @@ const Container = styled.div`
     min-height: ${props => props.minHeight}px;
 `
 
-const ChangeAnswer = styled.div`
-    font-size: 14px;
-    text-align: right;
-    margin-top: 10px;
-    color: rgb(117, 117, 117);
-    font-weight: bold;
-    max-width: 440px;
-    display: flex;
-    -webkit-box-pack: justify;
-    justify-content: space-between;
-    flex-direction: row-reverse;
-    margin-left: auto;
-`
-
 const Chat = ({ traversal, next, previous, showExplanation }) => {
     const { traversalId, minHeight, questionIds, questions, answers, errors, loading } = traversal;
     return (<Container id={traversalId} minHeight={minHeight}>
@@ -131,6 +117,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                 const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
                                 return (<React.Fragment key={i}>
                                     {/* <Section text={section.header}/> */}
+                                    {/* Need to discuss with design team best way to render section headers */}
                                     {sectionAnswerKeys.map((answerId) => {
                                         const answer = answers[answerId]
                                         return (<ChoiceContainer key={answerId}>
@@ -185,13 +172,8 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                             {/* Notes */}
                         </PosedChatForm>
                     }
-                    {!current && <PosedPreviousAnswersContainer key={`PreviousAnswers_${questionId}`}>
-                        <div>
-                            {question.answers.map(a => (<ChatPreviousAnswer key={a} jumpBack={jumpBack} answer={answers[a]} />))}
-                        </div>
-                        <ChangeAnswer onClick={jumpBack}>
-                            Click to change
-                        </ChangeAnswer>
+                    {!current && <PosedPreviousAnswersContainer key={`PreviousAnswers_${questionId}`} jumpBack={jumpBack}>
+                        {question.answers.map(a => (<ChatPreviousAnswer key={a} jumpBack={jumpBack} answer={answers[a]} />))}
                     </PosedPreviousAnswersContainer>}
                 </PoseGroup>
             </Step>)
