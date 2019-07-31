@@ -11,6 +11,7 @@ import ChatPreviousAnswers from '../../Components/ChatPreviousAnswers'
 import ChatPreviousAnswer from '../../Components/ChatPreviousAnswer'
 import ChatTextWrapper from '../../Components/ChatTextWrapper'
 import ChatTextField from '../../Components/ChatTextField'
+import ChoiceContainer from '../../Components/ChoiceContainer'
 import PrimaryChoice from '../../Components/PrimaryChoice'
 import SecondaryChoice from '../../Components/SecondaryChoice'
 
@@ -84,21 +85,6 @@ const Container = styled.div`
     min-height: ${props => props.minHeight}px;
 `
 
-const InputText = styled.span`
-    padding: 16px;
-    width: 100%;
-    box-sizing: border-box;
-    transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-    
-    input:focus+ & {
-        box-shadow: 0 0 2px 0.1px #00C4FA;
-    }
-    
-    input:checked+ & {
-        background-color: rgb(241,241,253);
-    }
-`
-
 const ChangeAnswer = styled.div`
     font-size: 14px;
     text-align: right;
@@ -111,25 +97,6 @@ const ChangeAnswer = styled.div`
     justify-content: space-between;
     flex-direction: row-reverse;
     margin-left: auto;
-`
-
-
-const ChoiceContainer = styled.div`
-    position: relative;
-    border-width: 1px 1px 1px;
-    border-style: none solid solid;
-    border-color: rgb(200, 205, 215) rgb(200, 205, 215) rgb(200, 205, 215);
-    border-image: initial;
-    border-top: none;
-
-    &:last-child {
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
-        > label, > button {
-            border-bottom-left-radius: 6px;
-            border-bottom-right-radius: 6px;
-        }
-    }
 `
 
 const Chat = ({ traversal, next, previous, showExplanation }) => {
