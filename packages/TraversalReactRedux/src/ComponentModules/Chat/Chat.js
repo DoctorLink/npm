@@ -11,6 +11,8 @@ import ChatPreviousAnswers from '../../Components/ChatPreviousAnswers'
 import ChatPreviousAnswer from '../../Components/ChatPreviousAnswer'
 import ChatTextWrapper from '../../Components/ChatTextWrapper'
 import ChatTextField from '../../Components/ChatTextField'
+import PrimaryChoice from '../../Components/PrimaryChoice'
+import SecondaryChoice from '../../Components/SecondaryChoice'
 
 import Checkbox from '../../Containers/Checkbox'
 import Radio from '../../Containers/Radio'
@@ -130,49 +132,6 @@ const ChoiceContainer = styled.div`
     }
 `
 
-const ChoiceButton = styled.label`
-    box-sizing: border-box;
-    outline: none;
-    background: transparent;
-    align-items: center;
-    user-select: none;
-    vertical-align: middle;
-    text-decoration: none;
-    -webkit-appearance: none;
-    -webkit-tap-highlight-color: transparent;
-    font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
-    display: flex;
-    min-height: 36px;
-    position: relative;
-    cursor: pointer;
-    font-size: 16px;
-    width: 100%;
-    line-height: 24px;
-    white-space: pre-line;
-    padding: 0;
-    border-image: initial;
-    border: none;
-    
-    &:hover {
-        background-color: rgb(241, 241, 253);
-    }
-
-    &:focus {
-        box-shadow: 0 0 2px 0.1px #00C4FA;
-    }
-`
-
-const RadioButton = styled(ChoiceButton)`
-    background-color: ${p => p.checked ? 'rgb(241, 241, 253)' : 'rgb(237, 239, 241)'};
-    color: black;
-    text-align: center;
-    font-weight: bold;
-
-    &:disabled {
-        opacity: 0.5;
-    }
-`
-
 const Chat = ({ traversal, next, previous, showExplanation }) => {
     const { traversalId, minHeight, questionIds, questions, answers, errors, loading } = traversal;
     return (<Container id={traversalId} minHeight={minHeight}>
@@ -209,36 +168,33 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                         const answer = answers[answerId]
                                         return (<ChoiceContainer key={answerId}>
                                             {answer.controlType === "Checkbox" &&
-                                                <ChoiceButton>
+                                                <PrimaryChoice displayText={answer.displayText}>
                                                     <Checkbox
                                                         hidden={true}
                                                         answer={answer}
                                                         answerId={answerId}
                                                         questionAnswerIds={question.answers} />
-                                                    <InputText dangerouslySetInnerHTML={{ __html: answer.displayText }} />
-                                                </ChoiceButton>
+                                                </PrimaryChoice>
                                             }
                                             {answer.controlType === "Radio" &&
                                                 !showContinueButton &&
-                                                <ChoiceButton>
+                                                <PrimaryChoice displayText={answer.displayText}>
                                                     <Radio
                                                         hidden={true}
                                                         answer={answer}
                                                         answerId={answerId}
                                                         questionAnswerIds={question.answers} />
-                                                    <InputText dangerouslySetInnerHTML={{ __html: answer.displayText }} />
-                                                </ChoiceButton>
+                                                </PrimaryChoice>
                                             }
                                             {answer.controlType === "Radio" &&
                                                 showContinueButton &&
-                                                <RadioButton>
+                                                <SecondaryChoice displayText={answer.displayText}>
                                                     <Radio
                                                         hidden={true}
                                                         answer={answer}
                                                         answerId={answerId}
                                                         questionAnswerIds={question.answers} />
-                                                    <InputText dangerouslySetInnerHTML={{ __html: answer.displayText }} />
-                                                </RadioButton>
+                                                </SecondaryChoice>
                                             }
                                             {(answer.controlType === "Text" ||
                                                 answer.controlType === "Number" ||
@@ -257,9 +213,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                 </React.Fragment>)
                             })}
                             {showContinueButton && <ChoiceContainer>
-                                <RadioButton as="button" type="submit" disabled={disableContinued}>
-                                    <InputText>Continue</InputText>
-                                </RadioButton>
+                                <SecondaryChoice type="submit" disabled={disableContinued} displayText={"Continue"} button={true} />
                             </ChoiceContainer>}
                             {/* Notes */}
                         </PosedChatForm>

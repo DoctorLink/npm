@@ -60,6 +60,8 @@ export { default as ChatPreviousAnswers } from './Components/ChatPreviousAnswers
 export { default as ChatPreviousAnswer } from './Components/ChatPreviousAnswer'
 export { default as ChatTextWrapper } from './Components/ChatTextWrapper'
 export { default as ChatTextField } from './Components/ChatTextField'
+export { default as PrimaryChoice } from './Components/PrimaryChoice'
+export { default as SecondaryChoice } from './Components/SecondaryChoice'
 
 
 
