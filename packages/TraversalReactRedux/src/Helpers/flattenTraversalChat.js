@@ -16,6 +16,6 @@ export default json => {
     normalizedData.entities.assessmentType = json.data.assessmentType;
     if (!normalizedData.entities.errors) normalizedData.entities.errors = {}
 
-    console.log(normalizedData.entities)
+    // console.log(normalizedData.entities)
     return normalizedData.entities
 }

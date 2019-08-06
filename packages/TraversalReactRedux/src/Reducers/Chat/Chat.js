@@ -48,7 +48,7 @@ const chat = (state = null, action) => {
             ids.forEach(qid=> { 
                 questions[qid] = (qid in action.traversal.questions) ? action.traversal.questions[qid] : state.questions[qid];
                 questions[qid].answers.forEach(aid => {
-                    newAnswers[aid] = (aid in action.traversal.answers) ? action.traversal.answers[aid] : state.answers[aid];
+                    newAnswers[aid] = (action.traversal.answers && aid in action.traversal.answers) ? action.traversal.answers[aid] : state.answers[aid];
                 })
             });
             return { 
