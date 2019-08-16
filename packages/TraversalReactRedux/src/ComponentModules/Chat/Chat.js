@@ -157,6 +157,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                                     <TextField
                                                         answer={answer}
                                                         answerId={answerId}
+                                                        type={answer.controlType.toLowerCase()}
                                                         questionAnswerIds={question.answers}
                                                         CustomComp={ChatTextField} />
                                                 </ChatTextWrapper>
