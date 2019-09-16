@@ -4,17 +4,19 @@ import chat from './Chat'
 import summary from './Summary'
 import conclusion from './Conclusion'
 import modal from './Modal'
+import healthAssessment from './HealthAssessment'
 
-export const rootTraversalReducer = combineReducers({
+const reducers = {
     traversal, 
     summary,
     conclusion,
-    modal 
-})
+    modal,
+    healthAssessment,
+}
+
+export const rootTraversalReducer = combineReducers(reducers)
 
 export const rootChatReducer = combineReducers({
-    traversal: chat, 
-    summary,
-    conclusion,
-    modal 
+    ...reducers,
+    traversal: chat
 })

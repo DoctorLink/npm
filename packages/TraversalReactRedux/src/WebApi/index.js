@@ -81,6 +81,18 @@ const fetchTraversalSymptomReport = (api) => traversalId =>
     fetch(`${api}/Traversal/SymptomReportAsync/${traversalId}`)
         .then(response => response.json())
 
+const fetchHealthRisks = (hraApi) => (traversalId, ages, conclusions) => {
+    const qs = ages.map(age => `ages=${age}`)
+                .concat(conclusions.map(conc => `conclusions=${conc}`))
+                .join('&');
+    return fetch(`${hraApi}/HealthRisk/${traversalId}?${qs}`)
+        .then(response => response.json());
+}
+
+const fetchConclusionIds = (hraApi) => () =>
+    fetch(`${hraApi}/Conclusions`)
+    .then(response => response.json())
+
 export const createTraversalWebApi = (apiUrl) => {
     return {
         start: fetchTraversalStart(apiUrl),
@@ -104,3 +116,9 @@ export const createChatWebApi = (apiUrl) => {
         symptomReport: fetchTraversalSymptomReport(apiUrl)
     }
 }
+
+export const createHealthAssessmentWebApi = (apiUrl) => ({
+    isConfigured: !!apiUrl,
+    healthRisks: fetchHealthRisks(apiUrl),
+    conclusionIds: fetchConclusionIds(apiUrl),
+})

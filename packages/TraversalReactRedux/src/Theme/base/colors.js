@@ -17,6 +17,8 @@ const colors = {
     danger: '#e42817',
     moderate: '#ffa200',
     normal: '#008000',
+    chartTurquoise: '#1eddc5',
+    chartPink: '#e42dad',
   };
   
   export default colors;

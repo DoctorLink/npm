@@ -1,6 +1,7 @@
 import React, { useEffect, useRef } from 'react'
 import styled from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
+import { replaceLineBreaks } from '../../Helpers'
 
 const WrapPose = posed.div({
     enter: {
@@ -154,7 +155,7 @@ const Modal = ({ explanation, closeModal }) => {
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                             </Icon>
                         </Header>
-                        <div dangerouslySetInnerHTML={{ __html: explanation }} />
+                        <div dangerouslySetInnerHTML={{ __html: replaceLineBreaks(explanation) }} />
                     </Content>
                 </Container>
             </Curtain>

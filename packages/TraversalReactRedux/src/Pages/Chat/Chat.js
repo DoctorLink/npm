@@ -1,49 +1,36 @@
-import React from 'react'
+import React, { useEffect } from 'react'
 import styled from 'styled-components'
 import { connect } from 'react-redux'
 import * as actions from '../../Actions'
 import ChatComponent from '../../ComponentModules/Chat'
-import SymptomReport from '../../ComponentModules/SymptomReport'
+import Conclusions from '../../ComponentModules/Conclusions';
 
 const Container = styled.div`
     box-sizing: border-box;
     padding: 0 10px;
 `
 
-const Traversal = ({ traversal, conclusion, match, dispatch }) => {
-    var id = match.params['id'];
-    if (!traversal || traversal.traversalId !== id) {
-        dispatch(actions.traversalContinue(id));
+const Chat = ({ traversal, match, dispatch }) => {
+    const { id } = match.params;
+    useEffect(() => { dispatch(actions.traversalContinue(id)) }, [id]);
+
+    if (!traversal) {
         return null;
     }
-    
+
     if (traversal.completed) {
-        if (traversal.assessmentType === 1) {
-            if (!conclusion || conclusion.traversalId !== id || !conclusion.symptomReport) {
-                dispatch(actions.traversalSymptomReportGet(id));
-                return null;
-            }
-
-            return <SymptomReport conclusion={conclusion} showExplanation={explanation => dispatch(actions.populateModal(explanation))}/>
-        }
-
-        if (!conclusion || conclusion.traversalId !== id) {
-            dispatch(actions.traversalConclusionGet(id));
-            return null;
-        }
-
-        return conclusion.conclusions.filter(c => !c.silent).map(conc => <div key={conc.assetId}>{conc.assetId}: {conc.displayText}</div>)
+        return <Conclusions traversalId={id} assessmentType={traversal.assessmentType} />;
     }
- 
+
     return (<Container>
-        <ChatComponent 
-            traversal={traversal} 
-            next={traversal => dispatch(actions.traversalNext(traversal))} 
-            previous={(traversalId, algoId, nodeId, assetId) => dispatch(actions.traversalPrevious(traversalId, algoId, nodeId, assetId))} 
-            showExplanation={explanation => dispatch(actions.populateModal(explanation))}/>
+        <ChatComponent
+            traversal={traversal}
+            next={traversal => dispatch(actions.traversalNext(traversal))}
+            previous={(traversalId, algoId, nodeId, assetId) => dispatch(actions.traversalPrevious(traversalId, algoId, nodeId, assetId))}
+            showExplanation={explanation => dispatch(actions.populateModal(explanation))} />
     </Container>)
 }
 
-const mapStateToProps = state => ({traversal: state.traversal, conclusion: state.conclusion})
+const mapStateToProps = state => ({ traversal: state.traversal })
 
-export default connect(mapStateToProps)(Traversal)
+export default connect(mapStateToProps)(Chat)

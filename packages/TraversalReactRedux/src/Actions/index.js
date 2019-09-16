@@ -60,3 +60,15 @@ export const traversalSymptomReportGet = traversalId => ({ type: TRAVERSAL_SYMPT
 
 export const TRAVERSAL_CONCLUSION_SET = 'TRAVERSAL_CONCLUSION_SET'
 export const traversalConclusionSet = conclusion => ({ type: TRAVERSAL_CONCLUSION_SET, conclusion, receivedAt: Date.now() })
+
+export const HEALTH_RISKS_GET = 'HEALTH_RISKS_GET'
+export const healthRisksGet = (traversalId, ages, conclusions) => ({ type: HEALTH_RISKS_GET, traversalId, ages, conclusions })
+
+export const HEALTH_RISKS_SET = 'HEALTH_RISKS_SET'
+export const healthRisksSet = healthRisks => ({ type: HEALTH_RISKS_SET, healthRisks })
+
+export const HRA_CONCLUSIONS_GET = 'HRA_CONCLUSIONS_GET'
+export const hraConclusionsGet = () => ({ type: HRA_CONCLUSIONS_GET })
+
+export const HRA_CONCLUSIONS_SET = 'HRA_CONCLUSIONS_SET'
+export const hraConclusionsSet = conclusionIds => ({ type: HRA_CONCLUSIONS_SET, conclusionIds })
