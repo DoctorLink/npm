@@ -1,10 +1,11 @@
 import React, { useState } from 'react';
-import { PanelHeader, PanelContent, PanelBodyText, InlineDropdown, RiskChart } from '../../Components';
-import colors from '../../Theme/base/colors';
+import { HealthReportPanelHeader, PanelContent, InlineDropdown, RiskChart } from '../../../Components';
+import { useRiskSummary } from "../Hooks/useRiskSummary";
 
-export const AgeOptions = [50, 60, 70, 80, 90, 100, 110];
+const AgeOptions = [50, 60, 70, 80, 90, 100, 110];
 
-const RiskScores = ({ riskSummary }) => {
+const RiskScores = ({traversalId}) => {
+    const riskSummary = useRiskSummary(traversalId, AgeOptions);
     if (!riskSummary) return null;
 
     const { age, risks } = riskSummary;
@@ -15,11 +16,9 @@ const RiskScores = ({ riskSummary }) => {
     const onDropdownChange = e => setSelectedAge(e.target.value);
     return (
         <>
-            <PanelHeader color={colors.grey200}>
-                <PanelBodyText bold>
-                    Your risks before the age of <InlineDropdown options={visibleAgeOptions} value={selectedAge} onChange={onDropdownChange} />
-                </PanelBodyText>
-            </PanelHeader>
+            <HealthReportPanelHeader>
+                Your risks before the age of <InlineDropdown options={visibleAgeOptions} value={selectedAge} onChange={onDropdownChange} />
+            </HealthReportPanelHeader>
             <PanelContent>
                 <RiskChart risks={selectedRisks} />
             </PanelContent>

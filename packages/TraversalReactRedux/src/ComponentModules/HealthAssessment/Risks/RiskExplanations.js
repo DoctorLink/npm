@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
-import { AccordionHeader, AccordionBody, PanelHeader, PanelContent, PanelConclusion, PanelBodyText } from "../../Components";
-import { replaceLineBreaks } from "../../Helpers";
-import colors from '../../Theme/base/colors';
+import { AccordionHeader, AccordionBody, HealthReportPanelHeader, PanelContent, PanelConclusion } from "../../../Components";
+import { replaceLineBreaks } from "../../../Helpers";
 
 const RiskExplanation = ({ conclusion }) => {
     const [open, setOpen] = useState(false);
@@ -22,11 +21,9 @@ const RiskExplanations = ({ conclusions }) => {
     const explanations = conclusions.filter(c => c.category1 === "Risk Models" && c.category2 === "2");
     return (
         <>
-            <PanelHeader color={colors.grey200}>
-                <PanelBodyText bold>
-                    Your risks explained
-                </PanelBodyText>
-            </PanelHeader>
+            <HealthReportPanelHeader>
+                Your risks explained
+            </HealthReportPanelHeader>
             <PanelContent>
                 {explanations.map(conc => <RiskExplanation key={conc.assetId} conclusion={conc} />)}
             </PanelContent>

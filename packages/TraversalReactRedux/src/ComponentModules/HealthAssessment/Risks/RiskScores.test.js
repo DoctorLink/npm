@@ -1,6 +1,8 @@
 import React from "react";
-import { render, fireEvent } from "@testing-library/react";
+import { fireEvent } from "@testing-library/react";
 import "@testing-library/jest-dom/extend-expect";
+import { rootTraversalReducer } from "../../../Reducers";
+import { renderWithRedux } from "../../../TestUtils";
 import RiskScores from "./RiskScores";
 
 describe("RiskScores component", () => {
@@ -17,21 +19,30 @@ describe("RiskScores component", () => {
         ]
     };
 
-    let result;
-    beforeEach(() => result = render(<RiskScores riskSummary={riskSummary} />));
+    const state = {
+        healthAssessment: {
+            riskSummary,
+            checkedConclusions: []
+        }
+    };
 
-    const getDropdown = () => result.getByText(/Your risks before the age of/).getElementsByTagName("select")[0];
+    const renderComponent = () => renderWithRedux(<RiskScores />, rootTraversalReducer, state);
+
+    const getDropdown = (result) => result.getByText(/Your risks before the age of/).getElementsByTagName("select")[0];
 
     test("shows the age options that are greater than the user's age", () => {
-        const options = getDropdown().getElementsByTagName("option");
+        const result = renderComponent();
+        const options = getDropdown(result).getElementsByTagName("option");
         expect(Array.from(options).map(opt => opt.value)).toEqual(["70", "80", "90", "100", "110"]);
     })
 
     test("age defaults to 90", () => {
-        expect(getDropdown()).toHaveValue("90");
+        const result = renderComponent();
+        expect(getDropdown(result)).toHaveValue("90");
     })
 
     test("shows risks for the selected age", () => {
+        const result = renderComponent();
         expect(result.getByText("Heart Disease").parentElement)
             .toHaveTextContent("Current: 0.4%, minimum: 0.3%");
         expect(result.getByText("Lung Cancer").parentElement)
@@ -39,7 +50,9 @@ describe("RiskScores component", () => {
     })
 
     test("changing the selected age updates the risks", () => {
-        fireEvent.change(getDropdown(), { target: { value: "70" } });
+        const result = renderComponent();
+        const dropdown = getDropdown(result);
+        fireEvent.change(dropdown, { target: { value: "70" } });
 
         expect(result.getByText("Heart Disease").parentElement)
             .toHaveTextContent("Current: 0.2%, minimum: 0.1%");
