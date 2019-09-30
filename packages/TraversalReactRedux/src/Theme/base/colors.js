@@ -2,6 +2,7 @@ const colors = {
     white: '#ffffff',
     grey100: '#fcfcfc',
     grey200: '#dedede',
+    grey250: '#9a9a9a',
     grey300: '#575757',
     grey400: '#343434',
     brand50: '#F1F1FD',

@@ -12,5 +12,6 @@ export default (traversalApi, hraApi) => function* rootSaga() {
     yield takeLatest(actions.TRAVERSAL_SYMPTOM_REPORT_GET, generators.createSymptomReportGenerator(traversalApi))
     yield takeLatest(actions.HEALTH_RISKS_GET, generators.createHealthRisksGenerator(hraApi))
     yield takeLatest(actions.HRA_CONCLUSIONS_GET, generators.createHraConclusionsGenerator(hraApi))
+    yield takeLatest(actions.HRA_WELLNESS_GET, generators.createWellnessGenerator(hraApi))
     yield takeLatest(actions.TRAVERSAL_AUTO, generators.createAutoForwardChatGenerator())
 }

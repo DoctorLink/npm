@@ -26,6 +26,11 @@ describe("RiskScores component", () => {
         }
     };
 
+    // Mock getBoundingClientRect to make UpdateWhenVisible work. The default jsdom implementation returns zero for all properties.
+    var defaultGetBoundingClientRect = SVGElement.prototype.getBoundingClientRect;
+    beforeEach(() => SVGElement.prototype.getBoundingClientRect = () => ({ top: 0, left: 0, bottom: 100, right: 100 }));
+    afterEach(() => SVGElement.prototype.getBoundingClientRect = defaultGetBoundingClientRect);
+
     const renderComponent = () => renderWithRedux(<RiskScores />, rootTraversalReducer, state);
 
     const getDropdown = (result) => result.getByText(/Your risks before the age of/).getElementsByTagName("select")[0];

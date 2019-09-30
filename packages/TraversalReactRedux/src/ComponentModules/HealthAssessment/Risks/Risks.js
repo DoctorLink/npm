@@ -27,7 +27,7 @@ const Risks = ({ traversalId, healthAssessment, conclusions }) => {
             <NavigationButtons
                 key="nav"
                 previousRoute={`/traversal/${traversalId}/health-age`}
-                // nextRoute={`/traversal/${traversalId}/wellbeing`}
+                nextRoute={`/traversal/${traversalId}/wellbeing`}
             />
         </PoseGroup>
     )

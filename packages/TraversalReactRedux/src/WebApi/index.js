@@ -83,15 +83,21 @@ const fetchTraversalSymptomReport = (api) => traversalId =>
 
 const fetchHealthRisks = (hraApi) => (traversalId, ages, conclusions) => {
     const qs = ages.map(age => `ages=${age}`)
-                .concat(conclusions.map(conc => `conclusions=${conc}`))
-                .join('&');
+        .concat(conclusions.map(conc => `conclusions=${conc}`))
+        .join('&');
     return fetch(`${hraApi}/HealthRisk/${traversalId}?${qs}`)
         .then(response => response.json());
 }
 
 const fetchConclusionIds = (hraApi) => () =>
     fetch(`${hraApi}/Conclusions`)
-    .then(response => response.json())
+        .then(response => response.json())
+
+const fetchWellness = (hraApi) => (traversalId, conclusions) => {
+    const qs = conclusions.map(conc => `conclusions=${conc}`).join('&');
+    return fetch(`${hraApi}/Wellness/${traversalId}?${qs}`)
+        .then(response => response.json());
+}
 
 export const createTraversalWebApi = (apiUrl) => {
     return {
@@ -121,4 +127,5 @@ export const createHealthAssessmentWebApi = (apiUrl) => ({
     isConfigured: !!apiUrl,
     healthRisks: fetchHealthRisks(apiUrl),
     conclusionIds: fetchConclusionIds(apiUrl),
+    wellness: fetchWellness(apiUrl),
 })

@@ -20,4 +20,8 @@ export default styled(PosedPanel)`
     @media screen and (min-width: 800px) {    
         width: 50%;
     }
+
+    @media screen and (max-width: 799px) {
+        width: 100%;
+    }
 `

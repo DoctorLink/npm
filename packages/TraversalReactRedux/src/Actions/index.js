@@ -73,6 +73,12 @@ export const hraConclusionsGet = () => ({ type: HRA_CONCLUSIONS_GET })
 export const HRA_CONCLUSIONS_SET = 'HRA_CONCLUSIONS_SET'
 export const hraConclusionsSet = conclusionIds => ({ type: HRA_CONCLUSIONS_SET, conclusionIds })
 
+export const HRA_WELLNESS_GET = 'HRA_WELLNESS_GET'
+export const hraWellnessGet = (traversalId, conclusions) => ({ type: HRA_WELLNESS_GET, traversalId, conclusions })
+
+export const HRA_WELLNESS_SET = 'HRA_WELLNESS_SET'
+export const hraWellnessSet = wellness => ({ type: HRA_WELLNESS_SET, wellness })
+
 export const HRA_CHECK_CONCLUSION = 'HRA_CHECK_CONCLUSION'
 export const checkConclusion = id => ({ type: HRA_CHECK_CONCLUSION, id });
 

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { barLabelWidth, barWidth, barHeight, barInterval, minimumRiskColor, changeableRiskColor } from "./chartSettings";
 
 const StyledRect = styled.rect`
-    transition: width 0.3s, x 0.3s
+    transition: width 0.3s, x 0.3s;
 `
 
 const RiskBar = ({ risk, y }) => {
@@ -28,7 +28,7 @@ const LabelledRiskBar = ({ risk, index }) => {
     const y = index * barInterval + padding;
     return (
         <g>
-            <text x={0} y={y + barHeight / 2 + 5}>{risk.name}</text>
+            <text x={0} y={y + barHeight / 2} alignmentBaseline="middle">{risk.name}</text>
             <RiskBar risk={risk} y={y} />
         </g>
     )

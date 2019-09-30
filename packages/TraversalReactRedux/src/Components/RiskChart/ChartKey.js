@@ -2,12 +2,12 @@ import React from 'react';
 import { barHeight as boxSize, barInterval, minimumRiskColor, changeableRiskColor } from "./chartSettings";
 
 const KeyItem = ({ x, y, fill, label }) => {
-    const textX = boxSize + 10;
-    const textY = boxSize / 2 + 5;
+    const textX = boxSize + 5;
+    const textY = boxSize / 2;
     return (
         <svg x={x} y={y}>
             <rect width={boxSize} height={boxSize} fill={fill} />
-            <text x={textX} y={textY}>{label}</text>
+            <text x={textX} y={textY} alignmentBaseline="middle">{label}</text>
         </svg>
     );
 }

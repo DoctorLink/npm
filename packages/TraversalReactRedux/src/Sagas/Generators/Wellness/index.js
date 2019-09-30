@@ -1,16 +1,16 @@
 import { call, put } from 'redux-saga/effects'
 import * as actions from '../../../Actions'
 
-export default (api) => function* healthRisks() {
+export default (api) => function* wellness(action) {
     if (!api.isConfigured) {
         console.warn("Health risk API is not configured.");
         return;
     }
     try {
-        const conclusionIds = yield call(api.conclusionIds);
-        yield put(actions.hraConclusionsSet(conclusionIds));
+        const wellness = yield call(api.wellness, action.traversalId, action.conclusions);
+        yield put(actions.hraWellnessSet(wellness));
     } catch (error) {
-        console.error("Error getting HRA conclusions", error);
+        console.error("wellness error", error);
         alert("error");
     }
 }
