@@ -17,12 +17,10 @@ describe("CheckableConclusions component", () => {
 
     const props = {
         traversalId: "test",
-        conclusions,
-        checkableConclusions: [],
+        conclusions
     }
 
     const initialState = {
-        conclusion: { conclusions },
         healthAssessment: { checkedConclusions: [] }
     };
 
@@ -30,20 +28,18 @@ describe("CheckableConclusions component", () => {
 
     const queryCheckboxByConclusionId = (result, assetId) => result.queryByLabelText(conclusions.find(c => c.assetId == assetId).displayText);
 
-    test("Shows only non-silent checkable conclusions", () => {
-        const checkableConclusions = [1001, 1003, 1004, 1005, 1234];
-        const result = renderComponent({ ...props, checkableConclusions });
+    test("Shows all conclusions", () => {
+        const result = renderComponent(props);
 
-        expect(queryCheckboxByConclusionId(result, 1000)).toBeFalsy();
+        expect(queryCheckboxByConclusionId(result, 1000)).toBeTruthy();
         expect(queryCheckboxByConclusionId(result, 1001)).toBeTruthy();
-        expect(queryCheckboxByConclusionId(result, 1002)).toBeFalsy();
+        expect(queryCheckboxByConclusionId(result, 1002)).toBeTruthy();
         expect(queryCheckboxByConclusionId(result, 1003)).toBeTruthy();
-        expect(queryCheckboxByConclusionId(result, 1004)).toBeFalsy();
+        expect(queryCheckboxByConclusionId(result, 1004)).toBeTruthy();
     })
 
     test("Checking a conclusion updates store", () => {
-        const checkableConclusions = [1001, 1003];
-        const result = renderComponent({ ...props, checkableConclusions });
+        const result = renderComponent(props);
 
         const conc1001 = queryCheckboxByConclusionId(result, 1001);
         const conc1003 = queryCheckboxByConclusionId(result, 1003);
@@ -65,8 +61,7 @@ describe("CheckableConclusions component", () => {
     })
 
     test("Renders nothing if there are no conclusions to display", () => {
-        const checkableConclusions = [2000, 2001];
-        const result = renderComponent({ ...props, checkableConclusions });
+        const result = renderComponent({ ...props, conclusions: [] });
 
         expect(result.container.innerHTML).toBe("");
     })

@@ -18,7 +18,7 @@ const Bullets = ({ bullets }) => {
     )
 }
 
-const RiskExplanation = ({ conclusion }) => {
+const Explanation = ({ conclusion }) => {
     const [open, setOpen] = useState(false);
     const toggleOpen = () => setOpen(!open);
     return (
@@ -35,18 +35,17 @@ const RiskExplanation = ({ conclusion }) => {
     );
 }
 
-const RiskExplanations = ({ conclusions }) => {
-    const explanations = conclusions.filter(c => c.category1 === "Risk Models" && c.category2 === "2");
+const Explanations = ({ title, explanations }) => {
     return (
         <>
             <HealthReportPanelHeader>
-                Your risks explained
+                {title}
             </HealthReportPanelHeader>
             <PanelContent>
-                {explanations.map(conc => <RiskExplanation key={conc.assetId} conclusion={conc} />)}
+                {explanations.map(conc => <Explanation key={conc.assetId} conclusion={conc} />)}
             </PanelContent>
         </>
     )
 }
 
-export default RiskExplanations;
+export default Explanations;

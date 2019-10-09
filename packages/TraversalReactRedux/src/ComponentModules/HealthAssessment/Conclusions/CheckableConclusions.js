@@ -1,39 +1,35 @@
 import React from "react";
 import { connect } from "react-redux";
-import { populateModal, checkConclusion, uncheckConclusion } from '../../../Actions';
-import { PanelConclusion, Checkbox, Label, InfoIcon, Answer } from "../../../Components";
+import { checkConclusion, uncheckConclusion } from '../../../Actions';
+import { PanelConclusion, Checkbox, Label, InfoButton } from "../../../Components";
+import { Conclusion } from "./Conclusion";
 
-const CheckableConclusion = ({ conclusion, checked, onChange, showExplanation }) => (
-    <Answer>
+const CheckableConclusion = ({ conclusion, checked, onChange }) => (
+    <Conclusion>
         <Label answer={conclusion}>
             <Checkbox type="checkbox" checked={checked} onChange={e => onChange(conclusion.assetId, e.target.checked)} />
         </Label>
-        <InfoIcon onClick={showExplanation} explanation={conclusion.explanation} />
-    </Answer>
+        <InfoButton explanation={conclusion.explanation} />
+    </Conclusion>
 )
 
-const CheckableConclusions = ({ checkableConclusions, conclusions, selectedIds, dispatch }) => {
+const CheckableConclusions = ({ conclusions, selectedIds, dispatch }) => {
     const onCheckboxChange = (assetId, checked) => checked
         ? dispatch(checkConclusion(assetId))
         : dispatch(uncheckConclusion(assetId));
 
-    const showExplanation = explanation => dispatch(populateModal(explanation));
-
-    const conclusionsToDisplay = conclusions.filter(c => !c.silent && checkableConclusions.indexOf(c.assetId) > -1);
-
-    if (conclusionsToDisplay.length === 0) {
+    if (conclusions.length === 0) {
         return null;
     }
 
     return (
         <>
-            {conclusionsToDisplay.map(conc => (
+            {conclusions.map(conc => (
                 <PanelConclusion key={conc.assetId}>
                     <CheckableConclusion
                         conclusion={conc}
                         checked={selectedIds.indexOf(conc.assetId) > -1}
-                        onChange={onCheckboxChange}
-                        showExplanation={showExplanation} />
+                        onChange={onCheckboxChange} />
                 </PanelConclusion>
             ))}
         </>
@@ -41,7 +37,6 @@ const CheckableConclusions = ({ checkableConclusions, conclusions, selectedIds, 
 };
 
 const mapStateToProps = state => ({
-    conclusions: state.conclusion && state.conclusion.conclusions || [],
     selectedIds: state.healthAssessment.checkedConclusions
 });
 export default connect(mapStateToProps)(CheckableConclusions);

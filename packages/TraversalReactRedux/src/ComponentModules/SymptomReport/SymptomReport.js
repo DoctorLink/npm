@@ -4,7 +4,7 @@ import { PoseGroup } from 'react-pose'
 import * as actions from '../../Actions'
 import colors from '../../Theme/base/colors'
 import {
-    InfoIcon,
+    InfoButton,
     PanelBlocks,
     PanelContainer,
     Panel,
@@ -43,8 +43,6 @@ const SymptomReport = ({ traversalId, symptomReport, dispatch }) => {
     if (!symptomReport) {
         return null;
     }
-
-    const showExplanation = explanation => dispatch(actions.populateModal(explanation));
 
     const level = () => {
         switch (symptomReport.messageLevel) {
@@ -96,7 +94,7 @@ const SymptomReport = ({ traversalId, symptomReport, dispatch }) => {
                     {symptomReport.reasonConclusions.map((conclusion, i) =>
                         (<PanelConclusion key={i}>
                             <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
-                            <InfoIcon inline={true} onClick={showExplanation} explanation={conclusion.explanation} />
+                            <InfoButton inline={true} explanation={conclusion.explanation} />
                             <BodyText>{conclusion.truncated}</BodyText>
                         </PanelConclusion>))}
                 </Panel>)}
@@ -107,7 +105,7 @@ const SymptomReport = ({ traversalId, symptomReport, dispatch }) => {
                     {symptomReport.otherConclusions.map((conclusion, i) =>
                         (<PanelConclusion key={i}>
                             <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
-                            <InfoIcon inline={true} onClick={showExplanation} explanation={conclusion.explanation} />
+                            <InfoButton inline={true} explanation={conclusion.explanation} />
                         </PanelConclusion>))}
                 </Panel>)}
                 {symptomReport.informationConclusions && symptomReport.informationConclusions.length > 0 && (<Panel>
@@ -117,7 +115,7 @@ const SymptomReport = ({ traversalId, symptomReport, dispatch }) => {
                     {symptomReport.informationConclusions.map((conclusion, i) =>
                         (<PanelConclusion key={i}>
                             <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
-                            <InfoIcon inline={true} onClick={showExplanation} explanation={conclusion.explanation} />
+                            <InfoButton inline={true} explanation={conclusion.explanation} />
                         </PanelConclusion>))}
                 </Panel>)}
             </PanelContainer>

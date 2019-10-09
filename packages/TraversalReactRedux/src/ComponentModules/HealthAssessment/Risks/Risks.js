@@ -1,14 +1,13 @@
 import React from 'react'
 import { connect } from 'react-redux';
 import { PoseGroup } from 'react-pose';
-import { Panel, PanelContainer, NavigationButtons } from '../../../Components';
-import RiskExplanations from './RiskExplanations';
+import { Panel, PanelContainer } from '../../../Components';
+import { riskConclusionsSelector, riskExplanationsSelector } from "../../../Selectors/healthAssessment";
+import Explanations from '../Conclusions/Explanations';
 import CheckableConclusionsPanel from '../Conclusions/CheckableConclusionsPanel';
 import RiskScores from './RiskScores';
 
-const Risks = ({ traversalId, healthAssessment, conclusions }) => {
-    const { conclusionIds } = healthAssessment;
-
+const Risks = ({ traversalId, riskConclusions, riskExplanations }) => {
     return (
         <PoseGroup animateOnMount={true}>
             <PanelContainer key="risk" float="right">
@@ -17,24 +16,19 @@ const Risks = ({ traversalId, healthAssessment, conclusions }) => {
                 </Panel>
             </PanelContainer>
             <PanelContainer key="conclusions">
-                <CheckableConclusionsPanel traversalId={traversalId} checkableConclusions={conclusionIds.riskConclusions} />
+                <CheckableConclusionsPanel traversalId={traversalId} conclusions={riskConclusions} />
             </PanelContainer>
             <PanelContainer key="explanations">
                 <Panel>
-                    <RiskExplanations conclusions={conclusions} />
+                    <Explanations title="Your risks explained" explanations={riskExplanations} />
                 </Panel>
             </PanelContainer>
-            <NavigationButtons
-                key="nav"
-                previousRoute={`/traversal/${traversalId}/health-age`}
-                nextRoute={`/traversal/${traversalId}/wellbeing`}
-            />
         </PoseGroup>
     )
 }
 
 const mapStateToProps = state => ({
-    healthAssessment: state.healthAssessment,
-    conclusions: state.conclusion && state.conclusion.conclusions || []
+    riskConclusions: riskConclusionsSelector(state),
+    riskExplanations: riskExplanationsSelector(state),
 });
 export default connect(mapStateToProps)(Risks);
