@@ -1,6 +1,9 @@
-import React from 'react'
+import React, { useEffect, useRef } from 'react'
 import styled, { createGlobalStyle } from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
+
+import baseTheme from '../../Theme/base/index'
+import summaryTheme from '../../Theme/components/summary'
 
 function delayUnmounting(Component) {
     return class extends React.Component {
@@ -47,8 +50,10 @@ const PosedSC = posed.div({
 })
 
 const SummaryContainer = styled(PosedSC)`
-    font-family: 'Noto Sans',sans-serif;
-    padding: 10px;
+    font-family: ${p => p.theme.summary.fontFamily};
+    font-size: ${p => p.theme.modal.fontSize}px;
+    line-height: ${p => p.theme.modal.lineHeight}px;
+    padding: ${p => p.theme.summary.padding}px;
     background: white;
     position: fixed;
     top: 0;
@@ -60,6 +65,10 @@ const SummaryContainer = styled(PosedSC)`
     overflow-y: auto;
     box-sizing: border-box;
 `
+
+SummaryContainer.defaultProps = {
+    theme: { summary: summaryTheme(baseTheme) }
+};
 
 const SummaryChild = posed.div({
     enter: { opacity: 1 },
@@ -103,14 +112,42 @@ const SummaryQuestionText = styled.div`
 `
 
 const SummaryAnswerText = styled.div`
-    color: #1018D5;
+    color: ${p => p.theme.summary.color};
 `
 
-const Summary = ({ summary, close, jumpBack }) => (<>
+SummaryAnswerText.defaultProps = {
+    theme: { summary: summaryTheme(baseTheme) }
+};
+
+const Summary = ({ summary, close, jumpBack }) => {
+    
+    let ref = useRef();
+
+    const handleClickOutside = (event) => {
+        if (ref && ref.current && !ref.current.contains(event.target))
+            close()
+    }
+
+    const handleKeydown = (event) => {
+        if (event.keyCode === 27)
+            close()
+    }
+
+    useEffect(() => {
+        document.addEventListener("mousedown", handleClickOutside);
+        document.addEventListener("keydown", handleKeydown);
+    
+        return () => {
+            document.removeEventListener("mousedown", handleClickOutside);
+            document.removeEventListener("keydown", handleKeydown);
+        };
+    }, []);
+
+    return (<>
     <BodyOverflowHidden delayTime={500} isMounted={(summary)} />
     <PoseGroup>
         {summary && [
-            <SummaryContainer key='summary'>
+            <SummaryContainer key='summary' ref={ref}>
                 <SummaryHeader>
                     <SummaryTitle>Question Summary</SummaryTitle>
                     <Icon viewBox="0 0 24 24" onClick={close}>
@@ -135,6 +172,6 @@ const Summary = ({ summary, close, jumpBack }) => (<>
                 )}
             </SummaryContainer>]}
     </PoseGroup>
-</>)
+</>)}
 
 export default Summary

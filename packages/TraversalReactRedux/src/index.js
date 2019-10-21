@@ -1,4 +1,4 @@
-// TODO Discuss with Ben whether we need/ought be exporting all of this.
+export { default as ThemeProvider } from './Components/ThemeProvider'
 
 import * as actions from './Actions'
 import * as helpers from './Helpers'
@@ -72,12 +72,14 @@ export { default as SecondaryChoice } from './Components/SecondaryChoice'
 
 
 
-export { default as SymptomReport } from './ComponentModules/SymptomReport'
 export { default as Traversal }  from './ComponentModules/Traversal'
 export { default as TraversalForm }  from './ComponentModules/TraversalForm'
 export { default as TraversalResponse }  from './ComponentModules/TraversalResponse'
 export { default as TraversalTable }  from './ComponentModules/TraversalTable'
 export { default as Chat }  from './ComponentModules/Chat'
+export { default as Conclusions }  from './ComponentModules/Conclusions'
+export { default as SymptomReport } from './ComponentModules/SymptomReport'
+export { default as HealthAssessment }  from './ComponentModules/HealthAssessment'
 
 export { default as ConnectedCheckbox } from './Containers/Checkbox'
 export { default as ConnectedDateField } from './Containers/DateField'
@@ -118,4 +120,4 @@ export { default as createStartChatGenerator } from './Sagas/Generators/StartCha
 export { default as createSummaryGenerator } from './Sagas/Generators/Summary'
 export { default as createSymptomReportGenerator } from './Sagas/Generators/SymptomReport'
 
-export { default as baseTheme } from './Theme/base'
+export { default as createTheme } from './Theme'

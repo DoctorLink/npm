@@ -18,6 +18,20 @@ DoctorLink's Traversal Client Tools are available as an [npm package](https://ww
 npm install @doctorlink/traversal-react-redux
 ```
 
+## Contents
+
+|Section                                     |Description                              |
+|--------------------------------------------|-----------------------------------------|
+|[Components](src/Components)                |All of the components used in the library|
+|[Component Modules](src/ComponentModules)   |Components combined in useful ways       |
+|[Theming](src/Theme)                        |Creating custom themes                   |
+|[Redux Reducers](src/Reducers)              |Defining/updating the store              |
+|[Actions](src/Actions)                      |Actions to be dispatched to the store    |
+|[Containers](src/Containers)                |Components bound to state/actions        |
+|[Sagas](src/Sagas)                          |Sagas to handle state side-effects       |
+|[Web API](src/WebApi)                       |HTTP requests to the web api             |
+
+
 ## Usage
 
 Here is a quick example to get you started, **it's all you need**:

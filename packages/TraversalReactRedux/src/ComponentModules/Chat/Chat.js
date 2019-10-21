@@ -82,6 +82,8 @@ const PosedChatForm = posed(ChatForm)({
 })
 
 const Container = styled.div`
+    box-sizing: border-box;
+    padding: 0 10px;
     min-height: ${props => props.minHeight}px;
 `
 

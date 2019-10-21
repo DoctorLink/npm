@@ -11,18 +11,16 @@ const TitleButton = withRouter(({ history }) => (
     <Title onClick={() => history.push("/")}>Traversal Client</Title>
 ));
 
-export default ({store}) =>
+export default ({ store }) =>
     (<Provider store={store}>
         <Router>
-            <>
-                <GlobalStyle />
-                <BodyContent>
-                    <TitleButton />
-                    <Route exact path="/" component={Home} />
-                    <Route path="/traversal/:id?" component={Traversal} />
-                    <Summary />
-                    <Modal />
-                </BodyContent>
-            </>
+            <GlobalStyle />
+            <BodyContent>
+                <TitleButton />
+                <Route exact path="/" component={Home} />
+                <Route path="/traversal/:id?" component={Traversal} />
+                <Summary />
+                <Modal />
+            </BodyContent>
         </Router>
     </Provider>)

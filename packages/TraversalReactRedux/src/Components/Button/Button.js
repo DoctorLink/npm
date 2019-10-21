@@ -4,7 +4,7 @@ import baseTheme from '../../Theme/base/index'
 import buttonTheme from '../../Theme/components/button'
 
 const Button = styled.button`
-    font-family: 'Noto Sans',sans-serif;
+    font-family: ${props => props.theme.button.fontFamily};
     transition: all 150ms;
     background-color: ${props => props.disabled ? props.theme.button.disabled.color : props.theme.button.color};
     border: none;

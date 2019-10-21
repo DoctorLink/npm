@@ -3,6 +3,9 @@ import styled from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 import { replaceLineBreaks } from '../../Helpers'
 
+import baseTheme from '../../Theme/base/index'
+import modalTheme from '../../Theme/components/modal'
+
 const WrapPose = posed.div({
     enter: {
         opacity: 1,
@@ -85,18 +88,24 @@ const ContentPose = posed.div({
 const Content = styled(ContentPose)`
     box-sizing: border-box;
     background-color: #fff;
-    border-radius: 10px;
-    padding: 10px;
+    border-radius: ${p => p.theme.modal.borderRadius}px;
+    padding:  ${p => p.theme.modal.padding}px;
     text-align: left;
     position: relative;
     max-width: 650px;
     margin: 40px auto;
-    font-family: 'Noto Sans',sans-serif;
+    font-family: ${p => p.theme.modal.fontFamily};
+    font-size: ${p => p.theme.modal.fontSize}px;
+    line-height: ${p => p.theme.modal.lineHeight}px;
 
     @media screen and (min-width: 400px) {    
         padding: 20px 32px 32px;
     }
 `
+
+Content.defaultProps = {
+    theme: { modal: modalTheme(baseTheme) }
+};
 
 const Header = styled.div`
     display: flex;
@@ -120,7 +129,7 @@ const Icon = styled.svg`
 
 
 const Modal = ({ explanation, closeModal }) => {
-    
+
     let ref = useRef();
 
     const handleClickOutside = (event) => {
@@ -136,7 +145,7 @@ const Modal = ({ explanation, closeModal }) => {
     useEffect(() => {
         document.addEventListener("mousedown", handleClickOutside);
         document.addEventListener("keydown", handleKeydown);
-    
+
         return () => {
             document.removeEventListener("mousedown", handleClickOutside);
             document.removeEventListener("keydown", handleKeydown);

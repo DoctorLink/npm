@@ -6,11 +6,7 @@ import radioTheme from '../../Theme/components/radio'
 
 import HiddenInput from '../HiddenInput'
 
-const Icon = styled.svg`
-  fill: ${props => props.theme.radio.icon.color};
-  stroke: none;
-  stroke-width: 2px;
-`
+const Icon = styled.svg``
 
 const StyledRadio = styled.div`
   width: ${props => props.theme.radio.size}px;
@@ -22,9 +18,16 @@ const StyledRadio = styled.div`
     box-shadow: 0 0 0 3px ${props => props.theme.radio.focus.color };
   }
   ${Icon} {
+    fill: ${props => props.theme.radio.icon.color};
+    stroke: none;
+    stroke-width: 2px;
     visibility: ${props => props.checked ? 'visible' : 'hidden'};
   }
 `
+
+StyledRadio.defaultProps = {
+  theme: { radio: radioTheme(baseTheme) }
+};
 
 const RadioContainer = styled.div`
   display: inline-block;
@@ -41,9 +44,5 @@ const Radio = ({ className, checked, ...props }) => (
     </StyledRadio>
   </RadioContainer>
 )
-
-Radio.defaultProps = {
-  theme: { radio: radioTheme(baseTheme) }
-};
 
 export default Radio

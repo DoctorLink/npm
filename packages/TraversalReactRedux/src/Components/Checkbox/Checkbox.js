@@ -6,11 +6,7 @@ import checkboxTheme from '../../Theme/components/checkbox'
 
 import HiddenInput from '../HiddenInput'
 
-const Icon = styled.svg`
-  fill: none;
-  stroke: ${props => props.theme.checkbox.icon.color};
-  stroke-width: 2px;
-`
+const Icon = styled.svg``
 
 const StyledCheckbox = styled.div`
   width: ${props => props.theme.checkbox.size}px;
@@ -22,9 +18,16 @@ const StyledCheckbox = styled.div`
     box-shadow: 0 0 0 3px ${props => props.theme.checkbox.focus.color };
   }
   ${Icon} {
-    visibility: ${props => props.checked ? 'visible' : 'hidden'}
+    visibility: ${props => props.checked ? 'visible' : 'hidden'};
+    fill: none;
+    stroke: ${props => props.theme.checkbox.icon.color};
+    stroke-width: 2px;
   }
 `
+
+StyledCheckbox.defaultProps = {
+  theme: { checkbox: checkboxTheme(baseTheme) }
+};
 
 const CheckboxContainer = styled.div`
   display: inline-block;
@@ -34,16 +37,12 @@ const CheckboxContainer = styled.div`
 const Checkbox = ({ className, checked, ...props }) => (
     <CheckboxContainer className={className} theme={props.theme}>
         <HiddenInput checked={checked} {...props} />
-        <StyledCheckbox checked={checked} theme={props.theme}>
+        <StyledCheckbox checked={checked}  theme={props.theme}>
             <Icon viewBox="0 0 24 24" theme={props.theme}>
                 <polyline points="20 6 9 17 4 12" />
             </Icon>
         </StyledCheckbox>
     </CheckboxContainer>
 )
-
-Checkbox.defaultProps = {
-  theme: { checkbox: checkboxTheme(baseTheme) }
-};
 
 export default Checkbox

@@ -4,6 +4,9 @@ const typography = {
     size: 16,
     lineHeight: 24,
   },
+  error: {
+    size: 12,
+  },
   title: {
     large: {
       size: 36,

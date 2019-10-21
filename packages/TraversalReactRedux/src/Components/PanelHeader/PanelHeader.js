@@ -1,17 +1,22 @@
 import styled from 'styled-components'
 
-export default styled.div`
+import baseTheme from '../../Theme/base/index'
+import panelheaderTheme from '../../Theme/components/panelheader'
+
+const PanelHeader = styled.div`
     box-sizing: border-box;
     display: flex;
     align-items: center;
-    padding-top: 16px;
-    padding-left: 16px;
-    padding-right: 16px;
-    padding-bottom: 16px;
+    padding: ${p => p.theme.panelheader.padding}px;
     background-color: ${p => p.color || '#666'};
 
-    @media screen and (min-width: 800px) {    
-        padding-left: 24px;
-        padding-right: 24px;
+    @media screen and (min-width: 800px) {   
+        padding: ${p => p.theme.panelheader.padding}px ${p => p.theme.panelheader.padding * 1.5}px;
     }
 `
+
+PanelHeader.defaultProps = {
+    theme: { panelheader : panelheaderTheme(baseTheme) } 
+}
+
+export default PanelHeader

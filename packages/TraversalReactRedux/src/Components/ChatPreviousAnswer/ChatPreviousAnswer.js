@@ -1,8 +1,8 @@
 import React from 'react'
 import styled from 'styled-components'
 
-// import baseTheme from '../../Theme/base/index'
-// import infoIconTheme from '../../Theme/components/infoicon'
+import baseTheme from '../../Theme/base/index'
+import chatPreviousAnswerTheme from '../../Theme/components/chatpreviousanswer'
 
 const PreviousAnswer = styled.button.attrs({ tabindex: '0' })`
     background: transparent;
@@ -15,15 +15,15 @@ const PreviousAnswer = styled.button.attrs({ tabindex: '0' })`
     text-decoration: none;
     -webkit-appearance: none;
     -webkit-tap-highlight-color: transparent;
-    font-family: "Noto Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-family: ${props => props.theme.chatpreviousanswer.fontFamily};
     display: block;
     min-height: 36px;
     align-self: flex-end;
-    background-color: rgb(16, 24, 213);
+    background-color: ${props => props.theme.chatpreviousanswer.color};
     color: white;
     position: relative;
     cursor: pointer;
-    font-size: 16px;
+    font-size: ${props => props.theme.chatpreviousanswer.fontSize}px;
     width: 100%;
     margin-bottom: 2px;
     line-height: 24px;
@@ -36,20 +36,24 @@ const PreviousAnswer = styled.button.attrs({ tabindex: '0' })`
     border-style: none;
     border-color: initial;
     border-image: initial;
-    padding: 16px;
+    padding: ${props => props.theme.chatpreviousanswer.padding}px;
 
     &:first-child {
-        border-top-left-radius: 6px;
-        border-top-right-radius: 6px;
+        border-top-left-radius: ${props => props.theme.chatpreviousanswer.borderRadius}px;
+        border-top-right-radius: ${props => props.theme.chatpreviousanswer.borderRadius}px;
     }
 
     &:last-child {
-        border-bottom-left-radius: 6px;
-        border-bottom-right-radius: 6px;
+        border-bottom-left-radius: ${props => props.theme.chatpreviousanswer.borderRadius}px;
+        border-bottom-right-radius: ${props => props.theme.chatpreviousanswer.borderRadius}px;
     }
 
     &:focus {
         box-shadow: 0 0 5px 0 #00C4FA;
+    }
+
+    &:hover {
+        background-color: ${props => props.theme.chatpreviousanswer.hoverColor};
     }
 `
 
@@ -67,8 +71,8 @@ const ChatPreviousAnswer = React.forwardRef(({ answer, jumpBack }, ref) => {
     </PreviousAnswer>)})
 
 
-// ChatQuestion.defaultProps = {
-//     theme: { infoIcon: infoIconTheme(baseTheme) }
-// };
+ChatPreviousAnswer.defaultProps = {
+    theme: { chatpreviousanswer: chatPreviousAnswerTheme(baseTheme) }
+};
 
 export default ChatPreviousAnswer

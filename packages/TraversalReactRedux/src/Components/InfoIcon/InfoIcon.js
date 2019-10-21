@@ -2,47 +2,55 @@ import React from 'react'
 import styled from 'styled-components'
 
 import baseTheme from '../../Theme/base/index'
-import infoIconTheme from '../../Theme/components/infoicon'
+import infoiconTheme from '../../Theme/components/infoicon'
+
+const Icon = styled.svg``
 
 const InfoButton = styled.div`
     display: inline-block;
-    width: 25px;
-    height: 25px;
-    padding: 10px 0;
-	cursor: pointer;
-    flex-basis: 25px;
+    width: ${p => p.theme.infoicon.size}px;
+    height: ${p => p.theme.infoicon.size}px;
+    padding: ${p => p.theme.infoicon.padding}px 0;
+    cursor: pointer;
+    flex-basis: ${p => p.theme.infoicon.size}px;
     flex-grow: 0;
     flex-shrink: 0;
     vertical-align: middle;
     margin-top: ${props => (props.inline) ? '-8px' : '' };
     
     &:focus {
-        box-shadow: 0 0 2px 0.1px #00C4FA;
+        box-shadow: 0 0 2px 0.1px ${p => p.theme.infoicon.focusColor};
+    }
+
+    ${Icon} {
+        transition: all 150ms;
+        fill: none;
+        stroke: ${p => p.theme.infoicon.color};
+        stroke-width: 2px; 
+        stroke-linecap: round; 
+        stroke-linejoin: round;
+    }
+    
+    &:hover {
+        ${Icon} {
+            stroke: ${p => p.theme.infoicon.hoverColor};
+        }
     }
 `
 
-const Icon = styled.svg`
-	transition: all 150ms;
-    fill: none;
-    stroke: ${p => p.theme.infoIcon.color};
-    stroke-width: 2px; 
-    stroke-linecap: round; 
-    stroke-linejoin: round;
-    ${InfoButton}:hover & {
-        stroke: ${p => p.theme.infoIcon.hoverColor};
-    }
-`
+InfoButton.defaultProps = {
+    theme: { infoicon: infoiconTheme(baseTheme) }
+};
 
 const InfoIcon = ({ onClick, explanation, inline, ...props }) => ((explanation && explanation !== "") &&
     (<InfoButton inline={inline} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
-        <Icon theme={props.theme} viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12" y2="8"></line>
+        <Icon viewBox="0 0 24 24">
+            <circle cx="12" cy="12" r="10"></circle>
+            <line x1="12" y1="16" x2="12" y2="12"></line>
+            <line x1="12" y1="8" x2="12" y2="8"></line>
         </Icon>
     </InfoButton>))
 
 
-InfoIcon.defaultProps = {
-    theme: { infoIcon: infoIconTheme(baseTheme) }
-};
 
 export default InfoIcon

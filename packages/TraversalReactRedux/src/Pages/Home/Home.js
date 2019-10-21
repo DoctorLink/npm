@@ -8,6 +8,7 @@ import {
     TextField, 
     Button
 } from '../../Components'
+import baseTheme from '../../Theme/base/index'
 
 const Label = styled.label`
     display: flex;
@@ -16,9 +17,15 @@ const Label = styled.label`
 `
 
 const Text = styled.span`
-    font-family: 'Noto Sans',sans-serif;
+    font-family: ${p => p.theme.typography.fontFamily};
+    font-size: ${p => p.theme.typography.title.small.size}px;
+    line-height: ${p => p.theme.typography.title.small.lineHeight}px;
     width: 100px;
 `
+
+Text.defaultProps = {
+    theme: baseTheme
+}
 
 const TextArea = styled.textarea`
     font-size: 12px;

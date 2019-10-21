@@ -1,5 +1,5 @@
 const spacing = {
-    padding: 10,
+    padding: 16,
     responseMargin: 20,
     inputField: {
         width: 180,
