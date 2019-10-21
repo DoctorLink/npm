@@ -103,6 +103,8 @@ export { default as chatReducer } from './Reducers/Chat'
 export { default as conclusionReducer } from './Reducers/Conclusion'
 export { default as summaryReducer } from './Reducers/Summary'
 export { default as modalReducer } from './Reducers/Modal'
+export { default as answersReducer } from './Reducers/Answers'
+export { default as hraReducer } from './Reducers/HealthAssessment'
 
 export { createTraversalSaga, createChatSaga } from './Sagas'
 
@@ -119,5 +121,11 @@ export { default as createStartGenerator } from './Sagas/Generators/Start'
 export { default as createStartChatGenerator } from './Sagas/Generators/StartChat'
 export { default as createSummaryGenerator } from './Sagas/Generators/Summary'
 export { default as createSymptomReportGenerator } from './Sagas/Generators/SymptomReport'
+
+export { default as createTraversalChatEffects } from './Sagas/Effects/TraversalChat'
+export { default as createTraversalClassicEffects } from './Sagas/Effects/TraversalClassic'
+export { default as createSummaryEffects } from './Sagas/Effects/Summary'
+export { default as createSymptomAssessmentEffects } from './Sagas/Effects/SymptomAssessment'
+export { default as createHealhRiskAssessmentEffects } from './Sagas/Effects/HealhRiskAssessment'
 
 export { default as createTheme } from './Theme'
