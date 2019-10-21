@@ -2,7 +2,7 @@ const spacing = {
     padding: 10,
     responseMargin: 20,
     inputField: {
-        width: 150,
+        width: 180,
         height: 40
     }
 };
