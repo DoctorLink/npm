@@ -13,24 +13,24 @@ const normaliseConfig = (configOrEngineUrl) =>
         hraApi: null
     };
 
-export const createTraversalStore = (config) => {
+export const createTraversalStore = (config, history) => {
     config = normaliseConfig(config);    
     const sagaMiddleware = createSagaMiddleware();
     const store = createStore(rootTraversalReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
     const traversalApi = createTraversalWebApi(config.engine);
     const hraApi = createHealthAssessmentWebApi(config.hraApi);
-    const rootSaga = createTraversalSaga(traversalApi, hraApi);
+    const rootSaga = createTraversalSaga(traversalApi, hraApi, history);
     sagaMiddleware.run(rootSaga);
     return store;
 }
 
-export const createChatStore = (config) => {
+export const createChatStore = (config, history) => {
     config = normaliseConfig(config);
     const sagaMiddleware = createSagaMiddleware();
     const store = createStore(rootChatReducer, composeWithDevTools(applyMiddleware(sagaMiddleware)));
     const chatApi = createChatWebApi(config.engine);
     const hraApi = createHealthAssessmentWebApi(config.hraApi);
-    const rootSaga = createChatSaga(chatApi, hraApi);
+    const rootSaga = createChatSaga(chatApi, hraApi, history);
     sagaMiddleware.run(rootSaga);
     return store;
 }

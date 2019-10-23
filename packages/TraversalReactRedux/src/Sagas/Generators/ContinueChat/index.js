@@ -6,10 +6,7 @@ export default (api) => function* traversalContinue(action) {
     yield put(actions.traversalDirection(false))
     try {
         const json = yield call(api.continue, action.traversalId)
-        yield put(actions.setTraversal(flattenTraversalChat(json)))
-        let currentQuestion = document.getElementById("CurrentQuestion")
-        if (currentQuestion)
-            currentQuestion.scrollIntoView()
+        yield put(actions.traversalContinueSet(flattenTraversalChat(json)))
     } catch (error) {
         console.log("traversalContinue error")
         console.log(error)

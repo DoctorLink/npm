@@ -6,7 +6,7 @@ export default (api) => function* traversalContinue(action) {
     yield put(actions.traversalDirection(false))
     try {
         const json = yield call(api.continue, action.traversalId)
-        yield put(actions.setTraversal(flattenTraversalNodeCollection(json)))
+        yield put(actions.traversalContinueSet(flattenTraversalNodeCollection(json)))
     } catch (error) {
         console.log("traversalContinue error")
         console.log(error)

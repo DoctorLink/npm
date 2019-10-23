@@ -121,11 +121,19 @@ export { default as createStartGenerator } from './Sagas/Generators/Start'
 export { default as createStartChatGenerator } from './Sagas/Generators/StartChat'
 export { default as createSummaryGenerator } from './Sagas/Generators/Summary'
 export { default as createSymptomReportGenerator } from './Sagas/Generators/SymptomReport'
+export { default as createScrollToTopGenerator } from './Sagas/Generators/ScrollToTop'
+export { default as createScrollToCurrentGenerator } from './Sagas/Generators/ScrollToCurrent'
+export { default as createHistoryPushGenerator } from './Sagas/Generators/HistoryPush'
 
 export { default as createTraversalChatEffects } from './Sagas/Effects/TraversalChat'
+export { default as createTraversalChatSetEffects } from './Sagas/Effects/TraversalChatSet'
 export { default as createTraversalClassicEffects } from './Sagas/Effects/TraversalClassic'
+export { default as createTraversalClassicSetEffects } from './Sagas/Effects/TraversalClassicSet'
 export { default as createSummaryEffects } from './Sagas/Effects/Summary'
 export { default as createSymptomAssessmentEffects } from './Sagas/Effects/SymptomAssessment'
 export { default as createHealhRiskAssessmentEffects } from './Sagas/Effects/HealhRiskAssessment'
+export { default as createHistoryPushEffects } from './Sagas/Effects/HistoryPush'
+
+export { createBrowserHistory } from "history";
 
 export { default as createTheme } from './Theme'

@@ -39,14 +39,19 @@ Here is a quick example to get you started, **it's all you need**:
 ```jsx
 import React from 'react';
 import { render } from 'react-dom';
-import { createTraversalStore, TraversalApp } from '@doctorlink/traversal-react-redux';
+import { createTraversalStore, TraversalApp, createBrowserHistory } from '@doctorlink/traversal-react-redux';
 
-const store = createTraversalStore({
-  traversalApi: 'https://api-traversal.doctorlink.engineering',
-  hraApi: 'https://api-hra.doctorlink.engineering'
-})
+const history = createBrowserHistory();
 
-render(<TraversalApp store={store} />, document.getElementById('root'));
+const store = createTraversalStore(
+  {
+    traversalApi: 'https://api-traversal.doctorlink.engineering',
+    hraApi: 'https://api-hra.doctorlink.engineering'
+  },
+  history
+)
+
+render(<TraversalApp store={store} history={history} />, document.getElementById('root'));
 ```
 
 ## Development

@@ -12,8 +12,8 @@ const Container = styled.div`
 const DisplayText = styled.div`
     padding: ${p => p.theme.tableheadercell.padding}px;
     font-family: ${p => p.theme.tableheadercell.fontFamily};
-    font-size: ${p => p.theme.question.fontSize}px;
-    line-height: ${p => p.theme.question.lineHeight}px;
+    font-size: ${p => p.theme.tableheadercell.fontSize}px;
+    line-height: ${p => p.theme.tableheadercell.lineHeight}px;
     display: inline-block;
     font-weight: normal;
     text-align: left;
@@ -27,8 +27,8 @@ const ErrorText = styled.div`
     padding: 0 ${p => p.theme.tableheadercell.padding}px ${p => p.theme.tableheadercell.padding}px;
     font-family: ${p => p.theme.tableheadercell.fontFamily};
     /* font-size: ${p => p.theme.tableheadercell.errorFontSize}px; */
-    font-size: ${p => p.theme.question.fontSize * 0.8}px;
-    line-height: ${p => p.theme.question.lineHeight * 0.6}px;
+    font-size: ${p => p.theme.tableheadercell.fontSize * 0.8}px;
+    line-height: ${p => p.theme.tableheadercell.lineHeight * 0.6}px;
     color: ${p => p.theme.tableheadercell.errorColor};
     text-align: left;
 `

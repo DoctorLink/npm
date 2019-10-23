@@ -57,6 +57,10 @@ const PreviousAnswer = styled.button.attrs({ tabindex: '0' })`
     }
 `
 
+PreviousAnswer.defaultProps = {
+    theme: { chatpreviousanswer: chatPreviousAnswerTheme(baseTheme) }
+};
+
 const PreviousAnswerText = styled.div`
     text-align: left;
     display: inline-block;
@@ -68,11 +72,7 @@ const ChatPreviousAnswer = React.forwardRef(({ answer, jumpBack }, ref) => {
     const text = `${(answer.controlValue ? answer.controlValue + " " : '')}${answer.displayText}`;
     return (<PreviousAnswer ref={ref} onClick={jumpBack}>
         <PreviousAnswerText dangerouslySetInnerHTML={{ __html: text }} />
-    </PreviousAnswer>)})
-
-
-ChatPreviousAnswer.defaultProps = {
-    theme: { chatpreviousanswer: chatPreviousAnswerTheme(baseTheme) }
-};
+    </PreviousAnswer>)}
+)
 
 export default ChatPreviousAnswer

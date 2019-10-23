@@ -24,7 +24,10 @@ const traversal = (state = null, action) => {
                 ...state, 
                 previous: action.previous 
             }
-        case actions.SET_TRAVERSAL:
+        case actions.TRAVERSAL_START_SET:
+        case actions.TRAVERSAL_CONTINUE_SET:
+        case actions.TRAVERSAL_NEXT_SET:
+        case actions.TRAVERSAL_PREVIOUS_SET:
             return { 
                 ...action.traversal, 
                 previous: (state == null) ? false : state.previous, 

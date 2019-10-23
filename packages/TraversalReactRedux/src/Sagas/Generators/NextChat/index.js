@@ -10,12 +10,7 @@ export default (api) => function* traversalNext(action) {
             call(api.next, createChatResponse(action.traversal)),
             delay(300)
         ])
-        // const json = yield call(api.next, createChatResponse(action.traversal))
-        // yield delay(300)
-        yield put(actions.nextTraversalQuestion(flattenTraversalChat(json)))
-        let currentQuestion = document.getElementById("CurrentQuestion")
-        if (currentQuestion)
-            currentQuestion.scrollIntoView()
+        yield put(actions.traversalNextSet(flattenTraversalChat(json)))
     } catch (error) {
         console.log("traversalNext error")
         console.log(error)

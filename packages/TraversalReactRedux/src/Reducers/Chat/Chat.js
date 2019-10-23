@@ -3,10 +3,12 @@ import {
     TOGGLE_CHECKBOX, 
     UPDATE_TEXT, 
     SET_TRAVERSAL, 
-    TRAVERSAL_NEXT,
-    NEXT_TRAVERSAL_QUESTION, 
-    PREVIOUS_TRAVERSAL_QUESTION, 
-    SET_CHAT_MIN_HEIGHT 
+    TRAVERSAL_NEXT_SET, 
+    TRAVERSAL_PREVIOUS_SET, 
+    TRAVERSAL_START_SET, 
+    TRAVERSAL_CONTINUE_SET, 
+    SET_CHAT_MIN_HEIGHT, 
+    TRAVERSAL_CONCLUSION_SET
 } from '../../Actions'
 import answers from '../Answers'
 
@@ -20,7 +22,7 @@ const chat = (state = null, action) => {
         case SET_CHAT_MIN_HEIGHT:
             if (state === null ) return state;
             return { ...state, minHeight: action.minHeight, loading: true }
-        case NEXT_TRAVERSAL_QUESTION:
+        case TRAVERSAL_NEXT_SET:
             let nextQuestionIds = state.questionIds;
             let nextQuestions = state.questions;
             let nextAnswers = state.answers;
@@ -40,7 +42,7 @@ const chat = (state = null, action) => {
                 assessmentType: action.traversal.assessmentType,
                 loading: false
             }
-        case PREVIOUS_TRAVERSAL_QUESTION:
+        case TRAVERSAL_PREVIOUS_SET:
             var ids = [ ...state.questionIds ];
             ids.length = ids.indexOf(action.traversal.questionIds[0]) + 1;
             var questions = {};
@@ -61,7 +63,8 @@ const chat = (state = null, action) => {
                 algoId: action.traversal.algoId,
                 assessmentType: action.traversal.assessmentType
             }
-        case SET_TRAVERSAL:
+        case TRAVERSAL_START_SET:
+        case TRAVERSAL_CONTINUE_SET:
             return { 
                 ...action.traversal,
                 minHeight: 0, 

@@ -1,5 +1,8 @@
 export { default as createAutoForwardGenerator } from './AutoForward'
 export { default as createAutoForwardChatGenerator } from './AutoForwardChat'
+export { default as createScrollToTopGenerator } from './ScrollToTop'
+export { default as createScrollToCurrentGenerator } from './ScrollToCurrent'
+export { default as createHistoryPushGenerator } from './HistoryPush'
 export { default as createConclusionsGenerator } from './Conclusions'
 export { default as createContinueGenerator } from './Continue'
 export { default as createContinueChatGenerator } from './ContinueChat'

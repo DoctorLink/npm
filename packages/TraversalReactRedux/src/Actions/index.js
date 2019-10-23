@@ -13,20 +13,8 @@ export const toggleCheckbox = (id, answerIds) => ({ type: TOGGLE_CHECKBOX, id, a
 export const UPDATE_TEXT = 'UPDATE_TEXT'
 export const updateText = (id, answerIds, e) => ({ type: UPDATE_TEXT, id, answerIds, value: e.target.value })
 
-export const REQUEST_TRAVERSAL = 'REQUEST_TRAVERSAL'
-export const requestTraversal = () => ({ type: REQUEST_TRAVERSAL })
-
-export const SET_TRAVERSAL = 'SET_TRAVERSAL'
-export const setTraversal = traversal => ({ type: SET_TRAVERSAL, traversal, receivedAt: Date.now() })
-
 export const SET_CHAT_MIN_HEIGHT = 'SET_CHAT_MIN_HEIGHT'
 export const setChatMinHeight = minHeight => ({ type: SET_CHAT_MIN_HEIGHT, minHeight })
-
-export const NEXT_TRAVERSAL_QUESTION = 'NEXT_TRAVERSAL_QUESTION'
-export const nextTraversalQuestion = traversal => ({ type: NEXT_TRAVERSAL_QUESTION, traversal, receivedAt: Date.now() })
-
-export const PREVIOUS_TRAVERSAL_QUESTION = 'PREVIOUS_TRAVERSAL_QUESTION'
-export const previousTraversalQuestion = traversal => ({ type: PREVIOUS_TRAVERSAL_QUESTION, traversal, receivedAt: Date.now() })
 
 export const TRAVERSAL_DIRECTION = 'TRAVERSAL_DIRECTION'
 export const traversalDirection = previous => ({ type: TRAVERSAL_DIRECTION, previous })
@@ -34,17 +22,29 @@ export const traversalDirection = previous => ({ type: TRAVERSAL_DIRECTION, prev
 export const TRAVERSAL_START = 'TRAVERSAL_START'
 export const traversalStart = (algoId, release, lang, nodeId, injection, history) => ({ type: TRAVERSAL_START, algoId, release, lang, nodeId, injection, history })
 
+export const TRAVERSAL_START_SET = 'TRAVERSAL_START_SET'
+export const traversalStartSet = traversal => ({ type: TRAVERSAL_START_SET, traversal, receivedAt: Date.now() })
+
 export const TRAVERSAL_CONTINUE = 'TRAVERSAL_CONTINUE'
 export const traversalContinue = traversalId => ({ type: TRAVERSAL_CONTINUE, traversalId })
 
-export const TRAVERSAL_NEXT = 'TRAVERSAL_NEXT'
-export const traversalNext = traversal => ({ type: TRAVERSAL_NEXT, traversal })
+export const TRAVERSAL_CONTINUE_SET = 'TRAVERSAL_CONTINUE_SET'
+export const traversalContinueSet = traversal => ({ type: TRAVERSAL_CONTINUE_SET, traversal, receivedAt: Date.now() })
 
-export const TRAVERSAL_AUTO = 'TRAVERSAL_AUTO'
-export const traversalAuto = () => ({ type: TRAVERSAL_AUTO })
+export const TRAVERSAL_NEXT = 'TRAVERSAL_NEXT'
+export const traversalNext = traversal => ({ type: TRAVERSAL_NEXT, traversal  })
+
+export const TRAVERSAL_NEXT_SET = 'TRAVERSAL_NEXT_SET'
+export const traversalNextSet = traversal => ({ type: TRAVERSAL_NEXT_SET, traversal, receivedAt: Date.now() })
 
 export const TRAVERSAL_PREVIOUS = 'TRAVERSAL_PREVIOUS'
 export const traversalPrevious = (traversalId, algoId, nodeId, assetId) => ({ type: TRAVERSAL_PREVIOUS, traversalId, algoId, nodeId, assetId })
+
+export const TRAVERSAL_PREVIOUS_SET = 'TRAVERSAL_PREVIOUS_SET'
+export const traversalPreviousSet = traversal => ({ type: TRAVERSAL_PREVIOUS_SET, traversal, receivedAt: Date.now() })
+
+export const TRAVERSAL_AUTO = 'TRAVERSAL_AUTO'
+export const traversalAuto = () => ({ type: TRAVERSAL_AUTO })
 
 export const TRAVERSAL_SUMMARY_GET = 'TRAVERSAL_SUMMARY_GET'
 export const traversalSummaryGet = traversalId => ({ type: TRAVERSAL_SUMMARY_GET, traversalId })

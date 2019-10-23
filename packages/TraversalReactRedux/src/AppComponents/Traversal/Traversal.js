@@ -1,6 +1,7 @@
 
 import React from 'react'
-import { BrowserRouter as Router, Route, withRouter } from 'react-router-dom'
+import { Router, Route, withRouter } from 'react-router-dom'
+import { createBrowserHistory } from "history";
 import { Provider } from 'react-redux'
 
 import { GlobalStyle, BodyContent, Title } from '../../Components'
@@ -11,9 +12,11 @@ const TitleButton = withRouter(({ history }) => (
     <Title onClick={() => history.push("/")}>Traversal Client</Title>
 ));
 
-export default ({ store }) =>
-    (<Provider store={store}>
-        <Router>
+export default ({ store, history }) => {
+    if (!history)
+        history = createBrowserHistory();
+    return (<Provider store={store}>
+        <Router history={history}>
             <GlobalStyle />
             <BodyContent>
                 <TitleButton />
@@ -24,3 +27,4 @@ export default ({ store }) =>
             </BodyContent>
         </Router>
     </Provider>)
+}
