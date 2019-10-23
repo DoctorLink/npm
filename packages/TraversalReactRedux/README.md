@@ -30,6 +30,7 @@ npm install @doctorlink/traversal-react-redux
 |[Containers](src/Containers)                |Components bound to state/actions        |
 |[Sagas](src/Sagas)                          |Sagas to handle state side-effects       |
 |[Web API](src/WebApi)                       |HTTP requests to the web api             |
+|[Samples](samples)                          |Samples of how this library can be used  |
 
 
 ## Usage
