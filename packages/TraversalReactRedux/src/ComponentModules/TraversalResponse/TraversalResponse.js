@@ -33,7 +33,7 @@ export default ({ question, answers, error, showExplanation }) => {
                             {answer.controlType === "Number" && <NumberField answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
                             {answer.controlType === "Date" && <DateField answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
                         </Label>
-                        <InfoIcon onClick={showExplanation} explanation={answer.explanation} />
+                        <InfoIcon padRight={true} onClick={showExplanation} explanation={answer.explanation} />
                     </Answer>)
                 })}
             </React.Fragment>)

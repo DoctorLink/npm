@@ -16,7 +16,8 @@ const InfoButton = styled.div`
     flex-grow: 0;
     flex-shrink: 0;
     vertical-align: middle;
-    margin-top: ${props => (props.inline) ? '-8px' : '' };
+    margin-top: ${p => (p.inline) ? '-8px' : '' };
+    margin-right: ${p => (p.padRight) ? p.theme.infoicon.padding +'px' : '' };
     
     &:focus {
         box-shadow: 0 0 2px 0.1px ${p => p.theme.infoicon.focusColor};
@@ -42,8 +43,8 @@ InfoButton.defaultProps = {
     theme: { infoicon: infoiconTheme(baseTheme) }
 };
 
-const InfoIcon = ({ onClick, explanation, inline, ...props }) => ((explanation && explanation !== "") &&
-    (<InfoButton inline={inline} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
+const InfoIcon = ({ onClick, explanation, inline, padRight, ...props }) => ((explanation && explanation !== "") &&
+    (<InfoButton inline={inline} padRight={padRight} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
         <Icon viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>

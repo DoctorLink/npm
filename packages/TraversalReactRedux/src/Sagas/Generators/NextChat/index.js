@@ -4,7 +4,7 @@ import createChatResponse from '../../../Helpers/createChatResponse';
 import * as actions from '../../../Actions'
 
 export default (api) => function* traversalNext(action) {
-    yield put(actions.setChatMinHeight(document.getElementById(action.traversal.traversalId).clientHeight))
+    yield put(actions.setChatMinHeight(document.getElementById("Traversal").clientHeight))
     try {
         const [json] = yield all([
             call(api.next, createChatResponse(action.traversal)),

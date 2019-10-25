@@ -9,7 +9,7 @@ const ConclusionList = ({ traversalId, conclusions, dispatch }) => {
         return null;
     }
 
-    return conclusions.filter(c => !c.silent).map(conc => <div key={conc.assetId}>{conc.assetId}: {conc.displayText}</div>)
+    return (<div id='Traversal'>{conclusions.filter(c => !c.silent).map(conc => <div key={conc.assetId}>{conc.assetId}: {conc.displayText}</div>)}</div>)
 }
 
 const mapStateToProps = state => ({ conclusions: state.conclusion && state.conclusion.conclusions });

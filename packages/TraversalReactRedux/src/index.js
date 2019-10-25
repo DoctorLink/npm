@@ -122,7 +122,7 @@ export { default as createStartChatGenerator } from './Sagas/Generators/StartCha
 export { default as createSummaryGenerator } from './Sagas/Generators/Summary'
 export { default as createSymptomReportGenerator } from './Sagas/Generators/SymptomReport'
 export { default as createScrollToTopGenerator } from './Sagas/Generators/ScrollToTop'
-export { default as createScrollToCurrentGenerator } from './Sagas/Generators/ScrollToCurrent'
+export { default as createScrollIntoViewGenerator } from './Sagas/Generators/ScrollIntoView'
 export { default as createHistoryPushGenerator } from './Sagas/Generators/HistoryPush'
 
 export { default as createTraversalChatEffects } from './Sagas/Effects/TraversalChat'

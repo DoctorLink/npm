@@ -34,7 +34,7 @@ const HealthAssessment = ({ traversalId, dispatch }) => {
 
     const basePath = `/traversal/${traversalId}`;
     return (
-        <div>
+        <div id='Traversal'>
             <Content>
                 <h2>Global Health Check Scores</h2>
                 <Switch>

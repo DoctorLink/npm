@@ -89,7 +89,7 @@ const Container = styled.div`
 
 const Chat = ({ traversal, next, previous, showExplanation }) => {
     const { traversalId, minHeight, questionIds, questions, answers, errors, loading } = traversal;
-    return (<Container id={traversalId} minHeight={minHeight}>
+    return (<Container id="Traversal" minHeight={minHeight}>
         {questionIds.map((questionId) => {
             const lastQuestion = questionId === questionIds[questionIds.length - 1]
             const current = lastQuestion && !loading

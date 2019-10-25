@@ -1,5 +1,6 @@
 import React from 'react'
 import posed, { PoseGroup } from 'react-pose'
+import styled from 'styled-components'
 import MediaQuery from 'react-responsive'
 
 import Question from '../../Components/Question'
@@ -27,7 +28,9 @@ const Collection = posed(Fieldset)({
     exit: {
         opacity: 0,
         x: ({ mirror }) => mirror === true ? '100%' : '-100%',
-        transition: transition
+        transition: {
+            duration: 0
+        }
     },
     preEnterPose: {
         opacity: 0,
@@ -36,10 +39,11 @@ const Collection = posed(Fieldset)({
     },
 })
 
+const Form = styled.form``
 
 export default ({ traversal, onSubmit, children, showExplanation }) => {
     const { nodeIds, nodes, questions, answers, errors, previous, loading, collectionErrors } = traversal;
-    return (<form onSubmit={(e) => onSubmit(e)}>
+    return (<Form onSubmit={(e) => onSubmit(e)} id="Traversal">
         <AlgoName>{traversal.algoName}</AlgoName>
         {collectionErrors && collectionErrors.length > 0 && collectionErrors.map((error, i) => <ErrorText key={i}>{error}</ErrorText>)}
         <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
@@ -62,5 +66,5 @@ export default ({ traversal, onSubmit, children, showExplanation }) => {
             })}
         </PoseGroup>
         {children}
-    </form>)
+    </Form>)
 }

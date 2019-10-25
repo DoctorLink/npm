@@ -56,7 +56,7 @@ const SymptomReport = ({ traversalId, symptomReport, dispatch }) => {
     }
 
     return (<PoseGroup animateOnMount={true}>
-        <Panel fullWidth={true} key="header">
+        <Panel fullWidth={true} key="header" id='Traversal'>
             <PanelHeader color={level()}>
                 <Icon state={symptomReport.messageLevel} />
                 <PanelTitle>{symptomReport.messageTitle}</PanelTitle>
