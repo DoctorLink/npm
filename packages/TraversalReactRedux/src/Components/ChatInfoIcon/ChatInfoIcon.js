@@ -87,8 +87,9 @@ const Lable05 = styled.span`
     justify-content: inherit;
 `
 
-const InfoIcon = ({ explanation, showExplanation }) =>
-    (explanation && explanation !== "" && onClick && (<InfoButtonContainer>
+const InfoIcon = ({ explanation, showExplanation }) => {
+    if (!explanation || explanation === "" || !onClick) return null;
+    return (<InfoButtonContainer>
         <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(explanation); }}>
             <Lable05>
                 <IconWrapper>
@@ -99,7 +100,8 @@ const InfoIcon = ({ explanation, showExplanation }) =>
                 </IconWrapper>
             </Lable05>
         </InfoButton>
-    </InfoButtonContainer>))
+    </InfoButtonContainer>)
+}
 
 
 InfoIcon.defaultProps = {

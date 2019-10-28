@@ -43,14 +43,16 @@ InfoButton.defaultProps = {
     theme: { infoicon: infoiconTheme(baseTheme) }
 };
 
-const InfoIcon = ({ onClick, explanation, inline, padRight, ...props }) => ((explanation && explanation !== "" && onClick) &&
-    (<InfoButton inline={inline} padRight={padRight} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
+const InfoIcon = ({ onClick, explanation, inline, padRight, ...props }) => {
+    if (!explanation || explanation === "" || !onClick) return null;
+    return (<InfoButton inline={inline} padRight={padRight} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
         <Icon viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10"></circle>
             <line x1="12" y1="16" x2="12" y2="12"></line>
             <line x1="12" y1="8" x2="12" y2="8"></line>
         </Icon>
-    </InfoButton>))
+    </InfoButton>)
+}
 
 
 
