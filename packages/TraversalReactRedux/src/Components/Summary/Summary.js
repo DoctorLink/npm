@@ -51,8 +51,8 @@ const PosedSC = posed.div({
 
 const SummaryContainer = styled(PosedSC)`
     font-family: ${p => p.theme.summary.fontFamily};
-    font-size: ${p => p.theme.modal.fontSize}px;
-    line-height: ${p => p.theme.modal.lineHeight}px;
+    font-size: ${p => p.theme.summary.fontSize}px;
+    line-height: ${p => p.theme.summary.lineHeight}px;
     padding: ${p => p.theme.summary.padding}px;
     background: white;
     position: fixed;
