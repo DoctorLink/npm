@@ -88,7 +88,7 @@ const Lable05 = styled.span`
 `
 
 const InfoIcon = ({ explanation, showExplanation }) =>
-    (explanation && <InfoButtonContainer>
+    (explanation && explanation !== "" && onClick && (<InfoButtonContainer>
         <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(explanation); }}>
             <Lable05>
                 <IconWrapper>
@@ -99,7 +99,7 @@ const InfoIcon = ({ explanation, showExplanation }) =>
                 </IconWrapper>
             </Lable05>
         </InfoButton>
-    </InfoButtonContainer>)
+    </InfoButtonContainer>))
 
 
 InfoIcon.defaultProps = {

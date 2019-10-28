@@ -43,7 +43,7 @@ InfoButton.defaultProps = {
     theme: { infoicon: infoiconTheme(baseTheme) }
 };
 
-const InfoIcon = ({ onClick, explanation, inline, padRight, ...props }) => ((explanation && explanation !== "") &&
+const InfoIcon = ({ onClick, explanation, inline, padRight, ...props }) => ((explanation && explanation !== "" && onClick) &&
     (<InfoButton inline={inline} padRight={padRight} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
         <Icon viewBox="0 0 24 24">
             <circle cx="12" cy="12" r="10"></circle>
