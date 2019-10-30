@@ -62,7 +62,7 @@ const Home = ({dispatch, history}) => {
             <NumberField value={algo} onChange={(e) => setAlgo(e.target.value)} />
         </Label>
         <Label>
-            <Text>Release ID:</Text>
+            <Text>Release:</Text>
             <TextField value={release} onChange={(e) => setRelease(e.target.value)} />
         </Label>
         <Label>

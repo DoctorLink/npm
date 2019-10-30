@@ -16,7 +16,7 @@ const addQsParam = (qs, param, name) => {
 const startQs = (release, lang, nodeId) => {
     var qs = "";
     if (release) {
-        qs += addQsParam(qs, release, "releaseId");
+        qs += addQsParam(qs, release, "releaseNumber");
     }
     if (lang) {
         qs += addQsParam(qs, lang, "language");
