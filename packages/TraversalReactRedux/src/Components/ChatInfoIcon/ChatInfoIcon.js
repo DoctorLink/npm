@@ -88,7 +88,7 @@ const Lable05 = styled.span`
 `
 
 const InfoIcon = ({ explanation, showExplanation }) => {
-    if (!explanation || explanation === "" || !onClick) return null;
+    if (!explanation || explanation === "" || !showExplanation) return null;
     return (<InfoButtonContainer>
         <InfoButton onClick={(e) => { e.preventDefault(); showExplanation(explanation); }}>
             <Lable05>
