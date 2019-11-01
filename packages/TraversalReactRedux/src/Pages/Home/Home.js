@@ -1,11 +1,12 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
 import styled from 'styled-components'
-import { connect } from 'react-redux'
+import { useSelector, useDispatch } from 'react-redux'
 import { withRouter } from 'react-router'
 import * as actions from '../../Actions'
-import { 
-    NumberField, 
-    TextField, 
+import {
+    NumberField,
+    TextField,
+    Dropdown,
     Button
 } from '../../Components'
 import baseTheme from '../../Theme/base/index'
@@ -43,20 +44,50 @@ const TextArea = styled.textarea`
     max-width: 300px;
 `
 
-const Home = ({dispatch, history}) => {
-    
+const Select = styled(Dropdown)`
+    font-family: ${p => p.theme.typography.fontFamily};
+    font-size: ${p => p.theme.typography.inputField.size}px;
+`
+
+Select.defaultProps = { theme: baseTheme }
+
+const Home = ({ history }) => {
+
     const [algo, setAlgo] = useState("");
     const [release, setRelease] = useState("");
     const [lang, setLang] = useState("");
     const [node, setNode] = useState("");
     const [injection, setInjection] = useState("");
 
+    const products = useSelector(state => state.clientProducts);
+    const productOptions = [
+        { text: "Please select...", value: "" },
+        ...products.map((product) => ({ text: `${product.name} (${product.releaseNumber})`, value: product.releaseNumber }))
+    ]
+
+    const dispatch = useDispatch();
+
     const handleSubmit = (event) => {
         event.preventDefault()
         dispatch(actions.traversalStart(algo, release, lang, node, injection, history))
     }
 
-    return (<form onSubmit={(e) => handleSubmit(e)} >
+    const selectProduct = (releaseNumber) => {
+        const product = products.find(p => p.releaseNumber === releaseNumber);
+        if (product) {
+            setAlgo(product.startAlgoId || "");
+            setRelease(product.releaseNumber);
+            setLang(product.language);
+        }
+    }
+
+    useEffect(() => { dispatch(actions.clientProductsGet()) }, []);
+
+    return (<form onSubmit={(e) => handleSubmit(e)}>
+        <Label>
+            <Text>Product:</Text>
+            <Select value={release} options={productOptions} onChange={e => selectProduct(e.target.value)} />
+        </Label>
         <Label>
             <Text>Algo ID:</Text>
             <NumberField value={algo} onChange={(e) => setAlgo(e.target.value)} />
@@ -75,10 +106,10 @@ const Home = ({dispatch, history}) => {
         </Label>
         <Label>
             <Text>Injection:</Text>
-            <TextArea value={injection} onChange={(e) => setInjection(e.target.value)}/>
+            <TextArea value={injection} onChange={(e) => setInjection(e.target.value)} />
         </Label>
         <Button type="submit">Begin</Button>
     </form>)
 }
 
-export default withRouter(connect()(Home))
+export default withRouter(Home)

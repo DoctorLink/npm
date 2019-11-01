@@ -2,7 +2,7 @@ import React from "react";
 
 function mapOption(option) {
     if (typeof option === "object") {
-        if (!option.value) {
+        if (option.value === undefined) {
             throw new Error("Option objects must contain a value property.");
         }
         return option;

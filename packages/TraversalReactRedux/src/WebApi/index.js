@@ -99,8 +99,13 @@ const fetchWellness = (hraApi) => (traversalId, conclusions) => {
         .then(response => response.json());
 }
 
+const fetchProducts = (api) => () =>
+    fetch(`${api}/Products`)
+        .then(response => response.json())
+
 export const createTraversalWebApi = (apiUrl) => {
     return {
+        getProducts: fetchProducts(apiUrl),
         start: fetchTraversalStart(apiUrl),
         next: fetchTraversalNext(apiUrl),
         previous: fetchTraversalPrevious(apiUrl),
@@ -113,6 +118,7 @@ export const createTraversalWebApi = (apiUrl) => {
 
 export const createChatWebApi = (apiUrl) => {
     return {
+        getProducts: fetchProducts(apiUrl),
         start: fetchChatStart(apiUrl),
         next: fetchChatNext(apiUrl),
         previous: fetchChatPrevious(apiUrl),

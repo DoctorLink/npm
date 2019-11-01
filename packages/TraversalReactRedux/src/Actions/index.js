@@ -84,3 +84,9 @@ export const checkConclusion = id => ({ type: HRA_CHECK_CONCLUSION, id });
 
 export const HRA_UNCHECK_CONCLUSION = 'HRA_UNCHECK_CONCLUSION'
 export const uncheckConclusion = id => ({ type: HRA_UNCHECK_CONCLUSION, id });
+
+export const CLIENT_PRODUCTS_GET = 'CLIENT_PRODUCTS_GET'
+export const clientProductsGet = () => ({ type: CLIENT_PRODUCTS_GET });
+
+export const CLIENT_PRODUCTS_SET = 'CLIENT_PRODUCTS_SET'
+export const clientProductsSet = products => ({ type: CLIENT_PRODUCTS_SET, products });
