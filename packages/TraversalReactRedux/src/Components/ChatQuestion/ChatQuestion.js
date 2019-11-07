@@ -40,6 +40,12 @@ const QuestionContent = styled.div`
         border-bottom-right-radius: 6px;
         border-bottom: 1px solid rgb(200, 205, 215);
     }
+
+    .e24subtext {
+        font-size: 14px;
+        line-height: 20px;
+        font-style: italic;
+    }
 `
 
 const QuestionWrapper = styled.div`

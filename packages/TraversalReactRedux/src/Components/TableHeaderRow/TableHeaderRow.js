@@ -1,4 +1,10 @@
 import React from 'react'
-// import styled from 'styled-components'
+import TableQuestionRow from '../TableQuestionRow'
 
-export default ({ children }) => (<tr><th></th>{children}</tr>)
+
+export default ({ children }) => (
+    <TableQuestionRow>
+        <th></th>
+        {children}
+    </TableQuestionRow>
+)

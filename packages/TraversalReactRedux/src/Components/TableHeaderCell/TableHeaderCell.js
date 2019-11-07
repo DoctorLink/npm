@@ -17,6 +17,13 @@ const DisplayText = styled.div`
     display: inline-block;
     font-weight: normal;
     text-align: left;
+    white-space: pre-wrap;
+
+    .e24subtext {
+        font-size: ${p => p.theme.tableheadercell.fontSize * 0.8}px;
+        line-height: ${p => p.theme.tableheadercell.lineHeight * 0.6}px;
+        font-style: italic;
+    }
 `
 
 DisplayText.defaultProps = {
