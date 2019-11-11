@@ -51,13 +51,22 @@ const Select = styled(Dropdown)`
 
 Select.defaultProps = { theme: baseTheme }
 
+const defaultLocation=[
+    {
+      "assetId": 21,
+      "answerId": 4842,
+      "isInjected": true,
+      "isAnswered": true
+    }
+];
+
 const Home = ({ history }) => {
 
     const [algo, setAlgo] = useState("");
     const [release, setRelease] = useState("");
     const [lang, setLang] = useState("");
     const [node, setNode] = useState("");
-    const [injection, setInjection] = useState("");
+    const [injection, setInjection] = useState(JSON.stringify(defaultLocation, null, 2));
 
     const products = useSelector(state => state.clientProducts);
     const productOptions = [
