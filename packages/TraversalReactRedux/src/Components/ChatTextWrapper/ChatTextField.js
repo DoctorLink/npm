@@ -31,11 +31,32 @@ const TextFieldInner = styled.div`
     border-radius: 4px;
 `
 
-const ChatTextField = ({ children }) => (<TextFieldWrapper>
+const DisplayText = styled.div`
+    width: 100%;
+    transition: all 0.4s ease-out;
+    vertical-align: baseline;
+    color: rgb(87, 87, 87);
+    margin: 0px;
+    font: inherit inherit inherit inherit inherit inherit inherit;
+    outline: none;
+    border-width: initial;
+    border-style: none;
+    border-color: initial;
+    border-image: initial;
+    background: transparent;
+    padding: 10px 18px 0;
+    flex: 1 1 0%;
+    font-size: 18px;
+    line-height: 22px;
+    box-sizing: border-box;
+`
+
+const ChatTextField = ({ children, text }) => (<TextFieldWrapper>
     <TextFieldPadding>
         <TextFieldInner>
             {children}
         </TextFieldInner>
+        <DisplayText dangerouslySetInnerHTML={{ __html:text }} />
     </TextFieldPadding>
 </TextFieldWrapper>)
 

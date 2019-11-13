@@ -14,6 +14,7 @@ import ChatTextField from '../../Components/ChatTextField'
 import ChoiceContainer from '../../Components/ChoiceContainer'
 import PrimaryChoice from '../../Components/PrimaryChoice'
 import SecondaryChoice from '../../Components/SecondaryChoice'
+import Section from '../../Components/ChatSection'
 
 import Checkbox from '../../Containers/Checkbox'
 import Radio from '../../Containers/Radio'
@@ -95,7 +96,7 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
             const current = lastQuestion && !loading
             const question = questions[questionId]
             const error = errors[questionId]
-            const display = question.data.display ? question.data.display : [{ header: null, answers: question.answers.map(x => Number(x.split("_")[2])) }];
+            const display = question.data.display ? question.data.display : [{ header: null, answers: question.answers.map(x => Number(x.split("_")[3])) }];
             const questionAnswers = question.answers.map(answerId => answers[answerId])
             const showContinueButton = questionAnswers.length === 0 || questionAnswers.filter(x => x.controlType !== "Radio").length > 0
             const disableContinued = questionAnswers.length > 0 && questionAnswers.filter(x => x.controlChecked).length == 0
@@ -116,10 +117,9 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                             renderSubmit={!showContinueButton}
                             disableSubmit={disableContinued}>
                             {display.map((section, i) => {
-                                const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
+                                const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[3])));
                                 return (<React.Fragment key={i}>
-                                    {/* <Section text={section.header}/> */}
-                                    {/* Need to discuss with design team best way to render section headers */}
+                                    <Section text={section.header}/>
                                     {sectionAnswerKeys.map((answerId) => {
                                         const answer = answers[answerId]
                                         return (<ChoiceContainer key={answerId}>
@@ -155,13 +155,14 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                             {(answer.controlType === "Text" ||
                                                 answer.controlType === "Number" ||
                                                 answer.controlType === "Date") &&
-                                                <ChatTextWrapper>
+                                                <ChatTextWrapper text={answer.displayText}>
                                                     <TextField
                                                         answer={answer}
                                                         answerId={answerId}
                                                         type={answer.controlType.toLowerCase()}
                                                         questionAnswerIds={question.answers}
                                                         CustomComp={ChatTextField} />
+                                                        
                                                 </ChatTextWrapper>
                                             }
                                             <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
