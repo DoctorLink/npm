@@ -7,7 +7,8 @@ import {
     NumberField,
     TextField,
     Dropdown,
-    Button
+    Button,
+    Checkbox
 } from '../../Components'
 import baseTheme from '../../Theme/base/index'
 
@@ -51,14 +52,24 @@ const Select = styled(Dropdown)`
 
 Select.defaultProps = { theme: baseTheme }
 
-const defaultLocation=[
-    {
-      "assetId": 21,
-      "answerId": 4842,
-      "isInjected": true,
-      "isAnswered": true
-    }
-];
+
+const ukLocationAnswerId = 4842;
+const selfAnswerId = 7527;
+const proxyAnswerId = 7528;
+
+const locationAnswer = {
+    assetId: 21,
+    answerId: ukLocationAnswerId,
+    isAnswered: true
+}
+
+const selfAnswer = {
+    assetId: 13045,
+    answerId: selfAnswerId,
+    isAnswered: true
+}
+
+const defaultInjection = [ locationAnswer, selfAnswer ];
 
 const Home = ({ history }) => {
 
@@ -66,8 +77,9 @@ const Home = ({ history }) => {
     const [release, setRelease] = useState("");
     const [lang, setLang] = useState("");
     const [node, setNode] = useState("");
-    const [injection, setInjection] = useState(JSON.stringify(defaultLocation, null, 2));
-
+    const [injection, setInjection] = useState(JSON.stringify(defaultInjection, null, 2));
+    const [selfInj, setSelfInj] = useState(true);
+    
     const products = useSelector(state => state.clientProducts);
     const productOptions = [
         { text: "Please select...", value: "" },
@@ -88,6 +100,23 @@ const Home = ({ history }) => {
             setRelease(product.releaseNumber);
             setLang(product.language);
         }
+    }
+
+    const selfChecked = (checked) => {
+        const answerId = checked ? selfAnswerId : proxyAnswerId;
+        const inj = IsJsonString(injection) ? JSON.parse(injection) : defaultInjection ;
+        const newInj = inj.map(answer => answer.assetId === selfAnswer.assetId ? { ...answer, answerId } : answer );
+        setInjection(JSON.stringify(newInj, null, 2));
+        setSelfInj(checked);
+    };
+
+    const IsJsonString = (str) => {
+        try {
+            JSON.parse(str);
+        } catch (e) {
+            return false;
+        }
+        return true;
     }
 
     useEffect(() => { dispatch(actions.clientProductsGet()) }, []);
@@ -113,6 +142,10 @@ const Home = ({ history }) => {
             <Text>Node ID:</Text>
             <NumberField value={node} onChange={(e) => setNode(e.target.value)} />
         </Label>
+        <Label>
+            <Text>Self:</Text>
+            <Checkbox type="checkbox" checked={selfInj} onChange={e => selfChecked(e.target.checked)}/>
+        </Label>        
         <Label>
             <Text>Injection:</Text>
             <TextArea value={injection} onChange={(e) => setInjection(e.target.value)} />
