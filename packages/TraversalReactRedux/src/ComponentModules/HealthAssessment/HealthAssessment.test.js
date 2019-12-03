@@ -9,6 +9,10 @@ import { healthRisksSet, healthAgeSet, hraWellnessSet } from "../../Actions";
 
 describe("HealthAssessment root component", () => {
 
+    // Hacky way to force a re-render after useEffect runs: https://github.com/testing-library/react-testing-library/issues/215#issuecomment-438294336
+    beforeEach(() => jest.spyOn(React, "useEffect").mockImplementation(React.useLayoutEffect));
+    afterEach(() => React.useEffect.mockRestore());
+
     const renderComponent = () => {
         const history = createMemoryHistory({ initialEntries: ["/traversal/abc"] });
         const result = renderWithRedux(<Router history={history}><HealthAssessment traversalId="abc" /></Router>, rootTraversalReducer);
