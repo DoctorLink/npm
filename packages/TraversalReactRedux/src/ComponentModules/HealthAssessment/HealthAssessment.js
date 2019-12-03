@@ -10,6 +10,7 @@ import HealthAge from './HealthAge/HealthAge';
 import Wellbeing from './Wellbeing/Wellbeing';
 import MyNumbers from './MyNumbers/MyNumbers';
 import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
+import { useHRARoutes } from './Hooks';
 
 const bottomBarHeight = "100px";
 
@@ -32,30 +33,30 @@ const HealthAssessment = ({ traversalId, dispatch }) => {
     useEffect(() => { dispatch(traversalConclusionGet(traversalId)) }, [traversalId]);
     useEffect(() => { dispatch(hraConclusionsGet()) }, []);
 
+    const { routes, initialRoute } = useHRARoutes(traversalId);
+
+    // Delay render until we know which page to redirect to
+    if (!initialRoute)
+        return null;
+
     const basePath = `/traversal/${traversalId}`;
+    const resolveRoute = route => `${basePath}/${route}`;
+
     return (
         <div id='Traversal'>
             <Content>
                 <h2>Global Health Check Scores</h2>
-                <Switch>
+                <Switch >
                     <Route path={`${basePath}/health-age`} render={() => <HealthAge traversalId={traversalId} />} />
                     <Route path={`${basePath}/risks`} render={() => <Risks traversalId={traversalId} />} />
                     <Route path={`${basePath}/wellbeing`} render={() => <Wellbeing traversalId={traversalId} />} />
                     <Route path={`${basePath}/my-numbers`} component={MyNumbers} />
                     <Route path={`${basePath}/info`} component={AdditionalInfo} />
-                    <Route render={() => <Redirect to={`${basePath}/health-age`} />} />
+                    {initialRoute && <Route render={() => <Redirect to={resolveRoute(initialRoute)} />} />}
                 </Switch>
             </Content>
             <BottomBar>
-                <CarouselNavigation
-                    routes={[
-                        `${basePath}/health-age`,
-                        `${basePath}/risks`,
-                        `${basePath}/wellbeing`,
-                        `${basePath}/my-numbers`,
-                        `${basePath}/info`
-                    ]}
-                />
+                <CarouselNavigation routes={routes.map(resolveRoute)} />
             </BottomBar>
         </div>
     )

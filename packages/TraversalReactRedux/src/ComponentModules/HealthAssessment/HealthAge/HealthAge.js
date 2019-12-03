@@ -6,7 +6,7 @@ import { Panel, PanelContainer, HealthReportPanelHeader, PanelContent, PanelBody
 import { replaceLineBreaks } from '../../../Helpers';
 import { riskConclusionsSelector, healthAgeExplanationSelector } from "../../../Selectors/healthAssessment";
 import CheckableConclusions from '../Conclusions/CheckableConclusions';
-import { useRiskSummary } from "../Hooks";
+import { useHealthAge } from "../Hooks";
 import { HealthAgeDial } from "./HealthAgeDial";
 
 const Centered = styled(PanelBodyText)`
@@ -14,8 +14,7 @@ const Centered = styled(PanelBodyText)`
 `
 
 const HealthAge = ({ traversalId, riskConclusions, explanation }) => {
-    const riskSummary = useRiskSummary(traversalId);
-    const { age, healthAge, minimumHealthAge } = riskSummary;
+    const { age, healthAge, minimumHealthAge } = useHealthAge(traversalId);
     const ageReduction = healthAge - minimumHealthAge;
 
     return (

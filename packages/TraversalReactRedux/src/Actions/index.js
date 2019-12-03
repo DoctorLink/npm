@@ -67,6 +67,12 @@ export const healthRisksGet = (traversalId, ages, conclusions) => ({ type: HEALT
 export const HEALTH_RISKS_SET = 'HEALTH_RISKS_SET'
 export const healthRisksSet = healthRisks => ({ type: HEALTH_RISKS_SET, healthRisks })
 
+export const HEALTH_AGE_GET = 'HEALTH_AGE_GET'
+export const healthAgeGet = (traversalId, conclusions) => ({ type: HEALTH_AGE_GET, traversalId, conclusions })
+
+export const HEALTH_AGE_SET = 'HEALTH_AGE_SET'
+export const healthAgeSet = healthAge => ({ type: HEALTH_AGE_SET, healthAge })
+
 export const HRA_CONCLUSIONS_GET = 'HRA_CONCLUSIONS_GET'
 export const hraConclusionsGet = () => ({ type: HRA_CONCLUSIONS_GET })
 

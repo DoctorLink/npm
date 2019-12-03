@@ -57,7 +57,7 @@ const healthAgeRulesSelector = createSelector(
 const healthAgeDiffSelector = createSelector(
     healthAssessmentSelector,
     healthAssessment => {
-        const { age, healthAge } = healthAssessment.riskSummary;
+        const { age, healthAge } = healthAssessment.healthAge;
         return healthAge - age;
     }
 );

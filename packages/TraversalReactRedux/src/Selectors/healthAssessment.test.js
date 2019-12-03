@@ -29,7 +29,7 @@ describe("health assessment selectors", () => {
                     ]
                 },
                 healthAssessment: {
-                    riskSummary: {
+                    healthAge: {
                         age: 50,
                         healthAge
                     }

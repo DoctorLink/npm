@@ -3,10 +3,9 @@ import { useSelector, useDispatch } from "react-redux";
 import { healthRisksGet } from '../../../Actions';
 import { healthAssessmentSelector } from "../../../Selectors/healthAssessment";
 
-const emptyArray = [];
+const defaultAges = [90];
 
-// Don't pass a new empty array for `ages` or you will get an infinite loop.
-export const useRiskSummary = (traversalId, ages = emptyArray) => {
+export const useRiskSummary = (traversalId, ages = defaultAges) => {
     const { riskSummary, checkedConclusions } = useSelector(healthAssessmentSelector);
     const dispatch = useDispatch();
     useEffect(() => {

@@ -8,7 +8,7 @@ import HealthAge from "./HealthAge";
 describe("HealthAge component", () => {
     const state = {
         healthAssessment: {
-            riskSummary: {
+            healthAge: {
                 age: 40,
                 healthAge: 35,
                 minimumHealthAge: 30
