@@ -45,6 +45,14 @@ export const myNumbersSelector = createSelector(
     conclusions => conclusions.filter(c => c.category1 === "My Numbers").map(parseNumberConclusion)
 );
 
+export const actionsNowDueSelector = createSelector(
+    conclusionsSelector,
+    conclusions => conclusions.filter(c => c.subCategory === "Actions Now Due").map(c => ({
+        ...c,
+        displayText: c.clinicalText.split("|")[1]
+    }))
+);
+
 const healthAgeRulesSelector = createSelector(
     conclusionsSelector,
     conclusions => {

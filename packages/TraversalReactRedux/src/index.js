@@ -132,7 +132,7 @@ export { default as createTraversalClassicEffects } from './Sagas/Effects/Traver
 export { default as createTraversalClassicSetEffects } from './Sagas/Effects/TraversalClassicSet'
 export { default as createSummaryEffects } from './Sagas/Effects/Summary'
 export { default as createSymptomAssessmentEffects } from './Sagas/Effects/SymptomAssessment'
-export { default as createHealhRiskAssessmentEffects } from './Sagas/Effects/HealhRiskAssessment'
+export { default as createHealthRiskAssessmentEffects } from './Sagas/Effects/HealthRiskAssessment'
 export { default as createHistoryPushEffects } from './Sagas/Effects/HistoryPush'
 
 export { createBrowserHistory } from "history";

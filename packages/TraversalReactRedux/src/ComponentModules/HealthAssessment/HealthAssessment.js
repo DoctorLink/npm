@@ -8,7 +8,7 @@ import colors from '../../Theme/base/colors'
 import Risks from './Risks/Risks';
 import HealthAge from './HealthAge/HealthAge';
 import Wellbeing from './Wellbeing/Wellbeing';
-import MyNumbers from './MyNumbers/MyNumbers';
+import ActionsAndNumbers from './ActionsAndNumbers/ActionsAndNumbers';
 import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 import { useHRARoutes } from './Hooks';
 
@@ -50,7 +50,7 @@ const HealthAssessment = ({ traversalId, dispatch }) => {
                     <Route path={`${basePath}/health-age`} render={() => <HealthAge traversalId={traversalId} />} />
                     <Route path={`${basePath}/risks`} render={() => <Risks traversalId={traversalId} />} />
                     <Route path={`${basePath}/wellbeing`} render={() => <Wellbeing traversalId={traversalId} />} />
-                    <Route path={`${basePath}/my-numbers`} component={MyNumbers} />
+                    <Route path={`${basePath}/my-numbers`} component={ActionsAndNumbers} />
                     <Route path={`${basePath}/info`} component={AdditionalInfo} />
                     {initialRoute && <Route render={() => <Redirect to={resolveRoute(initialRoute)} />} />}
                 </Switch>

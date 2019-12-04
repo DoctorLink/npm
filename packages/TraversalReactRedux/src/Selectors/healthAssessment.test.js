@@ -41,4 +41,47 @@ describe("health assessment selectors", () => {
             expect(result).toBe(expected);
         })
     })
+
+    describe("actionsNowDueSelector", () => {
+        const state = {
+            conclusion: {
+                conclusions: [
+                    {
+                        assetId: 1000,
+                        category1: "Learning module",
+                        subCategory: "BMI",
+                        clinicalText: "Congratulations on maintaining an ideal BMI. {qp343|785|[His/Your] BMI is presently {qv343}.}"
+                    },
+                    {
+                        assetId: 1001,
+                        category1: "Learning module",
+                        subCategory: "Actions Now Due",
+                        clinicalText: "[He should have his/Have your] blood pressure checked |BP check"
+                    },
+                    {
+                        assetId: 1002,
+                        category1: "Learning module",
+                        subCategory: "Actions Now Due",
+                        clinicalText: "Talk to a doctor about heart disease risk and cholesterol testing |Heart risk assessment"
+                    },
+                    {
+                        assetId: 1003,
+                        category1: "Test",
+                        subCategory: "Test",
+                        clinicalText: "Test |Bla bla"
+                    }
+                ]
+            }
+        };
+
+        test("finds action conclusions and parses clinicalText", () => {
+            const result = selectors.actionsNowDueSelector(state);
+
+            expect(result).toHaveLength(2);
+            expect(result[0].assetId).toBe(1001);
+            expect(result[0].displayText).toBe("BP check");
+            expect(result[1].assetId).toBe(1002);
+            expect(result[1].displayText).toBe("Heart risk assessment");
+        })
+    })
 })

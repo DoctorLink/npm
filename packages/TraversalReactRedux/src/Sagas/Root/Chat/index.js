@@ -3,7 +3,7 @@ import createTraversalChatEffects from '../../Effects/TraversalChat'
 import createTraversalChatSetEffects from '../../Effects/TraversalChatSet'
 import createSummaryEffects from '../../Effects/Summary'
 import createSymptomAssessmentEffects from '../../Effects/SymptomAssessment'
-import createHealhRiskAssessmentEffects from '../../Effects/HealthRiskAssessment'
+import createHealthRiskAssessmentEffects from '../../Effects/HealthRiskAssessment'
 import createHistoryPushEffects from '../../Effects/HistoryPush'
 import createStartScrollToTopEffects from '../../Effects/StartScrollToTop'
 import createProductsEffects from '../../Effects/Products'
@@ -14,7 +14,7 @@ export default (traversalApi, hraApi, history) => {
         ...createTraversalChatSetEffects(),
         ...createSummaryEffects(traversalApi),
         ...createSymptomAssessmentEffects(traversalApi),
-        ...createHealhRiskAssessmentEffects(hraApi),
+        ...createHealthRiskAssessmentEffects(hraApi),
         createStartScrollToTopEffects(),
         ...createProductsEffects(traversalApi),
     ];
