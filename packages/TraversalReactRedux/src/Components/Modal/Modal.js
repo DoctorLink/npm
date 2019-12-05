@@ -1,10 +1,16 @@
 import React, { useEffect, useRef } from 'react'
-import styled from 'styled-components'
+import styled, { createGlobalStyle } from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 import { replaceLineBreaks } from '../../Helpers'
 
 import baseTheme from '../../Theme/base/index'
 import modalTheme from '../../Theme/components/modal'
+
+const BodyOverflowHidden = createGlobalStyle`
+    body {
+        overflow: hidden;
+    }
+`
 
 const WrapPose = posed.div({
     enter: {
@@ -133,7 +139,7 @@ const Modal = ({ explanation, closeModal }) => {
     let ref = useRef();
 
     const handleClickOutside = (event) => {
-        if (ref && ref.current && !ref.current.contains(event.target))
+        if (ref && ref.current && !ref.current.contains(event.target) && window.innerWidth - event.screenX > 20)
             closeModal()
     }
 
@@ -154,6 +160,7 @@ const Modal = ({ explanation, closeModal }) => {
 
     return (<PoseGroup>
         {(explanation) && [<Wrap key={'wrap'}>
+            <BodyOverflowHidden/>
             <Curtain>
                 <Container>
                     <Content ref={ref}>
