@@ -57,8 +57,8 @@ const Traversal = ({ traversal, next, previous, showSummary, showExplanation }) 
         <Form traversal={traversal} onSubmit={(e) => { e.preventDefault(); next(traversal); }} showExplanation={showExplanation}>
             <Buttons>
                 <ButtonGroup>
-                    <PrevButton type="button" disabled={traversal.loading} onClick={() => previous(traversal.traversalId)}>Previous</PrevButton>
-                    <FlexButton type="submit" disabled={traversal.loading} >Next</FlexButton>
+                    <PrevButton type="button" disabled={traversal.loading || traversal.previousDisabled} onClick={() => previous(traversal.traversalId)}>Previous</PrevButton>
+                    <FlexButton type="submit" disabled={traversal.loading || traversal.nextDisabled} >Next</FlexButton>
                 </ButtonGroup>
                 <SummaryButton type="button" onClick={() => showSummary(traversal.traversalId)}>Summary</SummaryButton>
             </Buttons>

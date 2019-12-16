@@ -14,7 +14,8 @@ export default json => {
     normalizedData.entities.algoId = normalizedData.result.algoId;
     normalizedData.entities.assessmentType = json.data.assessmentType;
     normalizedData.entities.algoName = json.data.algoName;
-    normalizedData.entities.firstCollection = json.data.firstCollection;
+    normalizedData.entities.nextDisabled = json.data.nextDisabled;
+    normalizedData.entities.previousDisabled = json.data.previousDisabled;
     normalizedData.entities.collectionErrors = json.data.errors;
     if (!normalizedData.entities.errors) normalizedData.entities.errors = {}
 
