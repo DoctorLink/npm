@@ -4,7 +4,7 @@ import { PoseGroup } from 'react-pose';
 import styled from "styled-components";
 import { Panel, PanelContainer, HealthReportPanelHeader, PanelContent, PanelBodyText, PanelConclusion, UpdateWhenVisible } from '../../../Components';
 import { replaceLineBreaks } from '../../../Helpers';
-import { riskConclusionsSelector, healthAgeExplanationSelector } from "../../../Selectors/healthAssessment";
+import { healthAgeConclusionsSelector, healthAgeExplanationSelector } from "../../../Selectors/healthAssessment";
 import CheckableConclusions from '../Conclusions/CheckableConclusions';
 import { useHealthAge } from "../Hooks";
 import { HealthAgeDial } from "./HealthAgeDial";
@@ -13,7 +13,7 @@ const Centered = styled(PanelBodyText)`
     text-align: center;
 `
 
-const HealthAge = ({ traversalId, riskConclusions, explanation }) => {
+const HealthAge = ({ traversalId, healthAgeConclusions, explanation }) => {
     const { age, healthAge, minimumHealthAge } = useHealthAge(traversalId);
     const ageReduction = healthAge - minimumHealthAge;
 
@@ -33,7 +33,7 @@ const HealthAge = ({ traversalId, riskConclusions, explanation }) => {
                             {ageReduction === 0 &&
                                 <Centered>Which is the best it can be</Centered>}
                         </PanelConclusion>
-                        <CheckableConclusions traversalId={traversalId} conclusions={riskConclusions} />
+                        <CheckableConclusions traversalId={traversalId} conclusions={healthAgeConclusions} />
                     </PanelContent>
                 </Panel>
             </PanelContainer>
@@ -52,7 +52,7 @@ const HealthAge = ({ traversalId, riskConclusions, explanation }) => {
 }
 
 const mapStateToProps = state => ({
-    riskConclusions: riskConclusionsSelector(state),
+    healthAgeConclusions: healthAgeConclusionsSelector(state),
     explanation: healthAgeExplanationSelector(state),
 });
 export default connect(mapStateToProps)(HealthAge);

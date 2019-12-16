@@ -11,10 +11,8 @@ describe("HealthAge component", () => {
             healthAge: {
                 age: 40,
                 healthAge: 35,
-                minimumHealthAge: 30
-            },
-            conclusionIds: {
-                riskConclusions: [ 1000, 1003 ]
+                minimumHealthAge: 30,
+                checkableConclusions: [ 1000, 1003 ]
             },
             checkedConclusions: [],
         },

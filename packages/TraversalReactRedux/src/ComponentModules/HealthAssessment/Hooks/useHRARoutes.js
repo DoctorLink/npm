@@ -1,25 +1,31 @@
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { useHealthAge } from "./useHealthAge";
 import { useRiskSummary } from "./useRiskSummary";
 import { useWellness } from "./useWellness";
-import { myNumbersSelector, actionsNowDueSelector } from '../../../Selectors/healthAssessment';
+import { healthAssessmentSelector, myNumbersSelector, actionsNowDueSelector } from '../../../Selectors/healthAssessment';
 import { conclusionsSelector } from '../../../Selectors/conclusion';
+import * as actions from '../../../Actions';
 import { useState, useEffect } from "react";
 
 export const useHRARoutes = (traversalId) => {
-    const { loaded: healthAgeLoaded, healthAge } = useHealthAge(traversalId);
-    const { loaded: risksLoaded, risks } = useRiskSummary(traversalId);
-    const { loaded: wellnessLoaded, scores } = useWellness(traversalId);
+    const dispatch = useDispatch();
+    useEffect(() => {
+        dispatch(actions.healthAgeGet(traversalId, []));
+        dispatch(actions.healthRisksGet(traversalId, [90], []));
+        dispatch(actions.hraWellnessGet(traversalId, []));
+    }, [traversalId]);
+
+    const { riskSummary, healthAge, wellness } = useSelector(healthAssessmentSelector);
     const conclusions = useSelector(conclusionsSelector);
     const myNumbers = useSelector(myNumbersSelector);
-    const actions = useSelector(actionsNowDueSelector);
+    const nowDue = useSelector(actionsNowDueSelector);
     const conclusionsLoaded = conclusions.length > 0;
 
     const routeDefs = [
-        { path: "health-age", defer: !healthAgeLoaded, enabled: healthAge > 0 },
-        { path: "risks", defer: !risksLoaded, enabled: risks.length > 0 },
-        { path: "wellbeing", defer: !wellnessLoaded, enabled: scores.length > 0 },
-        { path: "my-numbers", defer: !conclusionsLoaded, enabled: myNumbers.length > 0 || actions.length > 0 },
+        { path: "health-age", defer: !healthAge.loaded, enabled: healthAge.healthAge > 0 },
+        { path: "risks", defer: !riskSummary.loaded, enabled: riskSummary.risks.length > 0 },
+        { path: "wellbeing", defer: !wellness.loaded, enabled: wellness.scores.length > 0 },
+        { path: "my-numbers", defer: !conclusionsLoaded, enabled: myNumbers.length > 0 || nowDue.length > 0 },
         { path: "info", enabled: true }
     ];
 

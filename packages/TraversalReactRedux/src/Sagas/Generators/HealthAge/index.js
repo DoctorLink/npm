@@ -7,8 +7,8 @@ export default (api) => function* healthRisks(action) {
         return;
     }
     try {
-        const { age, healthAge, minimumHealthAge } = yield call(api.healthRisks, action.traversalId, [], action.conclusions);
-        yield put(actions.healthAgeSet({ age, healthAge, minimumHealthAge }));
+        const { age, healthAge, minimumHealthAge, checkableConclusions } = yield call(api.healthRisks, action.traversalId, [], action.conclusions);
+        yield put(actions.healthAgeSet({ age, healthAge, minimumHealthAge, checkableConclusions }));
     } catch (error) {
         console.error("Error getting health age", error);
         alert("error");

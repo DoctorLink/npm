@@ -89,10 +89,6 @@ const fetchHealthRisks = (hraApi) => (traversalId, ages, conclusions) => {
         .then(response => response.json());
 }
 
-const fetchConclusionIds = (hraApi) => () =>
-    fetch(`${hraApi}/Conclusions`)
-        .then(response => response.json())
-
 const fetchWellness = (hraApi) => (traversalId, conclusions) => {
     const qs = conclusions.map(conc => `conclusions=${conc}`).join('&');
     return fetch(`${hraApi}/Wellness/${traversalId}?${qs}`)
@@ -132,6 +128,5 @@ export const createChatWebApi = (apiUrl) => {
 export const createHealthAssessmentWebApi = (apiUrl) => ({
     isConfigured: !!apiUrl,
     healthRisks: fetchHealthRisks(apiUrl),
-    conclusionIds: fetchConclusionIds(apiUrl),
     wellness: fetchWellness(apiUrl),
 })

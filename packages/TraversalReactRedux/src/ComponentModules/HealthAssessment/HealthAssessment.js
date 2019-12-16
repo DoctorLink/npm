@@ -2,7 +2,7 @@ import React, { useEffect } from 'react'
 import { connect } from "react-redux";
 import { Switch, Route, Redirect } from 'react-router-dom'
 import styled from "styled-components";
-import { traversalConclusionGet, hraConclusionsGet } from '../../Actions';
+import { traversalConclusionGet } from '../../Actions';
 import { CarouselNavigation } from '../../Components';
 import colors from '../../Theme/base/colors'
 import Risks from './Risks/Risks';
@@ -31,7 +31,6 @@ const BottomBar = styled.footer`
 
 const HealthAssessment = ({ traversalId, dispatch }) => {
     useEffect(() => { dispatch(traversalConclusionGet(traversalId)) }, [traversalId]);
-    useEffect(() => { dispatch(hraConclusionsGet()) }, []);
 
     const { routes, initialRoute } = useHRARoutes(traversalId);
 

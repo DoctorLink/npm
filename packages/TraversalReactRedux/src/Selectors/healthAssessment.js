@@ -5,22 +5,30 @@ import { XmlRules } from "./XmlRules";
 
 export const healthAssessmentSelector = state => state.healthAssessment;
 
-const conclusionIdsSelector = createSelector(
+const healthAgeConclusionIdsSelector = createSelector(
     healthAssessmentSelector,
-    hra => hra.conclusionIds
+    hra => hra.healthAge.checkableConclusions
 );
 
-export const riskConclusionsSelector = createSelector(
-    nonSilentConclusionsSelector,
-    conclusionIdsSelector,
-    (conclusions, ids) => conclusions.filter(c => ids.riskConclusions.indexOf(c.assetId) > -1)
+const riskConclusionIdsSelector = createSelector(
+    healthAssessmentSelector,
+    hra => hra.riskSummary.checkableConclusions
 );
 
-export const wellnessConclusionsSelector = createSelector(
+const wellnessConclusionIdsSelector = createSelector(
+    healthAssessmentSelector,
+    hra => hra.wellness.checkableConclusions
+);
+
+const createFilteredConclusionsSelector = conclusionIdsSelector => createSelector(
     nonSilentConclusionsSelector,
     conclusionIdsSelector,
-    (conclusions, ids) => conclusions.filter(c => ids.wellnessConclusions.indexOf(c.assetId) > -1)
+    (conclusions, ids) => conclusions.filter(c => ids.indexOf(c.assetId) > -1)
 );
+
+export const healthAgeConclusionsSelector = createFilteredConclusionsSelector(healthAgeConclusionIdsSelector);
+export const riskConclusionsSelector = createFilteredConclusionsSelector(riskConclusionIdsSelector);
+export const wellnessConclusionsSelector = createFilteredConclusionsSelector(wellnessConclusionIdsSelector);
 
 export const additionalConclusionsSelector = createSelector(
     nonSilentConclusionsSelector,

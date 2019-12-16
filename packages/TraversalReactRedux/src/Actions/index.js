@@ -73,12 +73,6 @@ export const healthAgeGet = (traversalId, conclusions) => ({ type: HEALTH_AGE_GE
 export const HEALTH_AGE_SET = 'HEALTH_AGE_SET'
 export const healthAgeSet = healthAge => ({ type: HEALTH_AGE_SET, healthAge })
 
-export const HRA_CONCLUSIONS_GET = 'HRA_CONCLUSIONS_GET'
-export const hraConclusionsGet = () => ({ type: HRA_CONCLUSIONS_GET })
-
-export const HRA_CONCLUSIONS_SET = 'HRA_CONCLUSIONS_SET'
-export const hraConclusionsSet = conclusionIds => ({ type: HRA_CONCLUSIONS_SET, conclusionIds })
-
 export const HRA_WELLNESS_GET = 'HRA_WELLNESS_GET'
 export const hraWellnessGet = (traversalId, conclusions) => ({ type: HRA_WELLNESS_GET, traversalId, conclusions })
 
