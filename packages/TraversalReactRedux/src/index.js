@@ -2,11 +2,11 @@ export { default as ThemeProvider } from './Components/ThemeProvider'
 
 import * as actions from './Actions'
 import * as helpers from './Helpers'
+import * as constants from './Constants'
 
 export { createTraversalWebApi, createChatWebApi }  from './WebApi'
 
-export { actions }
-export { helpers }
+export { actions, helpers, constants }
 
 export {
     createTraversalStore,

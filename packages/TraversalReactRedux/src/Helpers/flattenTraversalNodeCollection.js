@@ -3,21 +3,22 @@ import { normalize, schema } from 'normalizr'
 export default json => {
     const answer = new schema.Entity('answers', {}, { idAttribute: value => `${value.nodeId}_${value.questionId}_${value.answerId}` });
     const question = new schema.Entity('questions', { answers: [answer] }, { idAttribute: value => `${value.nodeId}_${value.questionId}` });
-    const error = new schema.Entity('errors', {}, { idAttribute: (value,parent) => `${parent.nodeId}_${value.questionId}` });
-    const node = new schema.Entity('nodes', { questions: [question],  errors: [error] }, { idAttribute: value => value.nodeId });
+    const error = new schema.Entity('errors', {}, { idAttribute: (value, parent) => `${parent.nodeId}_${value.questionId}` });
+    const node = new schema.Entity('nodes', { questions: [question], errors: [error] }, { idAttribute: value => value.nodeId });
     const traversal = { nodes: [node] }
 
-    const normalizedData = normalize(json.data, traversal);
+    const { result, entities } = normalize(json.data, traversal);
 
-    normalizedData.entities.traversalId = normalizedData.result.traversalId;
-    normalizedData.entities.nodeIds = normalizedData.result.nodes;
-    normalizedData.entities.algoId = normalizedData.result.algoId;
-    normalizedData.entities.assessmentType = json.data.assessmentType;
-    normalizedData.entities.algoName = json.data.algoName;
-    normalizedData.entities.nextDisabled = json.data.nextDisabled;
-    normalizedData.entities.previousDisabled = json.data.previousDisabled;
-    normalizedData.entities.collectionErrors = json.data.errors;
-    if (!normalizedData.entities.errors) normalizedData.entities.errors = {}
+    entities.traversalId = result.traversalId;
+    entities.nodeIds = result.nodes;
+    entities.algoId = result.algoId;
+    entities.language = result.language;
+    entities.assessmentType = result.assessmentType;
+    entities.algoName = result.algoName;
+    entities.nextDisabled = result.nextDisabled;
+    entities.previousDisabled = result.previousDisabled;
+    entities.collectionErrors = result.errors;
+    if (!entities.errors) entities.errors = {}
 
-    return normalizedData.entities
+    return entities
 }

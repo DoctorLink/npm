@@ -90,3 +90,9 @@ export const clientProductsGet = () => ({ type: CLIENT_PRODUCTS_GET });
 
 export const CLIENT_PRODUCTS_SET = 'CLIENT_PRODUCTS_SET'
 export const clientProductsSet = products => ({ type: CLIENT_PRODUCTS_SET, products });
+
+export const LABELS_SET = 'LABELS_SET'
+export const labelsSet = labels => ({ type: LABELS_SET, labels })
+
+export const LABELS_RESTORE_DEFAULT = 'LABELS_RESTORE_DEFAULT'
+export const labelsRestoreDefault = () => ({ type: LABELS_RESTORE_DEFAULT })

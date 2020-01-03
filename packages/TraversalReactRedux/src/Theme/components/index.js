@@ -1,50 +1,51 @@
-import button from './button';
-import title from './title';
 import algoname from './algoname';
-import errortext from './errortext';
-import question from './question';
-import questiontitle from './questiontitle';
-import tableheadercell from './tableheadercell'
-import label from './label';
+import button from './button';
+import chatpreviousanswer from './chatpreviousanswer'
 import checkbox from './checkbox';
-import radio from './radio';
 import datefield from './datefield';
-import numberfield from './numberfield';
-import textfield from './textfield';
+import errortext from './errortext';
 import infoicon from './infoicon';
+import label from './label';
 import modal from './modal';
-import summary from './summary';
+import numberfield from './numberfield';
+import panelbodytext from './panelbodytext'
+import panelconclusiontitle from './panelconclusiontitle'
 import panelcontent from './panelcontent'
 import panelheader from './panelheader'
 import paneltitle from './paneltitle'
-import panelconclusiontitle from './panelconclusiontitle'
-import panelbodytext from './panelbodytext'
-
-
-
-import chatpreviousanswer from './chatpreviousanswer'
+import question from './question';
+import questiontitle from './questiontitle';
+import radio from './radio';
+import summary from './summary';
+import tableanswercell from './tableanswercell';
+import tableheadercell from './tableheadercell';
+import tablerow from './tablerow';
+import textfield from './textfield';
+import title from './title';
 
 export default baseTheme => ({
-  title: title(baseTheme),
   algoname: algoname(baseTheme),
   button: button(baseTheme),
+  chatpreviousanswer: chatpreviousanswer(baseTheme),
   checkbox: checkbox(baseTheme),
   datefield: datefield(baseTheme),
-  infoicon: infoicon(baseTheme),
   errortext: errortext(baseTheme),
-  question: question(baseTheme),
-  questiontitle: questiontitle(baseTheme),
-  tableheadercell: tableheadercell(baseTheme),
+  infoicon: infoicon(baseTheme),
   label: label(baseTheme),
-  numberfield: numberfield(baseTheme),
-  radio: radio(baseTheme),
-  textfield: textfield(baseTheme),
-  chatpreviousanswer: chatpreviousanswer(baseTheme),
   modal: modal(baseTheme),
-  summary: summary(baseTheme),
+  numberfield: numberfield(baseTheme),
+  panelbodytext: panelbodytext(baseTheme),
+  panelconclusiontitle: panelconclusiontitle(baseTheme),
   panelcontent: panelcontent(baseTheme),
   panelheader: panelheader(baseTheme),
   paneltitle: paneltitle(baseTheme),
-  panelconclusiontitle: panelconclusiontitle(baseTheme),
-  panelbodytext: panelbodytext(baseTheme),
+  question: question(baseTheme),
+  questiontitle: questiontitle(baseTheme),
+  radio: radio(baseTheme),
+  summary: summary(baseTheme),
+  tableanswercell: tableanswercell(baseTheme),
+  tableheadercell: tableheadercell(baseTheme),
+  tablerow: tablerow(baseTheme),
+  textfield: textfield(baseTheme),
+  title: title(baseTheme),
 })

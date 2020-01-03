@@ -3,6 +3,7 @@ import styled from 'styled-components'
 import Form from '../TraversalForm'
 import Button from '../../Components/Button'
 import baseTheme from '../../Theme/base/index'
+import { defaultLabels } from '../../Constants'
 
 const FlexButton = styled(Button)`
     flex: 1;
@@ -52,17 +53,21 @@ Container.defaultProps = {
 }
 
 
-const Traversal = ({ traversal, next, previous, showSummary, showExplanation }) =>
+const Traversal = ({ traversal, next, previous, showSummary, showExplanation, labels }) =>
     (<Container>
         <Form traversal={traversal} onSubmit={(e) => { e.preventDefault(); next(traversal); }} showExplanation={showExplanation}>
             <Buttons>
                 <ButtonGroup>
-                    <PrevButton type="button" disabled={traversal.loading || traversal.previousDisabled} onClick={() => previous(traversal.traversalId)}>Previous</PrevButton>
-                    <FlexButton type="submit" disabled={traversal.loading || traversal.nextDisabled} >Next</FlexButton>
+                    <PrevButton type="button" disabled={traversal.loading || traversal.previousDisabled} onClick={() => previous(traversal.traversalId)}>{labels.previous}</PrevButton>
+                    <FlexButton type="submit" disabled={traversal.loading || traversal.nextDisabled} >{labels.next}</FlexButton>
                 </ButtonGroup>
-                <SummaryButton type="button" onClick={() => showSummary(traversal.traversalId)}>Summary</SummaryButton>
+                {showSummary && <SummaryButton type="button" onClick={() => showSummary(traversal.traversalId)}>{labels.summary}</SummaryButton>}
             </Buttons>
         </Form>
     </Container>)
+
+Traversal.defaultProps = {
+    labels: defaultLabels.traversal,
+}
 
 export default Traversal;

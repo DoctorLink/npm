@@ -3,7 +3,7 @@ import { connect } from 'react-redux'
 import * as actions from '../../Actions'
 import { Traversal, Conclusions } from '../../ComponentModules'
 
-const TraversalPage = ({ traversal, match, dispatch }) => {
+const TraversalPage = ({ traversal, labels, match, dispatch }) => {
     const { id } = match.params;
     useEffect(() => { dispatch(actions.traversalContinue(id)) }, [id]);
 
@@ -17,6 +17,7 @@ const TraversalPage = ({ traversal, match, dispatch }) => {
 
     return (<Traversal
         traversal={traversal}
+        labels={labels}
         next={traversal => dispatch(actions.traversalNext(traversal))}
         previous={traversalId => dispatch(actions.traversalPrevious(traversalId))}
         showSummary={traversalId => dispatch(actions.traversalSummaryGet(traversalId))}
@@ -24,6 +25,9 @@ const TraversalPage = ({ traversal, match, dispatch }) => {
     )
 }
 
-const mapStateToProps = state => ({ traversal: state.traversal, conclusion: state.conclusion })
+const mapStateToProps = state => ({
+    traversal: state.traversal,
+    labels: state.labels.traversal
+})
 
 export default connect(mapStateToProps)(TraversalPage)

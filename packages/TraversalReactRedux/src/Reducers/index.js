@@ -6,6 +6,7 @@ import conclusion from './Conclusion'
 import modal from './Modal'
 import healthAssessment from './HealthAssessment'
 import clientProducts from './Products'
+import labels from './Labels'
 
 const reducers = {
     traversal, 
@@ -14,6 +15,7 @@ const reducers = {
     modal,
     healthAssessment,
     clientProducts,
+    labels,
 }
 
 export const rootTraversalReducer = combineReducers(reducers)
