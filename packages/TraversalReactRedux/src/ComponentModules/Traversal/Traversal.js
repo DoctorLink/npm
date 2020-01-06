@@ -53,9 +53,9 @@ Container.defaultProps = {
 }
 
 
-const Traversal = ({ traversal, next, previous, showSummary, showExplanation, labels }) =>
+const Traversal = ({ traversal, next, previous, showSummary, showExplanation, labels, hideAlgoName }) =>
     (<Container>
-        <Form traversal={traversal} onSubmit={(e) => { e.preventDefault(); next(traversal); }} showExplanation={showExplanation}>
+        <Form traversal={traversal} onSubmit={(e) => { e.preventDefault(); next(traversal); }} showExplanation={showExplanation} hideAlgoName={hideAlgoName}>
             <Buttons>
                 <ButtonGroup>
                     <PrevButton type="button" disabled={traversal.loading || traversal.previousDisabled} onClick={() => previous(traversal.traversalId)}>{labels.previous}</PrevButton>

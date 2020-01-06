@@ -41,10 +41,10 @@ const Collection = posed(Fieldset)({
 
 const Form = styled.form``
 
-export default ({ traversal, onSubmit, children, showExplanation }) => {
+export default ({ traversal, onSubmit, children, showExplanation, hideAlgoName }) => {
     const { nodeIds, nodes, questions, answers, errors, previous, loading, collectionErrors } = traversal;
     return (<Form onSubmit={(e) => onSubmit(e)} id="Traversal">
-        <AlgoName>{traversal.algoName}</AlgoName>
+        {hideAlgoName !== true && <AlgoName>{traversal.algoName}</AlgoName>}
         {collectionErrors && collectionErrors.length > 0 && collectionErrors.map((error, i) => <ErrorText key={i}>{error}</ErrorText>)}
         <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
             {nodeIds.map((nodeId) => {
