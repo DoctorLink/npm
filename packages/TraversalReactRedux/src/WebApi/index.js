@@ -1,10 +1,10 @@
-const fetchOptions = (body, contentLang) => {
+const fetchOptions = (body, culture) => {
     var headers = {
         'Accept': 'application/json',
         'Content-Type': 'application/json'
     };
-    if (contentLang)
-        headers['Content-Language'] = contentLang;
+    if (culture)
+        headers['Content-Language'] = culture;
     return {
         method: 'POST',
         headers: headers,
@@ -33,9 +33,9 @@ const startQs = (release, lang, nodeId) => {
 }
 
 ///POST
-const fetchTraversalStart = (api) => (algoId, release, lang, nodeId, injection, contentLang) => {
+const fetchTraversalStart = (api) => (algoId, release, lang, nodeId, injection, culture) => {
     var qs = startQs(release, lang, nodeId);
-    return fetch(`${api}/Traversal/StartAsync/${algoId}${qs}`, fetchOptions(injection, contentLang))
+    return fetch(`${api}/Traversal/StartAsync/${algoId}${qs}`, fetchOptions(injection, culture))
         .then(response => response.json())
 }
 
@@ -49,9 +49,9 @@ const fetchTraversalPrevious = (api) => (traversalId, algoId, nodeId) => {
         .then(response => response.json())
 }
 
-const fetchChatStart = (api) => (algoId, release, lang, nodeId, injection, contentLang) => {
+const fetchChatStart = (api) => (algoId, release, lang, nodeId, injection, culture) => {
     var qs = startQs(release, lang, nodeId);
-    return fetch(`${api}/Chat/StartAsync/${algoId}${qs}`, fetchOptions(injection, contentLang))
+    return fetch(`${api}/Chat/StartAsync/${algoId}${qs}`, fetchOptions(injection, culture))
         .then(response => response.json())
 }
 
