@@ -134,7 +134,7 @@ const Icon = styled.svg`
 `
 
 
-const Modal = ({ explanation, closeModal }) => {
+const Modal = ({ modal, closeModal }) => {
 
     let ref = useRef();
 
@@ -159,19 +159,19 @@ const Modal = ({ explanation, closeModal }) => {
     }, []);
 
     return (<PoseGroup>
-        {(explanation) && [<Wrap key={'wrap'}>
+        {(modal) && [<Wrap key={'wrap'}>
             <BodyOverflowHidden/>
             <Curtain>
                 <Container>
                     <Content ref={ref}>
                         <Header>
-                            <Title>Explanation</Title>
+                            <Title>{modal.title}</Title>
                             <Icon viewBox="0 0 24 24" onClick={closeModal}>
                                 <line x1="18" y1="6" x2="6" y2="18"></line>
                                 <line x1="6" y1="6" x2="18" y2="18"></line>
                             </Icon>
                         </Header>
-                        <div dangerouslySetInnerHTML={{ __html: replaceLineBreaks(explanation) }} />
+                        <div dangerouslySetInnerHTML={{ __html: replaceLineBreaks(modal.content) }} />
                     </Content>
                 </Container>
             </Curtain>

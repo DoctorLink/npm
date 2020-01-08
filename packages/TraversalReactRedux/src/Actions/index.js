@@ -1,5 +1,5 @@
 export const POPULATE_MODAL = 'POPULATE_MODAL'
-export const populateModal = content => ({ type: POPULATE_MODAL, content })
+export const populateModal = (content, title) => ({ type: POPULATE_MODAL, content, title })
 
 export const CLOSE_MODAL = 'CLOSE_MODAL'
 export const closeModal = () => ({ type: CLOSE_MODAL })

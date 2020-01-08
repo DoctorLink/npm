@@ -1,7 +1,7 @@
 {
   "name": "@doctorlink/traversal-react-redux",
   "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
-  "version": "0.7.6",
+  "version": "0.7.7",
   "description": "DoctorLink's Traversal Client Tools.",
   "dependencies": {
     "lodash.merge": "^4.6.2",

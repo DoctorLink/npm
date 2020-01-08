@@ -21,7 +21,7 @@ const TraversalPage = ({ traversal, labels, match, dispatch }) => {
         next={traversal => dispatch(actions.traversalNext(traversal))}
         previous={traversalId => dispatch(actions.traversalPrevious(traversalId))}
         showSummary={traversalId => dispatch(actions.traversalSummaryGet(traversalId))}
-        showExplanation={explanation => dispatch(actions.populateModal(explanation))} />
+        showExplanation={explanation => dispatch(actions.populateModal(explanation, "Explanation"))} />
     )
 }
 

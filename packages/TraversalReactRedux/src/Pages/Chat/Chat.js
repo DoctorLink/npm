@@ -19,7 +19,7 @@ const ChatPage = ({ traversal, match, dispatch }) => {
         traversal={traversal}
         next={traversal => dispatch(actions.traversalNext(traversal))}
         previous={(traversalId, algoId, nodeId, assetId) => dispatch(actions.traversalPrevious(traversalId, algoId, nodeId, assetId))}
-        showExplanation={explanation => dispatch(actions.populateModal(explanation))} />
+        showExplanation={explanation => dispatch(actions.populateModal(explanation, "Explanation"))} />
     )
 }
 
