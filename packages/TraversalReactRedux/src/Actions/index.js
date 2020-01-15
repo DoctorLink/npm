@@ -96,3 +96,9 @@ export const labelsSet = labels => ({ type: LABELS_SET, labels })
 
 export const LABELS_RESTORE_DEFAULT = 'LABELS_RESTORE_DEFAULT'
 export const labelsRestoreDefault = () => ({ type: LABELS_RESTORE_DEFAULT })
+
+export const WEB_API_NOT_OK = 'WEB_API_NOT_OK'
+export const webApiNotOk = (apiCall, response) => ({ type: WEB_API_NOT_OK, apiCall, response })
+
+export const WEB_API_ERROR = 'WEB_API_ERROR'
+export const webApiError = (apiCall, error) => ({ type: WEB_API_ERROR, apiCall, error })

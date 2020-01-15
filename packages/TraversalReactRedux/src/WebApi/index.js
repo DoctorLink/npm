@@ -32,80 +32,64 @@ const startQs = (release, lang, nodeId) => {
     return qs;
 }
 
+const fetchWrapper = (path, options) => fetch(path, options).then(response => ({ response })).catch(error => ({ error }))
+
 ///POST
 const fetchTraversalStart = (api) => (algoId, release, lang, nodeId, injection, culture) => {
     var qs = startQs(release, lang, nodeId);
-    return fetch(`${api}/Traversal/StartAsync/${algoId}${qs}`, fetchOptions(injection, culture))
-        .then(response => response.json())
+    return fetchWrapper(`${api}/Traversal/StartAsync/${algoId}${qs}`, fetchOptions(injection, culture))
 }
 
 const fetchTraversalNext = (api) => traversalResponse =>
-    fetch(`${api}/Traversal/NextAsync`, fetchOptions(traversalResponse))
-        .then(response => response.json())
+    fetchWrapper(`${api}/Traversal/NextAsync`, fetchOptions(traversalResponse))
 
 const fetchTraversalPrevious = (api) => (traversalId, algoId, nodeId) => {
     var qs = (algoId && nodeId) ? `?algoId=${algoId}&nodeId=${nodeId}` : "";
-    return fetch(`${api}/Traversal/PreviousAsync/${traversalId}${qs}`, fetchOptions(null))
-        .then(response => response.json())
+    return fetchWrapper(`${api}/Traversal/PreviousAsync/${traversalId}${qs}`, fetchOptions(null))
 }
 
 const fetchChatStart = (api) => (algoId, release, lang, nodeId, injection, culture) => {
     var qs = startQs(release, lang, nodeId);
-    return fetch(`${api}/Chat/StartAsync/${algoId}${qs}`, fetchOptions(injection, culture))
-        .then(response => response.json())
+    return fetchWrapper(`${api}/Chat/StartAsync/${algoId}${qs}`, fetchOptions(injection, culture))
 }
 
 const fetchChatNext = (api) => traversalResponse =>
-    fetch(`${api}/Chat/NextAsync`, fetchOptions(traversalResponse))
-        .then(response => response.json())
+    fetchWrapper(`${api}/Chat/NextAsync`, fetchOptions(traversalResponse))
 
 const fetchChatPrevious = (api) => (traversalId, algoId, nodeId, assetId) => {
     var qs = (algoId && nodeId && assetId) ? `?algoId=${algoId}&nodeId=${nodeId}&assetId=${assetId}` : "";
-    return fetch(`${api}/Chat/PreviousAsync/${traversalId}${qs}`, fetchOptions(null))
-        .then(response => response.json())
+    return fetchWrapper(`${api}/Chat/PreviousAsync/${traversalId}${qs}`, fetchOptions(null))
 }
 
 ///GET
-const fetchTraversalContinue = (api) => traversalId =>
-    fetch(`${api}/Traversal/ContinueAsync/${traversalId}`)
-        .then(response => response.json())
+const fetchTraversalContinue = (api) => traversalId => fetchWrapper(`${api}/Traversal/ContinueAsync/${traversalId}`)
 
-const fetchChatContinue = (api) => traversalId =>
-    fetch(`${api}/Chat/ContinueAsync/${traversalId}`)
-        .then(response => response.json())
+const fetchChatContinue = (api) => traversalId => fetchWrapper(`${api}/Chat/ContinueAsync/${traversalId}`)
 
-const fetchTraversalSummary = (api) => traversalId =>
-    fetch(`${api}/Traversal/SummaryAsync/${traversalId}`)
-        .then(response => response.json())
+const fetchTraversalSummary = (api) => traversalId => fetchWrapper(`${api}/Traversal/SummaryAsync/${traversalId}`)
 
-const fetchTraversalConclusion = (api) => traversalId =>
-    fetch(`${api}/Traversal/ConclusionAsync/${traversalId}`)
-        .then(response => response.json())
+const fetchTraversalConclusion = (api) => traversalId => fetchWrapper(`${api}/Traversal/ConclusionAsync/${traversalId}`)
 
-const fetchTraversalSymptomReport = (api) => traversalId =>
-    fetch(`${api}/Traversal/SymptomReportAsync/${traversalId}`)
-        .then(response => response.json())
+const fetchTraversalSymptomReport = (api) => traversalId => fetchWrapper(`${api}/Traversal/SymptomReportAsync/${traversalId}`)
 
 const fetchHealthRisks = (hraApi) => (traversalId, ages, conclusions) => {
     const qs = ages.map(age => `ages=${age}`)
         .concat(conclusions.map(conc => `conclusions=${conc}`))
         .join('&');
-    return fetch(`${hraApi}/HealthRisk/${traversalId}?${qs}`)
-        .then(response => response.json());
+    return fetchWrapper(`${hraApi}/HealthRisk/${traversalId}?${qs}`)
 }
 
 const fetchWellness = (hraApi) => (traversalId, conclusions) => {
     const qs = conclusions.map(conc => `conclusions=${conc}`).join('&');
-    return fetch(`${hraApi}/Wellness/${traversalId}?${qs}`)
-        .then(response => response.json());
+    return fetchWrapper(`${hraApi}/Wellness/${traversalId}?${qs}`)
 }
 
-const fetchProducts = (api) => () =>
-    fetch(`${api}/Products`)
-        .then(response => response.json())
+const fetchProducts = (api) => () => fetchWrapper(`${api}/Products`)
 
 export const createTraversalWebApi = (apiUrl) => {
     return {
+        name: "Traversal",
+        isConfigured: !!apiUrl,
         getProducts: fetchProducts(apiUrl),
         start: fetchTraversalStart(apiUrl),
         next: fetchTraversalNext(apiUrl),
@@ -119,6 +103,8 @@ export const createTraversalWebApi = (apiUrl) => {
 
 export const createChatWebApi = (apiUrl) => {
     return {
+        name: "Chat",
+        isConfigured: !!apiUrl,
         getProducts: fetchProducts(apiUrl),
         start: fetchChatStart(apiUrl),
         next: fetchChatNext(apiUrl),
@@ -131,6 +117,7 @@ export const createChatWebApi = (apiUrl) => {
 }
 
 export const createHealthAssessmentWebApi = (apiUrl) => ({
+    name: "Health Assessment",
     isConfigured: !!apiUrl,
     healthRisks: fetchHealthRisks(apiUrl),
     wellness: fetchWellness(apiUrl),

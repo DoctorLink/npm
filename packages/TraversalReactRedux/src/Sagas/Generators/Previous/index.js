@@ -1,15 +1,17 @@
-import { call, put } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects';
 import flattenTraversalNodeCollection from '../../../Helpers/flattenTraversalNodeCollection';
-import * as actions from '../../../Actions'
+import constructApiGenerator from '../apiGenerator';
+import * as actions from '../../../Actions';
 
-export default (api) => function* traversalPrevious(action) {
-    yield put(actions.traversalDirection(true))
-    try {
-        const json = yield call(api.previous, action.traversalId, action.algoId, action.nodeId)
-        yield put(actions.traversalPreviousSet(flattenTraversalNodeCollection(json)))
-    } catch (error) {
-        console.log("traversalPrevious error")
-        console.log(error)
-        alert("error")
-    }
+const getApiCall = (api, action) => call(api.previous, action.traversalId, action.algoId, action.nodeId);
+
+const getOnSuccess = (response) => function* onSuccess() {
+    const json = yield response.json();
+    yield put(actions.traversalPreviousSet(flattenTraversalNodeCollection(json)));
 }
+
+const getOnStart = () => function* apiCall() {
+    yield put(actions.traversalDirection(true));
+}
+
+export default (api) => constructApiGenerator(api, "Traversal/PreviousAsync", getApiCall, getOnSuccess, getOnStart);

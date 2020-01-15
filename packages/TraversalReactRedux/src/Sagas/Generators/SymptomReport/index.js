@@ -1,16 +1,15 @@
-import { call, put } from 'redux-saga/effects'
-import * as actions from '../../../Actions'
+import { call, put } from 'redux-saga/effects';
+import constructApiGenerator from '../apiGenerator';
+import * as actions from '../../../Actions';
 
-export default (api) => function* traversalSymptomReport(action) {
-    try {
-        const json = yield call(api.symptomReport, action.traversalId)
-        yield put(actions.traversalConclusionSet({ 
-            traversalId: action.traversalId,
-            symptomReport: json.data })
-        )
-    } catch (error) {
-        console.log("traversalSymptomReport error")
-        console.log(error)
-        alert("error")
-    }
+const getApiCall = (api, action) => call(api.symptomReport, action.traversalId);
+
+const getOnSuccess = (response, action) => function* onSuccess() {
+    const json = yield response.json();
+    yield put(actions.traversalConclusionSet({ 
+        traversalId: action.traversalId,
+        symptomReport: json.data })
+    );
 }
+
+export default (api) => constructApiGenerator(api, "Traversal/SymptomReportAsync", getApiCall, getOnSuccess);

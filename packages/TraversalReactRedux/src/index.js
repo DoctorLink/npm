@@ -125,6 +125,8 @@ export { default as createSymptomReportGenerator } from './Sagas/Generators/Symp
 export { default as createScrollToTopGenerator } from './Sagas/Generators/ScrollToTop'
 export { default as createScrollIntoViewGenerator } from './Sagas/Generators/ScrollIntoView'
 export { default as createHistoryPushGenerator } from './Sagas/Generators/HistoryPush'
+export { default as createWebApiNotOkGenerator } from './Sagas/Generators/WebApiNotOk'
+export { default as createWebApiErrorGenerator } from './Sagas/Generators/WebApiError'
 
 export { default as createTraversalChatEffects } from './Sagas/Effects/TraversalChat'
 export { default as createTraversalChatSetEffects } from './Sagas/Effects/TraversalChatSet'
@@ -134,6 +136,7 @@ export { default as createSummaryEffects } from './Sagas/Effects/Summary'
 export { default as createSymptomAssessmentEffects } from './Sagas/Effects/SymptomAssessment'
 export { default as createHealthRiskAssessmentEffects } from './Sagas/Effects/HealthRiskAssessment'
 export { default as createHistoryPushEffects } from './Sagas/Effects/HistoryPush'
+export { default as createWebApiEffects } from './Sagas/Effects/WebApi'
 
 export { createBrowserHistory } from "history";
 

@@ -1,17 +1,12 @@
-import { call, put } from 'redux-saga/effects'
-import * as actions from '../../../Actions'
+import { call, put } from 'redux-saga/effects';
+import constructApiGenerator from '../apiGenerator';
+import * as actions from '../../../Actions';
 
-export default (api) => function* healthRisks(action) {
-    if (!api.isConfigured) {
-        console.warn("Health risk API is not configured.");
-        return;
-    }
-    try {
-        const healthRisks = yield call(api.healthRisks, action.traversalId, action.ages, action.conclusions);
-        yield put(actions.healthRisksSet(healthRisks));
-    } catch (error) {
-        console.log("healthRisks error")
-        console.log(error)
-        alert("error")
-    }
+const getApiCall = (api, action) => call(api.healthRisks, action.traversalId, action.ages, action.conclusions);
+
+const getOnSuccess = (response) => function* onSuccess() {
+    const json = yield response.json();
+    yield put(actions.healthRisksSet(json));
 }
+
+export default (api) => constructApiGenerator(api, "HealthRisk", getApiCall, getOnSuccess);

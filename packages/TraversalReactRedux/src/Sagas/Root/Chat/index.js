@@ -6,6 +6,7 @@ import createSymptomAssessmentEffects from '../../Effects/SymptomAssessment'
 import createHealthRiskAssessmentEffects from '../../Effects/HealthRiskAssessment'
 import createHistoryPushEffects from '../../Effects/HistoryPush'
 import createStartScrollToTopEffects from '../../Effects/StartScrollToTop'
+import createWebApiEffects from '../../Effects/WebApi'
 import createProductsEffects from '../../Effects/Products'
 
 export default (traversalApi, hraApi, history) => {
@@ -15,7 +16,8 @@ export default (traversalApi, hraApi, history) => {
         ...createSummaryEffects(traversalApi),
         ...createSymptomAssessmentEffects(traversalApi),
         ...createHealthRiskAssessmentEffects(hraApi),
-        createStartScrollToTopEffects(),
+        ...createStartScrollToTopEffects(),
+        ...createWebApiEffects(),
         ...createProductsEffects(traversalApi),
     ];
     if (history) {

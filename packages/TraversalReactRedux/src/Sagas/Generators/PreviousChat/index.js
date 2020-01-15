@@ -1,14 +1,13 @@
-import { call, put, delay } from 'redux-saga/effects'
+import { call, put } from 'redux-saga/effects'
 import flattenTraversalChat from '../../../Helpers/flattenTraversalChat';
-import * as actions from '../../../Actions'
+import constructApiGenerator from '../apiGenerator';
+import * as actions from '../../../Actions';
 
-export default (api) => function* traversalPrevious(action) {
-    try {
-        const json = yield call(api.previous, action.traversalId, action.algoId, action.nodeId, action.assetId)
-        yield put(actions.traversalPreviousSet(flattenTraversalChat(json)))
-    } catch (error) {
-        console.log("traversalPrevious error")
-        console.log(error)
-        alert("error")
-    }
+const getApiCall = (api, action) => call(api.previous, action.traversalId, action.algoId, action.nodeId, action.assetId);
+
+const getOnSuccess = (response) => function* onSuccess() {
+    const json = yield response.json();
+    yield put(actions.traversalPreviousSet(flattenTraversalChat(json)));
 }
+
+export default (api) => constructApiGenerator(api, "Chat/PreviousAsync", getApiCall, getOnSuccess);
