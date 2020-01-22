@@ -28,7 +28,7 @@ const Icon = styled.svg`
     height: 24px;
 `
 
-const InfoButton = styled.button`
+const InfoButton = styled.button.attrs({type: 'button'})`
     background: transparent;
 
     /* color: inherit; */

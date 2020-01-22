@@ -10,8 +10,4 @@ const getOnSuccess = (response) => function* onSuccess() {
     yield put(actions.traversalPreviousSet(flattenTraversalNodeCollection(json)));
 }
 
-const getOnStart = () => function* apiCall() {
-    yield put(actions.traversalDirection(true));
-}
-
-export default (api) => constructApiGenerator(api, "Traversal/PreviousAsync", getApiCall, getOnSuccess, getOnStart);
+export default (api) => constructApiGenerator(api, "Traversal/PreviousAsync", getApiCall, getOnSuccess);

@@ -1,10 +1,13 @@
-import React, { useEffect } from 'react'
-import { connect } from 'react-redux'
-import * as actions from '../../Actions'
-import { Traversal, Conclusions } from '../../ComponentModules'
+import React, { useEffect } from 'react';
+import { useDispatch, useSelector } from 'react-redux';
+import * as actions from '../../Actions';
+import { Traversal, buildTraversalActions, Conclusions } from '../../ComponentModules';
 
-const TraversalPage = ({ traversal, labels, match, dispatch }) => {
+const TraversalPage = ({ match }) => {
     const { id } = match.params;
+    const dispatch = useDispatch();
+    const traversal = useSelector(state => state.traversal);
+    const labels = useSelector(state => state.labels.traversal);
     useEffect(() => { dispatch(actions.traversalContinue(id)) }, [id]);
 
     if (!traversal) {
@@ -15,19 +18,7 @@ const TraversalPage = ({ traversal, labels, match, dispatch }) => {
         return <Conclusions traversalId={id} assessmentType={traversal.assessmentType} />
     }
 
-    return (<Traversal
-        traversal={traversal}
-        labels={labels}
-        next={traversal => dispatch(actions.traversalNext(traversal))}
-        previous={traversalId => dispatch(actions.traversalPrevious(traversalId))}
-        showSummary={traversalId => dispatch(actions.traversalSummaryGet(traversalId))}
-        showExplanation={explanation => dispatch(actions.populateModal(explanation, "Explanation"))} />
-    )
+    return (<Traversal traversal={traversal} labels={labels} actions={buildTraversalActions(dispatch, traversal)}/>)
 }
 
-const mapStateToProps = state => ({
-    traversal: state.traversal,
-    labels: state.labels.traversal
-})
-
-export default connect(mapStateToProps)(TraversalPage)
+export default TraversalPage

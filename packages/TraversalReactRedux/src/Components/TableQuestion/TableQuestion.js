@@ -5,6 +5,7 @@ const Table = styled.table.attrs({ cellSpacing: 0, cellPadding: 0 })`
     width: 100%;
     margin-bottom: 20px;
     border-collapse: collapse;
+    table-layout: fixed;
 `
 
 export default ({ children }) => (<Table><tbody>{children}</tbody></Table>)

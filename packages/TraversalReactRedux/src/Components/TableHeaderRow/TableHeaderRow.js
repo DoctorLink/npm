@@ -4,7 +4,7 @@ import TableQuestionRow from '../TableQuestionRow'
 
 export default ({ children }) => (
     <TableQuestionRow>
-        <th></th>
+        <th colSpan="2"></th>
         {children}
     </TableQuestionRow>
 )

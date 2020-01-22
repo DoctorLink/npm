@@ -1,42 +1,62 @@
-import React from 'react'
+import React from 'react';
+import { defaultTraversalActions, defaultTraversalComponents } from '../defaults';
 
-import Response from '../../Components/Response'
-import Question from '../../Components/Question'
-import Section from '../../Components/Section'
-import Answer from '../../Components/Answer'
-import Label from '../../Components/Label'
-import InfoIcon from '../../Components/InfoIcon'
-
-import Checkbox from '../../Containers/Checkbox'
-import Radio from '../../Containers/Radio'
-import TextField from '../../Containers/TextField'
-import NumberField from '../../Containers/NumberField'
-import DateField from '../../Containers/DateField'
-
-export default ({ question, answers, error, showExplanation }) => {
+export default ({ question, answers, error, actions = defaultTraversalActions, components = defaultTraversalComponents }) => {
+    const comps = { ...defaultTraversalComponents, ...components };
     const display = question.data.display ? question.data.display : [{ header: null, answers: question.answers.map(x => Number(x.split("_")[2])) }];
-    return (<Response>
-        <Question displayText={question.displayText} error={error} title={question.title}>
-            <InfoIcon onClick={showExplanation} explanation={question.explanation} />
-        </Question>
+    return (<comps.Response>
+        {comps.QuestionTitle && question.title && <comps.QuestionTitle>{question.title}</comps.QuestionTitle>}
+        <comps.Question displayText={question.displayText} error={error}>
+            <comps.InfoIcon onClick={actions.showExplanation} explanation={question.explanation} />
+        </comps.Question>
+        {comps.ErrorText && error && <comps.ErrorText>{error.text}</comps.ErrorText>}
         {display.map((section, i) => {
             const sectionAnswerKeys = question.answers.filter(x => section.answers.includes(Number(x.split("_")[2])));
             return (<React.Fragment key={i}>
-                <Section text={section.header}/>
-                {sectionAnswerKeys.map((answerId) => { 
+                <comps.Section text={section.header} />
+                {sectionAnswerKeys.map((answerId) => {
                     const answer = answers[answerId]
-                    return (<Answer key={answerId}>
-                        <Label answer={answer}>
-                            {answer.controlType === "Radio" && <Radio answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
-                            {answer.controlType === "Checkbox" && <Checkbox answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
-                            {answer.controlType === "Text" && <TextField answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
-                            {answer.controlType === "Number" && <NumberField answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
-                            {answer.controlType === "Date" && <DateField answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
-                        </Label>
-                        <InfoIcon padRight={true} onClick={showExplanation} explanation={answer.explanation} />
-                    </Answer>)
+                    return (<comps.Label key={answerId}>
+                        {answer.controlType === "Radio" && <comps.TraversalRadio
+                            Comp={comps.Radio}
+                            answerId={answerId}
+                            checked={answer.controlChecked}
+                            siblingIds={question.answers}
+                            action={actions.toggleRadio}
+                        />}
+                        {answer.controlType === "Checkbox" && <comps.TraversalCheckbox
+                            Comp={comps.Checkbox}
+                            answerId={answerId}
+                            checked={answer.controlChecked}
+                            siblingIds={question.answers}
+                            action={actions.toggleCheckbox}
+                        />}
+                        {answer.controlType === "Text" && <comps.TraversalValue
+                            Comp={comps.TextField}
+                            answerId={answerId}
+                            value={answer.controlValue}
+                            siblingIds={question.answers}
+                            action={actions.updateValue}
+                        />}
+                        {answer.controlType === "Number" && <comps.TraversalValue
+                            Comp={comps.NumberField}
+                            answerId={answerId}
+                            value={answer.controlValue}
+                            siblingIds={question.answers}
+                            action={actions.updateValue}
+                        />}
+                        {answer.controlType === "Date" && <comps.TraversalValue
+                            Comp={comps.DateField}
+                            answerId={answerId}
+                            value={answer.controlValue}
+                            siblingIds={question.answers}
+                            action={actions.updateValue}
+                        />}
+                        <comps.DisplayText answer={answer} dangerouslySetInnerHTML={{ __html: answer.displayText }} />
+                        <comps.InfoIcon onClick={actions.showExplanation} explanation={answer.explanation} />
+                    </comps.Label>)
                 })}
             </React.Fragment>)
         })}
-    </Response>)
+    </comps.Response>)
 };

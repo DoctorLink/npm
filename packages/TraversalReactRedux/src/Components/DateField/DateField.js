@@ -10,11 +10,13 @@ const StyledInput = styled.input.attrs({type: 'date'})`
     font-family: ${p => p.theme.datefield.fontFamily};
     font-size: ${p => p.theme.datefield.fontSize}px;
     text-align: ${p => p.theme.datefield.textAlign};
-    border: 0;
-    border-bottom: 1px solid black;
+    border: 1px solid ${p => p.theme.datefield.borderColor};
+    border-radius: 3px;
+    transition: all 150ms;
     &:focus {
         outline: 0;
         border-color: ${p => p.theme.datefield.hoverColor};
+        box-shadow: ${p => p.theme.datefield.focusColor} 0px 0px 3px 2px;
     }
 `
 

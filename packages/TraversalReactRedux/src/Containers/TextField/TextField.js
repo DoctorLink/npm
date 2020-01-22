@@ -10,7 +10,7 @@ const TextField = ({ dispatch, answer, answerId, questionAnswerIds, type, Custom
         <Comp
             type={inputType}
             value={answer.controlValue || ""}
-            onChange={(e) => dispatch(updateText(answerId, questionAnswerIds, e))} />
+            onChange={(e) => dispatch(updateText(answerId, questionAnswerIds, e.target.value))} />
     )
 }
 

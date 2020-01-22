@@ -5,7 +5,7 @@ import algonameTheme from '../../Theme/components/algoname'
 
 const AlgoName = styled.h2`
     margin: 0;
-    padding: ${p => p.theme.algoname.padding}px;
+    padding: ${p => p.theme.algoname.padding}px 0;
     font-family: ${p => p.theme.algoname.fontFamily};
     font-size: ${p => p.theme.algoname.fontSize}px;
     line-height: ${p => p.theme.algoname.lineHeight}px;

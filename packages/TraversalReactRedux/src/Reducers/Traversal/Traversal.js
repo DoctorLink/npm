@@ -10,19 +10,15 @@ const traversal = (state = null, action) => {
                 ...state, 
                 answers: answers(state.answers, action)
             }
+        case actions.TRAVERSAL_START:
         case actions.TRAVERSAL_CONTINUE:
         case actions.TRAVERSAL_NEXT:
         case actions.TRAVERSAL_PREVIOUS:
             if (state === null ) return state;
             return { 
                 ...state, 
-                loading: true 
-            }
-        case actions.TRAVERSAL_DIRECTION:
-            if (state === null ) return state;
-            return { 
-                ...state, 
-                previous: action.previous 
+                loading: true,
+                previous: action.type === actions.TRAVERSAL_PREVIOUS
             }
         case actions.TRAVERSAL_START_SET:
         case actions.TRAVERSAL_CONTINUE_SET:

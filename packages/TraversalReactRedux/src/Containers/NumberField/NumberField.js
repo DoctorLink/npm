@@ -7,7 +7,7 @@ const NumberField = ({ dispatch, answer, answerId, questionAnswerIds }) => {
     return (
         <NumberFieldComp
             value={answer.controlValue || ""}
-            onChange={(e) => dispatch(updateText(answerId, questionAnswerIds, e))} />
+            onChange={(e) => dispatch(updateText(answerId, questionAnswerIds, e.target.value))} />
     )
 }
 

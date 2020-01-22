@@ -4,20 +4,13 @@ import styled from 'styled-components'
 import baseTheme from '../../Theme/base/index'
 import labelTheme from '../../Theme/components/label'
 
-const DisplayText = styled.div``
-
 const StyledLabel = styled.label`
     display: flex;
+    width: 100%;
     cursor: pointer;
-    padding: ${p => p.theme.label.padding}px;
+    padding: ${p => p.theme.label.vertical}px 0;
     align-items: center;
-
-    ${DisplayText} {
-        font-family: ${p => p.theme.label.fontFamily};
-        padding-left:  ${p => p.theme.label.padding}px;
-        font-size: ${p => p.theme.label.fontSize}px;
-        line-height: ${p => p.theme.label.lineHeight}px;
-    }
+    box-shadow: inset 0 -1px 0 0 ${p => p.theme.label.borderColor};
 `
 
 StyledLabel.defaultProps = {
@@ -25,11 +18,10 @@ StyledLabel.defaultProps = {
 };
 
 
-const Label = ({ answer, children, ...props }) => {
-    return (<StyledLabel {...props}>
-        {children}
-        <DisplayText theme={props.theme} dangerouslySetInnerHTML={{ __html: answer.displayText }} />
-    </StyledLabel>)
-};
+// const Label = ({ children, ...props }) => {
+//     return (<StyledLabel {...props}>
+//         {children}
+//     </StyledLabel>)
+// };
 
-export default Label;
+export default StyledLabel;

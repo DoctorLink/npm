@@ -18,7 +18,7 @@ export {
 } from "./Helpers";
 
 export { default as AlgoName }  from './Components/AlgoName'
-export { default as Answer }  from './Components/Answer'
+export { default as DisplayText }  from './Components/DisplayText'
 export { default as BodyContent } from './Components/BodyContent'
 export { default as Button } from './Components/Button'
 export { default as Checkbox } from './Components/Checkbox'
@@ -81,6 +81,12 @@ export { default as Chat }  from './ComponentModules/Chat'
 export { default as Conclusions }  from './ComponentModules/Conclusions'
 export { default as SymptomReport } from './ComponentModules/SymptomReport'
 export { default as HealthAssessment }  from './ComponentModules/HealthAssessment'
+
+export {
+    buildTraversalActions,
+    defaultTraversalActions,
+    defaultTraversalComponents
+} from './ComponentModules/defaults'
 
 export { default as ConnectedCheckbox } from './Containers/Checkbox'
 export { default as ConnectedDateField } from './Containers/DateField'

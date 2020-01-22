@@ -1,14 +1,21 @@
 import React from "react";
+import styled from 'styled-components';
 import { connect } from "react-redux";
 import { checkConclusion, uncheckConclusion } from '../../../Actions';
-import { PanelConclusion, Checkbox, Label, InfoButton } from "../../../Components";
+import { PanelConclusion, Checkbox, Label, DisplayText, InfoButton } from "../../../Components";
 import { Conclusion } from "./Conclusion";
+
+const ConclusionLabel = styled(Label)`
+    padding: 0;
+    box-shadow: none;
+`
 
 const CheckableConclusion = ({ conclusion, checked, onChange }) => (
     <Conclusion>
-        <Label answer={conclusion}>
+        <ConclusionLabel>
             <Checkbox type="checkbox" checked={checked} onChange={e => onChange(conclusion.assetId, e.target.checked)} />
-        </Label>
+            <DisplayText>{conclusion.displayText}</DisplayText>
+        </ConclusionLabel>
         <InfoButton explanation={conclusion.explanation} />
     </Conclusion>
 )

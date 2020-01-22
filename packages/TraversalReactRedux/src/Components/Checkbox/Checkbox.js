@@ -11,17 +11,19 @@ const Icon = styled.svg``
 const StyledCheckbox = styled.div`
   width: ${props => props.theme.checkbox.size}px;
   height: ${props => props.theme.checkbox.size}px;
-  background: ${props => props.checked ? props.theme.checkbox.checked.color : props.theme.checkbox.unchecked.color };
+  box-sizing: border-box;
   border-radius: ${props => props.theme.checkbox.borderRadius}px;
+  border: 1px solid;
+  border-color: ${props => props.checked ? props.theme.checkbox.checked.color : props.theme.checkbox.unchecked.color};
   transition: all 150ms;
   ${HiddenInput}:focus + & {
-    box-shadow: 0 0 0 3px ${props => props.theme.checkbox.focus.color };
+    box-shadow: ${props => props.theme.checkbox.focus.color } 0px 0px 3px 2px;
   }
   ${Icon} {
     visibility: ${props => props.checked ? 'visible' : 'hidden'};
     fill: none;
-    stroke: ${props => props.theme.checkbox.icon.color};
-    stroke-width: 2px;
+    stroke: ${props => props.theme.checkbox.checked.color};
+    stroke-width: 4px;
   }
 `
 
@@ -36,7 +38,7 @@ const CheckboxContainer = styled.div`
 
 const Checkbox = ({ className, checked, ...props }) => (
     <CheckboxContainer className={className} theme={props.theme}>
-        <HiddenInput checked={checked} {...props} />
+        <HiddenInput type="checkbox" checked={checked} {...props} />
         <StyledCheckbox checked={checked}  theme={props.theme}>
             <Icon viewBox="0 0 24 24" theme={props.theme}>
                 <polyline points="20 6 9 17 4 12" />

@@ -6,7 +6,6 @@ import tableanswercellTheme from '../../Theme/components/tableanswercell'
 const TD = styled.td`
     position: relative;
     text-align: center;
-    padding: ${p => p.theme.tableanswercell.padding}px;
     vertical-align: top;
 `
 

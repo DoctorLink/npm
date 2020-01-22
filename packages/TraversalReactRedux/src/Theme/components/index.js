@@ -1,4 +1,5 @@
 import algoname from './algoname';
+import displayText from './displayText';
 import button from './button';
 import chatpreviousanswer from './chatpreviousanswer'
 import checkbox from './checkbox';
@@ -29,6 +30,7 @@ export default baseTheme => ({
   chatpreviousanswer: chatpreviousanswer(baseTheme),
   checkbox: checkbox(baseTheme),
   datefield: datefield(baseTheme),
+  displayText: displayText(baseTheme),
   errortext: errortext(baseTheme),
   infoicon: infoicon(baseTheme),
   label: label(baseTheme),

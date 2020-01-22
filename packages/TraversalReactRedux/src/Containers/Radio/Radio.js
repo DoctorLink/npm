@@ -6,9 +6,11 @@ import HiddenInput from '../../Components/HiddenInput'
 
 const Radio = ({ dispatch, answer, answerId, questionAnswerIds, hidden, ...props }) => {
     const Comp = hidden ? HiddenInput : RadioComp;
+    const name = answerId.substring(0, answerId.lastIndexOf('_'));
     return (<Comp
         type="radio"
         id={answerId}
+        name={name}
         value={true}                
         checked={answer.controlChecked} 
         onChange={()=>{}}

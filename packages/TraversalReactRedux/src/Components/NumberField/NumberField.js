@@ -10,13 +10,13 @@ const StyledInput = styled.input.attrs({type: 'number'})`
     font-family: ${p => p.theme.numberfield.fontFamily};
     font-size: ${p => p.theme.numberfield.fontSize}px;
     text-align: ${p => p.theme.numberfield.textAlign};
-    border: 0;
-    border-bottom: 1px solid black;
+    border: 1px solid ${p => p.theme.numberfield.borderColor};
+    border-radius: 3px;
     transition: all 150ms;
     &:focus {
         outline: 0;
         border-color: ${p => p.theme.numberfield.hoverColor};
-        border-bottom-width: 2px;
+        box-shadow: ${p => p.theme.numberfield.focusColor} 0px 0px 3px 2px;
     }
 `
 

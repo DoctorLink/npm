@@ -1,6 +1,5 @@
 export default baseTheme => ({
-    fontFamily: baseTheme.typography.fontFamily,
-    padding: baseTheme.spacing.padding,
-    fontSize: baseTheme.typography.regular.size,
-    lineHeight: baseTheme.typography.regular.lineHeight,
+    borderColor: baseTheme.colors.grey200,
+    borderWidth: 1,
+    vertical: baseTheme.spacing.vertical,
 })

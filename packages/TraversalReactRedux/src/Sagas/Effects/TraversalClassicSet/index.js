@@ -1,6 +1,6 @@
-import { takeLatest } from 'redux-saga/effects'
-import * as actions from '../../../Actions'
-import * as generators from '../../Generators'
+import { takeLatest } from 'redux-saga/effects';
+import * as actions from '../../../Actions';
+import * as generators from '../../Generators';
 
 export default () => ([
     takeLatest([

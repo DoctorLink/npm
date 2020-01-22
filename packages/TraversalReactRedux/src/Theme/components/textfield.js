@@ -4,5 +4,7 @@ export default baseTheme => ({
     fontFamily: baseTheme.typography.fontFamily,
     fontSize: baseTheme.typography.inputField.size,
     textAlign: baseTheme.typography.inputField.textAlign,
-    hoverColor: baseTheme.colors.brand100
+    borderColor: baseTheme.colors.grey250,
+    hoverColor: baseTheme.colors.brand100, 
+    focusColor: baseTheme.colors.lightBlue100,
 })

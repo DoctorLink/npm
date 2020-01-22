@@ -1,42 +1,47 @@
-import React from 'react'
+import React from 'react';
+import { defaultTraversalActions, defaultTraversalComponents } from '../defaults';
 
-import TableQuestion from '../../Components/TableQuestion'
-import HeaderRow from '../../Components/TableHeaderRow'
-import HeaderCell from '../../Components/TableHeaderCell'
-import QuestionRow from '../../Components/TableQuestionRow'
-import AnswerCell from '../../Components/TableAnswerCell'
-import InfoIcon from '../../Components/InfoIcon'
-
-import Checkbox from '../../Containers/Checkbox'
-import Radio from '../../Containers/Radio'
-
-export default ({ node, questions, answers, errors, showExplanation }) =>
-    <TableQuestion>
-        <HeaderRow>
+export default ({ node, questions, answers, errors, actions = defaultTraversalActions, components = defaultTraversalComponents }) => {
+    const comps = { ...defaultTraversalComponents, ...components };
+    return (<comps.TableQuestion>
+        <comps.HeaderRow>
             {questions[node.questions[0]].answers.map(answerId =>
-                <HeaderCell key={answerId} text={answers[answerId].displayText} justifyContent={'center'}>
-                    <InfoIcon onClick={showExplanation} explanation={answers[answerId].explanation} />
-                </HeaderCell>
+                <comps.HeaderCell key={answerId} text={answers[answerId].displayText} justifyContent={'center'}>
+                    <comps.InfoIcon onClick={actions.showExplanation} explanation={answers[answerId].explanation} />
+                </comps.HeaderCell>
             )}
-        </HeaderRow>
+        </comps.HeaderRow>
         {node.questions.map(q => {
             const question = questions[q];
             const error = errors[q];
             return (
-                <QuestionRow key={q}>
-                    <HeaderCell text={question.displayText} error={error}>
-                        <InfoIcon onClick={showExplanation} explanation={question.explanation} />
-                    </HeaderCell>
+                <comps.QuestionRow key={q}>
+                    <comps.HeaderCell colspan={2} textAlign={'left'} text={question.displayText} error={error}>
+                        <comps.InfoIcon onClick={actions.showExplanation} explanation={question.explanation} />
+                    </comps.HeaderCell>
                     {question.answers.map(answerId => {
                         const answer = answers[answerId]
                         return (
-                            <AnswerCell key={answerId} answerId={answerId} >
-                                {answer.controlType === "Radio" && <Radio answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
-                                {answer.controlType === "Checkbox" && <Checkbox answer={answer} answerId={answerId} questionAnswerIds={question.answers} />}
-                            </AnswerCell>
+                            <comps.AnswerCell key={answerId} answerId={answerId} >
+                                {answer.controlType === "Radio" && <comps.TraversalRadio
+                                    Comp={comps.Radio}
+                                    answerId={answerId}
+                                    checked={answer.controlChecked}
+                                    siblingIds={question.answers}
+                                    action={actions.toggleRadio}
+                                />}
+                                {answer.controlType === "Checkbox" && <comps.TraversalCheckbox
+                                    Comp={comps.Checkbox}
+                                    answerId={answerId}
+                                    checked={answer.controlChecked}
+                                    siblingIds={question.answers}
+                                    action={actions.toggleCheckbox}
+                                />}
+                            </comps.AnswerCell>
                         )
                     })}
-                </QuestionRow>
+                </comps.QuestionRow>
             )
         })}
-    </TableQuestion>
+    </comps.TableQuestion>)
+}

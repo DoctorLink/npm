@@ -1,6 +1,6 @@
 export { default as ThemeProvider } from './ThemeProvider'
 
-export { default as Answer }  from './Answer'
+export { default as DisplayText }  from './DisplayText'
 export { default as AlgoName }  from './AlgoName'
 export { default as BodyContent } from './BodyContent'
 export { default as Button } from './Button'

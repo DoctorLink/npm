@@ -1,11 +1,11 @@
 import React from 'react'
 import styled from 'styled-components'
 import Form from '../TraversalForm'
-import Button from '../../Components/Button'
 import baseTheme from '../../Theme/base/index'
 import { defaultLabels } from '../../Constants'
+import { defaultTraversalActions, defaultTraversalComponents } from '../defaults'
 
-const FlexButton = styled(Button)`
+const FlexButton = styled.div`
     flex: 1;
 `
 
@@ -30,9 +30,7 @@ const ButtonGroup = styled.div`
 const Container = styled.div`    
     display: flex;
     flex-direction: column;
-    margin: 0 ${p => p.theme.spacing.padding * -1}px;
     ${Buttons} {
-        margin: 0 ${p => p.theme.spacing.padding}px;
         @media screen and (min-width: 450px) {    
             flex-direction: row;
         }
@@ -52,22 +50,38 @@ Container.defaultProps = {
     theme: baseTheme
 }
 
-
-const Traversal = ({ traversal, next, previous, showSummary, showExplanation, labels, hideAlgoName }) =>
-    (<Container>
-        <Form traversal={traversal} onSubmit={(e) => { e.preventDefault(); next(traversal); }} showExplanation={showExplanation} hideAlgoName={hideAlgoName}>
+const Traversal = ({ traversal, minWidthTable, labels = defaultLabels.traversal, actions = defaultTraversalActions, components = defaultTraversalComponents }) => {
+    const comps = { ...defaultTraversalComponents, ...components };
+    return (<Container>
+        <Form traversal={traversal} minWidthTable={minWidthTable} actions={actions} components={comps}>
             <Buttons>
                 <ButtonGroup>
-                    <PrevButton type="button" disabled={traversal.loading || traversal.previousDisabled} onClick={() => previous(traversal.traversalId)}>{labels.previous}</PrevButton>
-                    <FlexButton type="submit" disabled={traversal.loading || traversal.nextDisabled} >{labels.next}</FlexButton>
+                    <PrevButton>
+                        <comps.Button 
+                            type="button" 
+                            // disabled={traversal.loading || traversal.previousDisabled} 
+                            onClick={actions.previous}>
+                            {labels.previous}
+                        </comps.Button>
+                    </PrevButton>
+                    <FlexButton>
+                        <comps.Button 
+                            type="submit" 
+                            disabled={traversal.loading || traversal.nextDisabled} >
+                            {labels.next}
+                        </comps.Button>
+                    </FlexButton>
                 </ButtonGroup>
-                {showSummary && <SummaryButton type="button" onClick={() => showSummary(traversal.traversalId)}>{labels.summary}</SummaryButton>}
+                {actions.showSummary && <SummaryButton>
+                    <comps.Button type="button" onClick={actions.showSummary}>{labels.summary}</comps.Button>
+                </SummaryButton>}
             </Buttons>
         </Form>
     </Container>)
+}
 
 Traversal.defaultProps = {
-    labels: defaultLabels.traversal,
+    minWidthTable: 700
 }
 
 export default Traversal;

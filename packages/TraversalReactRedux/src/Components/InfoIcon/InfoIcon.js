@@ -4,54 +4,79 @@ import styled from 'styled-components'
 import baseTheme from '../../Theme/base/index'
 import infoiconTheme from '../../Theme/components/infoicon'
 
+const Button = styled.button.attrs({type: 'button'})``
+
 const Icon = styled.svg``
 
-const InfoButton = styled.div`
+const Container = styled.div`
+    position: relative;
     display: inline-block;
     width: ${p => p.theme.infoicon.size}px;
     height: ${p => p.theme.infoicon.size}px;
-    padding: ${p => p.theme.infoicon.padding}px 0;
-    cursor: pointer;
     flex-basis: ${p => p.theme.infoicon.size}px;
     flex-grow: 0;
     flex-shrink: 0;
-    vertical-align: middle;
-    margin-top: ${p => (p.inline) ? '-8px' : '' };
-    margin-right: ${p => (p.padRight) ? p.theme.infoicon.padding +'px' : '' };
+    align-self: flex-start;
+    vertical-align: bottom;
+    margin-left: ${p => p.theme.infoicon.padding / 2}px;
     
-    &:focus {
+    &:focus  {
         box-shadow: 0 0 2px 0.1px ${p => p.theme.infoicon.focusColor};
     }
 
-    ${Icon} {
-        transition: all 150ms;
-        fill: none;
-        stroke: ${p => p.theme.infoicon.color};
-        stroke-width: 2px; 
-        stroke-linecap: round; 
-        stroke-linejoin: round;
+    ${Button} {
+        box-sizing: content-box;
+        border: 0;
+        background: transparent;
+        outline: none;
+        position: absolute;
+        cursor: pointer;
+        padding: ${p => p.theme.infoicon.padding}px ${p => p.theme.infoicon.padding / 2}px;
+        top: -${p => p.theme.infoicon.padding}px;
+        left: -${p => p.theme.infoicon.padding / 2}px;
+        width: ${p => p.theme.infoicon.size}px;
+        height: ${p => p.theme.infoicon.size}px;
+
+        ${Icon} {
+            transition: all 150ms;
+            fill: none;
+            stroke: ${p => p.theme.infoicon.color};
+            stroke-width: 2px; 
+            stroke-linecap: round; 
+            stroke-linejoin: round;
+        }
+    
+        &:focus  {
+            ${Icon} {
+                stroke: ${p => p.theme.infoicon.hoverColor};
+            }
+        }
     }
     
     &:hover {
-        ${Icon} {
-            stroke: ${p => p.theme.infoicon.hoverColor};
+        ${Button} {
+            ${Icon} {
+                stroke: ${p => p.theme.infoicon.hoverColor};
+            }
         }
     }
 `
 
-InfoButton.defaultProps = {
+Container.defaultProps = {
     theme: { infoicon: infoiconTheme(baseTheme) }
 };
 
 const InfoIcon = ({ onClick, explanation, inline, padRight, ...props }) => {
     if (!explanation || explanation === "" || !onClick) return null;
-    return (<InfoButton inline={inline} padRight={padRight} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
-        <Icon viewBox="0 0 24 24">
-            <circle cx="12" cy="12" r="10"></circle>
-            <line x1="12" y1="16" x2="12" y2="12"></line>
-            <line x1="12" y1="8" x2="12" y2="8"></line>
-        </Icon>
-    </InfoButton>)
+    return (<Container inline={inline} padRight={padRight} theme={props.theme} onClick={(e) => { e.preventDefault(); onClick(explanation); }}>
+        <Button>
+            <Icon viewBox="0 0 24 24">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="16" x2="12" y2="12"></line>
+                <line x1="12" y1="8" x2="12" y2="8"></line>
+            </Icon>
+        </Button>
+    </Container>)
 }
 
 

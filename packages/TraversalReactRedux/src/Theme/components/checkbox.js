@@ -1,13 +1,13 @@
 
 export default baseTheme => ({
-    size: 20,
-    borderRadius: 4,
+    size: baseTheme.typography.regular.lineHeight,
+    borderRadius: 2,
     padding: baseTheme.spacing.padding,
     checked: { 
         color: baseTheme.colors.brand100 
     },
     unchecked: { 
-        color: baseTheme.colors.brand50 
+        color: baseTheme.colors.grey250 
     },
     icon: { 
         color: baseTheme.colors.brand50 

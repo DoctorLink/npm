@@ -11,13 +11,10 @@ export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX'
 export const toggleCheckbox = (id, answerIds) => ({ type: TOGGLE_CHECKBOX, id, answerIds })
 
 export const UPDATE_TEXT = 'UPDATE_TEXT'
-export const updateText = (id, answerIds, e) => ({ type: UPDATE_TEXT, id, answerIds, value: e.target.value })
+export const updateText = (id, answerIds, value) => ({ type: UPDATE_TEXT, id, answerIds, value })
 
 export const SET_CHAT_MIN_HEIGHT = 'SET_CHAT_MIN_HEIGHT'
 export const setChatMinHeight = minHeight => ({ type: SET_CHAT_MIN_HEIGHT, minHeight })
-
-export const TRAVERSAL_DIRECTION = 'TRAVERSAL_DIRECTION'
-export const traversalDirection = previous => ({ type: TRAVERSAL_DIRECTION, previous })
 
 export const TRAVERSAL_START = 'TRAVERSAL_START'
 export const traversalStart = (algoId, release, lang, nodeId, injection, culture) => ({ type: TRAVERSAL_START, algoId, release, lang, nodeId, injection, culture })

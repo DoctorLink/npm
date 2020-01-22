@@ -7,16 +7,19 @@ import tableheadercellTheme from '../../Theme/components/tableheadercell'
 const Container = styled.div`
     display: flex;
     justify-content: ${props => props.justifyContent || 'flex-start' };
+    text-align: ${p => p.textAlign};
 `
 
+Container.defaultProps = {
+  theme: { tableheadercell: tableheadercellTheme(baseTheme) }
+};
+
 const DisplayText = styled.div`
-    padding: ${p => p.theme.tableheadercell.padding}px;
     font-family: ${p => p.theme.tableheadercell.fontFamily};
     font-size: ${p => p.theme.tableheadercell.fontSize}px;
     line-height: ${p => p.theme.tableheadercell.lineHeight}px;
     display: inline-block;
     font-weight: normal;
-    text-align: left;
     white-space: pre-wrap;
 
     .e24subtext {
@@ -44,11 +47,18 @@ ErrorText.defaultProps = {
   theme: { tableheadercell: tableheadercellTheme(baseTheme) }
 };
 
-export default ({ text, error, children, justifyContent }) => 
-    (<th>
-        <Container justifyContent={justifyContent}>
+const TableHeaderCell = ({ text, error, justifyContent, textAlign, colspan, children }) =>
+    (<th colSpan={colspan}>
+        <Container textAlign={textAlign} justifyContent={justifyContent}>
             <DisplayText dangerouslySetInnerHTML={{ __html: text }}/>
             {children}
         </Container>
         {error && <ErrorText>{error.text}</ErrorText>}
     </th>)
+
+TableHeaderCell.defaultProps = {
+    colspan: 1,
+    textAlign: 'center',
+};
+
+export default TableHeaderCell;
