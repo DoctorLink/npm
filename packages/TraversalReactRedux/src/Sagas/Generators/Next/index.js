@@ -1,10 +1,14 @@
-import { call, put } from 'redux-saga/effects';
+import { call, put, all } from 'redux-saga/effects';
 import flattenTraversalNodeCollection from '../../../Helpers/flattenTraversalNodeCollection';
-import createTraversalResponse from '../../../Helpers/createTraversalResponse';
 import constructApiGenerator from '../apiGenerator';
 import * as actions from '../../../Actions';
+import addScrollEffect from '../addScrollEffect';
 
-const getApiCall = (api, action) => call(api.next, createTraversalResponse(action.traversal));
+const getApiCall = (api, action) => call(function* apic() {
+    const effects = yield addScrollEffect([call(api.next, action.traversalResponse)], action);
+    const [apiResult] = yield all(effects);
+    return apiResult;
+})
 
 const getOnSuccess = (response) => function* onSuccess() {
     const json = yield response.json();

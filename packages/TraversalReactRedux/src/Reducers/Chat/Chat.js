@@ -2,15 +2,19 @@ import {
     TOGGLE_RADIO, 
     TOGGLE_CHECKBOX, 
     UPDATE_TEXT, 
-    SET_TRAVERSAL, 
+    TRAVERSAL_NEXT,
+    TRAVERSAL_PREVIOUS,
+    TRAVERSAL_START_SET, 
+    TRAVERSAL_CONTINUE_SET,
     TRAVERSAL_NEXT_SET, 
     TRAVERSAL_PREVIOUS_SET, 
-    TRAVERSAL_START_SET, 
-    TRAVERSAL_CONTINUE_SET, 
-    SET_CHAT_MIN_HEIGHT, 
-    TRAVERSAL_CONCLUSION_SET
 } from '../../Actions'
 import answers from '../Answers'
+
+const containerHeight = (containerRef) => 
+    (containerRef && containerRef.current && containerRef.current.clientHeight) 
+    ? containerRef.current.clientHeight 
+    : 0;
 
 const chat = (state = null, action) => {
     switch (action.type) {
@@ -19,9 +23,10 @@ const chat = (state = null, action) => {
         case UPDATE_TEXT:
             if (!action.id.startsWith(state.questionIds[state.questionIds.length-1])) return state;
             return { ...state, answers: answers(state.answers, action)}
-        case SET_CHAT_MIN_HEIGHT:
+        case TRAVERSAL_NEXT:
+        case TRAVERSAL_PREVIOUS:
             if (state === null ) return state;
-            return { ...state, minHeight: action.minHeight, loading: true }
+            return { ...state, minHeight: containerHeight(action.containerRef), loading: true }
         case TRAVERSAL_NEXT_SET:
             let nextQuestionIds = state.questionIds;
             let nextQuestions = state.questions;
@@ -61,7 +66,8 @@ const chat = (state = null, action) => {
                 completed: action.traversal.completed,
                 errors: action.traversal.errors,
                 algoId: action.traversal.algoId,
-                assessmentType: action.traversal.assessmentType
+                assessmentType: action.traversal.assessmentType,
+                loading: false
             }
         case TRAVERSAL_START_SET:
         case TRAVERSAL_CONTINUE_SET:

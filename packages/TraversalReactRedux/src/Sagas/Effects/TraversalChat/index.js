@@ -2,8 +2,7 @@ import { takeLatest } from 'redux-saga/effects';
 import * as actions from '../../../Actions';
 import * as generators from '../../Generators';
 
-export default (traversalApi, traversalStateSelector) => ([
-    takeLatest(actions.TRAVERSAL_AUTO, generators.createAutoForwardChatGenerator(traversalStateSelector)),
+export default (traversalApi) => ([
     takeLatest(actions.TRAVERSAL_START, generators.createStartChatGenerator(traversalApi)),
     takeLatest(actions.TRAVERSAL_CONTINUE, generators.createContinueChatGenerator(traversalApi)),
     takeLatest(actions.TRAVERSAL_NEXT, generators.createNextChatGenerator(traversalApi)),

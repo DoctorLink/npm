@@ -1,48 +1,9 @@
-import React, { useEffect } from 'react'
-import { connect } from "react-redux";
-import { PoseGroup } from 'react-pose'
-import * as actions from '../../Actions'
-import colors from '../../Theme/base/colors'
-import {
-    InfoButton,
-    PanelBlocks,
-    PanelContainer,
-    Panel,
-    PanelHeader,
-    PanelTitle,
-    PanelContent,
-    PanelConclusion,
-    PanelBodyText as BodyText,
-    PanelConclusionTitle as ConclusionTitle,
-    PanelSVG as SVG
-} from '../../Components'
+import React from 'react';
+import colors from '../../Theme/base/colors';
+import { defaultSymptomReportActions, defaultSymptomReportComponents } from './defaults';
 
-const Icon = ({ state }) => {
-    if (state === 1) return (<SVG width="24" height="24" viewBox="0 0 24 24">
-        <circle cx="12" cy="12" r="10"></circle>
-        <line x1="12" y1="8" x2="12" y2="12"></line>
-        <line x1="12" y1="16" x2="12" y2="16"></line>
-    </SVG>)
-
-    if (state === 2) return (<SVG width="24" height="24" viewBox="0 0 24 24">
-        <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
-        <line x1="12" y1="9" x2="12" y2="13"></line>
-        <line x1="12" y1="17" x2="12" y2="17"></line>
-    </SVG>)
-
-    return (<SVG width="24" height="24" viewBox="0 0 24 24">
-        <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
-        <polyline points="22 4 12 14.01 9 11.01"></polyline>
-    </SVG>)
-}
-
-
-const SymptomReport = ({ traversalId, symptomReport, dispatch }) => {
-    useEffect(() => { dispatch(actions.traversalSymptomReportGet(traversalId)) }, [traversalId]);
-
-    if (!symptomReport) {
-        return null;
-    }
+export const SymptomReport = ({ symptomReport, actions = defaultSymptomReportActions, components = defaultSymptomReportComponents }) => {
+    const comps = { ...defaultSymptomReportComponents, ...components };
 
     const level = () => {
         switch (symptomReport.messageLevel) {
@@ -55,84 +16,81 @@ const SymptomReport = ({ traversalId, symptomReport, dispatch }) => {
         }
     }
 
-    return (<PoseGroup animateOnMount={true}>
-        <Panel fullWidth={true} key="header" id='Traversal'>
-            <PanelHeader color={level()}>
-                <Icon state={symptomReport.messageLevel} />
-                <PanelTitle>{symptomReport.messageTitle}</PanelTitle>
-            </PanelHeader>
-            <PanelContent>
-                <BodyText dangerouslySetInnerHTML={{ __html: symptomReport.messageDescription }}></BodyText>
-            </PanelContent>
-        </Panel>
-        <PanelBlocks key='bullets'>
-            <PanelContainer float={'right'} animateOnMount={true}>
-                {symptomReport.dangerBullets && symptomReport.dangerBullets.length > 0 && (<Panel>
-                    <PanelHeader color={colors.danger}>
-                        <PanelTitle>{symptomReport.dangerBulletTitle}</PanelTitle>
-                    </PanelHeader>
+    return (<comps.Wrapper animateOnMount={true}>
+        <comps.Panel fullWidth={true} key="header" id='Traversal'>
+            <comps.Header color={level()}>
+                <comps.Icon state={symptomReport.messageLevel} />
+                <comps.Title>{symptomReport.messageTitle}</comps.Title>
+            </comps.Header>
+            <comps.Content>
+                <comps.BodyText dangerouslySetInnerHTML={{ __html: symptomReport.messageDescription }}></comps.BodyText>
+            </comps.Content>
+        </comps.Panel>
+        <comps.Blocks key='bullets'>
+            <comps.Container float={'right'} animateOnMount={true}>
+                {symptomReport.dangerBullets && symptomReport.dangerBullets.length > 0 && (<comps.Panel>
+                    <comps.Header color={colors.danger}>
+                        <comps.Title>{symptomReport.dangerBulletTitle}</comps.Title>
+                    </comps.Header>
                     {symptomReport.dangerBullets.map((bullet, i) =>
-                        (<PanelConclusion key={i}>
-                            <BodyText>{bullet.displayText}</BodyText>
-                        </PanelConclusion>))}
-                </Panel>)}
-                {symptomReport.contactBullets && symptomReport.contactBullets.length > 0 && (<Panel>
-                    <PanelHeader color={colors.moderate}>
-                        <PanelTitle>{symptomReport.contactBulletTitle}</PanelTitle>
-                    </PanelHeader>
+                        (<comps.Conclusion key={i}>
+                            <comps.BodyText>{bullet.displayText}</comps.BodyText>
+                        </comps.Conclusion>))}
+                </comps.Panel>)}
+                {symptomReport.contactBullets && symptomReport.contactBullets.length > 0 && (<comps.Panel>
+                    <comps.Header color={colors.moderate}>
+                        <comps.Title>{symptomReport.contactBulletTitle}</comps.Title>
+                    </comps.Header>
                     {symptomReport.contactBullets.map((bullet, i) =>
-                        (<PanelConclusion key={i}>
-                            <BodyText>{bullet.displayText}</BodyText>
-                        </PanelConclusion>))}
-                </Panel>)}
-            </PanelContainer>
-            <PanelContainer key='concs'>
-                {symptomReport.reasonConclusions && symptomReport.reasonConclusions.length > 0 && (<Panel>
-                    <PanelHeader color={colors.brand100}>
-                        <PanelTitle>{symptomReport.reasonConclusionTitle}</PanelTitle>
-                    </PanelHeader>
+                        (<comps.Conclusion key={i}>
+                            <comps.BodyText>{bullet.displayText}</comps.BodyText>
+                        </comps.Conclusion>))}
+                </comps.Panel>)}
+            </comps.Container>
+            <comps.Container key='concs'>
+                {symptomReport.reasonConclusions && symptomReport.reasonConclusions.length > 0 && (<comps.Panel>
+                    <comps.Header color={colors.brand100}>
+                        <comps.Title>{symptomReport.reasonConclusionTitle}</comps.Title>
+                    </comps.Header>
                     {symptomReport.reasonConclusions.map((conclusion, i) =>
-                        (<PanelConclusion key={i}>
-                            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
-                            <InfoButton inline={true} explanation={conclusion.explanation} />
-                            <BodyText>{conclusion.truncated}</BodyText>
-                        </PanelConclusion>))}
-                </Panel>)}
-                {symptomReport.otherConclusions && symptomReport.otherConclusions.length > 0 && (<Panel>
-                    <PanelHeader color={colors.brand100}>
-                        <PanelTitle>{symptomReport.otherConclusionTitle}</PanelTitle>
-                    </PanelHeader>
+                        (<comps.Conclusion key={i}>
+                            <comps.ConclusionTitle>{conclusion.displayText}</comps.ConclusionTitle>
+                            <comps.Info  onClick={actions.showExplanation} explanation={conclusion.explanation} />
+                            <comps.BodyText>{conclusion.truncated}</comps.BodyText>
+                        </comps.Conclusion>))}
+                </comps.Panel>)}
+                {symptomReport.otherConclusions && symptomReport.otherConclusions.length > 0 && (<comps.Panel>
+                    <comps.Header color={colors.brand100}>
+                        <comps.Title>{symptomReport.otherConclusionTitle}</comps.Title>
+                    </comps.Header>
                     {symptomReport.otherConclusions.map((conclusion, i) =>
-                        (<PanelConclusion key={i}>
-                            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
-                            <InfoButton inline={true} explanation={conclusion.explanation} />
-                        </PanelConclusion>))}
-                </Panel>)}
-                {symptomReport.informationConclusions && symptomReport.informationConclusions.length > 0 && (<Panel>
-                    <PanelHeader color={colors.brand100}>
-                        <PanelTitle>{symptomReport.informationConclusionTitle}</PanelTitle>
-                    </PanelHeader>
+                        (<comps.Conclusion key={i}>
+                            <comps.ConclusionTitle>{conclusion.displayText}</comps.ConclusionTitle>
+                            <comps.Info  onClick={actions.showExplanation} explanation={conclusion.explanation} />
+                        </comps.Conclusion>))}
+                </comps.Panel>)}
+                {symptomReport.informationConclusions && symptomReport.informationConclusions.length > 0 && (<comps.Panel>
+                    <comps.Header color={colors.brand100}>
+                        <comps.Title>{symptomReport.informationConclusionTitle}</comps.Title>
+                    </comps.Header>
                     {symptomReport.informationConclusions.map((conclusion, i) =>
-                        (<PanelConclusion key={i}>
-                            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
-                            <InfoButton inline={true} explanation={conclusion.explanation} />
-                        </PanelConclusion>))}
-                </Panel>)}
-            </PanelContainer>
-            <PanelContainer key='reasons'>
-                {symptomReport.reasonBullets && symptomReport.reasonBullets.length > 0 && (<Panel>
-                    <PanelHeader color={colors.lightBlue100}>
-                        <PanelTitle>{symptomReport.reasonBulletTitle}</PanelTitle>
-                    </PanelHeader>
+                        (<comps.Conclusion key={i}>
+                            <comps.ConclusionTitle>{conclusion.displayText}</comps.ConclusionTitle>
+                            <comps.Info  onClick={actions.showExplanation} explanation={conclusion.explanation} />
+                        </comps.Conclusion>))}
+                </comps.Panel>)}
+            </comps.Container>
+            <comps.Container key='reasons'>
+                {symptomReport.reasonBullets && symptomReport.reasonBullets.length > 0 && (<comps.Panel>
+                    <comps.Header color={colors.lightBlue100}>
+                        <comps.Title>{symptomReport.reasonBulletTitle}</comps.Title>
+                    </comps.Header>
                     {symptomReport.reasonBullets.map((bullet, i) =>
-                        (<PanelConclusion key={i}>
-                            <BodyText bold={i === 0}>{bullet.displayText}</BodyText>
-                        </PanelConclusion>))}
-                </Panel>)}
-            </PanelContainer>
-        </PanelBlocks>
-    </PoseGroup>)
+                        (<comps.Conclusion key={i}>
+                            <comps.BodyText bold={i === 0}>{bullet.displayText}</comps.BodyText>
+                        </comps.Conclusion>))}
+                </comps.Panel>)}
+            </comps.Container>
+        </comps.Blocks>
+    </comps.Wrapper>)
 }
-
-const mapStateToProps = state => ({ symptomReport: state.conclusion && state.conclusion.symptomReport });
-export default connect(mapStateToProps)(SymptomReport);

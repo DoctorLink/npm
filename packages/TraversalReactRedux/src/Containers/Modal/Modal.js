@@ -1,11 +1,8 @@
-import React from 'react'
-import { connect } from 'react-redux'
-import { closeModal } from '../../Actions'
-import ModalComp from '../../Components/Modal'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { Modal, buildModalActions } from '../../ComponentModules';
 
-const Modal = ({ modal, dispatch }) => 
-    (<ModalComp modal={modal} closeModal={() => dispatch(closeModal())}/>)
-
-const mapStateToProps = state => ({ modal: state.modal })
-
-export default connect(mapStateToProps)(Modal)
+export default () => {
+    const modal  = useSelector(state => state.modal);
+    return (<Modal modal={modal} actions={buildModalActions()} />)
+}

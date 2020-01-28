@@ -1,1 +1,2 @@
-export { default } from './SymptomReport';
+export * from './SymptomReport';
+export * from './defaults';

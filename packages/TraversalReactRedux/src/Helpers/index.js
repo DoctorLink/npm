@@ -4,3 +4,4 @@ export { default as flattenTraversalNodeCollection } from './flattenTraversalNod
 export { default as flattenTraversalChat } from './flattenTraversalChat'
 export { createTraversalStore, createChatStore } from './createStore'
 export { replaceLineBreaks } from './replaceLineBreaks'
+export { default as scrollLastChildIntoView } from './scrollLastChildIntoView'

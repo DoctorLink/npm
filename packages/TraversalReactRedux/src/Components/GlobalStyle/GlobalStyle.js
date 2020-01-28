@@ -9,7 +9,7 @@ export default createGlobalStyle`
     }
 
     html {
-        scroll-behavior: smooth;
+        /* scroll-behavior: smooth; */
         font-family: 'Noto Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
         font-weight: 500;
     }

@@ -1,6 +1,5 @@
 import { all } from 'redux-saga/effects'
 import createTraversalChatEffects from '../../Effects/TraversalChat'
-import createTraversalChatSetEffects from '../../Effects/TraversalChatSet'
 import createSummaryEffects from '../../Effects/Summary'
 import createSymptomAssessmentEffects from '../../Effects/SymptomAssessment'
 import createHealthRiskAssessmentEffects from '../../Effects/HealthRiskAssessment'
@@ -12,7 +11,6 @@ import createProductsEffects from '../../Effects/Products'
 export default (traversalApi, hraApi, history) => {
     let effects = [
         ...createTraversalChatEffects(traversalApi),
-        ...createTraversalChatSetEffects(),
         ...createSummaryEffects(traversalApi),
         ...createSymptomAssessmentEffects(traversalApi),
         ...createHealthRiskAssessmentEffects(hraApi),

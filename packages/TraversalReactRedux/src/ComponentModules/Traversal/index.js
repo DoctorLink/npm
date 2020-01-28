@@ -1,1 +1,2 @@
-export { default } from './Traversal';
+export * from './Traversal';
+export * from './defaults';

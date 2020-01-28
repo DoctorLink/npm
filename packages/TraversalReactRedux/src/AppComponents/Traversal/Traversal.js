@@ -5,8 +5,8 @@ import { createBrowserHistory } from "history";
 import { Provider } from 'react-redux'
 
 import { GlobalStyle, BodyContent, Title } from '../../Components'
-import { Home, Traversal } from '../../Pages'
-import { Modal, Summary } from '../../Containers'
+import { HomePage as Home, TraversalPage as Traversal } from '../../Pages'
+import { ModalConnected as Modal } from '../../Containers'
 
 const TitleButton = withRouter(({ history }) => (
     <Title onClick={() => history.push("/")}>Traversal Client</Title>
@@ -22,7 +22,6 @@ export default ({ store, history }) => {
                 <TitleButton />
                 <Route exact path="/" component={Home} />
                 <Route path="/traversal/:id?" component={Traversal} />
-                <Summary />
                 <Modal />
             </BodyContent>
         </Router>

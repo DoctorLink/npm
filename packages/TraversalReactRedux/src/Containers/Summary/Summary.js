@@ -1,14 +1,10 @@
 import React from 'react'
-import { connect } from 'react-redux'
-import { traversalSummarySet, traversalPrevious } from '../../Actions'
-import SummaryComponent from '../../Components/Summary'
+import { useSelector } from 'react-redux'
+import { Summary, buildSummaryActions } from '../../ComponentModules'
 
-const Summary = ({ summary, dispatch }) => 
-    (<SummaryComponent 
+export default ({ containerRef }) => {
+    const summary = useSelector(state => state.summary);
+    return (<Summary 
         summary={summary} 
-        close = {() => dispatch(traversalSummarySet(null))}
-        jumpBack = {(traversalId, algoId, nodeId) => dispatch(traversalPrevious(traversalId, algoId, nodeId))} />)
-
-const mapStateToProps = state => ({ summary: state.summary })
-
-export default connect(mapStateToProps)(Summary)
+        actions={buildSummaryActions(summary, containerRef)} />)
+}

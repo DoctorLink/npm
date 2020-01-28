@@ -1,3 +1,3 @@
-export { default as Home } from './Home'
-export { default as Traversal } from './Traversal'
-export { default as Chat } from './Chat'
+export { default as HomePage } from './Home'
+export { default as TraversalPage } from './Traversal'
+export { default as ChatPage } from './Chat'

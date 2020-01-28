@@ -2,6 +2,8 @@ import React from 'react'
 import styled from 'styled-components'
 import posed, { PoseGroup } from 'react-pose'
 
+import { defaultChatActions, defaultChatComponents } from './defaults'
+
 import Loader from '../../Components/Loader'
 import Step from '../../Components/Step'
 import ChatForm from '../../Components/ChatForm'
@@ -15,10 +17,7 @@ import ChoiceContainer from '../../Components/ChoiceContainer'
 import PrimaryChoice from '../../Components/PrimaryChoice'
 import SecondaryChoice from '../../Components/SecondaryChoice'
 import Section from '../../Components/ChatSection'
-
-import Checkbox from '../../Containers/Checkbox'
-import Radio from '../../Containers/Radio'
-import TextField from '../../Containers/TextField'
+import HiddenInput from '../../Components/HiddenInput'
 
 const transition = {
     duration: 300,
@@ -88,9 +87,10 @@ const Container = styled.div`
     min-height: ${props => props.minHeight}px;
 `
 
-const Chat = ({ traversal, next, previous, showExplanation }) => {
-    const { traversalId, minHeight, questionIds, questions, answers, errors, loading } = traversal;
-    return (<Container id="Traversal" minHeight={minHeight}>
+export const Chat = ({ traversal, containerRef, actions = defaultChatActions, components = defaultChatComponents }) => {
+    const comps = { ...defaultChatComponents, ...components };
+    const { minHeight, questionIds, questions, answers, errors, loading } = traversal;
+    return (<Container id="Traversal" minHeight={minHeight} ref={containerRef}>
         {questionIds.map((questionId) => {
             const lastQuestion = questionId === questionIds[questionIds.length - 1]
             const current = lastQuestion && !loading
@@ -100,15 +100,15 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
             const questionAnswers = question.answers.map(answerId => answers[answerId])
             const showContinueButton = questionAnswers.length === 0 || questionAnswers.filter(x => x.controlType !== "Radio").length > 0
             const disableContinued = questionAnswers.length > 0 && questionAnswers.filter(x => x.controlChecked).length == 0
-            const jumpBack = () => previous(traversalId, question.algoId, question.nodeId, question.questionId)
+            const jumpBack = () => actions.jump(question)
             const handleSubmit = (event) => {
                 event.preventDefault()
-                next(traversal)
+                actions.next()
             }
             return (<Step key={questionId} id={lastQuestion ? 'CurrentQuestion' : ''}>
                 <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
                     <Question key={`Question_${questionId}`} current={current} displayText={question.displayText} error={error}>
-                        <ChatInfoIcon showExplanation={showExplanation} explanation={question.explanation} />
+                        <ChatInfoIcon showExplanation={actions.showExplanation} explanation={question.explanation} />
                     </Question>
                     {current &&
                         <PosedChatForm
@@ -125,47 +125,54 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
                                         return (<ChoiceContainer key={answerId}>
                                             {answer.controlType === "Checkbox" &&
                                                 <PrimaryChoice displayText={answer.displayText}>
-                                                    <Checkbox
-                                                        hidden={true}
-                                                        answer={answer}
-                                                        answerId={answerId}
-                                                        questionAnswerIds={question.answers} />
+                                                    <HiddenInput 
+                                                        type="checkbox"
+                                                        id={answerId}
+                                                        value={true}                
+                                                        checked={answer.controlChecked} 
+                                                        onChange={(e) => actions.toggleCheckbox(e, answerId, question.answers, true)}
+                                                    />
                                                 </PrimaryChoice>
                                             }
                                             {answer.controlType === "Radio" &&
                                                 !showContinueButton &&
                                                 <PrimaryChoice displayText={answer.displayText}>
-                                                    <Radio
-                                                        hidden={true}
-                                                        answer={answer}
-                                                        answerId={answerId}
-                                                        questionAnswerIds={question.answers} />
+                                                    <HiddenInput 
+                                                        type="radio"
+                                                        id={answerId}
+                                                        name={answerId.substring(0, answerId.lastIndexOf('_'))}
+                                                        value={true}                
+                                                        checked={answer.controlChecked} 
+                                                        onChange={()=>{}}
+                                                        onClick={(e) => actions.toggleRadio(e, answerId, question.answers, true)}
+                                                    />
                                                 </PrimaryChoice>
                                             }
                                             {answer.controlType === "Radio" &&
                                                 showContinueButton &&
                                                 <SecondaryChoice displayText={answer.displayText}>
-                                                    <Radio
-                                                        hidden={true}
-                                                        answer={answer}
-                                                        answerId={answerId}
-                                                        questionAnswerIds={question.answers} />
+                                                    <HiddenInput 
+                                                        type="radio"
+                                                        id={answerId}
+                                                        name={answerId.substring(0, answerId.lastIndexOf('_'))}
+                                                        value={true}                
+                                                        checked={answer.controlChecked} 
+                                                        onChange={()=>{}}
+                                                        onClick={(e) => actions.toggleRadio(e, answerId, question.answers, true)}
+                                                    />
                                                 </SecondaryChoice>
                                             }
                                             {(answer.controlType === "Text" ||
                                                 answer.controlType === "Number" ||
                                                 answer.controlType === "Date") &&
                                                 <ChatTextWrapper text={answer.displayText}>
-                                                    <TextField
-                                                        answer={answer}
-                                                        answerId={answerId}
-                                                        type={answer.controlType.toLowerCase()}
-                                                        questionAnswerIds={question.answers}
-                                                        CustomComp={ChatTextField} />
-                                                        
+                                                    <ChatTextField 
+                                                        value={answer.controlValue || ""}
+                                                        onChange={(e) => actions.updateValue(answerId, question.answers, e.target.value)}
+                                                    />
                                                 </ChatTextWrapper>
                                             }
-                                            <ChatInfoIcon showExplanation={showExplanation} explanation={answer.explanation} />
+                                            <ChatInfoIcon showExplanation={actions.showExplanation} explanation={answer.explanation} />
                                         </ChoiceContainer>)
                                     })}
                                 </React.Fragment>)
@@ -185,5 +192,3 @@ const Chat = ({ traversal, next, previous, showExplanation }) => {
         {loading && <Step><Loader /></Step>}
     </Container>)
 }
-
-export default Chat;

@@ -1,149 +1,18 @@
-export { default as ThemeProvider } from './Components/ThemeProvider'
+import * as actions from './Actions';
+import * as helpers from './Helpers';
+import * as constants from './Constants';
+export { actions, helpers, constants };
 
-import * as actions from './Actions'
-import * as helpers from './Helpers'
-import * as constants from './Constants'
-
-export { createTraversalWebApi, createChatWebApi }  from './WebApi'
-
-export { actions, helpers, constants }
-
-export {
-    createTraversalStore,
-    createChatStore,
-    createTraversalResponse,
-    createChatResponse,
-    flattenTraversalNodeCollection,
-    flattenTraversalChat,
-} from "./Helpers";
-
-export { default as AlgoName }  from './Components/AlgoName'
-export { default as DisplayText }  from './Components/DisplayText'
-export { default as BodyContent } from './Components/BodyContent'
-export { default as Button } from './Components/Button'
-export { default as Checkbox } from './Components/Checkbox'
-export { default as DateField } from './Components/DateField'
-export { default as Fieldset } from './Components/Fieldset'
-export { default as GlobalStyle } from './Components/GlobalStyle'
-export { default as InfoIcon } from './Components/InfoIcon'
-export { default as InfoButton } from './Components/InfoButton'
-export { default as Label } from './Components/Label'
-export { default as Modal } from './Components/Modal'
-export { default as NumberField } from './Components/NumberField'
-export { default as Question } from './Components/Question'
-export { default as QuestionTitle } from './Components/QuestionTitle'
-export { default as Radio } from './Components/Radio'
-export { default as Response } from './Components/Response'
-export { default as Section } from './Components/Section'
-export { default as Summary } from './Components/Summary'
-export { default as TableAnswerCell } from './Components/TableAnswerCell'
-export { default as TableHeaderCell } from './Components/TableHeaderCell'
-export { default as TableHeaderRow } from './Components/TableHeaderRow'
-export { default as TableQuestion } from './Components/TableQuestion'
-export { default as TableQuestionRow } from './Components/TableQuestionRow'
-export { default as TextField } from './Components/TextField'
-export { default as Title } from './Components/Title'
-
-export {
-    PanelBlocks,
-    PanelContainer,
-    Panel,
-    PanelHeader,
-    PanelTitle,
-    PanelContent,
-    PanelConclusion,
-    PanelBodyText,
-    PanelConclusionTitle,
-    PanelSVG
-} from './Components';
-
-export { default as Loader } from './Components/Loader'
-export { default as Step } from './Components/Step'
-export { default as ChatForm } from './Components/ChatForm'
-export { default as ChatInfoIcon } from './Components/ChatInfoIcon'
-export { default as ChatQuestion } from './Components/ChatQuestion'
-export { default as ChatPreviousAnswers } from './Components/ChatPreviousAnswers'
-export { default as ChatPreviousAnswer } from './Components/ChatPreviousAnswer'
-export { default as ChatTextWrapper } from './Components/ChatTextWrapper'
-export { default as ChatTextField } from './Components/ChatTextField'
-export { default as ChatSection} from './Components/ChatSection'
-export { default as ChoiceContainer } from './Components/ChoiceContainer'
-export { default as PrimaryChoice } from './Components/PrimaryChoice'
-export { default as SecondaryChoice } from './Components/SecondaryChoice'
-
-
-
-export { default as Traversal }  from './ComponentModules/Traversal'
-export { default as TraversalForm }  from './ComponentModules/TraversalForm'
-export { default as TraversalResponse }  from './ComponentModules/TraversalResponse'
-export { default as TraversalTable }  from './ComponentModules/TraversalTable'
-export { default as Chat }  from './ComponentModules/Chat'
-export { default as Conclusions }  from './ComponentModules/Conclusions'
-export { default as SymptomReport } from './ComponentModules/SymptomReport'
-export { default as HealthAssessment }  from './ComponentModules/HealthAssessment'
-
-export {
-    buildTraversalActions,
-    defaultTraversalActions,
-    defaultTraversalComponents
-} from './ComponentModules/defaults'
-
-export { default as ConnectedCheckbox } from './Containers/Checkbox'
-export { default as ConnectedDateField } from './Containers/DateField'
-export { default as ConnectedModal } from './Containers/Modal'
-export { default as ConnectedNumberField } from './Containers/NumberField'
-export { default as ConnectedRadio } from './Containers/Radio'
-export { default as ConnectedSummary } from './Containers/Summary'
-export { default as ConnectedTextField } from './Containers/TextField'
-
-export { default as HomePage } from './Pages/Home'
-export { default as TraversalPage } from './Pages/Traversal'
-export { default as ChatPage } from './Pages/Chat'
-
-export { default as TraversalApp } from './AppComponents/Traversal'
-export { default as ChatApp } from './AppComponents/Chat'
-
-export { rootChatReducer, rootTraversalReducer } from './Reducers'
-
-export { default as traversalReducer } from './Reducers/Traversal'
-export { default as chatReducer } from './Reducers/Chat'
-export { default as conclusionReducer } from './Reducers/Conclusion'
-export { default as summaryReducer } from './Reducers/Summary'
-export { default as modalReducer } from './Reducers/Modal'
-export { default as answersReducer } from './Reducers/Answers'
-export { default as hraReducer } from './Reducers/HealthAssessment'
-
-export { createTraversalSaga, createChatSaga } from './Sagas'
-
-export { default as createAutoForwardGenerator } from './Sagas/Generators/AutoForward'
-export { default as createAutoForwardChatGenerator } from './Sagas/Generators/AutoForwardChat'
-export { default as createConclusionsGenerator } from './Sagas/Generators/Conclusions'
-export { default as createContinueGenerator } from './Sagas/Generators/Continue'
-export { default as createContinueChatGenerator } from './Sagas/Generators/ContinueChat'
-export { default as createNextGenerator } from './Sagas/Generators/Next'
-export { default as createNextChatGenerator } from './Sagas/Generators/NextChat'
-export { default as createPreviousGenerator } from './Sagas/Generators/Previous'
-export { default as createPreviousChatGenerator } from './Sagas/Generators/PreviousChat'
-export { default as createStartGenerator } from './Sagas/Generators/Start'
-export { default as createStartChatGenerator } from './Sagas/Generators/StartChat'
-export { default as createSummaryGenerator } from './Sagas/Generators/Summary'
-export { default as createSymptomReportGenerator } from './Sagas/Generators/SymptomReport'
-export { default as createScrollToTopGenerator } from './Sagas/Generators/ScrollToTop'
-export { default as createScrollIntoViewGenerator } from './Sagas/Generators/ScrollIntoView'
-export { default as createHistoryPushGenerator } from './Sagas/Generators/HistoryPush'
-export { default as createWebApiNotOkGenerator } from './Sagas/Generators/WebApiNotOk'
-export { default as createWebApiErrorGenerator } from './Sagas/Generators/WebApiError'
-
-export { default as createTraversalChatEffects } from './Sagas/Effects/TraversalChat'
-export { default as createTraversalChatSetEffects } from './Sagas/Effects/TraversalChatSet'
-export { default as createTraversalClassicEffects } from './Sagas/Effects/TraversalClassic'
-export { default as createTraversalClassicSetEffects } from './Sagas/Effects/TraversalClassicSet'
-export { default as createSummaryEffects } from './Sagas/Effects/Summary'
-export { default as createSymptomAssessmentEffects } from './Sagas/Effects/SymptomAssessment'
-export { default as createHealthRiskAssessmentEffects } from './Sagas/Effects/HealthRiskAssessment'
-export { default as createHistoryPushEffects } from './Sagas/Effects/HistoryPush'
-export { default as createWebApiEffects } from './Sagas/Effects/WebApi'
+export * from './Constants';
+export * from './Helpers';
+export * from './WebApi';
+export * from './AppComponents';
+export * from './Pages';
+export * from './Containers';
+export * from './ComponentModules';
+export * from './Components';
+export * from './Reducers';
+export * from './Sagas';
 
 export { createBrowserHistory } from "history";
-
-export { default as createTheme } from './Theme'
+export { default as createTheme } from './Theme';

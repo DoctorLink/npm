@@ -1,2 +1,2 @@
-export { default as Traversal } from './Traversal'
-export { default as Chat } from './Chat'
+export { default as TraversalApp } from './Traversal'
+export { default as ChatApp } from './Chat'

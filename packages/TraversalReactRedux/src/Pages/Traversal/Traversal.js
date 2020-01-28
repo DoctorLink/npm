@@ -1,16 +1,22 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../Actions';
-import { Traversal, buildTraversalActions, Conclusions } from '../../ComponentModules';
+import { Traversal, buildTraversalActions } from '../../ComponentModules';
+import { ConclusionReportConnected as Conclusions, SummaryConnected as Summary } from '../../Containers';
 
 const TraversalPage = ({ match }) => {
     const { id } = match.params;
     const dispatch = useDispatch();
     const traversal = useSelector(state => state.traversal);
+    const loadTraversal = !traversal || traversal.traversalId !== id;
+    const containerRef = useRef();
     const labels = useSelector(state => state.labels.traversal);
-    useEffect(() => { dispatch(actions.traversalContinue(id)) }, [id]);
+    
+    useEffect(() => { 
+        if (loadTraversal) dispatch(actions.traversalContinue(id)) 
+    }, [dispatch, id, traversal]);
 
-    if (!traversal) {
+    if (loadTraversal) {
         return null;
     }
 
@@ -18,7 +24,10 @@ const TraversalPage = ({ match }) => {
         return <Conclusions traversalId={id} assessmentType={traversal.assessmentType} />
     }
 
-    return (<Traversal traversal={traversal} labels={labels} actions={buildTraversalActions(dispatch, traversal)}/>)
+    return (<>
+        <Traversal traversal={traversal} containerRef={containerRef} labels={labels} actions={buildTraversalActions(traversal, containerRef)}/>
+        <Summary containerRef={containerRef} />
+    </>)
 }
 
 export default TraversalPage
