@@ -40,9 +40,6 @@ export const traversalPrevious = (traversalId, algoId, nodeId, assetId, containe
 export const TRAVERSAL_PREVIOUS_SET = 'TRAVERSAL_PREVIOUS_SET'
 export const traversalPreviousSet = traversal => ({ type: TRAVERSAL_PREVIOUS_SET, traversal, receivedAt: Date.now() })
 
-export const TRAVERSAL_AUTO = 'TRAVERSAL_AUTO'
-export const traversalAuto = () => ({ type: TRAVERSAL_AUTO })
-
 export const TRAVERSAL_SUMMARY_GET = 'TRAVERSAL_SUMMARY_GET'
 export const traversalSummaryGet = traversalId => ({ type: TRAVERSAL_SUMMARY_GET, traversalId })
 
@@ -99,3 +96,75 @@ export const webApiNotOk = (apiCall, response) => ({ type: WEB_API_NOT_OK, apiCa
 
 export const WEB_API_ERROR = 'WEB_API_ERROR'
 export const webApiError = (apiCall, error) => ({ type: WEB_API_ERROR, apiCall, error })
+
+export const actions = {
+    POPULATE_MODAL,
+    CLOSE_MODAL,
+    TOGGLE_RADIO,
+    TOGGLE_CHECKBOX,
+    UPDATE_TEXT,
+    TRAVERSAL_MIN_HEIGHT,
+    TRAVERSAL_START,
+    TRAVERSAL_START_SET,
+    TRAVERSAL_CONTINUE,
+    TRAVERSAL_CONTINUE_SET,
+    TRAVERSAL_NEXT,
+    TRAVERSAL_NEXT_SET,
+    TRAVERSAL_PREVIOUS,
+    TRAVERSAL_PREVIOUS_SET,
+    TRAVERSAL_SUMMARY_GET,
+    TRAVERSAL_SUMMARY_SET,
+    TRAVERSAL_CONCLUSION_GET,
+    TRAVERSAL_SYMPTOM_REPORT_GET,
+    TRAVERSAL_CONCLUSION_SET,
+    HEALTH_RISKS_GET,
+    HEALTH_RISKS_SET,
+    HEALTH_AGE_GET,
+    HEALTH_AGE_SET,
+    HRA_WELLNESS_GET,
+    HRA_WELLNESS_SET,
+    HRA_CHECK_CONCLUSION,
+    HRA_UNCHECK_CONCLUSION,
+    CLIENT_PRODUCTS_GET,
+    CLIENT_PRODUCTS_SET,
+    LABELS_SET,
+    LABELS_RESTORE_DEFAULT,
+    WEB_API_NOT_OK,
+    WEB_API_ERROR
+}
+
+export const actionCreators = {
+    populateModal,
+    closeModal,
+    toggleRadio,
+    toggleCheckbox,
+    updateText,
+    setTraversalMinHeight,
+    traversalStart,
+    traversalStartSet,
+    traversalContinue,
+    traversalContinueSet,
+    traversalNext,
+    traversalNextSet,
+    traversalPrevious,
+    traversalPreviousSet,
+    traversalSummaryGet,
+    traversalSummarySet,
+    traversalConclusionGet,
+    traversalSymptomReportGet,
+    traversalConclusionSet,
+    healthRisksGet,
+    healthRisksSet,
+    healthAgeGet,
+    healthAgeSet,
+    hraWellnessGet,
+    hraWellnessSet,
+    checkConclusion,
+    uncheckConclusion,
+    clientProductsGet,
+    clientProductsSet,
+    labelsSet,
+    labelsRestoreDefault,
+    webApiNotOk,
+    webApiError
+}
