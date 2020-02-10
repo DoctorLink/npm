@@ -1,1 +1,0 @@
-export { WellbeingChart } from "./WellbeingChart";

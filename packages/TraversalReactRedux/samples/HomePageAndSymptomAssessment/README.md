@@ -41,7 +41,6 @@ import {
     createTraversalWebApi,
     createBrowserHistory,
     createTraversalClassicEffects,
-    createTraversalClassicSetEffects,
 	createSummaryEffects,
     createSymptomAssessmentEffects,
     createHistoryPushEffects
@@ -56,7 +55,6 @@ const history = createBrowserHistory();
 const  rootSaga  =  function*  rootSaga() {
 	yield  all([
         ...createTraversalClassicEffects(traversalApi),
-        ...createTraversalClassicSetEffects(),
         ...createSummaryEffects(traversalApi),
         ...createSymptomAssessmentEffects(traversalApi),
         ...createHistoryPushEffects(history)
@@ -72,12 +70,12 @@ First we will create a simple Homepage with just a button to start a symptom ass
 Import react-redux's connect method and the actions from our package. 
 ```javascript
 import { connect } from  'react-redux'
-import { actions } from  "@doctorlink/traversal-react-redux";
+import { actionCreators } from  "@doctorlink/traversal-react-redux";
 ```
 We create a component with a button that dispatches the start action to our store.
 ```javascript
 const Home = ({dispatch}) => 
-    (<button onClick={() => dispatch(actions.traversalStart("1", "2019.2.1", "EN", "", ""))}>Begin</button>)
+    (<button onClick={() => dispatch(actionCreators.traversalStart("1", "2019.2.1", "EN", "", ""))}>Begin</button>)
 const HomePage = connect()(Home)
 ```
 
@@ -108,7 +106,7 @@ Import Provider from react-redux, Router and Route from react-router-dom and the
 ```javascript
 import { Provider } from 'react-redux';
 import { Router, Route } from 'react-router-dom';
-import { ThemeProvider, TraversalPage, ConnectedSummary, ConnectedModal } from  '@doctorlink/traversal-react-redux';
+import { ThemeProvider, TraversalPage, ModalConnected } from  '@doctorlink/traversal-react-redux';
 ```
 Now we can scaffold our applicationa and render it. We pass our store to teh Provider, then the history to our Router and add a route for the HomePage we created. Next we add a ThemeProvider and pass our theme into it, with a route that renders our TraversalPage along with a ConnectedSummary and ConnectedModal.
 ```javascript
@@ -118,8 +116,7 @@ ReactDOM.render(
             <Route exact path="/" render={() => <HomePage history={history}></HomePage>} />
             <ThemeProvider Theme={theme}>
                 <Route path="/traversal/:id?" component={TraversalPage} />
-                <ConnectedSummary />
-                <ConnectedModal />
+                <ModalConnected />
             </ThemeProvider>
         </Router>
     </Provider>,

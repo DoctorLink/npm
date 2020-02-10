@@ -1,67 +1,67 @@
 {
-  "name": "@doctorlink/traversal-react-redux",
-  "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
-  "version": "0.9.1",
-  "description": "DoctorLink's Traversal Client Tools.",
-  "dependencies": {
-    "lodash.merge": "^4.6.2",
-    "normalizr": "^3.2.4",
-    "react-pose": "^4.0.8",
-    "react-redux": "^7.1.1",
-    "react-responsive": "^6.1.1",
-    "react-router-dom": "^5.1.2",
-    "react-visibility-sensor": "^5.1.1",
-    "redux": "^4.0.4",
-    "redux-devtools-extension": "^2.13.8",
-    "redux-saga": "^1.0.0",
-    "reselect": "^4.0.0",
-    "styled-components": "^4.2.0"
-  },
-  "main": "lib/index",
+  "version": "0.10.0",
+  "license": "MIT",
+  "main": "dist/index.js",
+  "typings": "dist/index.d.ts",
   "files": [
-    "/lib",
-    "README.md"
+    "dist"
   ],
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/DoctorLink/TraversalReactRedux"
-  },
   "scripts": {
-    "watch": "babel src --out-dir lib --copy-files --watch",
-    "build": "rimraf lib && cross-env NODE_ENV=production babel src --out-dir lib --copy-files --ignore __tests__,spec.js,test.js,__snapshots__",
-    "test": "jest --watch",
-    "test:ci": "jest",
-    "prepublishOnly": "yarn build && yarn test:ci"
-  },
-  "eslintConfig": {
-    "extends": "react-app"
-  },
-  "browserslist": [
-    ">0.2%",
-    "not dead",
-    "not ie <= 11",
-    "not op_mini all"
-  ],
-  "devDependencies": {
-    "@babel/cli": "^7.4.3",
-    "@babel/core": "^7.4.3",
-    "@babel/plugin-proposal-object-rest-spread": "^7.5.4",
-    "@babel/plugin-transform-runtime": "^7.6.2",
-    "@babel/preset-env": "^7.5.4",
-    "@babel/preset-react": "^7.0.0",
-    "@babel/runtime": "^7.6.3",
-    "@testing-library/jest-dom": "^4.2.4",
-    "@testing-library/react": "^9.1.3",
-    "@types/jest": "^24.0.18",
-    "babel-plugin-styled-components": "^1.10.0",
-    "cross-env": "^5.2.0",
-    "jest": "^24.9.0",
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0",
-    "rimraf": "^3.0.0"
+    "start": "tsdx watch",
+    "build": "tsdx build",
+    "test": "tsdx test --passWithNoTests",
+    "lint": "tsdx lint",
+    "fix": "tsdx lint --fix",
+    "prepare": "tsdx build"
   },
   "peerDependencies": {
-    "react": "^16.9.0",
-    "react-dom": "^16.9.0"
+    "react": ">=16",
+    "react-dom": ">=16",
+    "react-redux": ">=7"
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "tsdx lint"
+    }
+  },
+  "prettier": {
+    "printWidth": 80,
+    "semi": true,
+    "singleQuote": true,
+    "trailingComma": "es5"
+  },
+  "name": "@doctorlink/traversal-react-redux",
+  "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
+  "module": "dist/ts-speed.esm.js",
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.1.0",
+    "@testing-library/react": "^9.4.0",
+    "@types/jest": "^25.1.1",
+    "@types/react": "^16.9.19",
+    "@types/react-dom": "^16.9.5",
+    "@types/react-redux": "^7.1.7",
+    "husky": "^4.2.1",
+    "react": "^16.12.0",
+    "react-dom": "^16.12.0",
+    "react-redux": "^7.1.3",
+    "tsdx": "^0.12.3",
+    "tslib": "^1.10.0",
+    "typescript": "^3.7.5"
+  },
+  "dependencies": {
+    "@types/lodash.merge": "^4.6.6",
+    "@types/react-responsive": "^8.0.2",
+    "@types/react-router-dom": "^5.1.3",
+    "@types/styled-components": "^4.4.2",
+    "lodash.merge": "^4.6.2",
+    "normalizr": "^3.5.0",
+    "react-pose": "^4.0.10",
+    "react-responsive": "^8.0.3",
+    "react-router-dom": "^5.1.2",
+    "react-visibility-sensor": "^5.1.1",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.1.3",
+    "reselect": "^4.0.0",
+    "styled-components": "^5.0.0"
   }
 }

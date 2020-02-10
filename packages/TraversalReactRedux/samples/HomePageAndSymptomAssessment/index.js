@@ -13,14 +13,12 @@ import {
     conclusionReducer,
     modalReducer,
     createTraversalClassicEffects,
-    createTraversalClassicSetEffects,
     createSummaryEffects,
     createSymptomAssessmentEffects,
     createHistoryPushEffects,
     ThemeProvider,
     createTheme,
-    ConnectedModal,
-    ConnectedSummary,
+    ModalConnected,
     TraversalPage
 } from '@doctorlink/traversal-react-redux';
 
@@ -42,7 +40,6 @@ const history = createBrowserHistory();
 const rootSaga = function* rootSaga() {
     yield all([
         ...createTraversalClassicEffects(traversalApi),
-        ...createTraversalClassicSetEffects(),
         ...createSummaryEffects(traversalApi),
         ...createSymptomAssessmentEffects(traversalApi),
         ...createHistoryPushEffects(history)
@@ -74,8 +71,7 @@ ReactDOM.render(
             <Route exact path="/" render={() => <HomePage history={history}></HomePage>} />
             <ThemeProvider Theme={theme}>
                 <Route path="/traversal/:id?" component={TraversalPage} />
-                <ConnectedSummary />
-                <ConnectedModal />
+                <ModalConnected />
             </ThemeProvider>
         </Router>
     </Provider>,
