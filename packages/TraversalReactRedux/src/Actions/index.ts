@@ -37,12 +37,12 @@ export const setTraversalMinHeight = (minHeight: any) => ({
 
 export const TRAVERSAL_START = 'TRAVERSAL_START';
 export const traversalStart = (
-  algoId: any,
-  release: any,
-  lang: any,
-  nodeId: any,
-  injection: any,
-  culture: any
+  algoId?: any,
+  release?: any,
+  lang?: any,
+  nodeId?: any,
+  injection?: any,
+  culture?: any
 ) => ({
   type: TRAVERSAL_START,
   algoId,

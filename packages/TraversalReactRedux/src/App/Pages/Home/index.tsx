@@ -70,7 +70,7 @@ const selfAnswer = {
 
 const defaultInjection = [locationAnswer, selfAnswer];
 
-const Home: React.FC<{ history: any }> = ({ history }) => {
+const Home = () => {
   const [algo, setAlgo] = useState('');
   const [release, setRelease] = useState('');
   const [lang, setLang] = useState('');
@@ -93,9 +93,7 @@ const Home: React.FC<{ history: any }> = ({ history }) => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    dispatch(
-      actions.traversalStart(algo, release, lang, node, injection, history)
-    );
+    dispatch(actions.traversalStart(algo, release, lang, node, injection));
   };
 
   const selectProduct = (releaseNumber: any) => {
