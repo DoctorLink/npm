@@ -39,57 +39,56 @@ export const Summary: React.FC<{
       {summary && [
         <comps.DelayExit key="global">
           <comps.BodyOverflowHidden />
-          <comps.TransparentCurtain>
-            <comps.Summary ref={ref}>
-              <comps.Header>
-                <comps.Title>{labels.title}</comps.Title>
-                <comps.Close onClick={actions.close} />
-              </comps.Header>
-              {summary.questions.length === 0 && (
-                <comps.Header>{labels.noQuestions}</comps.Header>
-              )}
-              {summary.questions.length > 0 &&
-                summary.questions.map((question: any) => (
-                  <comps.Question
-                    key={`${question.algoId}_${question.nodeId}`}
-                    onClick={() =>
-                      actions.jump(question.algoId, question.nodeId)
-                    }
-                  >
-                    <comps.QuestionText
-                      dangerouslySetInnerHTML={{
-                        __html: question.summaryText
-                          ? question.summaryText
-                          : question.displayText,
-                      }}
-                    />
-                    <comps.Answers>
-                      {question.answers
-                        .filter((x: any) => x.isAnswered)
-                        .map((answer: any) => (
-                          <comps.AnswerText
-                            key={`${question.algoId}_${question.nodeId}_${answer.answerId}`}
-                            dangerouslySetInnerHTML={{
-                              __html: `${
-                                answer.value ? answer.value + ' ' : ''
-                              }${answer.displayText}`,
-                            }}
-                          />
-                        ))}
-                      {question.answers.filter((x: any) => x.isAnswered)
-                        .length === 0 &&
-                        question.answers.filter((x: any) => x.answerId === 0)
-                          .length === 0 && (
-                          <comps.EmptyAnswerText>
-                            {labels.noAnswers}
-                          </comps.EmptyAnswerText>
-                        )}
-                    </comps.Answers>
-                  </comps.Question>
-                ))}
-            </comps.Summary>
-          </comps.TransparentCurtain>
         </comps.DelayExit>,
+        <comps.TransparentCurtain key="curtain">
+          =
+          <comps.Summary ref={ref}>
+            <comps.Header>
+              <comps.Title>{labels.title}</comps.Title>
+              <comps.Close onClick={actions.close} />
+            </comps.Header>
+            {summary.questions.length === 0 && (
+              <comps.Header>{labels.noQuestions}</comps.Header>
+            )}
+            {summary.questions.length > 0 &&
+              summary.questions.map((question: any) => (
+                <comps.Question
+                  key={`${question.algoId}_${question.nodeId}`}
+                  onClick={() => actions.jump(question.algoId, question.nodeId)}
+                >
+                  <comps.QuestionText
+                    dangerouslySetInnerHTML={{
+                      __html: question.summaryText
+                        ? question.summaryText
+                        : question.displayText,
+                    }}
+                  />
+                  <comps.Answers>
+                    {question.answers
+                      .filter((x: any) => x.isAnswered)
+                      .map((answer: any) => (
+                        <comps.AnswerText
+                          key={`${question.algoId}_${question.nodeId}_${answer.answerId}`}
+                          dangerouslySetInnerHTML={{
+                            __html: `${answer.value ? answer.value + ' ' : ''}${
+                              answer.displayText
+                            }`,
+                          }}
+                        />
+                      ))}
+                    {question.answers.filter((x: any) => x.isAnswered)
+                      .length === 0 &&
+                      question.answers.filter((x: any) => x.answerId === 0)
+                        .length === 0 && (
+                        <comps.EmptyAnswerText>
+                          {labels.noAnswers}
+                        </comps.EmptyAnswerText>
+                      )}
+                  </comps.Answers>
+                </comps.Question>
+              ))}
+          </comps.Summary>
+        </comps.TransparentCurtain>,
       ]}
     </comps.Wrapper>
   );

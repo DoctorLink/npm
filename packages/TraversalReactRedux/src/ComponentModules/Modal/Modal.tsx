@@ -42,24 +42,25 @@ export const Modal: React.FC<{
       {modal && [
         <comps.DelayExit key="global">
           <comps.BodyOverflowHidden />
-          <comps.TransparentCurtain>
-            <comps.Wrap>
-              <comps.Container>
-                <comps.Modal ref={ref}>
-                  <comps.Header>
-                    <comps.Title>{modal.title}</comps.Title>
-                    <comps.Close onClick={actions.close} />
-                  </comps.Header>
-                  <comps.Body
-                    dangerouslySetInnerHTML={{
-                      __html: replaceLineBreaks(modal.content),
-                    }}
-                  />
-                </comps.Modal>
-              </comps.Container>
-            </comps.Wrap>
-          </comps.TransparentCurtain>
         </comps.DelayExit>,
+        <comps.BackDrop key="backdrop" />,
+        <comps.TransparentCurtain key="curtain">
+          <comps.Wrap>
+            <comps.Container>
+              <comps.Modal ref={ref}>
+                <comps.Header>
+                  <comps.Title>{modal.title}</comps.Title>
+                  <comps.Close onClick={actions.close} />
+                </comps.Header>
+                <comps.Body
+                  dangerouslySetInnerHTML={{
+                    __html: replaceLineBreaks(modal.content),
+                  }}
+                />
+              </comps.Modal>
+            </comps.Container>
+          </comps.Wrap>
+        </comps.TransparentCurtain>,
       ]}
     </comps.Wrapper>
   );

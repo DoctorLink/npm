@@ -51,7 +51,7 @@ export const useHRARoutes = (traversalId: any) => {
     { path: 'info', enabled: true },
   ];
 
-  const [initialRoute, setInitialRoute] = useState();
+  const [initialRoute, setInitialRoute] = useState<string>();
 
   // Find the initial route to redirect to, if known.
   // If we are waiting for data before we can make that call, use undefined for now.

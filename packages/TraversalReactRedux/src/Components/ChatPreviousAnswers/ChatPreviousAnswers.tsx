@@ -1,8 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
+import { motion } from 'framer-motion';
 
-const PreviousAnswersContainer = styled.div`
+const PreviousAnswersContainer = styled(motion.div)`
   max-width: 440px;
   margin-left: auto;
   /* overflow: hidden; */
@@ -34,8 +35,8 @@ const ChangeAnswer = styled.div`
 `;
 
 const PreviousQuestion = React.forwardRef<any, any>(
-  ({ jumpBack, children }, ref) => (
-    <PreviousAnswersContainer ref={ref}>
+  ({ jumpBack, children, ...props }, ref) => (
+    <PreviousAnswersContainer ref={ref} {...props}>
       <PreviousAnswersContent>
         <div>{children}</div>
         <ChangeAnswer onClick={jumpBack}>Click to change</ChangeAnswer>

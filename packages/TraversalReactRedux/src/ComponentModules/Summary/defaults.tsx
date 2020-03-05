@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import posed, { PoseGroup } from 'react-pose';
-import styled from 'styled-components';
+import { motion, AnimatePresence } from 'framer-motion';
+import styled, { StyledComponent } from 'styled-components';
 
 import { defaultTheme } from '../../Theme';
 
@@ -13,7 +13,7 @@ import {
   TransparentCurtain,
 } from '../../Components';
 
-const SummaryContainerDiv = styled.div`
+const SummaryContainerDiv = styled(motion.div)`
   font-family: ${p => p.theme.summary.fontFamily};
   font-size: ${p => p.theme.summary.fontSize}px;
   line-height: ${p => p.theme.summary.lineHeight}px;
@@ -30,40 +30,78 @@ const SummaryContainerDiv = styled.div`
   box-sizing: border-box;
 `;
 
-const Summary = posed(SummaryContainerDiv)({
-  enter: {
-    x: '0%',
-    y: '0%',
-    height: '100%',
-    staggerChildren: 25,
-    transition: {
-      x: { type: 'tween', easeing: 'easeInOut' },
-    },
-  },
-  exit: {
-    x: '100%',
-    y: '0%',
-    height: '100%',
-    transition: {
-      x: { type: 'tween', easeing: 'easeInOut' },
-    },
-  },
-});
+// const Summary = posed(SummaryContainerDiv)({
+//   enter: {
+//     x: '0%',
+//     y: '0%',
+//     height: '100%',
+//     staggerChildren: 25,
+//     transition: {
+//       x: { type: 'tween', easeing: 'easeInOut' },
+//     },
+//   },
+//   exit: {
+//     x: '100%',
+//     y: '0%',
+//     height: '100%',
+//     transition: {
+//       x: { type: 'tween', easeing: 'easeInOut' },
+//     },
+//   },
+// });
 
-Summary.defaultProps = {
+SummaryContainerDiv.defaultProps = {
   theme: defaultTheme,
 };
 
-const SummaryChild = posed.div({
-  enter: { opacity: 1 },
-  exit: { opacity: 0 },
-});
+const Summary = React.forwardRef<any, any>(({ children }, ref) => (
+  <SummaryContainerDiv
+    ref={ref}
+    initial="hidden"
+    animate="show"
+    exit="hidden"
+    variants={{
+      show: {
+        x: '0%',
+        y: '0%',
+        height: '100%',
+        transition: {
+          x: { type: 'tween', easeing: 'easeInOut' },
+          staggerChildren: 0.025,
+        },
+      },
+      hidden: {
+        x: '100%',
+        y: '0%',
+        height: '100%',
+        transition: {
+          x: { type: 'tween', easeing: 'easeInOut' },
+        },
+      },
+    }}
+  >
+    {children}
+  </SummaryContainerDiv>
+));
 
-const Header = styled(SummaryChild)`
+export const createSummaryChild = (Component: StyledComponent<any, any>) =>
+  React.forwardRef<any, any>(({ children }, ref) => (
+    <Component
+      ref={ref}
+      variants={{
+        show: { opacity: 1 },
+        hidden: { opacity: 0 },
+      }}
+    >
+      {children}
+    </Component>
+  ));
+
+const Header = createSummaryChild(styled(motion.div)`
   padding: 10px;
   display: flex;
   align-items: flex-start;
-`;
+`);
 
 const Title = styled.h2`
   flex: 1;
@@ -75,11 +113,11 @@ const Empty = styled.h4`
   margin: 0;
 `;
 
-const Question = styled(SummaryChild)`
+const Question = createSummaryChild(styled(motion.div)`
   padding: 10px;
   border-bottom: 1px solid #f1f1f1;
   cursor: pointer;
-`;
+`);
 
 const Icon = styled.svg`
   fill: none;
@@ -115,7 +153,7 @@ const AnswerText = styled.div``;
 const EmptyAnswerText = styled.div``;
 
 export const defaultSummaryComponents = {
-  Wrapper: PoseGroup,
+  Wrapper: AnimatePresence,
   DelayExit,
   BodyOverflowHidden,
   TransparentCurtain,

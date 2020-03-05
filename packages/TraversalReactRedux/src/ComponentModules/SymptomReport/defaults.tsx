@@ -1,5 +1,4 @@
 import React from 'react';
-import { PoseGroup } from 'react-pose';
 import { useDispatch } from 'react-redux';
 import * as actions from '../../Actions';
 import {
@@ -15,10 +14,6 @@ import {
   PanelConclusionTitle as ConclusionTitle,
   PanelSVG,
 } from '../../Components';
-
-const Wrapper: React.FC<{ children: any }> = ({ children }) => (
-  <PoseGroup animateOnMount={true}>{children}</PoseGroup>
-);
 
 const Icon: React.FC<{ state: any }> = ({ state }) => {
   if (state === 1)
@@ -52,7 +47,6 @@ const Info: React.FC<any> = ({ ...props }) => (
 );
 
 export const defaultSymptomReportComponents = {
-  Wrapper,
   Blocks,
   Container,
   Panel,

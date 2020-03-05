@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import posed, { PoseGroup } from 'react-pose';
+import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 
 import { defaultTheme } from '../../Theme';
@@ -13,22 +13,41 @@ import {
   TransparentCurtain,
 } from '../../Components';
 
-const WrapPose = posed.div({
-  enter: {
-    opacity: 1,
-    transition: {
-      default: { duration: 150 },
-    },
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      default: { duration: 150 },
-    },
-  },
-});
+const BackDropMotion = styled(motion.div)`
+  background-color: rgba(0, 0, 0, 0.8);
+  position: fixed;
+  top: 0;
+  height: 100%;
+  right: 0;
+  width: 100%;
+  z-index: 100;
+`;
 
-const Wrap = styled(WrapPose)`
+const BackDrop: React.FC<any> = ({ children }) => (
+  <BackDropMotion
+    variants={{
+      enter: {
+        opacity: 1,
+        transition: {
+          default: { duration: 0.15 },
+        },
+      },
+      exit: {
+        opacity: 0,
+        transition: {
+          default: { duration: 0.15 },
+        },
+      },
+    }}
+    initial="exit"
+    animate="enter"
+    exit="exit"
+  >
+    {children}
+  </BackDropMotion>
+);
+
+const Wrap = styled.div`
   box-sizing: border-box;
   text-align: center;
   position: absolute;
@@ -38,7 +57,6 @@ const Wrap = styled(WrapPose)`
   top: 0;
   padding: 0 8px;
   white-space: nowrap;
-  background-color: rgba(0, 0, 0, 0.8);
   position: fixed;
   overflow-x: hidden;
   overflow-y: auto;
@@ -68,24 +86,7 @@ const Container = styled.div`
   text-align: left;
 `;
 
-const ContentPose = posed.div({
-  enter: {
-    y: 0,
-    opacity: 1,
-    delay: 100,
-    transition: {
-      y: { type: 'spring', stiffness: 1000, damping: 15 },
-      default: { duration: 300 },
-    },
-  },
-  exit: {
-    y: 50,
-    opacity: 0,
-    transition: { duration: 300 },
-  },
-});
-
-const Modal = styled(ContentPose)`
+const ModalMotion = styled(motion.div)`
   box-sizing: border-box;
   background-color: #fff;
   border-radius: ${p => p.theme.modal.borderRadius}px;
@@ -103,9 +104,35 @@ const Modal = styled(ContentPose)`
   }
 `;
 
-Modal.defaultProps = {
+ModalMotion.defaultProps = {
   theme: defaultTheme,
 };
+
+const Modal = React.forwardRef<any, any>(({ children }, ref) => (
+  <ModalMotion
+    ref={ref}
+    variants={{
+      enter: {
+        y: 0,
+        opacity: 1,
+        transition: {
+          y: { type: 'spring', stiffness: 1000, damping: 15, delay: 0.1 },
+          default: { duration: 0.3, delay: 0.1 },
+        },
+      },
+      exit: {
+        y: 50,
+        opacity: 0,
+        transition: { duration: 0.3 },
+      },
+    }}
+    initial="exit"
+    animate="enter"
+    exit="exit"
+  >
+    {children}
+  </ModalMotion>
+));
 
 const Header = styled.div`
   display: flex;
@@ -137,10 +164,11 @@ const Close: React.FC<{ onClick: any }> = ({ onClick }) => (
 );
 
 export const defaultModalComponents = {
-  Wrapper: PoseGroup,
+  Wrapper: AnimatePresence,
   DelayExit,
   BodyOverflowHidden,
   TransparentCurtain,
+  BackDrop,
   Wrap,
   Container,
   Modal,

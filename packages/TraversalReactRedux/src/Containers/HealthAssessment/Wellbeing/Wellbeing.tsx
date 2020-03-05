@@ -1,7 +1,6 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PoseGroup } from 'react-pose';
-import { Panel, PanelContainer } from '../../../Components';
+import { Panel, PanelContainer, PanelBlocks } from '../../../Components';
 import {
   wellnessConclusionsSelector,
   wellnessExplanationsSelector,
@@ -16,19 +15,19 @@ const Wellbeing: React.FC<{
   wellnessExplanations: any;
 }> = ({ traversalId, wellnessConclusions, wellnessExplanations }) => {
   return (
-    <PoseGroup animateOnMount={true}>
-      <PanelContainer key="chart" float="right">
+    <PanelBlocks>
+      <PanelContainer float="right">
         <Panel>
           <WellbeingScores traversalId={traversalId} />
         </Panel>
       </PanelContainer>
-      <PanelContainer key="conclusions">
+      <PanelContainer>
         <CheckableConclusionsPanel
           traversalId={traversalId}
           conclusions={wellnessConclusions}
         />
       </PanelContainer>
-      <PanelContainer key="explanations">
+      <PanelContainer>
         <Panel>
           <Explanations
             title="Your lifestyle scores explained"
@@ -36,7 +35,7 @@ const Wellbeing: React.FC<{
           />
         </Panel>
       </PanelContainer>
-    </PoseGroup>
+    </PanelBlocks>
   );
 };
 

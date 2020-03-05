@@ -5,17 +5,20 @@ import { Chat, BuildChatActions } from '../../../ComponentModules';
 import { ConclusionReportConnected as Conclusions } from '../../../Containers';
 
 const ChatPage: React.FC<{ match: any }> = ({ match }) => {
-  const { id } = match.params;
+  const containerRef = useRef();
   const dispatch = useDispatch();
   const traversal = useSelector((state: any) => state.traversal);
+
+  const { id } = match.params;
   const loadTraversal = !traversal || traversal.traversalId !== id;
-  const containerRef = useRef();
 
   useEffect(() => {
     if (loadTraversal) dispatch(actions.traversalContinue(id, containerRef));
-  }, [dispatch, id, loadTraversal, traversal]);
+  }, [dispatch, id, loadTraversal]);
 
-  if (!traversal) {
+  const traversalActions = BuildChatActions(traversal, containerRef);
+
+  if (loadTraversal) {
     return null;
   }
 
@@ -29,7 +32,7 @@ const ChatPage: React.FC<{ match: any }> = ({ match }) => {
     <Chat
       traversal={traversal}
       containerRef={containerRef}
-      actions={BuildChatActions(traversal, containerRef)}
+      actions={traversalActions}
     />
   );
 };

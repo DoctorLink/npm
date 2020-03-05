@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PoseGroup } from 'react-pose';
 import styled from 'styled-components';
 import {
   Panel,
   PanelContainer,
+  PanelBlocks,
   HealthReportPanelHeader,
   PanelContent,
   PanelBodyText,
@@ -33,8 +33,8 @@ const HealthAge: React.FC<{
   const ageReduction = healthAge - minimumHealthAge;
 
   return (
-    <PoseGroup animateOnMount={true}>
-      <PanelContainer key="age">
+    <PanelBlocks>
+      <PanelContainer>
         <Panel>
           <HealthReportPanelHeader>
             Your health age report
@@ -68,7 +68,7 @@ const HealthAge: React.FC<{
         </Panel>
       </PanelContainer>
       {explanation && (
-        <PanelContainer key="explanation">
+        <PanelContainer>
           <Panel>
             <HealthReportPanelHeader>
               Your health age explained
@@ -83,7 +83,7 @@ const HealthAge: React.FC<{
           </Panel>
         </PanelContainer>
       )}
-    </PoseGroup>
+    </PanelBlocks>
   );
 };
 

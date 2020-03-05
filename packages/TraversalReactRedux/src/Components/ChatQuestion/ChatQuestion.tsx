@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
+import { motion } from 'framer-motion';
 
 const QuestionContent = styled.div`
   white-space: pre-line;
@@ -50,7 +51,7 @@ interface Props {
   current: boolean;
 }
 
-const QuestionWrapper = styled.div<Props>`
+const QuestionWrapper = styled(motion.div)<Props>`
   width: 100%;
   display: inline-block;
   box-sizing: border-box;
@@ -71,8 +72,8 @@ const ErrorText = styled.div`
 `;
 
 const ChatQuestion = React.forwardRef<any, any>(
-  ({ displayText, error, current, children }, ref) => (
-    <QuestionWrapper current={current} ref={ref}>
+  ({ displayText, error, current, children, ...props }, ref) => (
+    <QuestionWrapper current={current} ref={ref} {...props}>
       <QuestionContent>
         <span dangerouslySetInnerHTML={{ __html: displayText }}></span>
         {error && <ErrorText>{error.text}</ErrorText>}

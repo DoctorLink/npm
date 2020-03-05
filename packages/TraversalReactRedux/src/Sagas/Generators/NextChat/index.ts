@@ -1,4 +1,4 @@
-import { all, call, put, delay } from 'redux-saga/effects';
+import { call, put } from 'redux-saga/effects';
 import {
   flattenTraversalChat,
   scrollLastChildIntoView,
@@ -9,14 +9,7 @@ import * as actions from '../../../Actions';
 const getApiCall = (
   api: { next: any },
   action: { traversalResponse: unknown }
-) =>
-  call(function* apic() {
-    const [apiResult] = yield all([
-      call(api.next, action.traversalResponse),
-      delay(300),
-    ]);
-    return apiResult;
-  });
+) => call(api.next, action.traversalResponse);
 
 const getOnSuccess = (
   response: { json: () => any },

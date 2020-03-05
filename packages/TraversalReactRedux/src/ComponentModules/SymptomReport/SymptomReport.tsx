@@ -28,22 +28,24 @@ export const SymptomReport: React.FC<{
   };
 
   return (
-    <comps.Wrapper animateOnMount={true}>
-      <comps.Panel fullWidth={true} key="header" id="Traversal">
-        <comps.Header color={level()}>
-          <comps.Icon state={symptomReport.messageLevel} />
-          <comps.Title>{symptomReport.messageTitle}</comps.Title>
-        </comps.Header>
-        <comps.Content>
-          <comps.BodyText
-            dangerouslySetInnerHTML={{
-              __html: symptomReport.messageDescription,
-            }}
-          ></comps.BodyText>
-        </comps.Content>
-      </comps.Panel>
-      <comps.Blocks key="bullets">
-        <comps.Container float={'right'} animateOnMount={true}>
+    <>
+      <comps.Blocks key="panel" staggerChildren={0.2} style={{ margin: 0 }}>
+        <comps.Panel fullWidth={true} key="header" id="Traversal">
+          <comps.Header color={level()}>
+            <comps.Icon state={symptomReport.messageLevel} />
+            <comps.Title>{symptomReport.messageTitle}</comps.Title>
+          </comps.Header>
+          <comps.Content>
+            <comps.BodyText
+              dangerouslySetInnerHTML={{
+                __html: symptomReport.messageDescription,
+              }}
+            />
+          </comps.Content>
+        </comps.Panel>
+      </comps.Blocks>
+      <comps.Blocks key="bullets" staggerChildren={0.2}>
+        <comps.Container float={'right'}>
           {symptomReport.dangerBullets &&
             symptomReport.dangerBullets.length > 0 && (
               <comps.Panel>
@@ -161,6 +163,6 @@ export const SymptomReport: React.FC<{
             )}
         </comps.Container>
       </comps.Blocks>
-    </comps.Wrapper>
+    </>
   );
 };

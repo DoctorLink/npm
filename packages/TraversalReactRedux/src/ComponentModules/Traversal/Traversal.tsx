@@ -247,59 +247,65 @@ export const TraversalForm: React.FC<{
             <comps.ErrorText key={i}>{error}</comps.ErrorText>
           ))}
         <comps.Collection onRest={actions.setHeight}>
-          {nodes &&
-            nodeIds.map((nodeId: any) => {
-              const node = nodes[nodeId];
-              return (
-                <comps.Fieldset
-                  key={`${algoId}_${nodeId}`}
-                  mirror={previous}
-                  disabled={loading}
-                  initialPose="preEnterpose"
-                >
-                  {(node.questions.length !== 1 || node.isTable) && (
-                    <>
-                      {comps.QuestionTitle && node.title && (
-                        <comps.QuestionTitle>{node.title}</comps.QuestionTitle>
-                      )}
-                      <comps.Question displayText={node.displayText}>
-                        <comps.InfoIcon
-                          onClick={actions.showExplanation}
-                          explanation={node.explanation}
-                        />
-                      </comps.Question>
-                    </>
-                  )}
-                  <MediaQuery minWidth={minWidthTable}>
-                    {matches => {
-                      if (matches && node.isTable) {
-                        return (
-                          <TraversalTable
-                            node={node}
-                            questions={questions}
-                            answers={answers}
-                            errors={errors}
-                            actions={actions}
-                            components={comps}
+          {nodes && (
+            <comps.Nodes
+              key={`${algoId}_${nodeIds.join('_')}`}
+              mirror={previous}
+            >
+              {nodeIds.map((nodeId: any) => {
+                const node = nodes[nodeId];
+                return (
+                  <comps.Fieldset
+                    key={`${algoId}_${nodeId}`}
+                    disabled={loading}
+                  >
+                    {(node.questions.length !== 1 || node.isTable) && (
+                      <>
+                        {comps.QuestionTitle && node.title && (
+                          <comps.QuestionTitle>
+                            {node.title}
+                          </comps.QuestionTitle>
+                        )}
+                        <comps.Question displayText={node.displayText}>
+                          <comps.InfoIcon
+                            onClick={actions.showExplanation}
+                            explanation={node.explanation}
                           />
-                        );
-                      } else {
-                        return node.questions.map((questionId: any) => (
-                          <TraversalResponse
-                            key={questionId}
-                            question={questions[questionId]}
-                            answers={answers}
-                            error={errors[questionId]}
-                            actions={actions}
-                            components={comps}
-                          />
-                        ));
-                      }
-                    }}
-                  </MediaQuery>
-                </comps.Fieldset>
-              );
-            })}
+                        </comps.Question>
+                      </>
+                    )}
+                    <MediaQuery minWidth={minWidthTable}>
+                      {matches => {
+                        if (matches && node.isTable) {
+                          return (
+                            <TraversalTable
+                              node={node}
+                              questions={questions}
+                              answers={answers}
+                              errors={errors}
+                              actions={actions}
+                              components={comps}
+                            />
+                          );
+                        } else {
+                          return node.questions.map((questionId: any) => (
+                            <TraversalResponse
+                              key={questionId}
+                              question={questions[questionId]}
+                              answers={answers}
+                              error={errors[questionId]}
+                              actions={actions}
+                              components={comps}
+                            />
+                          ));
+                        }
+                      }}
+                    </MediaQuery>
+                  </comps.Fieldset>
+                );
+              })}
+            </comps.Nodes>
+          )}
         </comps.Collection>
       </comps.Container>
       {children}

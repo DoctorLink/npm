@@ -1,10 +1,10 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PoseGroup } from 'react-pose';
 import {
   myNumbersSelector,
   actionsNowDueSelector,
 } from '../../../Selectors/healthAssessment';
+import PanelBlocks from '../../../Components/PanelBlocks';
 import { MyNumbers } from './MyNumbers';
 import { ActionsNowDue } from './ActionsNowDue';
 
@@ -13,14 +13,14 @@ const ActionsAndNumbers: React.FC<{
   actionConclusions: any;
 }> = ({ numbersConclusions, actionConclusions }) => {
   return (
-    <PoseGroup animateOnMount={true}>
+    <PanelBlocks>
       {actionConclusions.length > 0 && (
-        <ActionsNowDue key="actions" actionConclusions={actionConclusions} />
+        <ActionsNowDue actionConclusions={actionConclusions} />
       )}
       {numbersConclusions.length > 0 && (
-        <MyNumbers key="numbers" numbersConclusions={numbersConclusions} />
+        <MyNumbers numbersConclusions={numbersConclusions} />
       )}
-    </PoseGroup>
+    </PanelBlocks>
   );
 };
 

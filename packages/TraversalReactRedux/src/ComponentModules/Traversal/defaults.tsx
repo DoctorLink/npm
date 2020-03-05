@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import posed, { PoseGroup } from 'react-pose';
+import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import * as actions from '../../Actions';
@@ -9,7 +9,7 @@ import createTraversalResponse from '../../Helpers/createTraversalResponse';
 import QuestionTitle from '../../Components/QuestionTitle';
 import Question from '../../Components/Question';
 import InfoIcon from '../../Components/InfoIcon';
-import PlainFieldset from '../../Components/Fieldset';
+import Fieldset from '../../Components/Fieldset';
 import ErrorText from '../../Components/ErrorText';
 import AlgoName from '../../Components/AlgoName';
 import SimpleButton from '../../Components/Button';
@@ -31,27 +31,42 @@ import TextField from '../../Components/TextField';
 const Button = styled(SimpleButton)`
   width: 100%;
 `;
+
 const transition = {
-  x: { duration: 250, ease: 'easeInOut' },
+  x: { duration: 0.25, ease: 'easeInOut' },
 };
 
-const Fieldset = posed(PlainFieldset)({
-  enter: {
+const variants = {
+  enter: (mirror: boolean) => ({
+    opacity: 0,
+    x: mirror === true ? '-100%' : '100%',
+    transition: transition,
+  }),
+  center: {
+    zIndex: 1,
     opacity: 1,
     x: '0',
     transition: transition,
   },
-  exit: {
+  exit: (mirror: boolean) => ({
+    zIndex: 0,
     opacity: 0,
-    x: ({ mirror }: any) => (mirror === true ? '100%' : '-100%'),
+    x: mirror === true ? '100%' : '-100%',
     transition: transition,
-  },
-  preEnterPose: {
-    opacity: 0,
-    x: ({ mirror }: any) => (mirror === true ? '-100%' : '100%'),
-    transition: transition,
-  },
-});
+  }),
+};
+
+const Nodes: React.FC<any> = ({ children, mirror }) => (
+  <motion.div
+    variants={variants}
+    custom={mirror}
+    initial="enter"
+    animate="center"
+    exit="exit"
+  >
+    {children}
+  </motion.div>
+);
 
 const Form = styled.form``;
 
@@ -59,18 +74,14 @@ const Container = styled.div`
   transition: all 300ms;
 `;
 
-const Collection: React.FC<{ onRest: any; children: any }> = ({
+const Collection: React.FC<{ mirror: boolean; onRest: any; children: any }> = ({
+  mirror,
   onRest,
   children,
 }) => (
-  <PoseGroup
-    preEnterPose={'preEnterPose'}
-    enterAfterExit={true}
-    animateOnMount={true}
-    onRest={onRest}
-  >
+  <AnimatePresence onExitComplete={onRest} custom={mirror} exitBeforeEnter>
     {children}
-  </PoseGroup>
+  </AnimatePresence>
 );
 
 const TraversalRadio: React.FC<{
@@ -126,6 +137,7 @@ export const defaultTraversalComponents = {
   QuestionTitle,
   Question,
   InfoIcon,
+  Nodes,
   Fieldset,
   Container,
   Collection,

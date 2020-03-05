@@ -1,5 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
+import { motion } from 'framer-motion';
 
 const HiddenSubmit = styled.input.attrs<any>({
   type: 'submit',
@@ -11,7 +12,7 @@ const HiddenSubmit = styled.input.attrs<any>({
   height: 1px;
 `;
 
-const Form = styled.form`
+const Form = styled(motion.form)`
   padding: 0;
   margin: 0;
   border: 0;

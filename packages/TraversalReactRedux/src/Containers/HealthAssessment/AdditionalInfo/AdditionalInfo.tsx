@@ -1,9 +1,9 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { PoseGroup } from 'react-pose';
 import {
   Panel,
   PanelContainer,
+  PanelBlocks,
   HealthReportPanelHeader,
   PanelContent,
 } from '../../../Components';
@@ -14,8 +14,8 @@ const AdditionalInfo: React.FC<{
   additionalConclusions: any;
 }> = ({ additionalConclusions }) => {
   return (
-    <PoseGroup animateOnMount={true}>
-      <PanelContainer key="conclusions">
+    <PanelBlocks>
+      <PanelContainer>
         <Panel>
           <HealthReportPanelHeader>
             Additional Information
@@ -25,7 +25,7 @@ const AdditionalInfo: React.FC<{
           </PanelContent>
         </Panel>
       </PanelContainer>
-    </PoseGroup>
+    </PanelBlocks>
   );
 };
 

@@ -1,7 +1,6 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
-import posed, { PoseGroup } from 'react-pose';
 
 import * as actions from '../../Actions';
 import createChatResponse from '../../Helpers/createChatResponse';
@@ -22,66 +21,63 @@ import Section from '../../Components/ChatSection';
 import HiddenInput from '../../Components/HiddenInput';
 
 const transition = {
-  duration: 300,
+  duration: 0.3,
 };
 
-const Question = posed(ChatQuestion)({
-  enter: {
-    opacity: 1,
-    x: '0',
-    transition: transition,
-  },
-  exit: {
-    opacity: 0,
-    x: '100%',
-    transition: {
-      duration: 0,
-    },
-  },
-  preEnterPose: {
-    opacity: 0,
-    x: '-100%',
-    transition: transition,
-  },
-});
+const Question: React.FC<any> = ({ children, ...props }) => (
+  <ChatQuestion
+    initial={{
+      opacity: 0,
+      x: '-100%',
+      transition: transition,
+    }}
+    animate={{
+      opacity: 1,
+      x: '0',
+      transition: transition,
+    }}
+    {...props}
+  >
+    {children}
+  </ChatQuestion>
+);
 
-const PreviousAnswers = posed(ChatPreviousAnswers)({
-  enter: {
-    opacity: 1,
-    x: '0',
-    transition: transition,
-  },
-  exit: {
-    opacity: 0,
-    x: '100%',
-    transition: {
-      duration: 0,
-    },
-  },
-  preEnterPose: {
-    opacity: 0,
-    x: '-100%',
-    transition: transition,
-  },
-});
+const PreviousAnswers: React.FC<any> = ({ children, ...props }) => (
+  <ChatPreviousAnswers
+    initial={{
+      opacity: 0,
+      x: '-100%',
+      transition: transition,
+    }}
+    animate={{
+      opacity: 1,
+      x: '0',
+      transition: transition,
+    }}
+    {...props}
+  >
+    {children}
+  </ChatPreviousAnswers>
+);
 
-const Form = posed(ChatForm)({
-  enter: {
-    opacity: 1,
-    delay: 1000,
-    transition: transition,
-  },
-  exit: {
-    opacity: 0,
-    transition: {
-      duration: 0,
-    },
-  },
-  preEnterPose: {
-    opacity: 0,
-    transition: transition,
-  },
-});
+const Form: React.FC<any> = ({ children, ...props }) => (
+  <ChatForm
+    initial={{
+      opacity: 0,
+      transition: transition,
+    }}
+    animate={{
+      opacity: 1,
+      transition: {
+        duration: 0.3,
+        delay: 0.5,
+      },
+    }}
+    {...props}
+  >
+    {children}
+  </ChatForm>
+);
 
 interface props {
   minHeight: any;
@@ -93,17 +89,10 @@ const Container = styled.div<props>`
   min-height: ${props => props.minHeight}px;
 `;
 
-const StepContent: React.FC<{ children: any }> = ({ children }) => (
-  <PoseGroup preEnterPose={'preEnterPose'} animateOnMount={true}>
-    {children}
-  </PoseGroup>
-);
-
 export const defaultChatComponents = {
   Container,
   Loader,
   Step,
-  StepContent,
   Form,
   InfoIcon,
   Question,
