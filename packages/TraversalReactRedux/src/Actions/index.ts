@@ -42,7 +42,8 @@ export const traversalStart = (
   lang?: any,
   nodeId?: any,
   injection?: any,
-  culture?: any
+  culture?: any,
+  memberReference?: any
 ) => ({
   type: TRAVERSAL_START,
   algoId,
@@ -51,6 +52,7 @@ export const traversalStart = (
   nodeId,
   injection,
   culture,
+  memberReference,
 });
 
 export const TRAVERSAL_START_SET = 'TRAVERSAL_START_SET';

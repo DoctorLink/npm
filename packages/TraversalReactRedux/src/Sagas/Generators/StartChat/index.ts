@@ -12,6 +12,7 @@ const getApiCall = (
     nodeId: unknown;
     injection: unknown;
     culture: unknown;
+    memberReference: unknown;
   }
 ) =>
   call(
@@ -21,7 +22,8 @@ const getApiCall = (
     action.lang,
     action.nodeId,
     action.injection,
-    action.culture
+    action.culture,
+    action.memberReference
   );
 
 const getOnSuccess = (response: { json: () => any }) =>

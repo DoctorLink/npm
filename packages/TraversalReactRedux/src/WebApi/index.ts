@@ -21,7 +21,12 @@ const addQsParam = (qs: any, param: any, name: any) => {
   return p;
 };
 
-const startQs = (release: any, lang: any, nodeId: any) => {
+const startQs = (
+  release: any,
+  lang: any,
+  nodeId: any,
+  memberReference: any
+) => {
   var qs = '';
   if (release) {
     qs += addQsParam(qs, release, 'releaseNumber');
@@ -31,6 +36,9 @@ const startQs = (release: any, lang: any, nodeId: any) => {
   }
   if (nodeId) {
     qs += addQsParam(qs, nodeId, 'nodeId');
+  }
+  if (memberReference) {
+    qs += addQsParam(qs, memberReference, 'memberReference');
   }
   return qs;
 };
@@ -53,9 +61,10 @@ const fetchTraversalStart = (api: any, getToken?: Promise<string>) => (
   lang: any,
   nodeId: any,
   injection: any,
-  culture: any
+  culture: any,
+  memberReference: any
 ) => {
-  var qs = startQs(release, lang, nodeId);
+  var qs = startQs(release, lang, nodeId, memberReference);
   return fetchWrapper(
     `${api}/Traversal/StartAsync/${algoId}${qs}`,
     fetchOptions(injection, culture),
@@ -91,9 +100,10 @@ const fetchChatStart = (api: any, getToken?: Promise<string>) => (
   lang: any,
   nodeId: any,
   injection: any,
-  culture: any
+  culture: any,
+  memberReference: any
 ) => {
-  var qs = startQs(release, lang, nodeId);
+  var qs = startQs(release, lang, nodeId, memberReference);
   return fetchWrapper(
     `${api}/Chat/StartAsync/${algoId}${qs}`,
     fetchOptions(injection, culture),

@@ -74,6 +74,7 @@ const Home = () => {
   const [algo, setAlgo] = useState('');
   const [release, setRelease] = useState('');
   const [lang, setLang] = useState('');
+  const [memberReference, setMemberReference] = useState('');
   const [node, setNode] = useState('');
   const [injection, setInjection] = useState(
     JSON.stringify(defaultInjection, null, 2)
@@ -93,7 +94,17 @@ const Home = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    dispatch(actions.traversalStart(algo, release, lang, node, injection));
+    dispatch(
+      actions.traversalStart(
+        algo,
+        release,
+        lang,
+        node,
+        injection,
+        undefined,
+        memberReference
+      )
+    );
   };
 
   const selectProduct = (releaseNumber: any) => {
@@ -161,6 +172,13 @@ const Home = () => {
         <TextField
           value={lang}
           onChange={(e: any) => setLang(e.target.value)}
+        />
+      </Label>
+      <Label>
+        <Text>Member:</Text>
+        <TextField
+          value={memberReference}
+          onChange={(e: any) => setMemberReference(e.target.value)}
         />
       </Label>
       <Label>
