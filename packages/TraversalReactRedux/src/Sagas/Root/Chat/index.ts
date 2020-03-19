@@ -7,8 +7,14 @@ import createHistoryPushEffects from '../../Effects/HistoryPush';
 import createStartScrollToTopEffects from '../../Effects/StartScrollToTop';
 import createWebApiEffects from '../../Effects/WebApi';
 import createProductsEffects from '../../Effects/Products';
+import createMemberEffects from '../../Effects/Member';
 
-export default (traversalApi: any, hraApi: any, history: any) => {
+export default (
+  traversalApi: any,
+  hraApi: any,
+  memberApi: any,
+  history: any
+) => {
   let effects = [
     ...createTraversalChatEffects(traversalApi),
     ...createSummaryEffects(traversalApi),
@@ -17,6 +23,7 @@ export default (traversalApi: any, hraApi: any, history: any) => {
     ...createStartScrollToTopEffects(),
     ...createWebApiEffects(),
     ...createProductsEffects(traversalApi),
+    ...createMemberEffects(memberApi),
   ];
   if (history) {
     effects = [...effects, ...createHistoryPushEffects(history)];

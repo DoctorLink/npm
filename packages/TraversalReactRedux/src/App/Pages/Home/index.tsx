@@ -11,6 +11,9 @@ import {
   Checkbox,
 } from '../../../Components';
 import baseTheme from '../../../Theme/base/index';
+import { Modal } from '../../../ComponentModules/Modal';
+import CreateMember from '../../../Components/CreateMember';
+import TextFieldWithClear from '../../../Components/TextFieldWithClear';
 
 const Label = styled.label`
   display: flex;
@@ -74,14 +77,46 @@ const Home = () => {
   const [algo, setAlgo] = useState('');
   const [release, setRelease] = useState('');
   const [lang, setLang] = useState('');
-  const [memberReference, setMemberReference] = useState('');
   const [node, setNode] = useState('');
   const [injection, setInjection] = useState(
     JSON.stringify(defaultInjection, null, 2)
   );
   const [selfInj, setSelfInj] = useState(true);
 
+  //#region - member
+  const memberReferenceState = useSelector(
+    (state: any) => state.memberReference
+  );
+  const [memberReference, setMemberReference] = useState('');
+  const [showCreateMember, setShowCreateMember] = useState<any>();
+  const [disableCreateMember, setDisableCreateMember] = useState<boolean>(
+    false
+  );
+
+  const closeModal = () => {
+    setShowCreateMember(false);
+  };
+  const createMember = (memberReference: any) => {
+    dispatch(actions.memberCreate(memberReference));
+    closeModal();
+  };
+
+  useEffect(() => {
+    setDisableCreateMember(memberReference !== '');
+  });
+
+  const handleMemberRefChange = (e: any) => {
+    setMemberReference(e.target.value);
+    setDisableCreateMember(e.target.value !== '');
+  };
+
+  const updateMemberReference = (memRef: any) => {
+    dispatch(actions.memberCreateSet(memRef));
+  };
+  //#endregion - member
+
   const products = useSelector((state: any) => state.clientProducts);
+
   const productOptions = [
     { text: 'Please select...', value: '' },
     ...products.map((product: any) => ({
@@ -101,7 +136,6 @@ const Home = () => {
         lang,
         node,
         injection,
-        undefined,
         memberReference
       )
     );
@@ -141,7 +175,8 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(actions.clientProductsGet());
-  }, [dispatch]);
+    setMemberReference(memberReferenceState);
+  }, [dispatch, memberReferenceState]);
 
   return (
     <form onSubmit={e => handleSubmit(e)}>
@@ -176,9 +211,10 @@ const Home = () => {
       </Label>
       <Label>
         <Text>Member:</Text>
-        <TextField
+        <TextFieldWithClear
           value={memberReference}
-          onChange={(e: any) => setMemberReference(e.target.value)}
+          onChange={(e: any) => handleMemberRefChange(e)}
+          updateStore={updateMemberReference}
         />
       </Label>
       <Label>
@@ -204,6 +240,20 @@ const Home = () => {
         />
       </Label>
       <Button type="submit">Begin</Button>
+      <Button
+        type="button"
+        style={{ marginLeft: '16px' }}
+        onClick={e => {
+          e.preventDefault();
+          setShowCreateMember({ title: 'Create New Member' });
+        }}
+        disabled={disableCreateMember}
+      >
+        Create Member
+      </Button>
+      <Modal modal={showCreateMember} actions={{ close: closeModal }}>
+        <CreateMember onSubmit={createMember} />
+      </Modal>
     </form>
   );
 };

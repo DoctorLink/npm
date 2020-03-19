@@ -8,6 +8,7 @@ import modalReducer from './Modal';
 import healthAssessmentReducer from './HealthAssessment';
 import clientProductsReducer from './Products';
 import labelsReducer from './Labels';
+import memberReferenceReducer from './Member';
 
 const reducers = {
   traversal: traversalReducer,
@@ -17,6 +18,7 @@ const reducers = {
   healthAssessment: healthAssessmentReducer,
   clientProducts: clientProductsReducer,
   labels: labelsReducer,
+  memberReference: memberReferenceReducer,
 };
 
 export const rootTraversalReducer = combineReducers(reducers);

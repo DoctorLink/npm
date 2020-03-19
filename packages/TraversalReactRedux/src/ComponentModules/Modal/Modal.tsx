@@ -6,8 +6,10 @@ export const Modal: React.FC<{
   modal: any;
   actions?: any;
   components?: any;
+  children?: any;
 }> = ({
   modal,
+  children,
   actions = defaultModalActions,
   components = defaultModalComponents,
 }) => {
@@ -52,11 +54,14 @@ export const Modal: React.FC<{
                   <comps.Title>{modal.title}</comps.Title>
                   <comps.Close onClick={actions.close} />
                 </comps.Header>
-                <comps.Body
-                  dangerouslySetInnerHTML={{
-                    __html: replaceLineBreaks(modal.content),
-                  }}
-                />
+                {modal.content && (
+                  <comps.Body
+                    dangerouslySetInnerHTML={{
+                      __html: replaceLineBreaks(modal.content),
+                    }}
+                  />
+                )}
+                {!modal.content && <comps.Body>{children}</comps.Body>}
               </comps.Modal>
             </comps.Container>
           </comps.Wrap>

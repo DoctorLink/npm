@@ -18,6 +18,7 @@ export { default as createSymptomReportGenerator } from './SymptomReport';
 export { default as createWebApiNotOkGenerator } from './WebApiNotOk';
 export { default as createWebApiErrorGenerator } from './WebApiError';
 export { default as createProductsGenerator } from './Products';
+export { default as createMemberGenerator } from './Member';
 
 export { default as createApiGenerator } from './apiGenerator';
 export { default as addScrollEffect } from './addScrollEffect';

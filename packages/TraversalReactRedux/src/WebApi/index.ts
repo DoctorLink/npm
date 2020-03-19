@@ -2,12 +2,12 @@ interface IDictionary<TValue> {
   [id: string]: TValue;
 }
 
-const fetchOptions = (body: any | null, culture?: any) => {
+const fetchOptions = (body: any | null) => {
   var headers: IDictionary<any> = {
     Accept: 'application/json',
     'Content-Type': 'application/json',
   };
-  if (culture) headers['Content-Language'] = culture;
+  // if (culture) headers['Content-Language'] = culture;
   return {
     method: 'POST',
     headers: headers,
@@ -61,13 +61,12 @@ const fetchTraversalStart = (api: any, getToken?: Promise<string>) => (
   lang: any,
   nodeId: any,
   injection: any,
-  culture: any,
   memberReference: any
 ) => {
   var qs = startQs(release, lang, nodeId, memberReference);
   return fetchWrapper(
     `${api}/Traversal/StartAsync/${algoId}${qs}`,
-    fetchOptions(injection, culture),
+    fetchOptions(injection),
     getToken
   );
 };
@@ -100,13 +99,12 @@ const fetchChatStart = (api: any, getToken?: Promise<string>) => (
   lang: any,
   nodeId: any,
   injection: any,
-  culture: any,
   memberReference: any
 ) => {
   var qs = startQs(release, lang, nodeId, memberReference);
   return fetchWrapper(
     `${api}/Chat/StartAsync/${algoId}${qs}`,
-    fetchOptions(injection, culture),
+    fetchOptions(injection),
     getToken
   );
 };
@@ -210,6 +208,17 @@ const fetchWellness = (hraApi: any, getToken?: Promise<string>) => (
 const fetchProducts = (api: any, getToken?: Promise<string>) => async () =>
   fetchWrapper(`${api}/Products`, undefined, getToken);
 
+///POST
+const fetchCreateMember = (api: any, getToken?: Promise<string>) => (
+  memberReference: any
+) => {
+  return fetchWrapper(
+    `${api}/Member/CreateAsync`,
+    fetchOptions(memberReference),
+    getToken
+  );
+};
+
 export const createTraversalWebApi = (
   apiUrl: any,
   getToken?: Promise<string>
@@ -252,5 +261,13 @@ export const createHealthAssessmentWebApi = (
     isConfigured: !!apiUrl,
     healthRisks: fetchHealthRisks(apiUrl, getToken),
     wellness: fetchWellness(apiUrl, getToken),
+  };
+};
+
+export const createMemberWebApi = (apiUrl: any, getToken?: Promise<string>) => {
+  return {
+    name: 'Member',
+    isConfigured: !!apiUrl,
+    createMember: fetchCreateMember(apiUrl, getToken),
   };
 };

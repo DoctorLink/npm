@@ -5,9 +5,11 @@ import {
   createTraversalWebApi,
   createChatWebApi,
   createHealthAssessmentWebApi,
+  createMemberWebApi,
 } from '../WebApi';
 import { createTraversalSaga, createChatSaga } from '../Sagas';
 import { rootTraversalReducer, rootChatReducer } from '../Reducers';
+import * as actions from '../Actions';
 
 const normaliseConfig = (configOrEngineUrl: any) =>
   typeof configOrEngineUrl === 'object'
@@ -28,10 +30,18 @@ export const createTraversalStore = (
     rootTraversalReducer,
     composeWithDevTools(applyMiddleware(sagaMiddleware))
   );
+  setMemberRefToStoreFromLocalStorage(store);
   const traversalApi = createTraversalWebApi(config.engine, getToken);
   const hraApi = createHealthAssessmentWebApi(config.hraApi, getToken);
-  const rootSaga = createTraversalSaga(traversalApi, hraApi, history);
+  const memberApi = createMemberWebApi(config.engine, getToken);
+  const rootSaga = createTraversalSaga(
+    traversalApi,
+    hraApi,
+    memberApi,
+    history
+  );
   sagaMiddleware.run(rootSaga);
+
   return store;
 };
 
@@ -46,9 +56,16 @@ export const createChatStore = (
     rootChatReducer,
     composeWithDevTools(applyMiddleware(sagaMiddleware))
   );
+  setMemberRefToStoreFromLocalStorage(store);
   const chatApi = createChatWebApi(config.engine, getToken);
   const hraApi = createHealthAssessmentWebApi(config.hraApi, getToken);
-  const rootSaga = createChatSaga(chatApi, hraApi, history);
+  const memberApi = createMemberWebApi(config.engine, getToken);
+  const rootSaga = createChatSaga(chatApi, hraApi, memberApi, history);
   sagaMiddleware.run(rootSaga);
   return store;
+};
+
+const setMemberRefToStoreFromLocalStorage = (store: any) => {
+  const memberReference = localStorage.getItem('memberReference');
+  store.dispatch(actions.memberCreateSet(memberReference));
 };

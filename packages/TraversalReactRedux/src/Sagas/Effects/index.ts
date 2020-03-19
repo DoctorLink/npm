@@ -7,3 +7,4 @@ export { default as createSymptomAssessmentEffects } from './SymptomAssessment';
 export { default as createTraversalChatEffects } from './TraversalChat';
 export { default as createTraversalClassicEffects } from './TraversalClassic';
 export { default as createWebApiEffects } from './WebApi';
+export { default as createMemberEffects } from './Member';

@@ -11,7 +11,6 @@ const getApiCall = (
     lang: unknown;
     nodeId: unknown;
     injection: unknown;
-    culture: unknown;
     memberReference: unknown;
   }
 ) =>
@@ -22,7 +21,6 @@ const getApiCall = (
     action.lang,
     action.nodeId,
     action.injection,
-    action.culture,
     action.memberReference
   );
 

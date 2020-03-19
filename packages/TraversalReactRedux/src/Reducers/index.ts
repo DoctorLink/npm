@@ -7,4 +7,5 @@ export { default as answersReducer } from './Answers';
 export { default as healthAssessmentReducer } from './HealthAssessment';
 export { default as clientProductsReducer } from './Products';
 export { default as labelsReducer } from './Labels';
+export { default as memberReferenceReducer } from './Member';
 export * from './root';

@@ -42,7 +42,6 @@ export const traversalStart = (
   lang?: any,
   nodeId?: any,
   injection?: any,
-  culture?: any,
   memberReference?: any
 ) => ({
   type: TRAVERSAL_START,
@@ -51,7 +50,6 @@ export const traversalStart = (
   lang,
   nodeId,
   injection,
-  culture,
   memberReference,
 });
 
@@ -225,6 +223,19 @@ export const webApiError = (apiCall: any, error: any) => ({
   error,
 });
 
+export const MEMBER_CREATE = 'MEMBER_CREATE';
+export const memberCreate = (memberReference?: any) => ({
+  type: MEMBER_CREATE,
+  memberReference,
+});
+
+export const MEMBER_CREATE_SET = 'MEMBER_CREATE_SET';
+export const memberCreateSet = (memberReference: any) => ({
+  type: MEMBER_CREATE_SET,
+  memberReference,
+  receivedAt: new Date(),
+});
+
 export const actions = {
   POPULATE_MODAL,
   CLOSE_MODAL,
@@ -259,6 +270,8 @@ export const actions = {
   LABELS_RESTORE_DEFAULT,
   WEB_API_NOT_OK,
   WEB_API_ERROR,
+  MEMBER_CREATE,
+  MEMBER_CREATE_SET,
 };
 
 export const actionCreators = {
@@ -295,4 +308,6 @@ export const actionCreators = {
   labelsRestoreDefault,
   webApiNotOk,
   webApiError,
+  memberCreate,
+  memberCreateSet,
 };
