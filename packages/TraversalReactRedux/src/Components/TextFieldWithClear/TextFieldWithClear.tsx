@@ -83,7 +83,7 @@ const ClearButton: React.FC<any> = ({
         }
       };
     }
-  }, [dispatch, textField]);
+  }, [dispatch, textField, setShow, updateStore]);
 
   const clear = (textField: any) => {
     textField.current.value = '';
@@ -110,7 +110,7 @@ const TextFieldWithClear: React.FC<any> = ({
   const [show, setShow] = useState(props.value !== '');
   useEffect(() => {
     setShow(props.value !== '');
-  });
+  }, [props.value]);
 
   return (
     <Wrapper>

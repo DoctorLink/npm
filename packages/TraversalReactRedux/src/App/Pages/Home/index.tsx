@@ -103,7 +103,7 @@ const Home = () => {
 
   useEffect(() => {
     setDisableCreateMember(memberReference !== '');
-  });
+  }, [memberReference]);
 
   const handleMemberRefChange = (e: any) => {
     setMemberReference(e.target.value);

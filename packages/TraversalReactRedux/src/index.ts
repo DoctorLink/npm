@@ -9,5 +9,6 @@ export * from './Components';
 export * from './ComponentModules';
 export * from './Containers';
 export * from './App';
+export * from './Embed';
 
 export { createBrowserHistory } from 'history';

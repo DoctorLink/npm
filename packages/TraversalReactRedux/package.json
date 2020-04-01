@@ -1,18 +1,23 @@
 {
-  "version": "0.10.3",
+  "version": "0.10.4",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
+  "unpkg": "build/embed.js",
   "files": [
-    "dist"
+    "dist",
+    "build"
   ],
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
+    "browserify": "NODE_ENV=production browserify embed.js -s traversal -o build/embed.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] --plugins [ @babel/plugin-transform-runtime ] ]",
+    "minify": "minify build/embed.js > build/embed.min.js",
+    "embed": "npm run browserify && npm run minify",
     "test": "tsdx test --passWithNoTests",
     "lint": "tsdx lint",
     "fix": "tsdx lint --fix",
-    "prepare": "tsdx build"
+    "prepare": "tsdx build && npm run embed"
   },
   "peerDependencies": {
     "react": ">=16",
@@ -34,13 +39,20 @@
   "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
   "module": "dist/ts-speed.esm.js",
   "devDependencies": {
+    "@babel/core": "^7.9.0",
+    "@babel/plugin-transform-runtime": "^7.9.0",
+    "@babel/preset-env": "^7.9.0",
+    "@babel/preset-react": "^7.9.4",
     "@testing-library/jest-dom": "^5.1.0",
     "@testing-library/react": "^9.4.0",
     "@types/jest": "^25.1.1",
     "@types/react": "^16.9.19",
     "@types/react-dom": "^16.9.5",
     "@types/react-redux": "^7.1.7",
+    "babelify": "^10.0.0",
+    "browserify": "^16.5.1",
     "husky": "^4.2.1",
+    "minify": "^5.1.1",
     "react": "^16.12.0",
     "react-dom": "^16.12.0",
     "react-redux": "^7.1.3",
