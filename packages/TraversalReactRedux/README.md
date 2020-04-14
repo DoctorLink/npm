@@ -57,25 +57,24 @@ render(<TraversalApp store={store} history={history} />, document.getElementById
 
 ## Development
 
-For ease of development, use `npm link` to point your client app to this library. You can then run `yarn watch` to compile your code on save, and your changes should be picked up immediately by your client app. For example:
+For ease of development, use `npm link` to point your client app to this library. You can then run `npm start` to compile your code on save, and your changes should be picked up immediately by your client app. For example:
 
 ```bash
 cd TraversalReactRedux
 npm link
-cd ../TraversalEngineAPI/services/client
+cd ../TraversalEngineAPI/services/traversalclient/ClientApp/
 npm link @doctorlink/traversal-react-redux
-yarn start
 
 # In another console:
 cd TraversalReactRedux
-yarn watch
+npm start
 ```
 
 If you get an error about duplicate versions of react and/or react-dom (["Hooks can only be called inside the body of a function component"](https://reactjs.org/warnings/invalid-hook-call-warning.html#duplicate-react)), try pointing this library to the versions used by your app:
 
 ```bash
-npm link ../TraversalEngineAPI/services/client/node_modules/react
-npm link ../TraversalEngineAPI/services/client/node_modules/react-dom
+npm link ../TraversalEngineAPI/services/traversalclient/ClientApp/node_modules/react
+npm link ../TraversalEngineAPI/services/traversalclient/ClientApp/node_modules/react-dom
 ```
 
 Note that react and react-dom are required both as `peerDependencies` and `devDependencies`; the latter is because they are required by the unit tests.

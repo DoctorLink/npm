@@ -107,9 +107,9 @@ const TextFieldWithClear: React.FC<any> = ({
   ...props
 }) => {
   const inputRef = React.createRef<HTMLInputElement>();
-  const [show, setShow] = useState(props.value !== '');
+  const [show, setShow] = useState(!!props.value);
   useEffect(() => {
-    setShow(props.value !== '');
+    setShow(!!props.value);
   }, [props.value]);
 
   return (
