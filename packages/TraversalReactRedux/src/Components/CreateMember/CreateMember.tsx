@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
 import { Button, TextField } from '..';
@@ -30,38 +30,26 @@ Div.defaultProps = {
 };
 
 const CreateMember: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
-  useEffect(() => {
-    const handleKeyDown = (event: any) => {
-      console.log(event.key);
-      console.log(event.keycode);
-      if (event.key === 'Enter') onSubmit({ memberReference: memberRef });
-    };
-    document.addEventListener('keydown', handleKeyDown);
-
-    return () => {
-      document.removeEventListener('keydown', handleKeyDown);
-    };
-  });
+  const handleSubmit = (event: any) => {
+    event.preventDefault();
+    onSubmit();
+  };
 
   const [memberRef, setMemeberRef] = useState<any>();
   return (
     <Div>
-      <Label>
-        <Text>Member Reference:</Text>
-        <TextField
-          value={memberRef || ''}
-          onChange={(e: any) => setMemeberRef(e.target.value)}
-        />
-      </Label>
-      <Button
-        onClick={e => {
-          e.preventDefault();
-          onSubmit({ memberReference: memberRef });
-        }}
-      >
-        Submit
-      </Button>
+      <form onSubmit={e => handleSubmit(e)}>
+        <Label>
+          <Text>Member Reference:</Text>
+          <TextField
+            value={memberRef || ''}
+            onChange={(e: any) => setMemeberRef(e.target.value)}
+          />
+        </Label>
+        <Button type="submit">Submit</Button>
+      </form>
     </Div>
   );
 };
+
 export default CreateMember;

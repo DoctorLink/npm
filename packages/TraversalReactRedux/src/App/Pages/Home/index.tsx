@@ -111,6 +111,7 @@ const Home = () => {
   };
 
   const updateMemberReference = (memRef: any) => {
+    setMemberReference(memRef);
     dispatch(actions.memberCreateSet(memRef));
   };
   //#endregion - member
@@ -129,6 +130,7 @@ const Home = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    if (showCreateMember) return;
     dispatch(
       actions.traversalStart(
         algo,
@@ -175,8 +177,11 @@ const Home = () => {
 
   useEffect(() => {
     dispatch(actions.clientProductsGet());
+  }, [dispatch]);
+
+  useEffect(() => {
     setMemberReference(memberReferenceState);
-  }, [dispatch, memberReferenceState]);
+  }, [memberReferenceState]);
 
   return (
     <form onSubmit={e => handleSubmit(e)}>

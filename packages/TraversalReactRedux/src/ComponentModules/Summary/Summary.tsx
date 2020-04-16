@@ -41,7 +41,6 @@ export const Summary: React.FC<{
           <comps.BodyOverflowHidden />
         </comps.DelayExit>,
         <comps.TransparentCurtain key="curtain">
-          =
           <comps.Summary ref={ref}>
             <comps.Header>
               <comps.Title>{labels.title}</comps.Title>

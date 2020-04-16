@@ -85,15 +85,16 @@ const Summary = React.forwardRef<any, any>(({ children }, ref) => (
 ));
 
 export const createSummaryChild = (Component: StyledComponent<any, any>) =>
-  React.forwardRef<any, any>(({ children }, ref) => (
+  React.forwardRef<any, any>(({ ...props }, ref) => (
     <Component
+      {...props}
       ref={ref}
       variants={{
         show: { opacity: 1 },
         hidden: { opacity: 0 },
       }}
     >
-      {children}
+      {props.children}
     </Component>
   ));
 

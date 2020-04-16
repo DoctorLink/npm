@@ -2,9 +2,6 @@ import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
-import * as actions from '../../Actions';
-import { useDispatch } from 'react-redux';
-
 export interface IClearButton {
   readonly show: boolean;
 }
@@ -66,36 +63,14 @@ StyledInput.defaultProps = {
   theme: defaultTheme,
 };
 
-const ClearButton: React.FC<any> = ({
-  textField,
-  show,
-  setShow,
-  updateStore,
-}) => {
-  const dispatch = useDispatch();
-  useEffect(() => {
-    if (textField.current != null) {
-      textField.current.onkeyup = () => {
-        if (textField.current.value === '') setShow(false);
-        else {
-          setShow(true);
-          if (updateStore) updateStore(textField.current.value);
-        }
-      };
-    }
-  }, [dispatch, textField, setShow, updateStore]);
-
-  const clear = (textField: any) => {
-    textField.current.value = '';
-    setShow(false);
-    dispatch(actions.memberCreateSet(''));
-  };
+const ClearButton: React.FC<any> = ({ show, updateStore }) => {
   return (
     <StyledClearButton
+      type="button"
       show={show}
       onClick={(e: any) => {
         e.preventDefault();
-        clear(textField);
+        updateStore('');
       }}
     ></StyledClearButton>
   );
@@ -104,22 +79,29 @@ const ClearButton: React.FC<any> = ({
 const TextFieldWithClear: React.FC<any> = ({
   className,
   checked,
+  value,
+  updateStore,
   ...props
 }) => {
   const inputRef = React.createRef<HTMLInputElement>();
-  const [show, setShow] = useState(!!props.value);
+  const [show, setShow] = useState(!!value);
   useEffect(() => {
-    setShow(!!props.value);
-  }, [props.value]);
+    setShow(!!value);
+  }, [value]);
 
   return (
     <Wrapper>
-      <StyledInput ref={inputRef} className={className} {...props} />
+      <StyledInput
+        ref={inputRef}
+        className={className}
+        value={value || ''}
+        {...props}
+      />
       <ClearButton
         textField={inputRef}
         show={show}
         setShow={setShow}
-        updateStore={props.updateStore}
+        updateStore={updateStore}
       />
     </Wrapper>
   );
