@@ -30,12 +30,12 @@ Div.defaultProps = {
 };
 
 const CreateMember: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
+  const [memberRef, setMemberRef] = useState<any>();
   const handleSubmit = (event: any) => {
     event.preventDefault();
-    onSubmit();
+    onSubmit({ memberReference: memberRef });
   };
 
-  const [memberRef, setMemeberRef] = useState<any>();
   return (
     <Div>
       <form onSubmit={e => handleSubmit(e)}>
@@ -43,7 +43,7 @@ const CreateMember: React.FC<{ onSubmit: any }> = ({ onSubmit }) => {
           <Text>Member Reference:</Text>
           <TextField
             value={memberRef || ''}
-            onChange={(e: any) => setMemeberRef(e.target.value)}
+            onChange={(e: any) => setMemberRef(e.target.value)}
           />
         </Label>
         <Button type="submit">Submit</Button>
