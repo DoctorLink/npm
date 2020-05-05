@@ -21,6 +21,10 @@ steps:
       displayName: 'Install Node.js'
 
     - script: |
+          git switch master
+      displayName: 'Git Master'
+
+    - script: |
           echo '//registry.npmjs.org/:_authToken=$(token)' > .npmrc
       displayName: 'Add token to npmrc'
 
