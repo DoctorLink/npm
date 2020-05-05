@@ -11,6 +11,10 @@ pool:
     vmImage: 'ubuntu-latest'
 
 steps:
+    - checkout: self
+      persistCredentials: true
+      clean: true
+
     - task: NodeTool@0
       inputs:
           versionSpec: '10.x'
@@ -25,5 +29,5 @@ steps:
       displayName: 'Install NP'
 
     - script: |
-          np $(version) --preview
+          np $(version) --preview --tag next
       displayName: 'Run np'
