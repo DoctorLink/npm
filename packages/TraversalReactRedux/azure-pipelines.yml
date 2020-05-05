@@ -33,9 +33,5 @@ steps:
       displayName: 'Git Master'
 
     - script: |
-          npm run test
-      displayName: 'run test'
-
-    - script: |
           np $(version) --tag $(tag) --yolo
       displayName: 'Run np'
