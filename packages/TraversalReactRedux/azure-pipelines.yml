@@ -33,7 +33,7 @@ steps:
       displayName: 'Git Master'
 
     - script: |
-          git diff head
+          git diff HEAD
       displayName: 'Git diff'
 
     - script: |
