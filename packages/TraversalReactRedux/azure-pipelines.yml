@@ -3,8 +3,7 @@
 # Add steps that build, run tests, deploy, and more:
 # https://aka.ms/yaml
 
-trigger:
-    - release/*
+trigger: none
 
 pr: none
 
@@ -18,21 +17,13 @@ steps:
       displayName: 'Install Node.js'
 
     - script: |
+          npm install --global np
+      displayName: 'Install NP'
+
+    - script: |
           npm install
       displayName: 'Install dependencies'
 
     - script: |
-          npm pack
-      displayName: 'Package package'
-
-    - task: CopyFiles@2
-      inputs:
-          contents: '*.tgz'
-          targetFolder: $(Build.ArtifactStagingDirectory)
-      displayName: 'Copy archives to artifacts staging directory'
-
-    - task: PublishBuildArtifacts@1
-      inputs:
-          path: $(Build.ArtifactStagingDirectory)
-          artifact: package
-      displayName: 'Publish artifacts'
+          np $(version) --preview
+      displayName: 'NP'    
