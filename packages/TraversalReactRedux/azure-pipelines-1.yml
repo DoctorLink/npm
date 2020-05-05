@@ -2,7 +2,7 @@ trigger: none
 
 pr:
   branches:
-    exclude:
+    include:
     - master
 
 pool:
