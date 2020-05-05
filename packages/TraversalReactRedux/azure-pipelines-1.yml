@@ -2,8 +2,8 @@ trigger: none
 
 pr:
   branches:
-    exclude: 
-        - master
+    exclude:
+    - master
 
 pool:
     vmImage: 'ubuntu-latest'
