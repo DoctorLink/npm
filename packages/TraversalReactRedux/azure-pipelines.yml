@@ -25,9 +25,5 @@ steps:
       displayName: 'Install NP'
 
     - script: |
-          npm install
-      displayName: 'Install dependencies'
-
-    - script: |
           np $(version) --preview
       displayName: 'Run np'
