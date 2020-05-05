@@ -29,6 +29,8 @@ steps:
       displayName: 'Add token to npmrc'
 
     - script: |
+          git config --global user.name "azdo"
+          git config --global user.email "azdo@doctorlink.com"
           git switch master
       displayName: 'Git Master'
 
