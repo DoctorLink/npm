@@ -35,6 +35,9 @@
     "singleQuote": true,
     "trailingComma": "es5"
   },
+  "publishConfig": {
+	  "access": "public"
+  },
   "name": "@doctorlink/traversal-react-redux",
   "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
   "module": "dist/ts-speed.esm.js",
