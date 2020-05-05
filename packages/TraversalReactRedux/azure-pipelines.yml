@@ -29,13 +29,5 @@ steps:
       displayName: 'Add token to npmrc'
 
     - script: |
-          git switch master
-      displayName: 'Git Master'
-
-    - script: |
-          git diff HEAD
-      displayName: 'Git diff'
-
-    - script: |
-          np $(version) --preview --tag next
+          np $(version) --tag $(tag)
       displayName: 'Run np'
