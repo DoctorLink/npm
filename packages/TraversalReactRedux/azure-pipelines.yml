@@ -29,5 +29,9 @@ steps:
       displayName: 'Add token to npmrc'
 
     - script: |
+          git switch master
+      displayName: 'Git Master'
+
+    - script: |
           np $(version) --tag $(tag)
       displayName: 'Run np'
