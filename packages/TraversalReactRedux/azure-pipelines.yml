@@ -17,6 +17,10 @@ steps:
       displayName: 'Install Node.js'
 
     - script: |
+          echo '//registry.npmjs.org/:_authToken=$(token)' > .npmrc
+      displayName: 'Add token to npmrc'
+
+    - script: |
           npm install --global np
       displayName: 'Install NP'
 
@@ -26,4 +30,4 @@ steps:
 
     - script: |
           np $(version) --preview
-      displayName: 'NP'    
+      displayName: 'Run np'
