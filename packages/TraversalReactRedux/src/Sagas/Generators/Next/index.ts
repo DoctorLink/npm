@@ -20,8 +20,9 @@ const getApiCall = (
 const getOnSuccess = (response: { json: () => any }) =>
   function* onSuccess() {
     const json = yield response.json();
+    console.log(json);
     yield put(actions.traversalNextSet(flattenTraversalNodeCollection(json)));
   };
 
 export default (api: any) =>
-  constructApiGenerator(api, 'Traversal/NextAsync', getApiCall, getOnSuccess);
+  constructApiGenerator(api, 'api/v2/Traversal/NextAsync', getApiCall, getOnSuccess);

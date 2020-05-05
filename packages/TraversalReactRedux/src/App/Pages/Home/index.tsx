@@ -14,6 +14,7 @@ import baseTheme from '../../../Theme/base/index';
 import { Modal } from '../../../ComponentModules/Modal';
 import CreateMember from '../../../Components/CreateMember';
 import TextFieldWithClear from '../../../Components/TextFieldWithClear';
+import { Product, ProductState } from '../../../Models/Product';
 
 const Label = styled.label`
   display: flex;
@@ -74,10 +75,11 @@ const selfAnswer = {
 const defaultInjection = [locationAnswer, selfAnswer];
 
 const Home = () => {
-  const [algo, setAlgo] = useState('');
-  const [release, setRelease] = useState('');
-  const [lang, setLang] = useState('');
-  const [node, setNode] = useState('');
+  const [versionId, setVersionId] = useState<number>();
+  const [product, setProduct] = useState<Product>();
+  const [version, setVersion] = useState<string>('');
+  const [algo, setAlgo] = useState<number>();
+  const [node, setNode] = useState<number>();
   const [injection, setInjection] = useState(
     JSON.stringify(defaultInjection, null, 2)
   );
@@ -88,7 +90,7 @@ const Home = () => {
     (state: any) => state.memberReference
   );
   const [memberReference, setMemberReference] = useState('');
-  const [showCreateMember, setShowCreateMember] = useState<any>();
+  const [showCreateMember, setShowCreateMember] = useState<any>(false);
   const [disableCreateMember, setDisableCreateMember] = useState<boolean>(
     false
   );
@@ -115,14 +117,13 @@ const Home = () => {
     dispatch(actions.memberCreateSet(memRef));
   };
   //#endregion - member
-
-  const products = useSelector((state: any) => state.clientProducts);
+  const products = useSelector((state: ProductState)  => state.clientProducts);
 
   const productOptions = [
-    { text: 'Please select...', value: '' },
-    ...products.map((product: any) => ({
+    { text: 'Please select...', value: 0 },
+    ...products.map((product) => ({
       text: `${product.name} (${product.releaseNumber})`,
-      value: product.releaseNumber,
+      value: product.versionId,
     })),
   ];
 
@@ -130,27 +131,35 @@ const Home = () => {
 
   const handleSubmit = (event: any) => {
     event.preventDefault();
+    console.log(product);
     if (showCreateMember) return;
-    dispatch(
-      actions.traversalStart(
-        algo,
-        release,
-        lang,
-        node,
-        injection,
-        memberReference
-      )
-    );
+    if (product) {
+      const algoId = product.startAlgoId !== algo ? algo : undefined;
+      dispatch(
+        actions.traversalStart(
+          product.productId,
+          product.language,
+          version,
+          algoId,
+          node,
+          injection,
+          memberReference
+        )
+      );
+    }
   };
 
-  const selectProduct = (releaseNumber: any) => {
-    const product = products.find(
-      (p: any) => p.releaseNumber === releaseNumber
-    );
+  const selectProduct = (e: any) => {
+    e.preventDefault();
+    const id = e.target.value;
+    setVersionId(id);
+    const product = products.find(p => p.versionId == id);
     if (product) {
-      setAlgo(product.startAlgoId || '');
-      setRelease(product.releaseNumber);
-      setLang(product.language);
+      setProduct(product);
+      setVersion(product.release);
+    } else {
+      setProduct(undefined);
+      setVersion('');
     }
   };
 
@@ -188,30 +197,20 @@ const Home = () => {
       <Label>
         <Text>Product:</Text>
         <Select
-          value={release}
+          value={versionId}
           options={productOptions}
-          onChange={(e: any) => selectProduct(e.target.value)}
-        />
-      </Label>
-      <Label>
-        <Text>Algo ID:</Text>
-        <NumberField
-          value={algo}
-          onChange={(e: any) => setAlgo(e.target.value)}
-        />
-      </Label>
-      <Label>
-        <Text>Release:</Text>
-        <TextField
-          value={release}
-          onChange={(e: any) => setRelease(e.target.value)}
+          onChange={selectProduct}
         />
       </Label>
       <Label>
         <Text>Language:</Text>
+        <Text>{product?.language}</Text>
+      </Label>
+      <Label>
+        <Text>Version:</Text>
         <TextField
-          value={lang}
-          onChange={(e: any) => setLang(e.target.value)}
+          value={version}
+          onChange={(e: any) => setVersion(e.target.value)}
         />
       </Label>
       <Label>
@@ -223,7 +222,15 @@ const Home = () => {
         />
       </Label>
       <Label>
-        <Text>Node ID:</Text>
+        <Text>Algo Id *:</Text>
+        <NumberField
+          value={algo}
+          onChange={(e: any) => setAlgo(e.target.value)}
+        />
+      </Label>
+      <p>* only enter if it's not the Start Algo Id.</p>
+      <Label>
+        <Text>Node Id:</Text>
         <NumberField
           value={node}
           onChange={(e: any) => setNode(e.target.value)}
@@ -244,7 +251,7 @@ const Home = () => {
           onChange={(e: any) => setInjection(e.target.value)}
         />
       </Label>
-      <Button type="submit">Begin</Button>
+      <Button onClick={handleSubmit}>Begin</Button>
       <Button
         type="button"
         style={{ marginLeft: '16px' }}

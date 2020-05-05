@@ -27,6 +27,7 @@ import {
   SummaryConnected as Summary,
   ConclusionReportConnected as Conclusions,
 } from '../Containers';
+import { TraversalStartProduct } from 'Models/Traversal';
 
 const buildStore = (endpoint: string) => {
   const rootReducer = combineReducers({
@@ -56,8 +57,7 @@ const buildStore = (endpoint: string) => {
   return store;
 };
 
-const TraversalStart: React.FC<{ id: string; startOptions: StartOptions }> = ({
-  id,
+const TraversalStart: React.FC<{ startOptions: TraversalStartProduct }> = ({
   startOptions,
 }) => {
   const dispatch = useDispatch();
@@ -68,15 +68,16 @@ const TraversalStart: React.FC<{ id: string; startOptions: StartOptions }> = ({
   useEffect(() => {
     dispatch(
       actionCreators.traversalStart(
-        startOptions.algoId ?? id,
+        startOptions.productId,
+        startOptions.language,
         startOptions.release,
-        startOptions.lang,
+        startOptions.algoId,
         startOptions.nodeId,
         startOptions.injection,
         startOptions.memberReference
       )
     );
-  }, [dispatch, id, startOptions]);
+  }, [dispatch, startOptions]);
 
   if (!traversal) return null;
 
@@ -101,8 +102,7 @@ const TraversalStart: React.FC<{ id: string; startOptions: StartOptions }> = ({
   );
 };
 
-const TraversalButton: React.FC<{ id: string; startOptions: StartOptions }> = ({
-  id,
+const TraversalButton: React.FC<{ startOptions: TraversalStartProduct }> = ({
   startOptions,
 }) => {
   const dispatch = useDispatch();
@@ -116,9 +116,10 @@ const TraversalButton: React.FC<{ id: string; startOptions: StartOptions }> = ({
         onClick={() =>
           dispatch(
             actionCreators.traversalStart(
-              startOptions.algoId ?? id,
+              startOptions.productId,
+              startOptions.language,
               startOptions.release,
-              startOptions.lang,
+              startOptions.algoId,
               startOptions.nodeId,
               startOptions.injection,
               startOptions.memberReference
@@ -152,30 +153,20 @@ const TraversalButton: React.FC<{ id: string; startOptions: StartOptions }> = ({
   );
 };
 
-interface StartOptions {
-  algoId: any;
-  release: any;
-  lang: any;
-  nodeId: any;
-  injection: any;
-  memberReference: any;
-}
-
 interface EmbedOptions {
   theme: any;
   url: string;
-  startOptions: StartOptions;
+  startOptions: TraversalStartProduct;
 }
 
 const getOptions = (userOptions?: EmbedOptions) => ({
   theme: userOptions?.theme ?? defaultTheme,
   url: userOptions?.url ?? 'https://localhost:7001',
-  startOptions: userOptions?.startOptions ?? ({} as StartOptions),
+  startOptions: userOptions?.startOptions ?? ({} as TraversalStartProduct),
 });
 
 export function embedStart(
   element: string,
-  id: string,
   userOptions?: EmbedOptions
 ) {
   const options = getOptions(userOptions);
@@ -183,7 +174,7 @@ export function embedStart(
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider Theme={options.theme}>
-        <TraversalStart id={id} startOptions={options.startOptions} />
+        <TraversalStart startOptions={options.startOptions} />
         <Modal />
       </ThemeProvider>
     </Provider>,
@@ -193,7 +184,6 @@ export function embedStart(
 
 export function embedStartButton(
   element: string,
-  id: string,
   userOptions?: EmbedOptions
 ) {
   const options = getOptions(userOptions);
@@ -201,7 +191,7 @@ export function embedStartButton(
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider Theme={options.theme}>
-        <TraversalButton id={id} startOptions={options.startOptions} />
+        <TraversalButton startOptions={options.startOptions} />
         <Modal />
       </ThemeProvider>
     </Provider>,

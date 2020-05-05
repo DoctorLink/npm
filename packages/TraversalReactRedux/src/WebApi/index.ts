@@ -21,18 +21,22 @@ const addQsParam = (qs: any, param: any, name: any) => {
   return p;
 };
 
-const startQs = (
-  release: any,
-  lang: any,
-  nodeId: any,
-  memberReference: any
+const v2QueryParams = (
+  language?: string,
+  version?: string,
+  algoId?: number,
+  nodeId?: number,
+  memberReference?: string
 ) => {
   var qs = '';
-  if (release) {
-    qs += addQsParam(qs, release, 'releaseNumber');
+  if (language) {
+    qs += addQsParam(qs, language, 'language');
   }
-  if (lang) {
-    qs += addQsParam(qs, lang, 'language');
+  if (version) {
+    qs += addQsParam(qs, version, 'release');
+  }
+  if (algoId) {
+    qs += addQsParam(qs, algoId, 'algoId');
   }
   if (nodeId) {
     qs += addQsParam(qs, nodeId, 'nodeId');
@@ -56,16 +60,17 @@ async function fetchWrapper(path: any, options?: any, getToken?: any) {
 
 ///POST
 const fetchTraversalStart = (api: any, getToken?: Promise<string>) => (
-  algoId: any,
-  release: any,
-  lang: any,
-  nodeId: any,
-  injection: any,
-  memberReference: any
+  productId: number,
+  language?: string,
+  version?: string,
+  algoId?: number,
+  nodeId?: number,
+  injection?: any,
+  memberReference?: string
 ) => {
-  var qs = startQs(release, lang, nodeId, memberReference);
+  var qs = v2QueryParams(language, version, algoId, nodeId, memberReference);
   return fetchWrapper(
-    `${api}/Traversal/StartAsync/${algoId}${qs}`,
+    `${api}/api/v2/Traversal/StartAsync/${productId}${qs}`,
     fetchOptions(injection),
     getToken
   );
@@ -75,7 +80,7 @@ const fetchTraversalNext = (api: any, getToken?: Promise<string>) => (
   traversalResponse: any
 ) =>
   fetchWrapper(
-    `${api}/Traversal/NextAsync`,
+    `${api}/api/v2/Traversal/NextAsync`,
     fetchOptions(traversalResponse),
     getToken
   );
@@ -87,23 +92,24 @@ const fetchTraversalPrevious = (api: any, getToken?: Promise<string>) => (
 ) => {
   var qs = algoId && nodeId ? `?algoId=${algoId}&nodeId=${nodeId}` : '';
   return fetchWrapper(
-    `${api}/Traversal/PreviousAsync/${traversalId}${qs}`,
+    `${api}/api/v2/Traversal/PreviousAsync/${traversalId}${qs}`,
     fetchOptions(null),
     getToken
   );
 };
 
 const fetchChatStart = (api: any, getToken?: Promise<string>) => (
-  algoId: any,
-  release: any,
-  lang: any,
-  nodeId: any,
-  injection: any,
-  memberReference: any
+  productId: number,
+  language?: string,
+  version?: string,
+  algoId?: number,
+  nodeId?: number,
+  injection?: any,
+  memberReference?: string
 ) => {
-  var qs = startQs(release, lang, nodeId, memberReference);
+  var qs = v2QueryParams(language, version, algoId, nodeId, memberReference);
   return fetchWrapper(
-    `${api}/Chat/StartAsync/${algoId}${qs}`,
+    `${api}/api/v2/Chat/StartAsync/${productId}${qs}`,
     fetchOptions(injection),
     getToken
   );
@@ -113,7 +119,7 @@ const fetchChatNext = (api: any, getToken?: Promise<string>) => (
   traversalResponse: any
 ) =>
   fetchWrapper(
-    `${api}/Chat/NextAsync`,
+    `${api}/api/v2/Chat/NextAsync`,
     fetchOptions(traversalResponse),
     getToken
   );
@@ -129,7 +135,7 @@ const fetchChatPrevious = (api: any, getToken?: Promise<string>) => (
       ? `?algoId=${algoId}&nodeId=${nodeId}&assetId=${assetId}`
       : '';
   return fetchWrapper(
-    `${api}/Chat/PreviousAsync/${traversalId}${qs}`,
+    `${api}/api/v2/Chat/PreviousAsync/${traversalId}${qs}`,
     fetchOptions(null),
     getToken
   );
@@ -140,7 +146,7 @@ const fetchTraversalContinue = (api: any, getToken?: Promise<string>) => (
   traversalId: any
 ) =>
   fetchWrapper(
-    `${api}/Traversal/ContinueAsync/${traversalId}`,
+    `${api}/api/v2/Traversal/ContinueAsync/${traversalId}`,
     undefined,
     getToken
   );
@@ -148,13 +154,13 @@ const fetchTraversalContinue = (api: any, getToken?: Promise<string>) => (
 const fetchChatContinue = (api: any, getToken?: Promise<string>) => (
   traversalId: any
 ) =>
-  fetchWrapper(`${api}/Chat/ContinueAsync/${traversalId}`, undefined, getToken);
+  fetchWrapper(`${api}/api/v2/Chat/ContinueAsync/${traversalId}`, undefined, getToken);
 
 const fetchTraversalSummary = (api: any, getToken?: Promise<string>) => (
   traversalId: any
 ) =>
   fetchWrapper(
-    `${api}/Traversal/SummaryAsync/${traversalId}`,
+    `${api}/api/v2/Traversal/SummaryAsync/${traversalId}`,
     undefined,
     getToken
   );
@@ -163,7 +169,7 @@ const fetchTraversalConclusion = (api: any, getToken?: Promise<string>) => (
   traversalId: any
 ) =>
   fetchWrapper(
-    `${api}/Traversal/ConclusionAsync/${traversalId}`,
+    `${api}/api/v2/Traversal/ConclusionAsync/${traversalId}`,
     undefined,
     getToken
   );
@@ -172,7 +178,7 @@ const fetchTraversalSymptomReport = (api: any, getToken?: Promise<string>) => (
   traversalId: any
 ) =>
   fetchWrapper(
-    `${api}/Traversal/SymptomReportAsync/${traversalId}`,
+    `${api}/api/v2/Traversal/SymptomReportAsync/${traversalId}`,
     undefined,
     getToken
   );

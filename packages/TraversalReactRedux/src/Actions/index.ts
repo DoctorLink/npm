@@ -1,3 +1,5 @@
+import { Product } from '../Models/Product'
+
 export const POPULATE_MODAL = 'POPULATE_MODAL';
 export const populateModal = (
   content: any,
@@ -37,20 +39,22 @@ export const setTraversalMinHeight = (minHeight: any) => ({
 
 export const TRAVERSAL_START = 'TRAVERSAL_START';
 export const traversalStart = (
-  algoId?: any,
-  release?: any,
-  lang?: any,
-  nodeId?: any,
+  productId: number,
+  language?: string,
+  release?: string,
+  algoId?: number,
+  nodeId?: number,
   injection?: any,
-  memberReference?: any
+  memberReference?: string
 ) => ({
   type: TRAVERSAL_START,
-  algoId,
+  productId,
+  language,
   release,
-  lang,
+  algoId,
   nodeId,
   injection,
-  memberReference,
+  memberReference
 });
 
 export const TRAVERSAL_START_SET = 'TRAVERSAL_START_SET';
@@ -198,7 +202,7 @@ export const CLIENT_PRODUCTS_GET = 'CLIENT_PRODUCTS_GET';
 export const clientProductsGet = () => ({ type: CLIENT_PRODUCTS_GET });
 
 export const CLIENT_PRODUCTS_SET = 'CLIENT_PRODUCTS_SET';
-export const clientProductsSet = (products: any) => ({
+export const clientProductsSet = (products: Array<Product>) => ({
   type: CLIENT_PRODUCTS_SET,
   products,
 });

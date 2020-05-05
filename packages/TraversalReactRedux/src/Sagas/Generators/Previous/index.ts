@@ -30,7 +30,7 @@ const getOnSuccess = (response: { json: () => any }) =>
 export default (api: any) =>
   constructApiGenerator(
     api,
-    'Traversal/PreviousAsync',
+    'api/v2/Traversal/PreviousAsync',
     getApiCall,
     getOnSuccess
   );

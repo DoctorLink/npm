@@ -2,23 +2,18 @@ import { call, put } from 'redux-saga/effects';
 import flattenTraversalNodeCollection from '../../../Helpers/flattenTraversalNodeCollection';
 import constructApiGenerator from '../apiGenerator';
 import * as actions from '../../../Actions';
+import { TraversalStartProduct } from 'Models/Traversal';
 
 const getApiCall = (
   api: { start: any },
-  action: {
-    algoId: unknown;
-    release: unknown;
-    lang: unknown;
-    nodeId: unknown;
-    injection: unknown;
-    memberReference: unknown;
-  }
+  action: TraversalStartProduct
 ) =>
   call(
     api.start,
-    action.algoId,
+    action.productId,
+    action.language,
     action.release,
-    action.lang,
+    action.algoId,
     action.nodeId,
     action.injection,
     action.memberReference
@@ -31,4 +26,4 @@ const getOnSuccess = (response: { json: () => any }) =>
   };
 
 export default (api: any) =>
-  constructApiGenerator(api, 'Traversal/StartAsync', getApiCall, getOnSuccess);
+  constructApiGenerator(api, 'api/v2/Traversal/StartAsync', getApiCall, getOnSuccess);

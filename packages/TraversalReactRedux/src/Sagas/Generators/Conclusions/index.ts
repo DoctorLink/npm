@@ -24,7 +24,7 @@ const getOnSuccess = (
 export default (api: any) =>
   constructApiGenerator(
     api,
-    'Traversal/ConclusionAsync',
+    'api/v2/Traversal/ConclusionAsync',
     getApiCall,
     getOnSuccess
   );

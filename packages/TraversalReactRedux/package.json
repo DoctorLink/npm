@@ -11,7 +11,7 @@
   "scripts": {
     "start": "tsdx watch",
     "build": "tsdx build",
-    "browserify": "NODE_ENV=production browserify embed.js -s traversal -o build/embed.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] --plugins [ @babel/plugin-transform-runtime ] ]",
+    "browserify": "cross-env NODE_ENV=production browserify embed.js -s traversal -o build/embed.js -t [ babelify --presets [ @babel/preset-env @babel/preset-react ] --plugins [ @babel/plugin-transform-runtime ] ]",
     "minify": "minify build/embed.js > build/embed.min.js",
     "embed": "npm run browserify && npm run minify",
     "test": "tsdx test --passWithNoTests",
@@ -51,6 +51,7 @@
     "@types/react-redux": "^7.1.7",
     "babelify": "^10.0.0",
     "browserify": "^16.5.1",
+    "cross-env": "^7.0.2",
     "husky": "^4.2.1",
     "minify": "^5.1.1",
     "react": "^16.12.0",
