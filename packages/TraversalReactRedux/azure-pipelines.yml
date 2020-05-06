@@ -35,8 +35,12 @@ steps:
       displayName: 'git setup'
 
     - script: |
-          np $(version) --tag $(tag)  --no-release-draft
+          np $(version) --tag $(tag) --no-publish
       displayName: 'Run np'
+
+    - script: |
+          npm publish
+      displayName: 'npm publish'
 
     - script: |
           git push --follow-tags --force
