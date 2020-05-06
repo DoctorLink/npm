@@ -81,7 +81,7 @@ Note that react and react-dom are required both as `peerDependencies` and `devDe
 
 ## Publish
 
-To publish the library run the [AZDO publish pipeline](https://www.npmjs.com/package/@doctorlink/traversal-react-redux). By default this will publish a patch release and update the latest tag in npm, but both of these options can be overriden in the variables tab.
+To publish the library run the [AZDO publish pipeline](https://dev.azure.com/doctorlink-engineering/ENG/_build?definitionId=45&_a=summary). By default this will publish a patch release and update the latest tag in npm, but both of these options can be overriden in the variables tab.
 
 Version can be one of the following:
   patch | minor | major | prepatch | preminor | premajor | prerelease
