@@ -39,12 +39,12 @@ steps:
       displayName: 'Run np'
 
     - script: |
-          npm version
-      displayName: 'npm version $(version)'
+          npm version $(version)
+      displayName: 'npm version'
 
     - script: |
-          npm publish
-      displayName: 'npm publish --tag $(tag)'
+          npm publish --tag $(tag)
+      displayName: 'npm publish'
 
     - script: |
           git push --follow-tags --force
