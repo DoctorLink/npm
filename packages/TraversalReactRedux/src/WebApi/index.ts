@@ -154,7 +154,11 @@ const fetchTraversalContinue = (api: any, getToken?: Promise<string>) => (
 const fetchChatContinue = (api: any, getToken?: Promise<string>) => (
   traversalId: any
 ) =>
-  fetchWrapper(`${api}/api/v2/Chat/ContinueAsync/${traversalId}`, undefined, getToken);
+  fetchWrapper(
+    `${api}/api/v2/Chat/ContinueAsync/${traversalId}`,
+    undefined,
+    getToken
+  );
 
 const fetchTraversalSummary = (api: any, getToken?: Promise<string>) => (
   traversalId: any

@@ -165,10 +165,7 @@ const getOptions = (userOptions?: EmbedOptions) => ({
   startOptions: userOptions?.startOptions ?? ({} as TraversalStartProduct),
 });
 
-export function embedStart(
-  element: string,
-  userOptions?: EmbedOptions
-) {
+export function embedStart(element: string, userOptions?: EmbedOptions) {
   const options = getOptions(userOptions);
   const store = buildStore(options.url);
   ReactDOM.render(
@@ -182,10 +179,7 @@ export function embedStart(
   );
 }
 
-export function embedStartButton(
-  element: string,
-  userOptions?: EmbedOptions
-) {
+export function embedStartButton(element: string, userOptions?: EmbedOptions) {
   const options = getOptions(userOptions);
   const store = buildStore(options.url);
   ReactDOM.render(

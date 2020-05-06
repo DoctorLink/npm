@@ -117,11 +117,11 @@ const Home = () => {
     dispatch(actions.memberCreateSet(memRef));
   };
   //#endregion - member
-  const products = useSelector((state: ProductState)  => state.clientProducts);
+  const products = useSelector((state: ProductState) => state.clientProducts);
 
   const productOptions = [
     { text: 'Please select...', value: 0 },
-    ...products.map((product) => ({
+    ...products.map(product => ({
       text: `${product.name} (${product.releaseNumber})`,
       value: product.versionId,
     })),

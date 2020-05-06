@@ -34,4 +34,9 @@ const getOnSuccess = (
   };
 
 export default (api: any) =>
-  constructApiGenerator(api, 'api/v2/Chat/PreviousAsync', getApiCall, getOnSuccess);
+  constructApiGenerator(
+    api,
+    'api/v2/Chat/PreviousAsync',
+    getApiCall,
+    getOnSuccess
+  );

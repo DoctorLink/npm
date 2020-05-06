@@ -1,5 +1,5 @@
 {
-  "version": "0.10.9-0",
+  "version": "0.10.9-2",
   "license": "MIT",
   "main": "dist/index.js",
   "typings": "dist/index.d.ts",
@@ -36,7 +36,7 @@
     "trailingComma": "es5"
   },
   "publishConfig": {
-	  "access": "public"
+    "access": "public"
   },
   "name": "@doctorlink/traversal-react-redux",
   "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",

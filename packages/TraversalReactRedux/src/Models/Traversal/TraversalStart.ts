@@ -4,5 +4,5 @@ export interface TraversalStart {
   lang?: string;
   nodeId?: number;
   injection?: any;
-  memberReference?: string
+  memberReference?: string;
 }

@@ -14,11 +14,11 @@ steps:
     - task: NodeTool@0
       inputs:
           versionSpec: '10.x'
-      displayName: 'Install Node.js'
+      displayName: 'install node.js'
 
     - script: |
           npm install --global np
-      displayName: 'Install NP'
+      displayName: 'install np'
 
     - checkout: self
       persistCredentials: true
@@ -26,14 +26,14 @@ steps:
 
     - script: |
           echo '//registry.npmjs.org/:_authToken=$(token)' > .npmrc
-      displayName: 'Add token to npmrc'
+      displayName: 'npmrc token'
 
     - script: |
           git config --global user.name "azdo"
           git config --global user.email "azdo@doctorlink.com"
           git switch master
-      displayName: 'Git Master'
+      displayName: 'git setup'
 
     - script: |
-          np $(version) --tag $(tag) --yolo
+          np $(version) --tag $(tag)
       displayName: 'Run np'

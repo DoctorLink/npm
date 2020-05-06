@@ -1,4 +1,4 @@
-import { Product } from '../Models/Product'
+import { Product } from '../Models/Product';
 
 export const POPULATE_MODAL = 'POPULATE_MODAL';
 export const populateModal = (
@@ -54,7 +54,7 @@ export const traversalStart = (
   algoId,
   nodeId,
   injection,
-  memberReference
+  memberReference,
 });
 
 export const TRAVERSAL_START_SET = 'TRAVERSAL_START_SET';

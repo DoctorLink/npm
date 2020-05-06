@@ -20,4 +20,9 @@ const getOnSuccess = (
   };
 
 export default (api: any) =>
-  constructApiGenerator(api, 'api/v2/Chat/ContinueAsync', getApiCall, getOnSuccess);
+  constructApiGenerator(
+    api,
+    'api/v2/Chat/ContinueAsync',
+    getApiCall,
+    getOnSuccess
+  );

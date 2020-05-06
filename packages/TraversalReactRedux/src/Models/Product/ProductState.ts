@@ -1,5 +1,5 @@
-import { Product } from './Product'
+import { Product } from './Product';
 
 export interface ProductState {
-    clientProducts: Array<Product>
+  clientProducts: Array<Product>;
 }

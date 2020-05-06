@@ -4,20 +4,17 @@ import constructApiGenerator from '../apiGenerator';
 import * as actions from '../../../Actions';
 import { TraversalStartProduct } from 'Models/Traversal';
 
-const getApiCall = (
-  api: { start: any },
-  action: TraversalStartProduct
-) =>
-call(
-  api.start,
-  action.productId,
-  action.language,
-  action.release,
-  action.algoId,
-  action.nodeId,
-  action.injection,
-  action.memberReference
-);
+const getApiCall = (api: { start: any }, action: TraversalStartProduct) =>
+  call(
+    api.start,
+    action.productId,
+    action.language,
+    action.release,
+    action.algoId,
+    action.nodeId,
+    action.injection,
+    action.memberReference
+  );
 
 const getOnSuccess = (response: { json: () => any }) =>
   function* onSuccess() {
@@ -26,4 +23,9 @@ const getOnSuccess = (response: { json: () => any }) =>
   };
 
 export default (api: any) =>
-  constructApiGenerator(api, 'api/v2/Chat/StartAsync', getApiCall, getOnSuccess);
+  constructApiGenerator(
+    api,
+    'api/v2/Chat/StartAsync',
+    getApiCall,
+    getOnSuccess
+  );

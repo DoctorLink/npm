@@ -4,10 +4,7 @@ import constructApiGenerator from '../apiGenerator';
 import * as actions from '../../../Actions';
 import { TraversalStartProduct } from 'Models/Traversal';
 
-const getApiCall = (
-  api: { start: any },
-  action: TraversalStartProduct
-) =>
+const getApiCall = (api: { start: any }, action: TraversalStartProduct) =>
   call(
     api.start,
     action.productId,
@@ -26,4 +23,9 @@ const getOnSuccess = (response: { json: () => any }) =>
   };
 
 export default (api: any) =>
-  constructApiGenerator(api, 'api/v2/Traversal/StartAsync', getApiCall, getOnSuccess);
+  constructApiGenerator(
+    api,
+    'api/v2/Traversal/StartAsync',
+    getApiCall,
+    getOnSuccess
+  );
