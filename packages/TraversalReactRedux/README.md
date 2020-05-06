@@ -78,3 +78,13 @@ npm link ../TraversalEngineAPI/services/traversalclient/ClientApp/node_modules/r
 ```
 
 Note that react and react-dom are required both as `peerDependencies` and `devDependencies`; the latter is because they are required by the unit tests.
+
+## Publish
+
+To publish the library run the [AZDO publish pipeline](https://www.npmjs.com/package/@doctorlink/traversal-react-redux). By default this will publish a patch release and update the latest tag in npm, but both of these options can be overriden in the variables tab.
+
+Version can be one of the following:
+  patch | minor | major | prepatch | preminor | premajor | prerelease
+
+Tag can be overriden for other streams:
+  latest | beta | next | staging

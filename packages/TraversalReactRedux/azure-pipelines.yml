@@ -39,6 +39,10 @@ steps:
       displayName: 'Run np'
 
     - script: |
+          npm run lint
+      displayName: 'npm run lint'
+
+    - script: |
           npm version $(version)
       displayName: 'npm version'
 

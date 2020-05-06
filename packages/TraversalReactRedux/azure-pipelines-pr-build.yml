@@ -12,14 +12,20 @@ steps:
     - task: NodeTool@0
       inputs:
           versionSpec: '10.x'
-      displayName: 'Install Node.js'
+      displayName: 'install node.js'
 
     - script: |
           npm install
-      displayName: 'Install dependencies'
+      displayName: 'npm install'
+
     - script: |
           npm run prepare
-      displayName: 'Package package'
+      displayName: 'npm run prepare'
+
     - script: |
           npm run test
-      displayName: 'Package package'
+      displayName: 'npm run test'
+
+    - script: |
+          npm run lint
+      displayName: 'npm run lint'
