@@ -1,11 +1,11 @@
 import { call, put } from 'redux-saga/effects';
 import constructApiGenerator from '../apiGenerator';
 import * as actions from '../../../Actions';
-import { Product } from '../../../Models/Product';
+import { TraversalClientProducts } from '../../../Models/Product';
 
 const getApiCall = (api: { getProducts: any }) => call(api.getProducts);
 
-const getOnSuccess = (response: { json: () => Array<Product> }) =>
+const getOnSuccess = (response: { json: () => TraversalClientProducts }) =>
   function* onSuccess() {
     const json = yield response.json();
     yield put(actions.clientProductsSet(json));

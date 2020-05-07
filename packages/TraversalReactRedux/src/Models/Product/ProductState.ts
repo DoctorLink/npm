@@ -1,5 +1,5 @@
-import { Product } from './Product';
+import { TraversalClientProducts } from './Products';
 
 export interface ProductState {
-  clientProducts: Array<Product>;
+  clientProducts: TraversalClientProducts;
 }

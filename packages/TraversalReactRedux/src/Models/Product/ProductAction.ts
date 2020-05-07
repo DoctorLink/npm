@@ -1,6 +1,6 @@
-import { Product } from './Product';
+import { TraversalClientProducts } from './Products';
 
 export interface ProductAction {
   type: string;
-  products: Array<Product>;
+  products: TraversalClientProducts;
 }

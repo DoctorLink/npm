@@ -216,7 +216,7 @@ const fetchWellness = (hraApi: any, getToken?: Promise<string>) => (
 };
 
 const fetchProducts = (api: any, getToken?: Promise<string>) => async () =>
-  fetchWrapper(`${api}/Products`, undefined, getToken);
+  fetchWrapper(`${api}/api/v2/Products`, undefined, getToken);
 
 ///POST
 const fetchCreateMember = (api: any, getToken?: Promise<string>) => (

@@ -1,7 +1,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
-import { Button, TextField } from '..';
+import Button from '../Button';
+import TextField from '../TextField';
 
 const Text = styled.span`
   font-family: ${p => p.theme.typography.fontFamily};

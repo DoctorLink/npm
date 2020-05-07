@@ -1,20 +1,19 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, FormEvent } from 'react';
 import styled from 'styled-components';
 import { useSelector, useDispatch } from 'react-redux';
 import { withRouter } from 'react-router';
 import * as actions from '../../../Actions';
 import {
   NumberField,
-  TextField,
   Dropdown,
   Button,
   Checkbox,
+  CreateMember,
+  TextFieldWithClear,
 } from '../../../Components';
 import baseTheme from '../../../Theme/base/index';
 import { Modal } from '../../../ComponentModules/Modal';
-import CreateMember from '../../../Components/CreateMember';
-import TextFieldWithClear from '../../../Components/TextFieldWithClear';
-import { Product, ProductState } from '../../../Models/Product';
+import { ProductState, Version, Language } from '../../../Models/Product';
 
 const Label = styled.label`
   display: flex;
@@ -75,9 +74,11 @@ const selfAnswer = {
 const defaultInjection = [locationAnswer, selfAnswer];
 
 const Home = () => {
+  const [productId, setProductId] = useState<number>();
+  const [languageId, setLanguageId] = useState<number>();
   const [versionId, setVersionId] = useState<number>();
-  const [product, setProduct] = useState<Product>();
-  const [version, setVersion] = useState<string>('');
+  const [languages, setLanguages] = useState<Array<Language>>([]);
+  const [versions, setVersions] = useState<Array<Version>>([]);
   const [algo, setAlgo] = useState<number>();
   const [node, setNode] = useState<number>();
   const [injection, setInjection] = useState(
@@ -117,29 +118,37 @@ const Home = () => {
     dispatch(actions.memberCreateSet(memRef));
   };
   //#endregion - member
-  const products = useSelector((state: ProductState) => state.clientProducts);
+  const traversalClientProducts = useSelector(
+    (state: ProductState) => state.clientProducts
+  );
 
   const productOptions = [
     { text: 'Please select...', value: 0 },
-    ...products.map(product => ({
-      text: `${product.name} (${product.releaseNumber})`,
-      value: product.versionId,
+    ...traversalClientProducts.products.map(product => ({
+      text: product.name,
+      value: product.id,
     })),
   ];
 
   const dispatch = useDispatch();
 
-  const handleSubmit = (event: any) => {
+  const handleSubmit = (event: FormEvent) => {
     event.preventDefault();
-    console.log(product);
     if (showCreateMember) return;
+    const product = traversalClientProducts.products.find(
+      x => x.id == productId
+    );
     if (product) {
+      const language = product.languages.find(x => x.id == languageId);
+      const version = traversalClientProducts.versions.find(
+        x => x.productId == product.id && x.languageId == language?.id
+      );
       const algoId = product.startAlgoId !== algo ? algo : undefined;
       dispatch(
         actions.traversalStart(
-          product.productId,
-          product.language,
-          version,
+          product.id,
+          language?.name,
+          version?.version,
           algoId,
           node,
           injection,
@@ -149,17 +158,42 @@ const Home = () => {
     }
   };
 
+  const getVersions = (pId: number, lId: number): Array<Version> => {
+    return traversalClientProducts.versions.filter(
+      x => x.productId == pId && x.languageId == lId
+    );
+  };
+
   const selectProduct = (e: any) => {
     e.preventDefault();
     const id = e.target.value;
-    setVersionId(id);
-    const product = products.find(p => p.versionId == id);
+    setProductId(id);
+    const product = traversalClientProducts.products.find(p => p.id == id);
     if (product) {
-      setProduct(product);
-      setVersion(product.release);
+      const defaultLanguage = product.languages.find(
+        x => x.id == product.defaultLanguageId
+      );
+      setLanguages(product.languages);
+      setLanguageId(product.defaultLanguageId);
+      setVersions(getVersions(product.id, product.defaultLanguageId));
+      setVersionId(defaultLanguage?.defaultVersionId);
     } else {
-      setProduct(undefined);
-      setVersion('');
+      setLanguages([]);
+      setLanguageId(undefined);
+      setVersions([]);
+      setVersionId(undefined);
+    }
+  };
+
+  const selectLanguage = (e: any) => {
+    e.preventDefault();
+    const id = e.target.value;
+    setLanguageId(id);
+    const product = traversalClientProducts.products.find(p => p.id == id);
+    const language = product?.languages.find(x => x.id == id);
+    if (product && language) {
+      setVersions(getVersions(product.id, language.id));
+      setVersionId(language.defaultVersionId);
     }
   };
 
@@ -193,24 +227,42 @@ const Home = () => {
   }, [memberReferenceState]);
 
   return (
-    <form onSubmit={e => handleSubmit(e)}>
+    <form onSubmit={handleSubmit}>
       <Label>
         <Text>Product:</Text>
         <Select
-          value={versionId}
+          value={productId}
           options={productOptions}
           onChange={selectProduct}
         />
       </Label>
       <Label>
         <Text>Language:</Text>
-        <Text>{product?.language}</Text>
+        <Select
+          value={languageId}
+          options={[
+            ...languages.map(language => ({
+              text: language.name,
+              value: language.id,
+            })),
+          ]}
+          onChange={selectLanguage}
+        />
       </Label>
       <Label>
         <Text>Version:</Text>
-        <TextField
-          value={version}
-          onChange={(e: any) => setVersion(e.target.value)}
+        <Select
+          value={versionId}
+          options={[
+            ...versions.map(version => ({
+              text: version.version,
+              value: version.id,
+            })),
+          ]}
+          onChange={(e: any) => {
+            e.preventDefault();
+            setVersionId(e.target.value);
+          }}
         />
       </Label>
       <Label>

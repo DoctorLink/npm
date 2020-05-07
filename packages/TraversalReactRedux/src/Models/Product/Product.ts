@@ -1,10 +1,9 @@
+import { Language } from './Language';
+
 export interface Product {
-  productId: number;
+  id: number;
   name: string;
   startAlgoId: number;
-  releaseNumber: string;
-  release: string;
-  language: string;
-  default: boolean;
-  versionId: number;
+  languages: Array<Language>;
+  defaultLanguageId: number;
 }
