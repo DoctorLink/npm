@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { withRouter, RouteComponentProps } from 'react-router-dom';
 import Button from '../Button';
 
 const ButtonContainer = styled.div`
@@ -10,26 +9,18 @@ const ButtonContainer = styled.div`
   }
 `;
 
-interface props extends RouteComponentProps {
-  previousRoute: any;
-  nextRoute: any;
+interface props {
+  previous: any;
+  next: any;
 }
 
-const NavigationButtons: React.FC<props> = ({
-  history,
-  previousRoute,
-  nextRoute,
-}) => {
+const NavigationButtons: React.FC<props> = ({ previous, next }) => {
   return (
     <ButtonContainer>
-      {previousRoute && (
-        <Button onClick={() => history.push(previousRoute)}>Back</Button>
-      )}
-      {nextRoute && (
-        <Button onClick={() => history.push(nextRoute)}>Next</Button>
-      )}
+      {previous && <Button onClick={previous}>Back</Button>}
+      {next && <Button onClick={next}>Next</Button>}
     </ButtonContainer>
   );
 };
 
-export default withRouter(NavigationButtons);
+export default NavigationButtons;

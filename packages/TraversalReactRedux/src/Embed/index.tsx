@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from 'react';
+import styled from 'styled-components';
 import ReactDOM from 'react-dom';
 import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
@@ -29,7 +30,15 @@ import {
 } from '../Containers';
 import { TraversalStartProduct } from 'Models/Traversal';
 
-const buildStore = (endpoint: string) => {
+const Container = styled.div`
+  font-family: ${props => props.theme.typography.fontFamily};
+`;
+
+Container.defaultProps = {
+  theme: defaultTheme,
+};
+
+export const buildEmbedStore = (endpoint: string) => {
   const rootReducer = combineReducers({
     traversal: traversalReducer,
     summary: summaryReducer,
@@ -57,9 +66,59 @@ const buildStore = (endpoint: string) => {
   return store;
 };
 
-const TraversalStart: React.FC<{ startOptions: TraversalStartProduct }> = ({
-  startOptions,
+export const EmbedTraversalAndConclusion: React.FC<{
+  traversal: any;
+  containerRef: any;
+  traversalActions: any;
+}> = ({ traversal, containerRef, traversalActions }) => {
+  if (traversal.nodeIds.length === 0) {
+    return (
+      <Conclusions
+        traversalId={traversal.traversalId}
+        assessmentType={traversal.assessmentType}
+        noRouter={true}
+      />
+    );
+  }
+
+  return (
+    <>
+      <Traversal
+        traversal={traversal}
+        containerRef={containerRef}
+        actions={traversalActions}
+      />
+      <Summary containerRef={containerRef} />
+    </>
+  );
+};
+
+export const EmbedTraversalContinue: React.FC<{ traversalId: string }> = ({
+  traversalId,
 }) => {
+  const dispatch = useDispatch();
+  const containerRef = useRef();
+  const traversal = useSelector((state: any) => state.traversal);
+  const traversalActions = BuildTraversalActions(traversal, containerRef);
+
+  useEffect(() => {
+    dispatch(actionCreators.traversalContinue(traversalId, containerRef));
+  }, [dispatch, traversalId, containerRef]);
+
+  if (!traversal) return null;
+
+  return (
+    <EmbedTraversalAndConclusion
+      traversal={traversal}
+      containerRef={containerRef}
+      traversalActions={traversalActions}
+    />
+  );
+};
+
+export const EmbedTraversalStart: React.FC<{
+  startOptions: TraversalStartProduct;
+}> = ({ startOptions }) => {
   const dispatch = useDispatch();
   const containerRef = useRef();
   const traversal = useSelector((state: any) => state.traversal);
@@ -81,30 +140,18 @@ const TraversalStart: React.FC<{ startOptions: TraversalStartProduct }> = ({
 
   if (!traversal) return null;
 
-  if (traversal.nodeIds.length === 0) {
-    return (
-      <Conclusions
-        traversalId={traversal.traversalId}
-        assessmentType={traversal.assessmentType}
-      />
-    );
-  }
-
   return (
-    <>
-      <Traversal
-        traversal={traversal}
-        containerRef={containerRef}
-        actions={traversalActions}
-      />
-      <Summary containerRef={containerRef} />
-    </>
+    <EmbedTraversalAndConclusion
+      traversal={traversal}
+      containerRef={containerRef}
+      traversalActions={traversalActions}
+    />
   );
 };
 
-const TraversalButton: React.FC<{ startOptions: TraversalStartProduct }> = ({
-  startOptions,
-}) => {
+export const EmbedTraversalButton: React.FC<{
+  startOptions: TraversalStartProduct;
+}> = ({ startOptions }) => {
   const dispatch = useDispatch();
   const containerRef = useRef();
   const traversal = useSelector((state: any) => state.traversal);
@@ -132,61 +179,87 @@ const TraversalButton: React.FC<{ startOptions: TraversalStartProduct }> = ({
     );
   }
 
-  if (traversal.nodeIds.length === 0) {
-    return (
-      <Conclusions
-        traversalId={traversal.traversalId}
-        assessmentType={traversal.assessmentType}
-      />
-    );
-  }
-
   return (
-    <>
-      <Traversal
-        traversal={traversal}
-        containerRef={containerRef}
-        actions={traversalActions}
-      />
-      <Summary containerRef={containerRef} />
-    </>
+    <EmbedTraversalAndConclusion
+      traversal={traversal}
+      containerRef={containerRef}
+      traversalActions={traversalActions}
+    />
   );
 };
 
-interface EmbedOptions {
+interface StartEmbedOptions {
   theme: any;
   url: string;
   startOptions: TraversalStartProduct;
 }
 
-const getOptions = (userOptions?: EmbedOptions) => ({
+interface ContinueEmbedOptions {
+  theme: any;
+  url: string;
+  traversalId: string;
+}
+
+const getStartOptions = (userOptions?: StartEmbedOptions) => ({
   theme: userOptions?.theme ?? defaultTheme,
   url: userOptions?.url ?? 'https://localhost:7001',
   startOptions: userOptions?.startOptions ?? ({} as TraversalStartProduct),
 });
 
-export function embedStart(element: string, userOptions?: EmbedOptions) {
-  const options = getOptions(userOptions);
-  const store = buildStore(options.url);
+const getContinueOptions = (userOptions: ContinueEmbedOptions) => ({
+  theme: userOptions?.theme ?? defaultTheme,
+  url: userOptions?.url ?? 'https://localhost:7001',
+  traversalId: userOptions.traversalId,
+});
+
+export function embedStart(element: string, userOptions?: StartEmbedOptions) {
+  const options = getStartOptions(userOptions);
+  const store = buildEmbedStore(options.url);
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider Theme={options.theme}>
-        <TraversalStart startOptions={options.startOptions} />
-        <Modal />
+        <Container>
+          <EmbedTraversalStart startOptions={options.startOptions} />
+          <Modal />
+        </Container>
       </ThemeProvider>
     </Provider>,
     document.getElementById(element)
   );
 }
 
-export function embedStartButton(element: string, userOptions?: EmbedOptions) {
-  const options = getOptions(userOptions);
-  const store = buildStore(options.url);
+export function embedContinue(
+  element: string,
+  userOptions: ContinueEmbedOptions
+) {
+  const options = getContinueOptions(userOptions);
+  const store = buildEmbedStore(options.url);
   ReactDOM.render(
     <Provider store={store}>
       <ThemeProvider Theme={options.theme}>
-        <TraversalButton startOptions={options.startOptions} />
-        <Modal />
+        <Container>
+          <EmbedTraversalContinue traversalId={options.traversalId} />
+          <Modal />
+        </Container>
+      </ThemeProvider>
+    </Provider>,
+    document.getElementById(element)
+  );
+}
+
+export function embedStartButton(
+  element: string,
+  userOptions?: StartEmbedOptions
+) {
+  const options = getStartOptions(userOptions);
+  const store = buildEmbedStore(options.url);
+  ReactDOM.render(
+    <Provider store={store}>
+      <ThemeProvider Theme={options.theme}>
+        <Container>
+          <EmbedTraversalButton startOptions={options.startOptions} />
+          <Modal />
+        </Container>
       </ThemeProvider>
     </Provider>,
     document.getElementById(element)

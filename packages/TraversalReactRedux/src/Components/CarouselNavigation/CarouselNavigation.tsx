@@ -1,29 +1,26 @@
 import React from 'react';
-import { useLocation } from 'react-router-dom';
-import styled from 'styled-components';
+import { useLocation, useHistory } from 'react-router-dom';
 import NavigationButtons from '../NavigationButtons';
+import { CarouselNav } from './CarouselNav';
 import { ProgressBar } from './ProgressBar';
 
-const StyledNav = styled.nav`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  padding: 5px;
-`;
-
-export const CarouselNavigation: React.FC<{ routes: any }> = ({ routes }) => {
-  if (!(routes instanceof Array)) {
-    throw new Error("'routes' must be an array of strings.");
-  }
-
+export const CarouselNavigation: React.FC<{ routes: Array<string> }> = ({
+  routes,
+}) => {
+  const history = useHistory();
   const { pathname } = useLocation();
   const routeIndex = routes.indexOf(pathname);
   const previousRoute = routes[routeIndex - 1];
   const nextRoute = routes[routeIndex + 1];
+  const previous = previousRoute
+    ? () => history.push(previousRoute)
+    : undefined;
+  const next = nextRoute ? () => history.push(nextRoute) : undefined;
+
   return (
-    <StyledNav>
+    <CarouselNav>
       <ProgressBar routes={routes} pathname={pathname} />
-      <NavigationButtons previousRoute={previousRoute} nextRoute={nextRoute} />
-    </StyledNav>
+      <NavigationButtons previous={previous} next={next} />
+    </CarouselNav>
   );
 };

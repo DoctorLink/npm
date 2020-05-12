@@ -1,11 +1,13 @@
 import {
     createTheme,
     embedStart,
-    embedStartButton
+    embedStartButton,
+    embedContinue
 } from './dist/traversal-react-redux.cjs.production.min.js';
 
 module.exports = {
     createTheme,
     start: embedStart,
-    startButton: embedStartButton
+    startButton: embedStartButton,
+    continue: embedContinue
 }

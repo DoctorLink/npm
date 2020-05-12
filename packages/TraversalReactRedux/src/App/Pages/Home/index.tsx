@@ -136,12 +136,12 @@ const Home = () => {
     event.preventDefault();
     if (showCreateMember) return;
     const product = traversalClientProducts.products.find(
-      x => x.id == productId
+      x => x.id === productId
     );
     if (product) {
-      const language = product.languages.find(x => x.id == languageId);
+      const language = product.languages.find(x => x.id === languageId);
       const version = traversalClientProducts.versions.find(
-        x => x.productId == product.id && x.languageId == language?.id
+        x => x.productId === product.id && x.languageId === language?.id
       );
       const algoId = product.startAlgoId !== algo ? algo : undefined;
       dispatch(
@@ -160,18 +160,18 @@ const Home = () => {
 
   const getVersions = (pId: number, lId: number): Array<Version> => {
     return traversalClientProducts.versions.filter(
-      x => x.productId == pId && x.languageId == lId
+      x => x.productId === pId && x.languageId === lId
     );
   };
 
   const selectProduct = (e: any) => {
     e.preventDefault();
-    const id = e.target.value;
+    const id: number = +e.target.value;
     setProductId(id);
-    const product = traversalClientProducts.products.find(p => p.id == id);
+    const product = traversalClientProducts.products.find(p => p.id === id);
     if (product) {
       const defaultLanguage = product.languages.find(
-        x => x.id == product.defaultLanguageId
+        x => x.id === product.defaultLanguageId
       );
       setLanguages(product.languages);
       setLanguageId(product.defaultLanguageId);
@@ -187,10 +187,12 @@ const Home = () => {
 
   const selectLanguage = (e: any) => {
     e.preventDefault();
-    const id = e.target.value;
+    const id: number = +e.target.value;
     setLanguageId(id);
-    const product = traversalClientProducts.products.find(p => p.id == id);
-    const language = product?.languages.find(x => x.id == id);
+    const product = traversalClientProducts.products.find(
+      p => p.id === productId
+    );
+    const language = product?.languages.find(x => x.id === id);
     if (product && language) {
       setVersions(getVersions(product.id, language.id));
       setVersionId(language.defaultVersionId);
