@@ -15,27 +15,30 @@ const Risks: React.FC<{
   riskExplanations: any;
 }> = ({ traversalId, riskConclusions, riskExplanations }) => {
   return (
-    <PanelBlocks>
-      <PanelContainer float="right">
-        <Panel>
-          <RiskScores traversalId={traversalId} />
-        </Panel>
-      </PanelContainer>
-      <PanelContainer>
-        <CheckableConclusionsPanel
-          traversalId={traversalId}
-          conclusions={riskConclusions}
-        />
-      </PanelContainer>
-      <PanelContainer>
-        <Panel>
-          <Explanations
-            title="Your risks explained"
-            explanations={riskExplanations}
+    <>
+      <h2>Global Health Check Scores</h2>
+      <PanelBlocks>
+        <PanelContainer float="right">
+          <Panel>
+            <RiskScores traversalId={traversalId} />
+          </Panel>
+        </PanelContainer>
+        <PanelContainer>
+          <CheckableConclusionsPanel
+            traversalId={traversalId}
+            conclusions={riskConclusions}
           />
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+        </PanelContainer>
+        <PanelContainer>
+          <Panel>
+            <Explanations
+              title="Your risks explained"
+              explanations={riskExplanations}
+            />
+          </Panel>
+        </PanelContainer>
+      </PanelBlocks>
+    </>
   );
 };
 

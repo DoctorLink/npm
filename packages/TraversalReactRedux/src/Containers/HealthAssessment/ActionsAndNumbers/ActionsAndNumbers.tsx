@@ -13,14 +13,17 @@ const ActionsAndNumbers: React.FC<{
   actionConclusions: any;
 }> = ({ numbersConclusions, actionConclusions }) => {
   return (
-    <PanelBlocks>
-      {actionConclusions.length > 0 && (
-        <ActionsNowDue actionConclusions={actionConclusions} />
-      )}
-      {numbersConclusions.length > 0 && (
-        <MyNumbers numbersConclusions={numbersConclusions} />
-      )}
-    </PanelBlocks>
+    <>
+      <h2>Global Health Check Scores</h2>
+      <PanelBlocks>
+        {actionConclusions.length > 0 && (
+          <ActionsNowDue actionConclusions={actionConclusions} />
+        )}
+        {numbersConclusions.length > 0 && (
+          <MyNumbers numbersConclusions={numbersConclusions} />
+        )}
+      </PanelBlocks>
+    </>
   );
 };
 

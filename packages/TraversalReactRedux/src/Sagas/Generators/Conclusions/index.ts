@@ -7,10 +7,7 @@ const getApiCall = (
   action: { traversalId: unknown }
 ) => call(api.conclusions, action.traversalId);
 
-const getOnSuccess = (
-  response: { json: () => any },
-  action: { traversalId: any }
-) =>
+const getOnSuccess = (response: Response, action: { traversalId: any }) =>
   function* onSuccess() {
     const json = yield response.json();
     yield put(

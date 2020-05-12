@@ -10,6 +10,10 @@ export const ConclusionContent = styled.div`
   padding: ${theme.spacing.padding}px;
 `;
 
+export const ComparisonContent = styled.div`
+  padding: 10px;
+`;
+
 export const NumberConclusionContent = styled.div`
   display: flex;
   justify-content: space-between;

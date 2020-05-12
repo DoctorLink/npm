@@ -4,6 +4,7 @@ import {
   HRA_CHECK_CONCLUSION,
   HRA_UNCHECK_CONCLUSION,
   HRA_WELLNESS_SET,
+  HRA_COMPARISONREPORT_SET,
 } from '../../Actions';
 
 const defaultState = {
@@ -26,6 +27,12 @@ const defaultState = {
     checkableConclusions: [],
   },
   checkedConclusions: [],
+  comparisonReport: {
+    loaded: false,
+    summary: null,
+    currentSnapshot: null,
+    previousSnapshot: null,
+  },
 };
 
 const healthAssessment = (state: any = defaultState, action: any) => {
@@ -47,6 +54,11 @@ const healthAssessment = (state: any = defaultState, action: any) => {
         checkedConclusions: state.checkedConclusions.filter(
           (id: any) => id !== action.id
         ),
+      };
+    case HRA_COMPARISONREPORT_SET:
+      return {
+        ...state,
+        comparisonReport: { ...action.comparisonOutcome, loaded: true },
       };
     default:
       return state;

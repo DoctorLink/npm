@@ -15,27 +15,30 @@ const Wellbeing: React.FC<{
   wellnessExplanations: any;
 }> = ({ traversalId, wellnessConclusions, wellnessExplanations }) => {
   return (
-    <PanelBlocks>
-      <PanelContainer float="right">
-        <Panel>
-          <WellbeingScores traversalId={traversalId} />
-        </Panel>
-      </PanelContainer>
-      <PanelContainer>
-        <CheckableConclusionsPanel
-          traversalId={traversalId}
-          conclusions={wellnessConclusions}
-        />
-      </PanelContainer>
-      <PanelContainer>
-        <Panel>
-          <Explanations
-            title="Your lifestyle scores explained"
-            explanations={wellnessExplanations}
+    <>
+      <h2>Global Health Check Scores</h2>
+      <PanelBlocks>
+        <PanelContainer float="right">
+          <Panel>
+            <WellbeingScores traversalId={traversalId} />
+          </Panel>
+        </PanelContainer>
+        <PanelContainer>
+          <CheckableConclusionsPanel
+            traversalId={traversalId}
+            conclusions={wellnessConclusions}
           />
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+        </PanelContainer>
+        <PanelContainer>
+          <Panel>
+            <Explanations
+              title="Your lifestyle scores explained"
+              explanations={wellnessExplanations}
+            />
+          </Panel>
+        </PanelContainer>
+      </PanelBlocks>
+    </>
   );
 };
 

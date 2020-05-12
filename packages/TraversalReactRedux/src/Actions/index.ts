@@ -198,6 +198,24 @@ export const uncheckConclusion = (id: any) => ({
   id,
 });
 
+export const HRA_COMPARISONREPORT_GET = 'HRA_COMPARISONREPORT_GET';
+export const hraComparisonReportGet = (
+  currentTraversal: string,
+  pastTraversal: string,
+  riskAtAge: number
+) => ({
+  type: HRA_COMPARISONREPORT_GET,
+  currentTraversal,
+  pastTraversal,
+  riskAtAge,
+});
+
+export const HRA_COMPARISONREPORT_SET = 'HRA_COMPARISONREPORT_SET';
+export const hraComparisonReportSet = (comparisonOutcome: any) => ({
+  type: HRA_COMPARISONREPORT_SET,
+  comparisonOutcome,
+});
+
 export const CLIENT_PRODUCTS_GET = 'CLIENT_PRODUCTS_GET';
 export const clientProductsGet = () => ({ type: CLIENT_PRODUCTS_GET });
 
@@ -268,6 +286,8 @@ export const actions = {
   HRA_WELLNESS_SET,
   HRA_CHECK_CONCLUSION,
   HRA_UNCHECK_CONCLUSION,
+  HRA_COMPARISONREPORT_GET,
+  HRA_COMPARISONREPORT_SET,
   CLIENT_PRODUCTS_GET,
   CLIENT_PRODUCTS_SET,
   LABELS_SET,
@@ -306,6 +326,8 @@ export const actionCreators = {
   hraWellnessSet,
   checkConclusion,
   uncheckConclusion,
+  hraComparisonReportGet,
+  hraComparisonReportSet,
   clientProductsGet,
   clientProductsSet,
   labelsSet,

@@ -7,6 +7,7 @@ export { default as createContinueChatGenerator } from './ContinueChat';
 export { default as createHealthRisksGenerator } from './HealthRisks';
 export { default as createHealthAgeGenerator } from './HealthAge';
 export { default as createWellnessGenerator } from './Wellness';
+export { default as createComparisonReportGenerator } from './ComparisonReport';
 export { default as createNextGenerator } from './Next';
 export { default as createNextChatGenerator } from './NextChat';
 export { default as createPreviousGenerator } from './Previous';

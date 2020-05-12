@@ -215,6 +215,18 @@ const fetchWellness = (hraApi: any, getToken?: Promise<string>) => (
   );
 };
 
+const fetchComparisonReport = (hraApi: any, getToken?: Promise<string>) => (
+  currentTraversal: string,
+  pastTraversal: string,
+  riskAtAge: number
+) => {
+  return fetchWrapper(
+    `${hraApi}/Compare/Compare/${currentTraversal}/${pastTraversal}/${riskAtAge}`,
+    undefined,
+    getToken
+  );
+};
+
 const fetchProducts = (api: any, getToken?: Promise<string>) => async () =>
   fetchWrapper(`${api}/api/v2/Products`, undefined, getToken);
 
@@ -271,6 +283,7 @@ export const createHealthAssessmentWebApi = (
     isConfigured: !!apiUrl,
     healthRisks: fetchHealthRisks(apiUrl, getToken),
     wellness: fetchWellness(apiUrl, getToken),
+    comparisonReport: fetchComparisonReport(apiUrl, getToken),
   };
 };
 

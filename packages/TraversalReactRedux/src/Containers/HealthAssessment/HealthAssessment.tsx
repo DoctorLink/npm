@@ -11,6 +11,7 @@ import Wellbeing from './Wellbeing/Wellbeing';
 import ActionsAndNumbers from './ActionsAndNumbers/ActionsAndNumbers';
 import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 import { useHRARoutes } from './Hooks';
+import ComparisonReport from './ComparisonReport/ComparisonReport';
 
 const bottomBarHeight = '100px';
 
@@ -48,7 +49,6 @@ const HealthAssessment: React.FC<{
   return (
     <div id="Traversal">
       <Content>
-        <h2>Global Health Check Scores</h2>
         <Switch>
           <Route
             path={`${basePath}/health-age`}
@@ -65,6 +65,10 @@ const HealthAssessment: React.FC<{
           <Route
             path={`${basePath}/my-numbers`}
             component={ActionsAndNumbers}
+          />
+          <Route
+            path={`${basePath}/comparison-report`}
+            render={() => <ComparisonReport traversal={traversalId} />}
           />
           <Route path={`${basePath}/info`} component={AdditionalInfo} />
           {initialRoute && (

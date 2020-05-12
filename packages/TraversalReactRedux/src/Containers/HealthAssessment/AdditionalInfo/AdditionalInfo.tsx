@@ -14,18 +14,21 @@ const AdditionalInfo: React.FC<{
   additionalConclusions: any;
 }> = ({ additionalConclusions }) => {
   return (
-    <PanelBlocks>
-      <PanelContainer>
-        <Panel>
-          <HealthReportPanelHeader>
-            Additional Information
-          </HealthReportPanelHeader>
-          <PanelContent>
-            <NonCheckableConclusions conclusions={additionalConclusions} />
-          </PanelContent>
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+    <>
+      <h2>Global Health Check Scores</h2>
+      <PanelBlocks>
+        <PanelContainer>
+          <Panel>
+            <HealthReportPanelHeader>
+              Additional Information
+            </HealthReportPanelHeader>
+            <PanelContent>
+              <NonCheckableConclusions conclusions={additionalConclusions} />
+            </PanelContent>
+          </Panel>
+        </PanelContainer>
+      </PanelBlocks>
+    </>
   );
 };
 

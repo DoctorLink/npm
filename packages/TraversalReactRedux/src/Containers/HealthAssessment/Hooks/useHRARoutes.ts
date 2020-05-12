@@ -49,6 +49,7 @@ export const useHRARoutes = (traversalId: any) => {
       enabled: myNumbers.length > 0 || nowDue.length > 0,
     },
     { path: 'info', enabled: true },
+    { path: 'comparison-report', enabled: true },
   ];
 
   const [initialRoute, setInitialRoute] = useState<string>();

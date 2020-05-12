@@ -15,4 +15,8 @@ export default (hraApi: any) => [
     actions.HRA_WELLNESS_GET,
     generators.createWellnessGenerator(hraApi)
   ),
+  takeLatest(
+    actions.HRA_COMPARISONREPORT_GET,
+    generators.createComparisonReportGenerator(hraApi)
+  ),
 ];
