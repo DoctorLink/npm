@@ -141,7 +141,7 @@ const Home = () => {
     if (product) {
       const language = product.languages.find(x => x.id === languageId);
       const version = traversalClientProducts.versions.find(
-        x => x.productId === product.id && x.languageId === language?.id
+        x => x.id === versionId
       );
       const algoId = product.startAlgoId !== algo ? algo : undefined;
       dispatch(
