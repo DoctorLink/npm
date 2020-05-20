@@ -1,6 +1,9 @@
-import { MEMBER_CREATE_SET } from '../../Actions';
+import { MEMBER_CREATE_SET, MemberAction } from '../../Actions';
 
-const memberReference = (state: any = null, action: any) => {
+const memberReference = (
+  state: string | null = null,
+  action: MemberAction
+): string | null => {
   switch (action.type) {
     case MEMBER_CREATE_SET:
       return action.memberReference;

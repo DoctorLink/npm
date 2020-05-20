@@ -5,7 +5,7 @@ import { createStore, applyMiddleware, combineReducers } from 'redux';
 import { Provider, useDispatch, useSelector } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
 import { all } from 'redux-saga/effects';
-import { actionCreators } from '../Actions';
+import { traversalStart, traversalContinue } from '../Actions';
 import { createTraversalWebApi, createHealthAssessmentWebApi } from '../WebApi';
 import {
   traversalReducer,
@@ -28,7 +28,7 @@ import {
   SummaryConnected as Summary,
   ConclusionReportConnected as Conclusions,
 } from '../Containers';
-import { TraversalStartProduct } from 'Models/Traversal';
+import { TraversalStartProduct } from '../Models/Traversal';
 
 const Container = styled.div`
   font-family: ${props => props.theme.typography.fontFamily};
@@ -97,12 +97,12 @@ export const EmbedTraversalContinue: React.FC<{ traversalId: string }> = ({
   traversalId,
 }) => {
   const dispatch = useDispatch();
-  const containerRef = useRef();
+  const containerRef = useRef<any>();
   const traversal = useSelector((state: any) => state.traversal);
   const traversalActions = BuildTraversalActions(traversal, containerRef);
 
   useEffect(() => {
-    dispatch(actionCreators.traversalContinue(traversalId, containerRef));
+    dispatch(traversalContinue(traversalId, containerRef));
   }, [dispatch, traversalId, containerRef]);
 
   if (!traversal) return null;
@@ -120,13 +120,13 @@ export const EmbedTraversalStart: React.FC<{
   startOptions: TraversalStartProduct;
 }> = ({ startOptions }) => {
   const dispatch = useDispatch();
-  const containerRef = useRef();
+  const containerRef = useRef<any>();
   const traversal = useSelector((state: any) => state.traversal);
   const traversalActions = BuildTraversalActions(traversal, containerRef);
 
   useEffect(() => {
     dispatch(
-      actionCreators.traversalStart(
+      traversalStart(
         startOptions.productId,
         startOptions.language,
         startOptions.release,
@@ -153,7 +153,7 @@ export const EmbedTraversalButton: React.FC<{
   startOptions: TraversalStartProduct;
 }> = ({ startOptions }) => {
   const dispatch = useDispatch();
-  const containerRef = useRef();
+  const containerRef = useRef<any>();
   const traversal = useSelector((state: any) => state.traversal);
   const traversalActions = BuildTraversalActions(traversal, containerRef);
 
@@ -162,7 +162,7 @@ export const EmbedTraversalButton: React.FC<{
       <Button
         onClick={() =>
           dispatch(
-            actionCreators.traversalStart(
+            traversalStart(
               startOptions.productId,
               startOptions.language,
               startOptions.release,

@@ -1,4 +1,6 @@
-export const defaultLabels = {
+import { Labels } from '../Models';
+
+export const defaultLabels: Labels = {
   traversal: {
     next: 'Next',
     previous: 'Previous',

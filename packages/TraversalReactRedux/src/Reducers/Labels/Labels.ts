@@ -1,7 +1,12 @@
-import { LABELS_SET, LABELS_RESTORE_DEFAULT } from '../../Actions';
+import {
+  LABELS_SET,
+  LABELS_RESTORE_DEFAULT,
+  LabelsAction,
+} from '../../Actions';
 import { defaultLabels } from '../../Constants';
+import { Labels } from 'Models';
 
-const labels = (state: any = defaultLabels, action: any) => {
+const labels = (state = defaultLabels, action: LabelsAction): Labels => {
   switch (action.type) {
     case LABELS_SET:
       return action.labels;

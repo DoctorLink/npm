@@ -188,7 +188,7 @@ export const BuildSummaryActions = (summary: any, containerRef: any) => {
           summary.traversalId,
           algoId,
           nodeId,
-          undefined,
+          null,
           containerRef
         )
       ),

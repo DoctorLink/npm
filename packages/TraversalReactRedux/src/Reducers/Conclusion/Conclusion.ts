@@ -1,12 +1,17 @@
 import {
   TRAVERSAL_CONCLUSION_SET,
-  TRAVERSAL_CONTINUE,
   TRAVERSAL_START,
+  TRAVERSAL_CONTINUE,
   TRAVERSAL_PREVIOUS,
   TRAVERSAL_NEXT,
+  TraversalAction,
 } from '../../Actions';
+import { ConclusionState } from 'Models';
 
-const conclusion = (state: any = null, action: any) => {
+const conclusion = (
+  state: ConclusionState = null,
+  action: TraversalAction
+): ConclusionState => {
   switch (action.type) {
     case TRAVERSAL_START:
     case TRAVERSAL_CONTINUE:

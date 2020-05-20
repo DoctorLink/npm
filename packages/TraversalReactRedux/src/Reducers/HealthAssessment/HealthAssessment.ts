@@ -5,9 +5,11 @@ import {
   HRA_UNCHECK_CONCLUSION,
   HRA_WELLNESS_SET,
   HRA_COMPARISONREPORT_SET,
+  HraAction,
 } from '../../Actions';
+import { HealthAssessmentModel } from '../../Models';
 
-const defaultState = {
+const defaultState: HealthAssessmentModel = {
   riskSummary: {
     loaded: false,
     age: null,
@@ -35,7 +37,7 @@ const defaultState = {
   },
 };
 
-const healthAssessment = (state: any = defaultState, action: any) => {
+const healthAssessment = (state = defaultState, action: HraAction) => {
   switch (action.type) {
     case HEALTH_AGE_SET:
       return { ...state, healthAge: { ...action.healthAge, loaded: true } };

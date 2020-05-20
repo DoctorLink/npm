@@ -1,24 +1,30 @@
 import React from 'react';
 import { Router, Route } from 'react-router-dom';
-import { createBrowserHistory } from 'history';
+import { History, createBrowserHistory } from 'history';
 import { Provider } from 'react-redux';
+import { Store } from 'redux';
 
 import { GlobalStyle, BodyContent, Title } from '../../../Components';
 import Home from '../../Pages/Home';
 import Chat from '../../Pages/Chat';
 import { ModalConnected as Modal } from '../../../Containers';
+import { ChatRootState } from '../../../Models';
 
-const ChatApp: React.FC<{ store: any; history?: any }> = ({
-  store,
-  history,
-}) => {
+export interface ChatAppProps {
+  store: Store<ChatRootState>;
+  history?: History;
+}
+
+const ChatApp: React.FC<ChatAppProps> = ({ store, history }) => {
   if (!history) history = createBrowserHistory();
   return (
     <Provider store={store}>
       <Router history={history}>
         <GlobalStyle />
         <BodyContent>
-          <Title onClick={() => history.push('/')}>Traversal Chat Client</Title>
+          <Title onClick={() => history!.push('/')}>
+            Traversal Chat Client
+          </Title>
           <Route exact path="/" component={Home} />
           <Route path="/traversal/:id?" component={Chat} />
           <Modal />

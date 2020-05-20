@@ -1,6 +1,7 @@
 import { normalize, schema } from 'normalizr';
+import { ChatModel } from 'Models';
 
-export default (json: any) => {
+export default (json: any): ChatModel => {
   const answer = new schema.Entity(
     'answers',
     {},
@@ -28,7 +29,7 @@ export default (json: any) => {
   // const node = new schema.Entity('nodes', { questions: [question],  errors: [error] }, { idAttribute: value => value.nodeId });
   const traversal = { questions: [question], errors: [error] };
 
-  const normalizedData = normalize(json.data, traversal);
+  const normalizedData = normalize<any, ChatModel, any>(json.data, traversal);
 
   normalizedData.entities.traversalId = normalizedData.result.traversalId;
   normalizedData.entities.completed = normalizedData.result.completed;

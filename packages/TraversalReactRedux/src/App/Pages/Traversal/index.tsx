@@ -8,7 +8,7 @@ import {
 } from '../../../Containers';
 
 const TraversalPage: React.FC<{ match: any }> = ({ match }) => {
-  const containerRef = useRef();
+  const containerRef = useRef<any>();
   const dispatch = useDispatch();
   const traversal = useSelector((state: any) => state.traversal);
   const labels = useSelector((state: any) => state.labels.traversal);

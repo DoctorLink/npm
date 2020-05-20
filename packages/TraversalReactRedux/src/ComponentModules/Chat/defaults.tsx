@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import { useDispatch } from 'react-redux';
 import styled from 'styled-components';
 
@@ -19,6 +19,7 @@ import PrimaryChoice from '../../Components/PrimaryChoice';
 import SecondaryChoice from '../../Components/SecondaryChoice';
 import Section from '../../Components/ChatSection';
 import HiddenInput from '../../Components/HiddenInput';
+import { ChatModel } from '../../Models';
 
 const transition = {
   duration: 0.3,
@@ -121,7 +122,10 @@ export const defaultChatActions = {
   setHeight: () => undefined,
 };
 
-export const BuildChatActions = (traversal: any, containerRef: any) => {
+export const BuildChatActions = (
+  traversal: ChatModel,
+  containerRef: MutableRefObject<any>
+) => {
   const dispatch = useDispatch();
   return {
     next: () =>

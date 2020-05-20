@@ -1,4 +1,5 @@
 import flattenTraversalNodeCollection from '../src/Helpers/flattenTraversalNodeCollection';
+import { TraversalModel } from 'Models';
 
 describe('flattenTraversalNodeCollection', () => {
   const json = {
@@ -15,6 +16,9 @@ describe('flattenTraversalNodeCollection', () => {
               nodeId: 2,
               questionId: 1234,
               displayText: 'To be or not to be?',
+              title: 'The question',
+              explanation: null,
+              data: {},
               answers: [
                 {
                   nodeId: 3,
@@ -50,7 +54,7 @@ describe('flattenTraversalNodeCollection', () => {
 
   test('should flatten traversal node collection correctly', () => {
     const result = flattenTraversalNodeCollection(json);
-    expect(result).toMatchObject({
+    expect(result).toMatchObject<TraversalModel>({
       traversalId: 'abc',
       algoId: 123,
       assessmentType: 1,
@@ -74,6 +78,9 @@ describe('flattenTraversalNodeCollection', () => {
           questionId: 1234,
           displayText: 'To be or not to be?',
           answers: ['3_1234_12340', '3_1234_12341'],
+          title: 'The question',
+          explanation: null,
+          data: {},
         },
       },
       answers: {

@@ -1,9 +1,18 @@
-import { TOGGLE_RADIO, TOGGLE_CHECKBOX, UPDATE_TEXT } from '../../Actions';
+import {
+  TOGGLE_RADIO,
+  TOGGLE_CHECKBOX,
+  UPDATE_TEXT,
+  TraversalAction,
+} from '../../Actions';
+import { TraversalAnswer } from '.../../Models';
 
-const answers = (state: any = null, action: any) => {
+const answers = (
+  state: Record<string, TraversalAnswer>,
+  action: TraversalAction
+) => {
   switch (action.type) {
     case TOGGLE_RADIO:
-      action.answerIds.forEach((answerId: any) => {
+      action.answerIds.forEach(answerId => {
         if (answerId === action.id)
           state[answerId] = {
             ...state[answerId],
@@ -20,7 +29,7 @@ const answers = (state: any = null, action: any) => {
       });
       return state;
     case TOGGLE_CHECKBOX:
-      action.answerIds.forEach((answerId: any) => {
+      action.answerIds.forEach(answerId => {
         if (answerId === action.id)
           state[answerId] = {
             ...state[answerId],
@@ -35,15 +44,15 @@ const answers = (state: any = null, action: any) => {
       });
       return state;
     case UPDATE_TEXT:
-      action.answerIds.forEach((answerId: any) => {
+      action.answerIds.forEach(answerId => {
         if (answerId === action.id)
           state[answerId] = {
             ...state[answerId],
-            controlChecked: action.value && action.Value !== '',
+            controlChecked: !!action.value,
             controlValue: action.value,
           };
         else if (
-          !['Text', 'Number', 'Date'].includes(state[answerId].controlType)
+          !['Text', 'Number', 'Date'].includes(state[answerId].controlType!)
         )
           state[answerId] = {
             ...state[answerId],

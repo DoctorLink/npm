@@ -1,21 +1,21 @@
-interface IDictionary<TValue> {
-  [id: string]: TValue;
-}
+import { TraversalResponseModel } from 'Models';
 
-const fetchOptions = (body: any | null) => {
-  var headers: IDictionary<any> = {
-    Accept: 'application/json',
-    'Content-Type': 'application/json',
-  };
-  // if (culture) headers['Content-Language'] = culture;
+export type FetchResult = { response: Response } | { error: any };
+
+export type GetTokenFunction = () => Promise<string>;
+
+const fetchOptions = (body: any | null): RequestInit => {
   return {
     method: 'POST',
-    headers: headers,
+    headers: {
+      Accept: 'application/json',
+      'Content-Type': 'application/json',
+    },
     body: typeof body === 'string' ? body : JSON.stringify(body),
   };
 };
 
-const addQsParam = (qs: any, param: any, name: any) => {
+const addQsParam = (qs: string, param: string | number, name: string) => {
   var p = qs ? '&' : '?';
   p += `${name}=${param}`;
   return p;
@@ -47,11 +47,15 @@ const v2QueryParams = (
   return qs;
 };
 
-async function fetchWrapper(path: any, options?: any, getToken?: any) {
+async function fetchWrapper(
+  path: string,
+  options?: RequestInit,
+  getToken?: GetTokenFunction
+): Promise<FetchResult> {
   if (getToken) {
     if (!options) options = { headers: {} };
     const token = await getToken();
-    options.headers.Authorization = `Bearer ${token}`;
+    options.headers = { ...options.headers, Authorization: `Bearer ${token}` };
   }
   return fetch(path, options)
     .then(response => ({ response }))
@@ -59,7 +63,7 @@ async function fetchWrapper(path: any, options?: any, getToken?: any) {
 }
 
 ///POST
-const fetchTraversalStart = (api: any, getToken?: Promise<string>) => (
+const fetchTraversalStart = (api: string, getToken?: GetTokenFunction) => (
   productId: number,
   language?: string,
   version?: string,
@@ -76,7 +80,7 @@ const fetchTraversalStart = (api: any, getToken?: Promise<string>) => (
   );
 };
 
-const fetchTraversalNext = (api: any, getToken?: Promise<string>) => (
+const fetchTraversalNext = (api: string, getToken?: GetTokenFunction) => (
   traversalResponse: any
 ) =>
   fetchWrapper(
@@ -85,10 +89,10 @@ const fetchTraversalNext = (api: any, getToken?: Promise<string>) => (
     getToken
   );
 
-const fetchTraversalPrevious = (api: any, getToken?: Promise<string>) => (
-  traversalId: any,
-  algoId: any,
-  nodeId: any
+const fetchTraversalPrevious = (api: string, getToken?: GetTokenFunction) => (
+  traversalId: string,
+  algoId: number,
+  nodeId: number
 ) => {
   var qs = algoId && nodeId ? `?algoId=${algoId}&nodeId=${nodeId}` : '';
   return fetchWrapper(
@@ -98,7 +102,7 @@ const fetchTraversalPrevious = (api: any, getToken?: Promise<string>) => (
   );
 };
 
-const fetchChatStart = (api: any, getToken?: Promise<string>) => (
+const fetchChatStart = (api: string, getToken?: GetTokenFunction) => (
   productId: number,
   language?: string,
   version?: string,
@@ -115,8 +119,8 @@ const fetchChatStart = (api: any, getToken?: Promise<string>) => (
   );
 };
 
-const fetchChatNext = (api: any, getToken?: Promise<string>) => (
-  traversalResponse: any
+const fetchChatNext = (api: string, getToken?: GetTokenFunction) => (
+  traversalResponse: TraversalResponseModel
 ) =>
   fetchWrapper(
     `${api}/api/v2/Chat/NextAsync`,
@@ -124,11 +128,11 @@ const fetchChatNext = (api: any, getToken?: Promise<string>) => (
     getToken
   );
 
-const fetchChatPrevious = (api: any, getToken?: Promise<string>) => (
-  traversalId: any,
-  algoId: any,
-  nodeId: any,
-  assetId: any
+const fetchChatPrevious = (api: string, getToken?: GetTokenFunction) => (
+  traversalId: string,
+  algoId: number,
+  nodeId: number,
+  assetId: number
 ) => {
   var qs =
     algoId && nodeId && assetId
@@ -142,8 +146,8 @@ const fetchChatPrevious = (api: any, getToken?: Promise<string>) => (
 };
 
 ///GET
-const fetchTraversalContinue = (api: any, getToken?: Promise<string>) => (
-  traversalId: any
+const fetchTraversalContinue = (api: string, getToken?: GetTokenFunction) => (
+  traversalId: string
 ) =>
   fetchWrapper(
     `${api}/api/v2/Traversal/ContinueAsync/${traversalId}`,
@@ -151,8 +155,8 @@ const fetchTraversalContinue = (api: any, getToken?: Promise<string>) => (
     getToken
   );
 
-const fetchChatContinue = (api: any, getToken?: Promise<string>) => (
-  traversalId: any
+const fetchChatContinue = (api: string, getToken?: GetTokenFunction) => (
+  traversalId: string
 ) =>
   fetchWrapper(
     `${api}/api/v2/Chat/ContinueAsync/${traversalId}`,
@@ -160,8 +164,8 @@ const fetchChatContinue = (api: any, getToken?: Promise<string>) => (
     getToken
   );
 
-const fetchTraversalSummary = (api: any, getToken?: Promise<string>) => (
-  traversalId: any
+const fetchTraversalSummary = (api: string, getToken?: GetTokenFunction) => (
+  traversalId: string
 ) =>
   fetchWrapper(
     `${api}/api/v2/Traversal/SummaryAsync/${traversalId}`,
@@ -169,8 +173,8 @@ const fetchTraversalSummary = (api: any, getToken?: Promise<string>) => (
     getToken
   );
 
-const fetchTraversalConclusion = (api: any, getToken?: Promise<string>) => (
-  traversalId: any
+const fetchTraversalConclusion = (api: string, getToken?: GetTokenFunction) => (
+  traversalId: string
 ) =>
   fetchWrapper(
     `${api}/api/v2/Traversal/ConclusionAsync/${traversalId}`,
@@ -178,23 +182,24 @@ const fetchTraversalConclusion = (api: any, getToken?: Promise<string>) => (
     getToken
   );
 
-const fetchTraversalSymptomReport = (api: any, getToken?: Promise<string>) => (
-  traversalId: any
-) =>
+const fetchTraversalSymptomReport = (
+  api: string,
+  getToken?: GetTokenFunction
+) => (traversalId: string) =>
   fetchWrapper(
     `${api}/api/v2/Traversal/SymptomReportAsync/${traversalId}`,
     undefined,
     getToken
   );
 
-const fetchHealthRisks = (hraApi: any, getToken?: Promise<string>) => (
-  traversalId: any,
-  ages: any[],
-  conclusions: any[]
+const fetchHealthRisks = (hraApi: string, getToken?: GetTokenFunction) => (
+  traversalId: string,
+  ages: number[],
+  conclusions: number[]
 ) => {
   const qs = ages
-    .map((age: any) => `ages=${age}`)
-    .concat(conclusions.map((conc: any) => `conclusions=${conc}`))
+    .map(age => `ages=${age}`)
+    .concat(conclusions.map(conc => `conclusions=${conc}`))
     .join('&');
   return fetchWrapper(
     `${hraApi}/HealthRisk/${traversalId}?${qs}`,
@@ -203,11 +208,11 @@ const fetchHealthRisks = (hraApi: any, getToken?: Promise<string>) => (
   );
 };
 
-const fetchWellness = (hraApi: any, getToken?: Promise<string>) => (
-  traversalId: any,
-  conclusions: any[]
+const fetchWellness = (hraApi: string, getToken?: GetTokenFunction) => (
+  traversalId: string,
+  conclusions: number[]
 ) => {
-  const qs = conclusions.map((conc: any) => `conclusions=${conc}`).join('&');
+  const qs = conclusions.map(conc => `conclusions=${conc}`).join('&');
   return fetchWrapper(
     `${hraApi}/Wellness/${traversalId}?${qs}`,
     undefined,
@@ -215,7 +220,7 @@ const fetchWellness = (hraApi: any, getToken?: Promise<string>) => (
   );
 };
 
-const fetchComparisonReport = (hraApi: any, getToken?: Promise<string>) => (
+const fetchComparisonReport = (hraApi: string, getToken?: GetTokenFunction) => (
   currentTraversal: string,
   pastTraversal: string,
   riskAtAge: number
@@ -227,11 +232,11 @@ const fetchComparisonReport = (hraApi: any, getToken?: Promise<string>) => (
   );
 };
 
-const fetchProducts = (api: any, getToken?: Promise<string>) => async () =>
+const fetchProducts = (api: string, getToken?: GetTokenFunction) => async () =>
   fetchWrapper(`${api}/api/v2/Products`, undefined, getToken);
 
 ///POST
-const fetchCreateMember = (api: any, getToken?: Promise<string>) => (
+const fetchCreateMember = (api: string, getToken?: GetTokenFunction) => (
   memberReference: any
 ) => {
   return fetchWrapper(
@@ -242,8 +247,8 @@ const fetchCreateMember = (api: any, getToken?: Promise<string>) => (
 };
 
 export const createTraversalWebApi = (
-  apiUrl: any,
-  getToken?: Promise<string>
+  apiUrl: string,
+  getToken?: GetTokenFunction
 ) => {
   return {
     name: 'Traversal',
@@ -259,7 +264,7 @@ export const createTraversalWebApi = (
   };
 };
 
-export const createChatWebApi = (apiUrl: any, getToken?: Promise<string>) => {
+export const createChatWebApi = (apiUrl: any, getToken?: GetTokenFunction) => {
   return {
     name: 'Chat',
     isConfigured: !!apiUrl,
@@ -275,8 +280,8 @@ export const createChatWebApi = (apiUrl: any, getToken?: Promise<string>) => {
 };
 
 export const createHealthAssessmentWebApi = (
-  apiUrl: any,
-  getToken?: Promise<string>
+  apiUrl: string = '',
+  getToken?: GetTokenFunction
 ) => {
   return {
     name: 'Health Assessment',
@@ -287,7 +292,10 @@ export const createHealthAssessmentWebApi = (
   };
 };
 
-export const createMemberWebApi = (apiUrl: any, getToken?: Promise<string>) => {
+export const createMemberWebApi = (
+  apiUrl: string,
+  getToken?: GetTokenFunction
+) => {
   return {
     name: 'Member',
     isConfigured: !!apiUrl,

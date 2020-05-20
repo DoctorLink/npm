@@ -1,6 +1,7 @@
 import { normalize, schema } from 'normalizr';
+import { TraversalModel } from 'Models';
 
-export default (json: any) => {
+export default (json: any): TraversalModel => {
   const answer = new schema.Entity(
     'answers',
     {},
@@ -26,7 +27,10 @@ export default (json: any) => {
   );
   const traversal = { nodes: [node] };
 
-  const { result, entities } = normalize(json.data, traversal);
+  const { result, entities } = normalize<any, TraversalModel, any>(
+    json.data,
+    traversal
+  );
 
   entities.traversalId = result.traversalId;
   entities.nodeIds = result.nodes;

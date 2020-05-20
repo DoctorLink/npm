@@ -1,28 +1,36 @@
 import { createStore, applyMiddleware } from 'redux';
 import { composeWithDevTools } from 'redux-devtools-extension';
 import createSagaMiddleware from 'redux-saga';
+import { History } from 'history';
 import {
   createTraversalWebApi,
   createChatWebApi,
   createHealthAssessmentWebApi,
   createMemberWebApi,
+  GetTokenFunction,
 } from '../WebApi';
 import { createTraversalSaga, createChatSaga } from '../Sagas';
 import { rootTraversalReducer, rootChatReducer } from '../Reducers';
 import * as actions from '../Actions';
 
-const normaliseConfig = (configOrEngineUrl: any) =>
+export interface StoreConfig {
+  engine: string;
+  hraApi?: string;
+}
+
+const normaliseConfig = (
+  configOrEngineUrl: StoreConfig | string
+): StoreConfig =>
   typeof configOrEngineUrl === 'object'
     ? configOrEngineUrl
     : {
         engine: configOrEngineUrl,
-        hraApi: null,
       };
 
 export const createTraversalStore = (
-  config: { engine: any; hraApi: any },
-  history: any,
-  getToken?: Promise<string>
+  config: StoreConfig,
+  history: History<any>,
+  getToken?: GetTokenFunction
 ) => {
   config = normaliseConfig(config);
   const sagaMiddleware = createSagaMiddleware();
@@ -46,9 +54,9 @@ export const createTraversalStore = (
 };
 
 export const createChatStore = (
-  config: { engine: any; hraApi: any },
-  history: any,
-  getToken?: Promise<string>
+  config: StoreConfig,
+  history: History<any>,
+  getToken?: GetTokenFunction
 ) => {
   config = normaliseConfig(config);
   const sagaMiddleware = createSagaMiddleware();
@@ -67,5 +75,7 @@ export const createChatStore = (
 
 const setMemberRefToStoreFromLocalStorage = (store: any) => {
   const memberReference = localStorage.getItem('memberReference');
-  store.dispatch(actions.memberCreateSet(memberReference));
+  if (memberReference) {
+    store.dispatch(actions.memberCreateSet(memberReference));
+  }
 };

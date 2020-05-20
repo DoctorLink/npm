@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import { useDispatch } from 'react-redux';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
 
 import * as actions from '../../Actions';
 import createTraversalResponse from '../../Helpers/createTraversalResponse';
+import { TraversalModel } from '../../Models';
 
 import QuestionTitle from '../../Components/QuestionTitle';
 import Question from '../../Components/Question';
@@ -174,7 +175,10 @@ export const defaultTraversalActions = {
   setHeight: () => undefined,
 };
 
-export const BuildTraversalActions = (traversal: any, containerRef: any) => {
+export const BuildTraversalActions = (
+  traversal: TraversalModel,
+  containerRef: MutableRefObject<HTMLElement>
+) => {
   const dispatch = useDispatch();
   return {
     next: () =>
@@ -185,9 +189,9 @@ export const BuildTraversalActions = (traversal: any, containerRef: any) => {
       dispatch(
         actions.traversalPrevious(
           traversal.traversalId,
-          undefined,
-          undefined,
-          undefined,
+          null,
+          null,
+          null,
           containerRef
         )
       ),

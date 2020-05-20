@@ -1,10 +1,11 @@
 import React, { useEffect, useRef } from 'react';
 import { defaultLabels } from '../../Constants';
 import { defaultSummaryActions, defaultSummaryComponents } from './defaults';
+import { TraversalSummaryModel, SummaryLabels } from 'Models';
 
 export const Summary: React.FC<{
-  summary: any;
-  labels?: any;
+  summary: TraversalSummaryModel;
+  labels?: SummaryLabels;
   actions?: any;
   components?: any;
 }> = ({
@@ -50,7 +51,7 @@ export const Summary: React.FC<{
               <comps.Header>{labels.noQuestions}</comps.Header>
             )}
             {summary.questions.length > 0 &&
-              summary.questions.map((question: any) => (
+              summary.questions.map(question => (
                 <comps.Question
                   key={`${question.algoId}_${question.nodeId}`}
                   onClick={() => actions.jump(question.algoId, question.nodeId)}
@@ -64,8 +65,8 @@ export const Summary: React.FC<{
                   />
                   <comps.Answers>
                     {question.answers
-                      .filter((x: any) => x.isAnswered)
-                      .map((answer: any) => (
+                      .filter(x => x.isAnswered)
+                      .map(answer => (
                         <comps.AnswerText
                           key={`${question.algoId}_${question.nodeId}_${answer.answerId}`}
                           dangerouslySetInnerHTML={{
@@ -75,10 +76,9 @@ export const Summary: React.FC<{
                           }}
                         />
                       ))}
-                    {question.answers.filter((x: any) => x.isAnswered)
-                      .length === 0 &&
-                      question.answers.filter((x: any) => x.answerId === 0)
-                        .length === 0 && (
+                    {question.answers.filter(x => x.isAnswered).length === 0 &&
+                      question.answers.filter(x => x.answerId === 0).length ===
+                        0 && (
                         <comps.EmptyAnswerText>
                           {labels.noAnswers}
                         </comps.EmptyAnswerText>

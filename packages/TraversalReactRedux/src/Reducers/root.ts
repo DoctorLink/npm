@@ -9,6 +9,7 @@ import healthAssessmentReducer from './HealthAssessment';
 import clientProductsReducer from './Products';
 import labelsReducer from './Labels';
 import memberReferenceReducer from './Member';
+import { TraversalRootState, ChatRootState } from 'Models';
 
 const reducers = {
   traversal: traversalReducer,
@@ -21,9 +22,11 @@ const reducers = {
   memberReference: memberReferenceReducer,
 };
 
-export const rootTraversalReducer = combineReducers(reducers);
+export const rootTraversalReducer = combineReducers<TraversalRootState>(
+  reducers
+);
 
-export const rootChatReducer = combineReducers({
+export const rootChatReducer = combineReducers<ChatRootState>({
   ...reducers,
   traversal: chatReducer,
 });

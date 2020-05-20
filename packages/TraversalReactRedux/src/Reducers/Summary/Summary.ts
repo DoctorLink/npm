@@ -1,12 +1,17 @@
 import {
   TRAVERSAL_SUMMARY_SET,
-  TRAVERSAL_CONTINUE,
   TRAVERSAL_START,
+  TRAVERSAL_CONTINUE,
   TRAVERSAL_PREVIOUS,
   TRAVERSAL_NEXT,
+  TraversalAction,
 } from '../../Actions';
+import { SummaryState } from 'Models';
 
-const summary = (state: any = null, action: any) => {
+const summary = (
+  state: SummaryState = null,
+  action: TraversalAction
+): SummaryState => {
   switch (action.type) {
     case TRAVERSAL_START:
     case TRAVERSAL_CONTINUE:

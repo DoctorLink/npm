@@ -1,11 +1,17 @@
-export default (traversal: any) => ({
+import {
+  ChatModel,
+  TraversalResponseModel,
+  TraversalResponseAnswer,
+} from '../Models';
+
+export default (traversal: ChatModel): TraversalResponseModel => ({
   traversalId: traversal.traversalId,
   responses: !traversal.answers
     ? null
-    : traversal.questions[
+    : (traversal.questions[
         traversal.questionIds[traversal.questionIds.length - 1]
       ].answers
-        .map(function(answerId: any) {
+        .map(function(answerId): TraversalResponseAnswer | undefined {
           var a = traversal.answers[answerId];
           if ((!a.controlValue || a.controlValue === '') && !a.controlChecked)
             return undefined;
@@ -13,8 +19,8 @@ export default (traversal: any) => ({
             nodeId: a.nodeId,
             questionId: a.questionId,
             answerId: a.answerId,
-            value: a.controlValue,
+            value: a.controlValue!,
           };
         })
-        .filter((a: any) => a),
+        .filter(a => a) as TraversalResponseAnswer[]),
 });

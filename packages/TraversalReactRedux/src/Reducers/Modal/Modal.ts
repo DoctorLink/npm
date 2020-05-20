@@ -1,6 +1,7 @@
-import { POPULATE_MODAL, CLOSE_MODAL } from '../../Actions';
+import { POPULATE_MODAL, CLOSE_MODAL, ModalAction } from '../../Actions';
+import { ModalState } from 'Models';
 
-const modal = (state: any = null, action: any) => {
+const modal = (state: ModalState = null, action: ModalAction): ModalState => {
   switch (action.type) {
     case POPULATE_MODAL:
       return {
