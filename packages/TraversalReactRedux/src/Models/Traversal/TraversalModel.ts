@@ -28,6 +28,9 @@ export interface TraversalNode {
   nodeId: number;
   assetId: number;
   displayText: string;
+  title: string;
+  explanation: string;
+  isTable: boolean;
   questions: Array<string>;
 }
 

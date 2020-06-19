@@ -11,7 +11,7 @@ import {
   CreateMember,
   TextFieldWithClear,
 } from '../../../Components';
-import baseTheme from '../../../Theme/base/index';
+import { defaultTheme } from '../../../Theme';
 import { Modal } from '../../../ComponentModules/Modal';
 import { ProductState, Version, Language } from '../../../Models/Product';
 
@@ -29,7 +29,7 @@ const Text = styled.span`
 `;
 
 Text.defaultProps = {
-  theme: baseTheme,
+  theme: defaultTheme,
 };
 
 const TextArea = styled.textarea`
@@ -53,7 +53,7 @@ const Select = styled(Dropdown)`
   font-size: ${p => p.theme.typography.inputField.size}px;
 `;
 
-Select.defaultProps = { theme: baseTheme };
+Select.defaultProps = { theme: defaultTheme };
 
 const ukLocationAnswerId = 4842;
 const selfAnswerId = 7527;

@@ -1,20 +1,23 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import MediaQuery from 'react-responsive';
+import { TraversalState } from '../../Models';
 import {
   defaultTraversalActions,
   defaultTraversalComponents,
 } from './defaults';
 import { TraversalTable } from './TraversalTable';
 import { TraversalResponse } from './TraversalResponse';
+import { TraversalCallbacks } from './TraversalCallbacks';
 
-export const TraversalForm: React.FC<{
-  traversal: any;
-  containerRef?: any;
-  minWidthTable?: any;
-  children?: any;
-  actions?: any;
-  components?: any;
-}> = ({
+export interface TraversalFormProps {
+  traversal: TraversalState;
+  containerRef?: MutableRefObject<any>;
+  minWidthTable?: number;
+  actions?: TraversalCallbacks;
+  components?: Partial<typeof defaultTraversalComponents>;
+}
+
+export const TraversalForm: React.FC<TraversalFormProps> = ({
   traversal,
   containerRef,
   children,
@@ -55,7 +58,7 @@ export const TraversalForm: React.FC<{
           collectionErrors.map((error: any, i: any) => (
             <comps.ErrorText key={i}>{error}</comps.ErrorText>
           ))}
-        <comps.Collection onRest={actions.setHeight}>
+        <comps.Collection onRest={actions.setHeight} mirror={false}>
           {nodes && (
             <comps.Nodes
               key={`${algoId}_${nodeIds.join('_')}`}

@@ -1,4 +1,17 @@
-export default (baseTheme: any) => ({
+import { BaseTheme } from '../base';
+
+export interface DateFieldTheme {
+  width: number;
+  height: number;
+  fontFamily: string;
+  fontSize: number;
+  textAlign: string;
+  borderColor: string;
+  hoverColor: string;
+  focusColor: string;
+}
+
+export default (baseTheme: BaseTheme): DateFieldTheme => ({
   width: baseTheme.spacing.inputField.width,
   height: baseTheme.spacing.inputField.height,
   fontFamily: baseTheme.typography.fontFamily,

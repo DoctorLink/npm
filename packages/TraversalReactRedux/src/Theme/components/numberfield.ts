@@ -1,4 +1,17 @@
-export default (baseTheme: any) => ({
+import { BaseTheme } from '../base';
+
+export interface NumberFieldTheme {
+  width: number;
+  height: number;
+  fontFamily: string;
+  fontSize: number;
+  textAlign: AlignSetting;
+  borderColor: string;
+  hoverColor: string;
+  focusColor: string;
+}
+
+export default (baseTheme: BaseTheme): NumberFieldTheme => ({
   width: baseTheme.spacing.inputField.width,
   height: baseTheme.spacing.inputField.height,
   fontFamily: baseTheme.typography.fontFamily,

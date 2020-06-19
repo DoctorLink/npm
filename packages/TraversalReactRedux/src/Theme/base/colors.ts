@@ -1,4 +1,28 @@
-const colors = {
+export interface ColorsTheme {
+  white: string;
+  grey100: string;
+  grey200: string;
+  grey250: string;
+  grey300: string;
+  grey400: string;
+  brand50: string;
+  brand100: string;
+  brand200: string;
+  brand300: string;
+  red100: string;
+  red200: string;
+  lightBlue100: string;
+  orange100: string;
+  lightYellow100: string;
+  green100: string;
+  danger: string;
+  moderate: string;
+  normal: string;
+  chartTurquoise: string;
+  chartPink: string;
+}
+
+const colors: ColorsTheme = {
   white: '#ffffff',
   grey100: '#fcfcfc',
   grey200: '#dedede',

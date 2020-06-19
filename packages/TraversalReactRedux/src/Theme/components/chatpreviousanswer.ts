@@ -1,4 +1,15 @@
-export default (baseTheme: any) => ({
+import { BaseTheme } from '../base';
+
+export interface ChatPreviousAnswerTheme {
+  borderRadius: number;
+  padding: number;
+  fontFamily: string;
+  fontSize: number;
+  color: string;
+  hoverColor: string;
+}
+
+export default (baseTheme: BaseTheme): ChatPreviousAnswerTheme => ({
   borderRadius: 6,
   padding: 16,
   fontFamily: baseTheme.typography.fontFamily,

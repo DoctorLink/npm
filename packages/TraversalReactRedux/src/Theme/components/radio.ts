@@ -1,4 +1,19 @@
-export default (baseTheme: any) => ({
+import { BaseTheme } from '../base';
+
+interface ColorProps {
+  color: string;
+}
+
+export interface RadioTheme {
+  size: number;
+  padding: number;
+  checked: ColorProps;
+  unchecked: ColorProps;
+  icon: ColorProps;
+  focus: ColorProps;
+}
+
+export default (baseTheme: BaseTheme): RadioTheme => ({
   size: baseTheme.typography.regular.lineHeight,
   padding: baseTheme.spacing.padding,
   checked: {

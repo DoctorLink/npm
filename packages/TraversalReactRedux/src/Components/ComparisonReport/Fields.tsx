@@ -1,4 +1,4 @@
-import baseTheme from '../../Theme/base/index';
+import { defaultTheme } from '../../Theme';
 import styled from 'styled-components';
 import { Dropdown } from '../Dropdown/Dropdown';
 
@@ -8,7 +8,7 @@ export const Text = styled.span`
   line-height: ${p => p.theme.typography.title.small.lineHeight}px;
   width: 100px;
 `;
-Text.defaultProps = { theme: baseTheme };
+Text.defaultProps = { theme: defaultTheme };
 
 export const Label = styled.label`
   display: flex;
@@ -20,7 +20,7 @@ export const Select = styled(Dropdown)`
   font-family: ${p => p.theme.typography.fontFamily};
   font-size: ${p => p.theme.typography.inputField.size}px;
 `;
-Select.defaultProps = { theme: baseTheme };
+Select.defaultProps = { theme: defaultTheme };
 
 export const Content = styled.div`
   margin-top: 30px;
@@ -29,4 +29,4 @@ export const Content = styled.div`
   display: table;
   box-sizing: border-box;
 `;
-Content.defaultProps = { theme: baseTheme };
+Content.defaultProps = { theme: defaultTheme };

@@ -1,17 +1,20 @@
 import React, { useEffect, useRef } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import * as actions from '../../../Actions';
-import { Traversal, BuildTraversalActions } from '../../../ComponentModules';
+import { Traversal, useTraversalActions } from '../../../ComponentModules';
 import {
   ConclusionReportConnected as Conclusions,
   SummaryConnected as Summary,
 } from '../../../Containers';
+import { TraversalRootState } from '../../../Models';
 
 const TraversalPage: React.FC<{ match: any }> = ({ match }) => {
   const containerRef = useRef<any>();
   const dispatch = useDispatch();
-  const traversal = useSelector((state: any) => state.traversal);
-  const labels = useSelector((state: any) => state.labels.traversal);
+  const traversal = useSelector((state: TraversalRootState) => state.traversal);
+  const labels = useSelector(
+    (state: TraversalRootState) => state.labels.traversal
+  );
 
   const { id } = match.params;
   const loadTraversal = !traversal || traversal.traversalId !== id;
@@ -20,7 +23,7 @@ const TraversalPage: React.FC<{ match: any }> = ({ match }) => {
     if (loadTraversal) dispatch(actions.traversalContinue(id));
   }, [dispatch, id, loadTraversal]);
 
-  const traversalActions = BuildTraversalActions(traversal, containerRef);
+  const traversalActions = useTraversalActions(traversal, containerRef);
 
   if (loadTraversal) {
     return null;

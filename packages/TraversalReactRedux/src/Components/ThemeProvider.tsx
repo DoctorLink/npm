@@ -1,9 +1,9 @@
 import React from 'react';
 // import PropTypes from 'prop-types';
 import { ThemeProvider } from 'styled-components';
-import { defaultTheme } from '../Theme';
+import { defaultTheme, RootTheme, ThemeCreator } from '../Theme';
 
-const CustomThemeProvider: React.FC<{ Theme: any; children: any }> = ({
+const CustomThemeProvider: React.FC<{ Theme: RootTheme | ThemeCreator }> = ({
   Theme,
   children,
 }) => {

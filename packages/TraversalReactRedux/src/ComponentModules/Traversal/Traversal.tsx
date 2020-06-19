@@ -1,12 +1,14 @@
-import React from 'react';
+import React, { MutableRefObject } from 'react';
 import styled from 'styled-components';
-import baseTheme from '../../Theme/base/index';
+import { defaultTheme } from '../../Theme';
 import { defaultLabels } from '../../Constants';
+import { TraversalState, TraversalLabels } from '../../Models';
 import {
   defaultTraversalActions,
   defaultTraversalComponents,
 } from './defaults';
 import { TraversalForm } from './TraversalForm';
+import { TraversalCallbacks } from './TraversalCallbacks';
 
 const FlexButton = styled.div`
   flex: 1;
@@ -50,17 +52,19 @@ const Container = styled.div`
 `;
 
 Container.defaultProps = {
-  theme: baseTheme,
+  theme: defaultTheme,
 };
 
-export const Traversal: React.FC<{
-  traversal: any;
-  containerRef?: any;
-  minWidthTable?: any;
-  labels?: any;
-  actions?: any;
-  components?: any;
-}> = ({
+export interface TraversalProps {
+  traversal: TraversalState;
+  containerRef?: MutableRefObject<any>;
+  minWidthTable?: number;
+  labels?: TraversalLabels;
+  actions?: TraversalCallbacks;
+  components?: Partial<typeof defaultTraversalComponents>;
+}
+
+export const Traversal: React.FC<TraversalProps> = ({
   traversal,
   containerRef,
   minWidthTable = 700,

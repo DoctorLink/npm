@@ -1,11 +1,6 @@
-import React, { MutableRefObject } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import { AnimatePresence, motion } from 'framer-motion';
 import styled from 'styled-components';
-
-import * as actions from '../../Actions';
-import createTraversalResponse from '../../Helpers/createTraversalResponse';
-import { TraversalModel } from '../../Models';
 
 import QuestionTitle from '../../Components/QuestionTitle';
 import Question from '../../Components/Question';
@@ -28,6 +23,8 @@ import Checkbox from '../../Components/Checkbox';
 import DateField from '../../Components/DateField';
 import NumberField from '../../Components/NumberField';
 import TextField from '../../Components/TextField';
+
+import { TraversalCallbacks } from './TraversalCallbacks';
 
 const Button = styled(SimpleButton)`
   width: 100%;
@@ -161,7 +158,7 @@ export const defaultTraversalComponents = {
   TraversalCheckbox,
 };
 
-export const defaultTraversalActions = {
+export const defaultTraversalActions: TraversalCallbacks = {
   next: () => undefined,
   previous: () => undefined,
   showSummary: () => undefined,
@@ -173,66 +170,4 @@ export const defaultTraversalActions = {
   toggleRadio: (_event: any, _answerId: any, _questionAnswerIds: any) =>
     undefined,
   setHeight: () => undefined,
-};
-
-export const BuildTraversalActions = (
-  traversal: TraversalModel,
-  containerRef: MutableRefObject<HTMLElement>
-) => {
-  const dispatch = useDispatch();
-  return {
-    next: () =>
-      dispatch(
-        actions.traversalNext(createTraversalResponse(traversal), containerRef)
-      ),
-    previous: () =>
-      dispatch(
-        actions.traversalPrevious(
-          traversal.traversalId,
-          null,
-          null,
-          null,
-          containerRef
-        )
-      ),
-    showSummary: () =>
-      dispatch(actions.traversalSummaryGet(traversal.traversalId)),
-    showExplanation: (explanation: any) =>
-      dispatch(actions.populateModal(explanation, 'Explanation')),
-    updateValue: (answerId: any, questionAnswerIds: any, value: any) =>
-      dispatch(actions.updateText(answerId, questionAnswerIds, value)),
-    toggleCheckbox: (_event: any, answerId: any, questionAnswerIds: any) =>
-      dispatch(actions.toggleCheckbox(answerId, questionAnswerIds)),
-    toggleRadio: (event: any, answerId: any, questionAnswerIds: any) => {
-      dispatch(actions.toggleRadio(answerId, questionAnswerIds, true));
-      if (
-        event.type === 'click' &&
-        event.clientX !== 0 &&
-        event.clientY !== 0
-      ) {
-        let forward = true;
-        let answeredRadioQuestions: string[] = [];
-        Object.entries(traversal.answers).forEach(answerId => {
-          const answer = answerId[1] as any;
-          if (answer.controlChecked === true)
-            answeredRadioQuestions.push(
-              `${answer.nodeId}_${answer.questionId}`
-            );
-        });
-        Object.keys(traversal.questions).forEach(question => {
-          if (!answeredRadioQuestions.includes(question)) forward = false;
-        });
-        if (forward)
-          dispatch(
-            actions.traversalNext(
-              createTraversalResponse(traversal),
-              containerRef
-            )
-          );
-      }
-    },
-    setHeight: () => {
-      dispatch(actions.setTraversalMinHeight(0));
-    },
-  };
 };

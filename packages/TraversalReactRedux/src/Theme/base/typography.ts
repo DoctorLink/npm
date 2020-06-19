@@ -1,4 +1,36 @@
-const typography = {
+export interface TypographyTheme {
+  fontFamily: string;
+  regular: {
+    size: number;
+    lineHeight: number;
+  };
+  error: {
+    size: number;
+  };
+  title: {
+    large: {
+      size: number;
+      lineHeight: number;
+    };
+    medium: {
+      size: number;
+      lineHeight: number;
+    };
+    small: {
+      size: number;
+      lineHeight: number;
+    };
+  };
+  button: {
+    size: number;
+  };
+  inputField: {
+    size: number;
+    textAlign: AlignSetting;
+  };
+}
+
+const typography: TypographyTheme = {
   fontFamily: "'Noto Sans', sans-serif",
   regular: {
     size: 16,

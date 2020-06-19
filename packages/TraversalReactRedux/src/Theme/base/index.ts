@@ -1,5 +1,13 @@
-import colors from './colors';
-import spacing from './spacing';
-import typography from './typography';
+import colors, { ColorsTheme } from './colors';
+import spacing, { SpacingTheme } from './spacing';
+import typography, { TypographyTheme } from './typography';
 
-export default { colors, spacing, typography };
+export interface BaseTheme {
+  colors: ColorsTheme;
+  spacing: SpacingTheme;
+  typography: TypographyTheme;
+}
+
+const baseTheme: BaseTheme = { colors, spacing, typography };
+
+export default baseTheme;

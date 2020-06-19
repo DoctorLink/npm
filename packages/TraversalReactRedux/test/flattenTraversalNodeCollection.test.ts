@@ -11,6 +11,9 @@ describe('flattenTraversalNodeCollection', () => {
           nodeId: 1,
           assetId: 1234,
           displayText: 'Display text',
+          explanation: 'Explanation',
+          title: 'Title',
+          isTable: false,
           questions: [
             {
               nodeId: 2,
@@ -69,6 +72,9 @@ describe('flattenTraversalNodeCollection', () => {
           nodeId: 1,
           assetId: 1234,
           displayText: 'Display text',
+          explanation: 'Explanation',
+          title: 'Title',
+          isTable: false,
           questions: ['2_1234'],
         },
       },

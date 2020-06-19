@@ -22,7 +22,7 @@ import {
 } from '../Sagas/Effects';
 import { defaultTheme } from '../Theme';
 import { ThemeProvider, Button } from '../Components';
-import { Traversal, BuildTraversalActions } from '../ComponentModules';
+import { Traversal, useTraversalActions } from '../ComponentModules';
 import {
   ModalConnected as Modal,
   SummaryConnected as Summary,
@@ -99,7 +99,7 @@ export const EmbedTraversalContinue: React.FC<{ traversalId: string }> = ({
   const dispatch = useDispatch();
   const containerRef = useRef<any>();
   const traversal = useSelector((state: any) => state.traversal);
-  const traversalActions = BuildTraversalActions(traversal, containerRef);
+  const traversalActions = useTraversalActions(traversal, containerRef);
 
   useEffect(() => {
     dispatch(traversalContinue(traversalId, containerRef));
@@ -122,7 +122,7 @@ export const EmbedTraversalStart: React.FC<{
   const dispatch = useDispatch();
   const containerRef = useRef<any>();
   const traversal = useSelector((state: any) => state.traversal);
-  const traversalActions = BuildTraversalActions(traversal, containerRef);
+  const traversalActions = useTraversalActions(traversal, containerRef);
 
   useEffect(() => {
     dispatch(
@@ -155,7 +155,7 @@ export const EmbedTraversalButton: React.FC<{
   const dispatch = useDispatch();
   const containerRef = useRef<any>();
   const traversal = useSelector((state: any) => state.traversal);
-  const traversalActions = BuildTraversalActions(traversal, containerRef);
+  const traversalActions = useTraversalActions(traversal, containerRef);
 
   if (!traversal) {
     return (

@@ -1,30 +1,63 @@
-import algoname from './algoname';
-import displayText from './displayText';
-import button from './button';
-import chatpreviousanswer from './chatpreviousanswer';
-import checkbox from './checkbox';
-import datefield from './datefield';
-import errortext from './errortext';
-import infoicon from './infoicon';
-import label from './label';
-import modal from './modal';
-import numberfield from './numberfield';
-import panelbodytext from './panelbodytext';
-import panelconclusiontitle from './panelconclusiontitle';
-import panelcontent from './panelcontent';
-import panelheader from './panelheader';
-import paneltitle from './paneltitle';
-import question from './question';
-import questiontitle from './questiontitle';
-import radio from './radio';
-import summary from './summary';
-import tableanswercell from './tableanswercell';
-import tableheadercell from './tableheadercell';
-import tablerow from './tablerow';
-import textfield from './textfield';
-import title from './title';
+import { BaseTheme } from '../base';
+import algoname, { AlgoNameTheme } from './algoname';
+import displayText, { DisplayTextTheme } from './displayText';
+import button, { ButtonTheme } from './button';
+import chatpreviousanswer, {
+  ChatPreviousAnswerTheme,
+} from './chatpreviousanswer';
+import checkbox, { CheckboxTheme } from './checkbox';
+import datefield, { DateFieldTheme } from './datefield';
+import errortext, { ErrorTextTheme } from './errortext';
+import infoicon, { InfoIconTheme } from './infoicon';
+import label, { LabelTheme } from './label';
+import modal, { ModalTheme } from './modal';
+import numberfield, { NumberFieldTheme } from './numberfield';
+import panelbodytext, { PanelBodyTextTheme } from './panelbodytext';
+import panelconclusiontitle, {
+  PanelConclusionTitleTheme,
+} from './panelconclusiontitle';
+import panelcontent, { PanelContentTheme } from './panelcontent';
+import panelheader, { PanelHeaderTheme } from './panelheader';
+import paneltitle, { PanelTitleTheme } from './paneltitle';
+import question, { QuestionTheme } from './question';
+import questiontitle, { QuestionTitleTheme } from './questiontitle';
+import radio, { RadioTheme } from './radio';
+import summary, { SummaryTheme } from './summary';
+import tableanswercell, { TableAnswerCellTheme } from './tableanswercell';
+import tableheadercell, { TableHeaderCellTheme } from './tableheadercell';
+import tablerow, { TableRowTheme } from './tablerow';
+import textfield, { TextFieldTheme } from './textfield';
+import title, { TitleTheme } from './title';
 
-export default (baseTheme: any) => ({
+export interface ComponentTheme {
+  algoname: AlgoNameTheme;
+  button: ButtonTheme;
+  chatpreviousanswer: ChatPreviousAnswerTheme;
+  checkbox: CheckboxTheme;
+  datefield: DateFieldTheme;
+  displayText: DisplayTextTheme;
+  errortext: ErrorTextTheme;
+  infoicon: InfoIconTheme;
+  label: LabelTheme;
+  modal: ModalTheme;
+  numberfield: NumberFieldTheme;
+  panelbodytext: PanelBodyTextTheme;
+  panelconclusiontitle: PanelConclusionTitleTheme;
+  panelcontent: PanelContentTheme;
+  panelheader: PanelHeaderTheme;
+  paneltitle: PanelTitleTheme;
+  question: QuestionTheme;
+  questiontitle: QuestionTitleTheme;
+  radio: RadioTheme;
+  summary: SummaryTheme;
+  tableanswercell: TableAnswerCellTheme;
+  tableheadercell: TableHeaderCellTheme;
+  tablerow: TableRowTheme;
+  textfield: TextFieldTheme;
+  title: TitleTheme;
+}
+
+const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   algoname: algoname(baseTheme),
   button: button(baseTheme),
   chatpreviousanswer: chatpreviousanswer(baseTheme),
@@ -51,3 +84,5 @@ export default (baseTheme: any) => ({
   textfield: textfield(baseTheme),
   title: title(baseTheme),
 });
+
+export default componentTheme;
