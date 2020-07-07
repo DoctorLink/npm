@@ -48,10 +48,7 @@ const DisplayText = styled.div`
   box-sizing: border-box;
 `;
 
-const ChatTextField: React.FC<{ children: any; text: any }> = ({
-  children,
-  text,
-}) => (
+const ChatTextField: React.FC<{ text: any }> = ({ children, text }) => (
   <TextFieldWrapper>
     <TextFieldPadding>
       <TextFieldInner>{children}</TextFieldInner>

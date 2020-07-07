@@ -1,15 +1,13 @@
-import {
-  TraversalModel,
-  TraversalResponseModel,
-  TraversalResponseAnswer,
-} from '../Models';
+import { TraversalModel } from '../Models';
+import { TraversalsBaseRespond } from '../Models/Service/traversalsBase';
 
-export default (traversal: TraversalModel): TraversalResponseModel => ({
-  traversalId: traversal.traversalId,
-  responses: !traversal.answers
-    ? null
+export const creatTraversalResponse = (
+  traversal: TraversalModel
+): TraversalsBaseRespond[] =>
+  !traversal.answers
+    ? []
     : (Object.keys(traversal.answers)
-        .map(function(answerId): TraversalResponseAnswer | undefined {
+        .map(function(answerId): TraversalsBaseRespond | undefined {
           var a = traversal.answers[answerId];
           if ((!a.controlValue || a.controlValue === '') && !a.controlChecked)
             return undefined;
@@ -20,5 +18,6 @@ export default (traversal: TraversalModel): TraversalResponseModel => ({
             value: a.controlValue!,
           };
         })
-        .filter(a => a) as TraversalResponseAnswer[]),
-});
+        .filter(a => a) as TraversalsBaseRespond[]);
+
+export default creatTraversalResponse;

@@ -1,17 +1,15 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled, { StyledComponent } from 'styled-components';
 
 import { defaultTheme } from '../../Theme';
-
-import * as actions from '../../Actions';
 
 import {
   BodyOverflowHidden,
   DelayExit,
   TransparentCurtain,
 } from '../../Components';
+import { SummaryCallbacks } from './SummaryCallbacks';
 
 const SummaryContainerDiv = styled(motion.div)`
   font-family: ${p => p.theme.summary.fontFamily};
@@ -170,27 +168,10 @@ export const defaultSummaryComponents = {
   EmptyAnswerText,
 };
 
-export const defaultSummaryActions = {
+export const defaultSummaryActions: SummaryCallbacks = {
   close: () => undefined,
   jump: (algoId: any, nodeId: any) =>
     console.log(
       `summary jump is not implemented. AlgoId: ${algoId} NodeId: ${nodeId}`
     ),
-};
-
-export const BuildSummaryActions = (summary: any, containerRef: any) => {
-  const dispatch = useDispatch();
-  return {
-    close: () => dispatch(actions.traversalSummarySet(null)),
-    jump: (algoId: any, nodeId: any) =>
-      dispatch(
-        actions.traversalPrevious(
-          summary.traversalId,
-          algoId,
-          nodeId,
-          null,
-          containerRef
-        )
-      ),
-  };
 };

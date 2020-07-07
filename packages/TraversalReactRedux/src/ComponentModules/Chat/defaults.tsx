@@ -1,9 +1,5 @@
-import React, { MutableRefObject } from 'react';
-import { useDispatch } from 'react-redux';
+import React from 'react';
 import styled from 'styled-components';
-
-import * as actions from '../../Actions';
-import createChatResponse from '../../Helpers/createChatResponse';
 
 import Loader from '../../Components/Loader';
 import Step from '../../Components/Step';
@@ -19,7 +15,7 @@ import PrimaryChoice from '../../Components/PrimaryChoice';
 import SecondaryChoice from '../../Components/SecondaryChoice';
 import Section from '../../Components/ChatSection';
 import HiddenInput from '../../Components/HiddenInput';
-import { ChatModel } from '../../Models';
+import { ChatTraversalCallbacks } from './ChatCallbacks';
 
 const transition = {
   duration: 0.3,
@@ -108,10 +104,9 @@ export const defaultChatComponents = {
   HiddenInput,
 };
 
-export const defaultChatActions = {
+export const defaultChatActions: ChatTraversalCallbacks = {
   next: () => undefined,
   jump: (_question: any) => undefined,
-  showSummary: () => undefined,
   showExplanation: (_explanation: any) => undefined,
   updateValue: (_answerId: any, _questionAnswerIds: any, _value: any) =>
     undefined,
@@ -119,49 +114,4 @@ export const defaultChatActions = {
     undefined,
   toggleRadio: (_event: any, _answerId: any, _questionAnswerIds: any) =>
     undefined,
-  setHeight: () => undefined,
-};
-
-export const BuildChatActions = (
-  traversal: ChatModel,
-  containerRef: MutableRefObject<any>
-) => {
-  const dispatch = useDispatch();
-  return {
-    next: () =>
-      dispatch(
-        actions.traversalNext(createChatResponse(traversal), containerRef)
-      ),
-    jump: (question: any) =>
-      dispatch(
-        actions.traversalPrevious(
-          traversal.traversalId,
-          question.algoId,
-          question.nodeId,
-          question.questionId,
-          containerRef
-        )
-      ),
-    showExplanation: (explanation: any) =>
-      dispatch(actions.populateModal(explanation, 'Explanation')),
-    updateValue: (answerId: any, questionAnswerIds: any, value: any) =>
-      dispatch(actions.updateText(answerId, questionAnswerIds, value)),
-    toggleCheckbox: (_event: any, answerId: any, questionAnswerIds: any) =>
-      dispatch(actions.toggleCheckbox(answerId, questionAnswerIds)),
-    toggleRadio: (event: any, answerId: any, questionAnswerIds: any) => {
-      dispatch(actions.toggleRadio(answerId, questionAnswerIds, true));
-      if (
-        event.type === 'click' &&
-        event.clientX !== 0 &&
-        event.clientY !== 0
-      ) {
-        dispatch(
-          actions.traversalNext(createChatResponse(traversal), containerRef)
-        );
-      }
-    },
-    setHeight: () => {
-      dispatch(actions.setTraversalMinHeight(0));
-    },
-  };
 };

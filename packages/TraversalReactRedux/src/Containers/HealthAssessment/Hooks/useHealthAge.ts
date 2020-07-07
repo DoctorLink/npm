@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { healthAgeGet } from '../../../Actions';
+import { healthAgeGetRequest } from '../../../Actions';
 import { healthAssessmentSelector } from '../../../Selectors/healthAssessment';
 
 export const useHealthAge = (traversalId: any) => {
@@ -9,7 +9,7 @@ export const useHealthAge = (traversalId: any) => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(healthAgeGet(traversalId, checkedConclusions));
+    dispatch(healthAgeGetRequest(traversalId, checkedConclusions));
   }, [traversalId, checkedConclusions, dispatch]);
   return healthAge;
 };

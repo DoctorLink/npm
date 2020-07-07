@@ -1,250 +1,273 @@
-import { MutableRefObject } from 'react';
+import { Action } from 'redux';
 import {
   TraversalOrChat,
-  TraversalResponseModel,
-  TraversalSummaryModel,
-  ConclusionModel,
+  SummaryQuestion,
+  TraversalsBaseCreate,
+  TraversalsBaseRespond,
+  TraversalsRevisit,
+  ChatTraversalsRevisit,
 } from '../Models';
 
-export const TRAVERSAL_MIN_HEIGHT = 'TRAVERSAL_MIN_HEIGHT';
-export const setTraversalMinHeight = (minHeight: number): TraversalAction => ({
-  type: TRAVERSAL_MIN_HEIGHT,
-  minHeight,
+export const TRAVERSAL_POST_REQUEST = 'TRAVERSAL_POST_REQUEST';
+export interface TraversalPostRequest
+  extends Action<typeof TRAVERSAL_POST_REQUEST> {
+  body: TraversalsBaseCreate;
+}
+export const traversalPostRequest = (
+  body: TraversalsBaseCreate
+): TraversalPostRequest => ({
+  type: TRAVERSAL_POST_REQUEST,
+  body,
 });
 
-export const TRAVERSAL_START = 'TRAVERSAL_START';
-export const traversalStart = (
-  productId: number,
-  language?: string,
-  release?: string,
-  algoId?: number,
-  nodeId?: number,
-  injection?: any,
-  memberReference?: string
-) => ({
-  type: TRAVERSAL_START,
-  productId,
-  language,
-  release,
-  algoId,
-  nodeId,
-  injection,
-  memberReference,
-});
-
-export const TRAVERSAL_START_SET = 'TRAVERSAL_START_SET';
-export const traversalStartSet = (
+export const TRAVERSAL_POST_RESPONSE = 'TRAVERSAL_POST_RESPONSE';
+export interface TraversalPostResponse
+  extends Action<typeof TRAVERSAL_POST_RESPONSE> {
+  traversal: TraversalOrChat;
+  receivedAt: Date;
+}
+export const traversalPostResponse = (
   traversal: TraversalOrChat
-): TraversalAction => ({
-  type: TRAVERSAL_START_SET,
+): TraversalPostResponse => ({
+  type: TRAVERSAL_POST_RESPONSE,
   traversal,
   receivedAt: new Date(),
 });
 
-export const TRAVERSAL_CONTINUE = 'TRAVERSAL_CONTINUE';
-export const traversalContinue = (
-  traversalId: string,
-  containerRef?: MutableRefObject<any>
-): TraversalAction => ({
-  type: TRAVERSAL_CONTINUE,
-  traversalId,
-  containerRef,
-});
-
-export const TRAVERSAL_CONTINUE_SET = 'TRAVERSAL_CONTINUE_SET';
-export const traversalContinueSet = (
-  traversal: TraversalOrChat
-): TraversalAction => ({
-  type: TRAVERSAL_CONTINUE_SET,
-  traversal,
-  receivedAt: new Date(),
-});
-
-export const TRAVERSAL_NEXT = 'TRAVERSAL_NEXT';
-export const traversalNext = (
-  traversalResponse: TraversalResponseModel,
-  containerRef: MutableRefObject<any>
-): TraversalAction => ({
-  type: TRAVERSAL_NEXT,
-  traversalResponse,
-  containerRef,
-});
-
-export const TRAVERSAL_NEXT_SET = 'TRAVERSAL_NEXT_SET';
-export const traversalNextSet = (
-  traversal: TraversalOrChat
-): TraversalAction => ({
-  type: TRAVERSAL_NEXT_SET,
-  traversal,
-  receivedAt: new Date(),
-});
-
-export const TRAVERSAL_PREVIOUS = 'TRAVERSAL_PREVIOUS';
-export const traversalPrevious = (
-  traversalId: string,
-  algoId: string | null,
-  nodeId: string | null,
-  assetId: string | null,
-  containerRef: MutableRefObject<any>
-): TraversalAction => ({
-  type: TRAVERSAL_PREVIOUS,
-  traversalId,
-  algoId: algoId,
-  nodeId,
-  assetId,
-  containerRef,
-});
-
-export const TRAVERSAL_PREVIOUS_SET = 'TRAVERSAL_PREVIOUS_SET';
-export const traversalPreviousSet = (
-  traversal: TraversalOrChat
-): TraversalAction => ({
-  type: TRAVERSAL_PREVIOUS_SET,
-  traversal,
-  receivedAt: new Date(),
-});
-
-export const TRAVERSAL_SUMMARY_GET = 'TRAVERSAL_SUMMARY_GET';
-export const traversalSummaryGet = (traversalId: string): TraversalAction => ({
-  type: TRAVERSAL_SUMMARY_GET,
-  traversalId,
-});
-
-export const TRAVERSAL_SUMMARY_SET = 'TRAVERSAL_SUMMARY_SET';
-export const traversalSummarySet = (
-  summary: TraversalSummaryModel | null
-): TraversalAction => ({
-  type: TRAVERSAL_SUMMARY_SET,
-  summary,
-  receivedAt: new Date(),
-});
-
-export const TRAVERSAL_CONCLUSION_GET = 'TRAVERSAL_CONCLUSION_GET';
-export const traversalConclusionGet = (
+export const TRAVERSAL_GET_REQUEST = 'TRAVERSAL_GET_REQUEST';
+export interface TraversalGetRequest
+  extends Action<typeof TRAVERSAL_GET_REQUEST> {
+  traversalId: string;
+}
+export const traversalGetRequest = (
   traversalId: string
-): TraversalAction => ({
-  type: TRAVERSAL_CONCLUSION_GET,
+): TraversalGetRequest => ({
+  type: TRAVERSAL_GET_REQUEST,
   traversalId,
 });
 
-export const TRAVERSAL_CONCLUSION_SET = 'TRAVERSAL_CONCLUSION_SET';
-export const traversalConclusionSet = (
-  conclusion: ConclusionModel
-): TraversalAction => ({
-  type: TRAVERSAL_CONCLUSION_SET,
-  conclusion,
+export const TRAVERSAL_GET_RESPONSE = 'TRAVERSAL_GET_RESPONSE';
+export interface TraversalGetResponse
+  extends Action<typeof TRAVERSAL_GET_RESPONSE> {
+  traversal: TraversalOrChat;
+  receivedAt: Date;
+}
+export const traversalGetResponse = (
+  traversal: TraversalOrChat
+): TraversalGetResponse => ({
+  type: TRAVERSAL_GET_RESPONSE,
+  traversal,
   receivedAt: new Date(),
 });
 
-export const TRAVERSAL_SYMPTOM_REPORT_GET = 'TRAVERSAL_SYMPTOM_REPORT_GET';
-export const traversalSymptomReportGet = (
+export const TRAVERSAL_RESPOND_POST_REQUEST = 'TRAVERSAL_RESPOND_POST_REQUEST';
+export interface TraversalRespondPostRequest
+  extends Action<typeof TRAVERSAL_RESPOND_POST_REQUEST> {
+  traversalId: string;
+  body: TraversalsBaseRespond[];
+}
+export const traversalRespondPostRequest = (
+  traversalId: string,
+  body: TraversalsBaseRespond[]
+): TraversalRespondPostRequest => ({
+  type: TRAVERSAL_RESPOND_POST_REQUEST,
+  traversalId,
+  body,
+});
+
+export const TRAVERSAL_RESPOND_POST_RESPONSE =
+  'TRAVERSAL_RESPOND_POST_RESPONSE';
+export interface TraversalRespondPostResponse
+  extends Action<typeof TRAVERSAL_RESPOND_POST_RESPONSE> {
+  traversal: TraversalOrChat;
+  receivedAt: Date;
+}
+export const traversalRespondPostResponse = (
+  traversal: TraversalOrChat
+): TraversalRespondPostResponse => ({
+  type: TRAVERSAL_RESPOND_POST_RESPONSE,
+  traversal,
+  receivedAt: new Date(),
+});
+
+export const TRAVERSAL_REVISIT_POST_REQUEST = 'TRAVERSAL_REVISIT_POST_REQUEST';
+export interface TraversalRevisitPostRequest
+  extends Action<typeof TRAVERSAL_REVISIT_POST_REQUEST> {
+  traversalId: string;
+  body?: TraversalsRevisit | ChatTraversalsRevisit;
+}
+export const traversalRevisitPostRequest = (
+  traversalId: string,
+  body?: TraversalsRevisit | ChatTraversalsRevisit
+): TraversalRevisitPostRequest => ({
+  type: TRAVERSAL_REVISIT_POST_REQUEST,
+  traversalId,
+  body,
+});
+
+export const TRAVERSAL_REVISIT_POST_RESPONSE =
+  'TRAVERSAL_REVISIT_POST_RESPONSE';
+export interface TraversalRevisitPostResponse
+  extends Action<typeof TRAVERSAL_REVISIT_POST_RESPONSE> {
+  traversal: TraversalOrChat;
+  receivedAt: Date;
+}
+export const traversalRevisitPostResponse = (
+  traversal: TraversalOrChat
+): TraversalRevisitPostResponse => ({
+  type: TRAVERSAL_REVISIT_POST_RESPONSE,
+  traversal,
+  receivedAt: new Date(),
+});
+
+export const TRAVERSAL_SUMMARY_GET_REQUEST = 'TRAVERSAL_SUMMARY_GET_REQUEST';
+export interface TraversalSummaryGetRequest
+  extends Action<typeof TRAVERSAL_SUMMARY_GET_REQUEST> {
+  traversalId: string;
+}
+export const traversalSummaryGetRequest = (
   traversalId: string
-): TraversalAction => ({
-  type: TRAVERSAL_SYMPTOM_REPORT_GET,
+): TraversalSummaryGetRequest => ({
+  type: TRAVERSAL_SUMMARY_GET_REQUEST,
   traversalId,
 });
 
-export const TOGGLE_RADIO = 'TOGGLE_RADIO';
-export const toggleRadio = (
+export const TRAVERSAL_SUMMARY_GET_RESPONSE = 'TRAVERSAL_SUMMARY_GET_RESPONSE';
+export interface TraversalSummaryGetResponse
+  extends Action<typeof TRAVERSAL_SUMMARY_GET_RESPONSE> {
+  questions: SummaryQuestion[] | null;
+  receivedAt: Date;
+}
+export const traversalSummaryGetResponse = (
+  questions: SummaryQuestion[] | null
+): TraversalSummaryGetResponse => ({
+  type: TRAVERSAL_SUMMARY_GET_RESPONSE,
+  questions,
+  receivedAt: new Date(),
+});
+
+export const TRAVERSAL_CONCLUSIONS_GET_REQUEST =
+  'TRAVERSAL_CONCLUSIONS_GET_REQUEST';
+export interface TraversalConclusionsGetRequest
+  extends Action<typeof TRAVERSAL_CONCLUSIONS_GET_REQUEST> {
+  traversalId: string;
+}
+export const traversalConclusionsGetRequest = (
+  traversalId: string
+): TraversalConclusionsGetRequest => ({
+  type: TRAVERSAL_CONCLUSIONS_GET_REQUEST,
+  traversalId,
+});
+
+export const TRAVERSAL_CONCLUSIONS_GET_RESPONSE =
+  'TRAVERSAL_CONCLUSIONS_GET_RESPONSE';
+export interface TraversalConclusionsGetResponse
+  extends Action<typeof TRAVERSAL_CONCLUSIONS_GET_RESPONSE> {
+  conclusions: Array<any>;
+  receivedAt: Date;
+}
+export const traversalConclusionsGetResponse = (
+  conclusions: Array<any>
+): TraversalConclusionsGetResponse => ({
+  type: TRAVERSAL_CONCLUSIONS_GET_RESPONSE,
+  conclusions,
+  receivedAt: new Date(),
+});
+
+export const TRAVERSAL_CONCLUSION_REPORT_GET_REQUEST =
+  'TRAVERSAL_CONCLUSION_REPORT_GET_REQUEST';
+export interface TraversalConclusionReportGetRequest
+  extends Action<typeof TRAVERSAL_CONCLUSION_REPORT_GET_REQUEST> {
+  traversalId: string;
+}
+export const traversalConclusionReportGetRequest = (
+  traversalId: string
+): TraversalConclusionReportGetRequest => ({
+  type: TRAVERSAL_CONCLUSION_REPORT_GET_REQUEST,
+  traversalId,
+});
+
+export const TRAVERSAL_CONCLUSION_REPORT_GET_RESPONSE =
+  'TRAVERSAL_CONCLUSION_REPORT_GET_RESPONSE';
+export interface TraversalConclusionReportGetResponse
+  extends Action<typeof TRAVERSAL_CONCLUSION_REPORT_GET_RESPONSE> {
+  report: any;
+  receivedAt: Date;
+}
+export const traversalConclusionReportGetResponse = (
+  report: any
+): TraversalConclusionReportGetResponse => ({
+  type: TRAVERSAL_CONCLUSION_REPORT_GET_RESPONSE,
+  report,
+  receivedAt: new Date(),
+});
+
+export const TRAVERSAL_RADIO_TOGGLE = 'TRAVERSAL_RADIO_TOGGLE';
+export interface TraversalRadioToggle
+  extends Action<typeof TRAVERSAL_RADIO_TOGGLE> {
+  id: string;
+  answerIds: string[];
+  checked?: boolean;
+}
+export const traversalRadioToggle = (
   id: string,
   answerIds: string[],
   checked?: boolean
-): TraversalAction => ({ type: TOGGLE_RADIO, id, answerIds, checked });
+): TraversalRadioToggle => ({
+  type: TRAVERSAL_RADIO_TOGGLE,
+  id,
+  answerIds,
+  checked,
+});
 
-export const TOGGLE_CHECKBOX = 'TOGGLE_CHECKBOX';
-export const toggleCheckbox = (
+export const TRAVERSAL_CHECKBOX_TOGGLE = 'TRAVERSAL_CHECKBOX_TOGGLE';
+export interface TraversalCheckboxToggle
+  extends Action<typeof TRAVERSAL_CHECKBOX_TOGGLE> {
+  id: string;
+  answerIds: string[];
+}
+export const traversalCheckboxToggle = (
   id: string,
   answerIds: string[]
-): TraversalAction => ({
-  type: TOGGLE_CHECKBOX,
+): TraversalCheckboxToggle => ({
+  type: TRAVERSAL_CHECKBOX_TOGGLE,
   id,
   answerIds,
 });
 
-export const UPDATE_TEXT = 'UPDATE_TEXT';
-export const updateText = (
+export const TRAVERSAL_VALUE_CHANGE = 'TRAVERSAL_VALUE_CHANGE';
+export interface TraversalValueChange
+  extends Action<typeof TRAVERSAL_VALUE_CHANGE> {
+  id: string;
+  answerIds: string[];
+  value: string;
+}
+export const traversalValueChange = (
   id: string,
   answerIds: string[],
   value: string
 ): TraversalAction => ({
-  type: UPDATE_TEXT,
+  type: TRAVERSAL_VALUE_CHANGE,
   id,
   answerIds,
   value,
 });
 
 export type TraversalAction =
-  | { type: typeof TRAVERSAL_MIN_HEIGHT; minHeight: number }
-  | {
-      type: typeof TRAVERSAL_START;
-      algoId?: string;
-      release?: string;
-      lang?: string;
-      nodeId?: string;
-      injection?: string;
-      memberReference?: string;
-    }
-  | {
-      type: typeof TRAVERSAL_START_SET;
-      traversal: TraversalOrChat;
-      receivedAt: Date;
-    }
-  | {
-      type: typeof TRAVERSAL_CONTINUE;
-      traversalId: string;
-      containerRef?: MutableRefObject<HTMLElement>;
-    }
-  | {
-      type: typeof TRAVERSAL_CONTINUE_SET;
-      traversal: TraversalOrChat;
-      receivedAt: Date;
-    }
-  | {
-      type: typeof TRAVERSAL_NEXT;
-      traversalResponse: TraversalResponseModel;
-      containerRef: MutableRefObject<HTMLElement>;
-    }
-  | {
-      type: typeof TRAVERSAL_NEXT_SET;
-      traversal: TraversalOrChat;
-      receivedAt: Date;
-    }
-  | {
-      type: typeof TRAVERSAL_PREVIOUS;
-      traversalId: string;
-      algoId: string | null;
-      nodeId: string | null;
-      assetId: string | null;
-      containerRef: MutableRefObject<HTMLElement>;
-    }
-  | {
-      type: typeof TRAVERSAL_PREVIOUS_SET;
-      traversal: TraversalOrChat;
-      receivedAt: Date;
-    }
-  | { type: typeof TRAVERSAL_SUMMARY_GET; traversalId: string }
-  | {
-      type: typeof TRAVERSAL_SUMMARY_SET;
-      summary: TraversalSummaryModel | null;
-      receivedAt: Date;
-    }
-  | { type: typeof TRAVERSAL_CONCLUSION_GET; traversalId: string }
-  | {
-      type: typeof TRAVERSAL_CONCLUSION_SET;
-      conclusion: ConclusionModel;
-      receivedAt: Date;
-    }
-  | { type: typeof TRAVERSAL_SYMPTOM_REPORT_GET; traversalId: string }
-  | {
-      type: typeof TOGGLE_RADIO;
-      id: string;
-      answerIds: string[];
-      checked?: boolean;
-    }
-  | { type: typeof TOGGLE_CHECKBOX; id: string; answerIds: string[] }
-  | {
-      type: typeof UPDATE_TEXT;
-      id: string;
-      answerIds: string[];
-      value: string;
-    };
+  | TraversalRadioToggle
+  | TraversalCheckboxToggle
+  | TraversalValueChange
+  | TraversalPostRequest
+  | TraversalPostResponse
+  | TraversalGetRequest
+  | TraversalGetResponse
+  | TraversalRespondPostRequest
+  | TraversalRespondPostResponse
+  | TraversalRevisitPostRequest
+  | TraversalRevisitPostResponse
+  | TraversalSummaryGetRequest
+  | TraversalSummaryGetResponse
+  | TraversalConclusionsGetRequest
+  | TraversalConclusionsGetResponse
+  | TraversalConclusionReportGetRequest
+  | TraversalConclusionReportGetResponse;

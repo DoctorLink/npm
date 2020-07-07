@@ -5,3 +5,4 @@ export * from './TraversalResponse';
 export * from './TraversalTable';
 export * from './useTraversalActions';
 export * from './defaults';
+export * from './TraversalCallbacks';

@@ -1,4 +1,3 @@
-import { MutableRefObject } from 'react';
 import { useDispatch } from 'react-redux';
 
 import * as actions from '../../Actions';
@@ -7,35 +6,32 @@ import { TraversalModel } from '../../Models';
 import { TraversalCallbacks } from './TraversalCallbacks';
 
 export const useTraversalActions = (
-  traversal: TraversalModel,
-  containerRef: MutableRefObject<HTMLElement>
+  traversal: TraversalModel
 ): TraversalCallbacks => {
   const dispatch = useDispatch();
+  const traversalId = traversal.traversalId;
   return {
     next: () =>
       dispatch(
-        actions.traversalNext(createTraversalResponse(traversal), containerRef)
-      ),
-    previous: () =>
-      dispatch(
-        actions.traversalPrevious(
-          traversal.traversalId,
-          null,
-          null,
-          null,
-          containerRef
+        actions.traversalRespondPostRequest(
+          traversalId,
+          createTraversalResponse(traversal)
         )
       ),
+    previous: () =>
+      dispatch(actions.traversalRevisitPostRequest(traversal.traversalId)),
     showSummary: () =>
-      dispatch(actions.traversalSummaryGet(traversal.traversalId)),
+      dispatch(actions.traversalSummaryGetRequest(traversal.traversalId)),
     showExplanation: (explanation: any) =>
       dispatch(actions.populateModal(explanation, 'Explanation')),
     updateValue: (answerId: any, questionAnswerIds: any, value: any) =>
-      dispatch(actions.updateText(answerId, questionAnswerIds, value)),
+      dispatch(
+        actions.traversalValueChange(answerId, questionAnswerIds, value)
+      ),
     toggleCheckbox: (_event: any, answerId: any, questionAnswerIds: any) =>
-      dispatch(actions.toggleCheckbox(answerId, questionAnswerIds)),
+      dispatch(actions.traversalCheckboxToggle(answerId, questionAnswerIds)),
     toggleRadio: (event: any, answerId: any, questionAnswerIds: any) => {
-      dispatch(actions.toggleRadio(answerId, questionAnswerIds, true));
+      dispatch(actions.traversalRadioToggle(answerId, questionAnswerIds, true));
       if (
         event.type === 'click' &&
         event.clientX !== 0 &&
@@ -55,15 +51,12 @@ export const useTraversalActions = (
         });
         if (forward)
           dispatch(
-            actions.traversalNext(
-              createTraversalResponse(traversal),
-              containerRef
+            actions.traversalRespondPostRequest(
+              traversalId,
+              createTraversalResponse(traversal)
             )
           );
       }
-    },
-    setHeight: () => {
-      dispatch(actions.setTraversalMinHeight(0));
     },
   };
 };

@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { hraWellnessGet } from '../../../Actions';
+import { wellnessGetRequest } from '../../../Actions';
 import { healthAssessmentSelector } from '../../../Selectors/healthAssessment';
 
 export const useWellness = (traversalId: any) => {
@@ -9,7 +9,7 @@ export const useWellness = (traversalId: any) => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(hraWellnessGet(traversalId, checkedConclusions));
+    dispatch(wellnessGetRequest(traversalId, checkedConclusions));
   }, [traversalId, checkedConclusions, dispatch]);
   return wellness;
 };

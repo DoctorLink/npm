@@ -14,9 +14,9 @@ import { useState, useEffect } from 'react';
 export const useHRARoutes = (traversalId: any) => {
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(actions.healthAgeGet(traversalId, []));
-    dispatch(actions.healthRisksGet(traversalId, [90], []));
-    dispatch(actions.hraWellnessGet(traversalId, []));
+    dispatch(actions.healthAgeGetRequest(traversalId, []));
+    dispatch(actions.healthRisksGetRequest(traversalId, [90], []));
+    dispatch(actions.wellnessGetRequest(traversalId, []));
   }, [dispatch, traversalId]);
 
   const { riskSummary, healthAge, wellness } = useSelector(

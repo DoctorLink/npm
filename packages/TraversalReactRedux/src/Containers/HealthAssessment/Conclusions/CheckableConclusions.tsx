@@ -1,14 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
-import { checkConclusion, uncheckConclusion } from '../../../Actions';
+import { hraConclusionCheck, hraConclusionUncheck } from '../../../Actions';
 import {
   PanelConclusion,
   Checkbox,
   Label,
   DisplayText,
 } from '../../../Components';
-import InfoButton from '../../InfoIcon';
+import { InfoIconConnected as InfoButton } from '../../InfoIcon';
 import { Conclusion } from './Conclusion';
 
 const ConclusionLabel = styled(Label)`
@@ -41,8 +41,8 @@ const CheckableConclusions: React.FC<{
 }> = ({ conclusions, selectedIds, dispatch }) => {
   const onCheckboxChange = (assetId: any, checked: any) =>
     checked
-      ? dispatch(checkConclusion(assetId))
-      : dispatch(uncheckConclusion(assetId));
+      ? dispatch(hraConclusionCheck(assetId))
+      : dispatch(hraConclusionUncheck(assetId));
 
   if (conclusions.length === 0) {
     return null;

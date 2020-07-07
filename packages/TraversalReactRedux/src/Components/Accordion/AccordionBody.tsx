@@ -10,10 +10,7 @@ const Expandable = styled.div`
   transition: height 0.3s;
 `;
 
-const AccordionBody: React.FC<{ open: any; children: any }> = ({
-  open,
-  children,
-}) => {
+const AccordionBody: React.FC<{ open: any }> = ({ open, children }) => {
   const ref = useRef<HTMLElement>();
   const scrollHeight = ref.current && ref.current.scrollHeight;
   const height = open ? scrollHeight : 0;

@@ -16,10 +16,7 @@ import { motion } from 'framer-motion';
 //   return shouldRender ? (<>{children}</>) : null;
 // }
 
-const DelayExit: React.FC<{ delay?: number; children: any }> = ({
-  children,
-  delay = 0.3,
-}) => {
+const DelayExit: React.FC<{ delay?: number }> = ({ children, delay = 0.3 }) => {
   return (
     <motion.div
       variants={{

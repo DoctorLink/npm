@@ -21,7 +21,7 @@ const Label = styled.label`
   cursor: pointer;
 `;
 
-export const TableAnswerCell: React.FC<{ answerId: any; children: any }> = ({
+export const TableAnswerCell: React.FC<{ answerId: any }> = ({
   answerId,
   children,
 }) => (

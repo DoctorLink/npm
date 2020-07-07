@@ -1,6 +1,6 @@
 export interface TraversalSummaryModel {
   traversalId: string;
-  questions: SummaryQuestion[];
+  questions: SummaryQuestion[] | null;
 }
 
 export interface SummaryQuestion {

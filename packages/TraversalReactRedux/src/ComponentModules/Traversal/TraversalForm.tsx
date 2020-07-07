@@ -8,6 +8,7 @@ import {
 import { TraversalTable } from './TraversalTable';
 import { TraversalResponse } from './TraversalResponse';
 import { TraversalCallbacks } from './TraversalCallbacks';
+import { useTraversalScroll } from '../../Hooks';
 
 export interface TraversalFormProps {
   traversal: TraversalState;
@@ -25,8 +26,10 @@ export const TraversalForm: React.FC<TraversalFormProps> = ({
   actions = defaultTraversalActions,
   components = defaultTraversalComponents,
 }) => {
+  const traversalState = useTraversalScroll(traversal, containerRef);
   const comps = { ...defaultTraversalComponents, ...components };
   const {
+    algoName,
     algoId,
     nodeIds,
     nodes,
@@ -36,8 +39,7 @@ export const TraversalForm: React.FC<TraversalFormProps> = ({
     previous,
     loading,
     collectionErrors,
-    minHeight,
-  } = traversal;
+  } = traversalState;
   return (
     <comps.Form
       onSubmit={(e: any) => {
@@ -46,19 +48,14 @@ export const TraversalForm: React.FC<TraversalFormProps> = ({
       }}
       id="Traversal"
     >
-      <comps.Container
-        ref={containerRef}
-        style={{ minHeight: minHeight + 'px' }}
-      >
-        {comps.AlgoName && (
-          <comps.AlgoName>{traversal.algoName}</comps.AlgoName>
-        )}
+      <comps.Container ref={containerRef}>
+        {comps.AlgoName && <comps.AlgoName>{algoName}</comps.AlgoName>}
         {collectionErrors &&
           collectionErrors.length > 0 &&
           collectionErrors.map((error: any, i: any) => (
             <comps.ErrorText key={i}>{error}</comps.ErrorText>
           ))}
-        <comps.Collection onRest={actions.setHeight} mirror={false}>
+        <comps.Collection mirror={previous}>
           {nodes && (
             <comps.Nodes
               key={`${algoId}_${nodeIds.join('_')}`}

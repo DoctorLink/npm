@@ -1,3 +1,4 @@
+import { Action } from 'redux';
 import {
   HealthAgeModel,
   HealthRisksModel,
@@ -5,106 +6,150 @@ import {
   HealthComparisonModel,
 } from '../Models';
 
-export const HEALTH_RISKS_GET = 'HEALTH_RISKS_GET';
-export const healthRisksGet = (
+export const HEALTH_RISKS_GET_REQUEST = 'HEALTH_RISKS_GET_REQUEST';
+export interface HealthRisksGetRequest
+  extends Action<typeof HEALTH_RISKS_GET_REQUEST> {
+  traversalId: string;
+  ages: number[];
+  conclusions: string[];
+}
+export const healthRisksGetRequest = (
   traversalId: string,
   ages: number[],
   conclusions: string[]
-): HraAction => ({ type: HEALTH_RISKS_GET, traversalId, ages, conclusions });
+): HraAction => ({
+  type: HEALTH_RISKS_GET_REQUEST,
+  traversalId,
+  ages,
+  conclusions,
+});
 
-export const HEALTH_RISKS_SET = 'HEALTH_RISKS_SET';
-export const healthRisksSet = (healthRisks: HealthRisksModel): HraAction => ({
-  type: HEALTH_RISKS_SET,
+export const HEALTH_RISKS_GET_RESPONSE = 'HEALTH_RISKS_GET_RESPONSE';
+export interface HealthRisksGetResponse
+  extends Action<typeof HEALTH_RISKS_GET_RESPONSE> {
+  healthRisks: HealthRisksModel;
+}
+export const healthRisksGetResponse = (
+  healthRisks: HealthRisksModel
+): HraAction => ({
+  type: HEALTH_RISKS_GET_RESPONSE,
   healthRisks,
 });
 
-export const HEALTH_AGE_GET = 'HEALTH_AGE_GET';
-export const healthAgeGet = (
+export const HEALTH_AGE_GET_REQUEST = 'HEALTH_AGE_GET_REQUEST';
+export interface HealthAgeGetRequest
+  extends Action<typeof HEALTH_AGE_GET_REQUEST> {
+  traversalId: string;
+  conclusions: string[];
+}
+export const healthAgeGetRequest = (
   traversalId: string,
   conclusions: string[]
-): HraAction => ({
-  type: HEALTH_AGE_GET,
+): HealthAgeGetRequest => ({
+  type: HEALTH_AGE_GET_REQUEST,
   traversalId,
   conclusions,
 });
 
-export const HEALTH_AGE_SET = 'HEALTH_AGE_SET';
-export const healthAgeSet = (healthAge: HealthAgeModel): HraAction => ({
-  type: HEALTH_AGE_SET,
+export const HEALTH_AGE_GET_RESPONSE = 'HEALTH_AGE_GET_RESPONSE';
+export interface HealthAgeGetResponse
+  extends Action<typeof HEALTH_AGE_GET_RESPONSE> {
+  healthAge: HealthAgeModel;
+}
+export const healthAgeGetResponse = (
+  healthAge: HealthAgeModel
+): HealthAgeGetResponse => ({
+  type: HEALTH_AGE_GET_RESPONSE,
   healthAge,
 });
 
-export const HRA_WELLNESS_GET = 'HRA_WELLNESS_GET';
-export const hraWellnessGet = (
+export const WELLNESS_GET_REQUEST = 'WELLNESS_GET_REQUEST';
+export interface WellnessGetRequest
+  extends Action<typeof WELLNESS_GET_REQUEST> {
+  traversalId: string;
+  conclusions: string[];
+}
+export const wellnessGetRequest = (
   traversalId: string,
   conclusions: string[]
-): HraAction => ({
-  type: HRA_WELLNESS_GET,
+): WellnessGetRequest => ({
+  type: WELLNESS_GET_REQUEST,
   traversalId,
   conclusions,
 });
 
-export const HRA_WELLNESS_SET = 'HRA_WELLNESS_SET';
-export const hraWellnessSet = (wellness: WellnessModel): HraAction => ({
-  type: HRA_WELLNESS_SET,
+export const WELLNESS_GET_RESPONSE = 'WELLNESS_GET_RESPONSE';
+export interface WellnessGetResponse
+  extends Action<typeof WELLNESS_GET_RESPONSE> {
+  wellness: WellnessModel;
+}
+export const wellnessGetResponse = (
+  wellness: WellnessModel
+): WellnessGetResponse => ({
+  type: WELLNESS_GET_RESPONSE,
   wellness,
 });
 
-export const HRA_CHECK_CONCLUSION = 'HRA_CHECK_CONCLUSION';
-export const checkConclusion = (id: string): HraAction => ({
-  type: HRA_CHECK_CONCLUSION,
-  id,
-});
-
-export const HRA_UNCHECK_CONCLUSION = 'HRA_UNCHECK_CONCLUSION';
-export const uncheckConclusion = (id: string): HraAction => ({
-  type: HRA_UNCHECK_CONCLUSION,
-  id,
-});
-
-export const HRA_COMPARISONREPORT_GET = 'HRA_COMPARISONREPORT_GET';
-export const hraComparisonReportGet = (
+export const HRA_COMPARISONREPORT_GET_REQUEST =
+  'HRA_COMPARISONREPORT_GET_REQUEST';
+export interface HraComparisonReportGetRequest
+  extends Action<typeof HRA_COMPARISONREPORT_GET_REQUEST> {
+  currentTraversal: string;
+  pastTraversal: string;
+  riskAtAge: number;
+}
+export const hraComparisonReportGetRequest = (
   currentTraversal: string,
   pastTraversal: string,
   riskAtAge: number
-): HraAction => ({
-  type: HRA_COMPARISONREPORT_GET,
+): HraComparisonReportGetRequest => ({
+  type: HRA_COMPARISONREPORT_GET_REQUEST,
   currentTraversal,
   pastTraversal,
   riskAtAge,
 });
 
-export const HRA_COMPARISONREPORT_SET = 'HRA_COMPARISONREPORT_SET';
-export const hraComparisonReportSet = (comparisonOutcome: any): HraAction => ({
-  type: HRA_COMPARISONREPORT_SET,
+export const HRA_COMPARISONREPORT_GET_RESPONSE =
+  'HRA_COMPARISONREPORT_GET_RESPONSE';
+export interface HraComparisonReportGetResponse
+  extends Action<typeof HRA_COMPARISONREPORT_GET_RESPONSE> {
+  comparisonOutcome: HealthComparisonModel | null;
+}
+export const hraComparisonReportGetResponse = (
+  comparisonOutcome: HealthComparisonModel | null
+): HraComparisonReportGetResponse => ({
+  type: HRA_COMPARISONREPORT_GET_RESPONSE,
   comparisonOutcome,
 });
 
+export const HRA_CONCLUSION_CHECK = 'HRA_CONCLUSION_CHECK';
+export interface HraConclusionCheck
+  extends Action<typeof HRA_CONCLUSION_CHECK> {
+  id: string;
+}
+export const hraConclusionCheck = (id: string): HraConclusionCheck => ({
+  type: HRA_CONCLUSION_CHECK,
+  id,
+});
+
+export const HRA_CONCLUSION_UNCHECK = 'HRA_CONCLUSION_UNCHECK';
+export interface HraConclusionUncheck
+  extends Action<typeof HRA_CONCLUSION_UNCHECK> {
+  id: string;
+}
+export const hraConclusionUncheck = (id: string): HraConclusionUncheck => ({
+  type: HRA_CONCLUSION_UNCHECK,
+  id,
+});
+
 export type HraAction =
-  | {
-      type: typeof HEALTH_RISKS_GET;
-      traversalId: string;
-      ages: number[];
-      conclusions: string[];
-    }
-  | { type: typeof HEALTH_RISKS_SET; healthRisks: HealthRisksModel }
-  | { type: typeof HEALTH_AGE_GET; traversalId: string; conclusions: string[] }
-  | { type: typeof HEALTH_AGE_SET; healthAge: HealthAgeModel }
-  | {
-      type: typeof HRA_WELLNESS_GET;
-      traversalId: string;
-      conclusions: string[];
-    }
-  | { type: typeof HRA_WELLNESS_SET; wellness: WellnessModel }
-  | { type: typeof HRA_CHECK_CONCLUSION; id: string }
-  | { type: typeof HRA_UNCHECK_CONCLUSION; id: string }
-  | {
-      type: typeof HRA_COMPARISONREPORT_GET;
-      currentTraversal: string;
-      pastTraversal: string;
-      riskAtAge: number;
-    }
-  | {
-      type: typeof HRA_COMPARISONREPORT_SET;
-      comparisonOutcome: HealthComparisonModel;
-    };
+  | HealthRisksGetRequest
+  | HealthRisksGetResponse
+  | HealthAgeGetRequest
+  | HealthAgeGetResponse
+  | WellnessGetRequest
+  | WellnessGetResponse
+  | HraComparisonReportGetRequest
+  | HraComparisonReportGetResponse
+  | HraConclusionCheck
+  | HraConclusionUncheck;

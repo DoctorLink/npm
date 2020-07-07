@@ -1,6 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { healthRisksGet } from '../../../Actions';
+import { healthRisksGetRequest } from '../../../Actions';
 import { healthAssessmentSelector } from '../../../Selectors/healthAssessment';
 
 const defaultAges = [90];
@@ -11,7 +11,7 @@ export const useRiskSummary = (traversalId: any, ages: any = defaultAges) => {
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(healthRisksGet(traversalId, ages, checkedConclusions));
+    dispatch(healthRisksGetRequest(traversalId, ages, checkedConclusions));
   }, [traversalId, ages, checkedConclusions, dispatch]);
   return riskSummary;
 };

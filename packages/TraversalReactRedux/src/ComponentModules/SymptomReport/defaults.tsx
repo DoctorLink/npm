@@ -1,6 +1,4 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
-import * as actions from '../../Actions';
 import {
   InfoIcon,
   PanelBlocks as Blocks,
@@ -14,6 +12,7 @@ import {
   PanelConclusionTitle as ConclusionTitle,
   PanelSVG,
 } from '../../Components';
+import { SymptomReportCallbacks } from './SymptomReportCallbacks';
 
 const Icon: React.FC<{ state: any }> = ({ state }) => {
   if (state === 1)
@@ -60,14 +59,6 @@ export const defaultSymptomReportComponents = {
   Info,
 };
 
-export const defaultSymptomReportActions = {
+export const defaultSymptomReportActions: SymptomReportCallbacks = {
   showExplanation: (_explanation: any) => undefined,
-};
-
-export const BuildSymptomReportActions = () => {
-  const dispatch = useDispatch();
-  return {
-    showExplanation: (explanation: any) =>
-      dispatch(actions.populateModal(explanation, 'Explanation')),
-  };
 };

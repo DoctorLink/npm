@@ -8,7 +8,7 @@ const Table = styled.table.attrs({ cellSpacing: 0, cellPadding: 0 })`
   table-layout: fixed;
 `;
 
-export const TableQuestion: React.FC<{ children: any }> = ({ children }) => (
+export const TableQuestion: React.FC<{}> = ({ children }) => (
   <Table>
     <tbody>{children}</tbody>
   </Table>

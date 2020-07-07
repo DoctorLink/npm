@@ -1,58 +1,60 @@
 import flattenTraversalNodeCollection from '../src/Helpers/flattenTraversalNodeCollection';
-import { TraversalModel } from 'Models';
+import { TraversalModel, TraversalsResponse } from 'Models';
 
 describe('flattenTraversalNodeCollection', () => {
-  const json = {
-    data: {
-      traversalId: 'abc',
-      algoId: 123,
-      nodes: [
-        {
-          nodeId: 1,
-          assetId: 1234,
-          displayText: 'Display text',
-          explanation: 'Explanation',
-          title: 'Title',
-          isTable: false,
-          questions: [
-            {
-              nodeId: 2,
-              questionId: 1234,
-              displayText: 'To be or not to be?',
-              title: 'The question',
-              explanation: null,
-              data: {},
-              answers: [
-                {
-                  nodeId: 3,
-                  questionId: 1234,
-                  answerId: 12340,
-                  displayText: 'To be',
-                },
-                {
-                  nodeId: 3,
-                  questionId: 1234,
-                  answerId: 12341,
-                  displayText: 'Not to be',
-                },
-              ],
-            },
-          ],
-          errors: [
-            {
-              questionId: 1234,
-              text: 'That is the question',
-            },
-          ],
-        },
-      ],
-      assessmentType: 1,
-      algoName: 'My algo',
-      errors: ['This is an error'],
-      previousDisabled: true,
-      nextDisabled: false,
-      language: 'EN',
-    },
+  const json: TraversalsResponse = {
+    traversalId: 'abc',
+    algoId: 123,
+    nodes: [
+      {
+        nodeId: 1,
+        assetId: 1234,
+        displayText: 'Display text',
+        explanation: 'Explanation',
+        title: 'Title',
+        isTable: false,
+        questions: [
+          {
+            nodeId: 2,
+            questionId: 1234,
+            displayText: 'To be or not to be?',
+            title: 'The question',
+            explanation: null,
+            data: {},
+            answers: [
+              {
+                nodeId: 3,
+                questionId: 1234,
+                answerId: 12340,
+                displayText: 'To be',
+                controlType: 'Radio',
+                controlChecked: true,
+              },
+              {
+                nodeId: 3,
+                questionId: 1234,
+                answerId: 12341,
+                displayText: 'Not to be',
+                controlType: 'Radio',
+                controlChecked: true,
+              },
+            ],
+          },
+        ],
+        errors: [
+          {
+            questionId: 1234,
+            text: 'That is the question',
+          },
+        ],
+      },
+    ],
+    assessmentType: 1,
+    algoName: 'My algo',
+    errors: ['This is an error'],
+    previousDisabled: true,
+    nextDisabled: false,
+    language: 'EN',
   };
 
   test('should flatten traversal node collection correctly', () => {

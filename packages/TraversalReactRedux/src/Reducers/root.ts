@@ -1,32 +1,36 @@
-import { combineReducers } from 'redux';
+import { ReducersMapObject, Reducer, Action } from 'redux';
+import { traversalReducer } from './Traversal';
+import { chatReducer } from './Chat';
+import { conclusionReducer } from './Conclusion';
+import { summaryReducer } from './Summary';
+import { modalReducer } from './Modal';
+import { healthAssessmentReducer } from './HealthAssessment';
+import {
+  TraversalRootState,
+  ChatTraversalRootState,
+  HealthAssessmentState,
+  TraversalState,
+  ConclusionState,
+  SummaryState,
+  ChatTraversalState,
+} from '../Models';
 
-import traversalReducer from './Traversal';
-import chatReducer from './Chat';
-import conclusionReducer from './Conclusion';
-import summaryReducer from './Summary';
-import modalReducer from './Modal';
-import healthAssessmentReducer from './HealthAssessment';
-import clientProductsReducer from './Products';
-import labelsReducer from './Labels';
-import memberReferenceReducer from './Member';
-import { TraversalRootState, ChatRootState } from 'Models';
-
-const reducers = {
-  traversal: traversalReducer,
-  summary: summaryReducer,
-  conclusion: conclusionReducer,
+const reducersMapObject = {
+  summary: summaryReducer as Reducer<SummaryState, Action<any>>,
+  conclusion: conclusionReducer as Reducer<ConclusionState, Action<any>>,
+  healthAssessment: healthAssessmentReducer as Reducer<
+    HealthAssessmentState,
+    Action<any>
+  >,
   modal: modalReducer,
-  healthAssessment: healthAssessmentReducer,
-  clientProducts: clientProductsReducer,
-  labels: labelsReducer,
-  memberReference: memberReferenceReducer,
 };
 
-export const rootTraversalReducer = combineReducers<TraversalRootState>(
-  reducers
-);
+export const traversalRootReducersMapObject: ReducersMapObject<TraversalRootState> = {
+  traversal: traversalReducer as Reducer<TraversalState, Action<any>>,
+  ...reducersMapObject,
+};
 
-export const rootChatReducer = combineReducers<ChatRootState>({
-  ...reducers,
-  traversal: chatReducer,
-});
+export const chatRootReducersMapObject: ReducersMapObject<ChatTraversalRootState> = {
+  traversal: chatReducer as Reducer<ChatTraversalState, Action<any>>,
+  ...reducersMapObject,
+};

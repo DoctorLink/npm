@@ -1,5 +1,5 @@
 export interface ConclusionModel {
-  traversalId: string;
+  traversalId?: string;
   conclusions?: Array<any>;
   symptomReport?: any;
 }

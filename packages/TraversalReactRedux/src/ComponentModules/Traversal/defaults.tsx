@@ -72,12 +72,8 @@ const Container = styled.div`
   transition: all 300ms;
 `;
 
-const Collection: React.FC<{ mirror: boolean; onRest: any; children: any }> = ({
-  mirror,
-  onRest,
-  children,
-}) => (
-  <AnimatePresence onExitComplete={onRest} custom={mirror} exitBeforeEnter>
+const Collection: React.FC<{ mirror: boolean }> = ({ mirror, children }) => (
+  <AnimatePresence custom={mirror} exitBeforeEnter>
     {children}
   </AnimatePresence>
 );
@@ -169,5 +165,4 @@ export const defaultTraversalActions: TraversalCallbacks = {
     undefined,
   toggleRadio: (_event: any, _answerId: any, _questionAnswerIds: any) =>
     undefined,
-  setHeight: () => undefined,
 };

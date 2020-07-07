@@ -1,6 +1,6 @@
 import React from 'react';
 import { PanelConclusion } from '../../../Components';
-import InfoButton from '../../InfoIcon';
+import { InfoIconConnected as InfoButton } from '../../InfoIcon';
 import {
   Conclusion,
   ConclusionContent,

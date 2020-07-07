@@ -29,7 +29,8 @@ npm install @doctorlink/traversal-react-redux
 |[Actions](src/Actions)                      |Actions to be dispatched to the store    |
 |[Containers](src/Containers)                |Components bound to state/actions        |
 |[Sagas](src/Sagas)                          |Sagas to handle state side-effects       |
-|[Web API](src/WebApi)                       |HTTP requests to the web api             |
+|[Services](src/Services)                    |Services for making api calls            |
+|[Store](src/Store)                          |Complete Redux-Saga Stores               |
 |[Samples](samples)                          |Samples of how this library can be used  |
 
 
@@ -40,19 +41,19 @@ Here is a quick example to get you started, **it's all you need**:
 ```jsx
 import React from 'react';
 import { render } from 'react-dom';
-import { createTraversalStore, TraversalApp, createBrowserHistory } from '@doctorlink/traversal-react-redux';
+import { TraversalStore, TraversalApp } from '@doctorlink/traversal-react-redux';
 
-const history = createBrowserHistory();
+//Token requested from POST https://prod-platform-identity.doctorlink.engineering/connect/token
+const bearerToken = 'TOKEN';
+const productId = 1;
+const traversalEngineApi = 'https://prod-platform-traversal-engine.doctorlink.engineering';
 
-const store = createTraversalStore(
-  {
-    traversalApi: 'https://api-traversal.doctorlink.engineering',
-    hraApi: 'https://api-hra.doctorlink.engineering'
-  },
-  history
-)
+const traversalStore = new TraversalStore(traversalEngineApi);
 
-render(<TraversalApp store={store} history={history} />, document.getElementById('root'));
+traversalStore.store.dispatch(traversalStart({productId}));
+traversalStore.setToken(bearerToken)
+
+render(<TraversalApp store={traversalStore.store} />, document.getElementById('root'));
 ```
 
 ## Development

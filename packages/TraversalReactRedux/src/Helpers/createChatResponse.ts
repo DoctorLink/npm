@@ -1,17 +1,15 @@
-import {
-  ChatModel,
-  TraversalResponseModel,
-  TraversalResponseAnswer,
-} from '../Models';
+import { ChatModel } from '../Models';
+import { TraversalsBaseRespond } from '../Models/Service/traversalsBase';
 
-export default (traversal: ChatModel): TraversalResponseModel => ({
-  traversalId: traversal.traversalId,
-  responses: !traversal.answers
-    ? null
+export const createChatResponse = (
+  traversal: ChatModel
+): TraversalsBaseRespond[] =>
+  !traversal.answers
+    ? []
     : (traversal.questions[
         traversal.questionIds[traversal.questionIds.length - 1]
       ].answers
-        .map(function(answerId): TraversalResponseAnswer | undefined {
+        .map(function(answerId): TraversalsBaseRespond | undefined {
           var a = traversal.answers[answerId];
           if ((!a.controlValue || a.controlValue === '') && !a.controlChecked)
             return undefined;
@@ -22,5 +20,6 @@ export default (traversal: ChatModel): TraversalResponseModel => ({
             value: a.controlValue!,
           };
         })
-        .filter(a => a) as TraversalResponseAnswer[]),
-});
+        .filter(a => a) as TraversalsBaseRespond[]);
+
+export default createChatResponse;

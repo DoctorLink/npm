@@ -29,7 +29,7 @@ DisplayText.defaultProps = {
   theme: defaultTheme,
 };
 
-const TraversalQuestion: React.FC<{ displayText: any; children: any }> = ({
+const TraversalQuestion: React.FC<{ displayText: any }> = ({
   displayText,
   children,
 }) => {

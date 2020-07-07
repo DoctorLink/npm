@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import { connect } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { Switch, Route, Redirect } from 'react-router-dom';
 import styled from 'styled-components';
-import { traversalConclusionGet } from '../../Actions';
+import { traversalConclusionsGetRequest } from '../../Actions';
 import { CarouselNavigation } from '../../Components';
 import colors from '../../Theme/base/colors';
 import Risks from './Risks/Risks';
@@ -32,10 +32,10 @@ const BottomBar = styled.footer`
 
 const HealthAssessment: React.FC<{
   traversalId: any;
-  dispatch: any;
-}> = ({ traversalId, dispatch }) => {
+}> = ({ traversalId }) => {
+  const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(traversalConclusionGet(traversalId));
+    dispatch(traversalConclusionsGetRequest(traversalId));
   }, [dispatch, traversalId]);
 
   const { routes, initialRoute } = useHRARoutes(traversalId);
@@ -85,4 +85,4 @@ const HealthAssessment: React.FC<{
   );
 };
 
-export default connect()(HealthAssessment);
+export default HealthAssessment;

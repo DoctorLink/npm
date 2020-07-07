@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import VisibilitySensor from 'react-visibility-sensor';
 import styled from 'styled-components';
-import { traversalConclusionGet } from '../../Actions';
+import { traversalConclusionsGetRequest } from '../../Actions';
 import colors from '../../Theme/base/colors';
 import Risks from './Risks/Risks';
 import HealthAge from './HealthAge/HealthAge';
@@ -67,7 +67,7 @@ const HealthAssessment: React.FC<{
   const dispatch = useDispatch();
 
   useEffect(() => {
-    dispatch(traversalConclusionGet(traversalId));
+    dispatch(traversalConclusionsGetRequest(traversalId));
   }, [dispatch, traversalId]);
 
   const { routes, initialRoute } = useHRARoutes(traversalId);

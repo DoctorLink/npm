@@ -9,7 +9,6 @@ const StyledHeader = styled.div`
 const AccordionHeader: React.FC<{
   open: any;
   toggleOpen: any;
-  children: any;
 }> = ({ open, toggleOpen, children }) => (
   <StyledHeader onClick={toggleOpen}>
     {children}

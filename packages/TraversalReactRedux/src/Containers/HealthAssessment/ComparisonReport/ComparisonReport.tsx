@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { TextField, Button } from '../../../Components';
 import {
-  hraComparisonReportGet,
-  hraComparisonReportSet,
+  hraComparisonReportGetRequest,
+  hraComparisonReportGetResponse,
 } from '../../../Actions';
 import CompareRiskCharts from '../../../Components/ComparisonReport/CompareRiskCharts';
 import CompareWellbeingCharts from '../../../Components/ComparisonReport/CompareWellbeingCharts';
@@ -35,9 +35,11 @@ const ComparisonReport: React.FC<{
 
   const [pastTraversal, setPastTraversal] = useState('');
   const handleSubmit = (event: any) => {
-    dispatch(hraComparisonReportSet(null));
+    dispatch(hraComparisonReportGetResponse(null));
     event.preventDefault();
-    dispatch(hraComparisonReportGet(traversal, pastTraversal, selectedAge));
+    dispatch(
+      hraComparisonReportGetRequest(traversal, pastTraversal, selectedAge)
+    );
   };
 
   const comparisonReport = useSelector(

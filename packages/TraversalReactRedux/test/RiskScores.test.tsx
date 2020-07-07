@@ -1,9 +1,10 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { rootTraversalReducer } from '../src/Reducers';
+import { traversalRootReducersMapObject } from '../src/Reducers';
 import { renderWithRedux } from './utils';
 import RiskScores from '../src/Containers/HealthAssessment/Risks/RiskScores';
+import { combineReducers } from 'redux';
 
 describe('RiskScores component', () => {
   const riskSummary = {
@@ -36,6 +37,7 @@ describe('RiskScores component', () => {
     () =>
       (SVGElement.prototype.getBoundingClientRect = defaultGetBoundingClientRect)
   );
+  const rootTraversalReducer = combineReducers(traversalRootReducersMapObject);
 
   const renderComponent = () =>
     renderWithRedux(<RiskScores />, rootTraversalReducer, state);

@@ -57,7 +57,6 @@ const TableHeaderCell: React.FC<{
   justifyContent: any;
   textAlign: any;
   colspan: any;
-  children: any;
 }> = ({ text, error, justifyContent, textAlign, colspan, children }) => (
   <th colSpan={colspan}>
     <Container textAlign={textAlign} justifyContent={justifyContent}>

@@ -1,17 +1,15 @@
 import React from 'react';
-import { useDispatch } from 'react-redux';
 import { motion, AnimatePresence } from 'framer-motion';
 import styled from 'styled-components';
 
 import { defaultTheme } from '../../Theme';
-
-import * as actions from '../../Actions';
 
 import {
   BodyOverflowHidden,
   DelayExit,
   TransparentCurtain,
 } from '../../Components';
+import { ModalCallbacks } from './ModalCallbacks';
 
 const BackDropMotion = styled(motion.div)`
   background-color: rgba(0, 0, 0, 0.8);
@@ -178,13 +176,6 @@ export const defaultModalComponents = {
   Body,
 };
 
-export const defaultModalActions = {
+export const defaultModalActions: ModalCallbacks = {
   close: () => undefined,
-};
-
-export const BuildModalActions = () => {
-  const dispatch = useDispatch();
-  return {
-    close: () => dispatch(actions.closeModal()),
-  };
 };

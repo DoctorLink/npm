@@ -1,7 +1,8 @@
 import { normalize, schema } from 'normalizr';
-import { ChatModel } from 'Models';
+import { ChatModel } from '../Models';
+import { ChatTraversalsResponse } from '../Models/Service/ChatTraversals';
 
-export default (json: any): ChatModel => {
+const chatFlatten = (json: ChatTraversalsResponse): ChatModel => {
   const answer = new schema.Entity(
     'answers',
     {},
@@ -23,21 +24,21 @@ export default (json: any): ChatModel => {
     {},
     {
       idAttribute: (value, parent) =>
-        `${json.data.algoId}_${parent.nodeId}_${value.questionId}`,
+        `${json.algoId}_${parent.nodeId}_${value.questionId}`,
     }
   );
-  // const node = new schema.Entity('nodes', { questions: [question],  errors: [error] }, { idAttribute: value => value.nodeId });
   const traversal = { questions: [question], errors: [error] };
 
-  const normalizedData = normalize<any, ChatModel, any>(json.data, traversal);
+  const normalizedData = normalize<any, ChatModel, any>(json, traversal);
 
   normalizedData.entities.traversalId = normalizedData.result.traversalId;
   normalizedData.entities.completed = normalizedData.result.completed;
   normalizedData.entities.questionIds = normalizedData.result.questions;
   normalizedData.entities.algoId = normalizedData.result.algoId;
-  normalizedData.entities.assessmentType = json.data.assessmentType;
+  normalizedData.entities.assessmentType = json.assessmentType;
   if (!normalizedData.entities.errors) normalizedData.entities.errors = {};
 
-  // console.log(normalizedData.entities)
   return normalizedData.entities;
 };
+
+export default chatFlatten;

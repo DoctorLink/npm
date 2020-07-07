@@ -1,7 +1,8 @@
 import React from 'react';
 import { fireEvent } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
-import { rootTraversalReducer } from '../src/Reducers';
+import { traversalRootReducersMapObject } from '../src/Reducers';
+import { combineReducers } from 'redux';
 import { renderWithRedux } from './utils';
 import CheckableConclusions from '../src/Containers/HealthAssessment/Conclusions/CheckableConclusions';
 
@@ -36,6 +37,7 @@ describe('CheckableConclusions component', () => {
     healthAssessment: { checkedConclusions: [] },
   };
 
+  const rootTraversalReducer = combineReducers(traversalRootReducersMapObject);
   const renderComponent = (props: any) =>
     renderWithRedux(
       <CheckableConclusions {...props} />,

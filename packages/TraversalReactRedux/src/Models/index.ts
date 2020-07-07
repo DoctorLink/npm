@@ -5,3 +5,4 @@ export * from './HealthAssessment';
 export * from './Labels';
 export * from './Product';
 export * from './State';
+export * from './Service';

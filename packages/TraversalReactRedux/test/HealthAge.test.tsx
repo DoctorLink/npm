@@ -1,7 +1,8 @@
 import React from 'react';
 import { BrowserRouter as Router } from 'react-router-dom';
 import '@testing-library/jest-dom/extend-expect';
-import { rootTraversalReducer } from '../src/Reducers';
+import { traversalRootReducersMapObject } from '../src/Reducers';
+import { combineReducers } from 'redux';
 import { renderWithRedux } from './utils';
 import HealthAge from '../src/Containers/HealthAssessment/HealthAge/HealthAge';
 
@@ -34,6 +35,7 @@ describe('HealthAge component', () => {
     },
   };
 
+  const rootTraversalReducer = combineReducers(traversalRootReducersMapObject);
   const renderComponent = () =>
     renderWithRedux(
       <Router>

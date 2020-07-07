@@ -1,7 +1,8 @@
 import React from 'react';
 import { defaultChatActions, defaultChatComponents } from './defaults';
+import { useChatScroll } from '../../Hooks/useChatScroll';
 
-export const Chat: React.FC<{
+export const ChatTraversal: React.FC<{
   traversal: any;
   containerRef?: any;
   actions?: any;
@@ -13,14 +14,8 @@ export const Chat: React.FC<{
   components = defaultChatComponents,
 }) => {
   const comps = { ...defaultChatComponents, ...components };
-  const {
-    minHeight,
-    questionIds,
-    questions,
-    answers,
-    errors,
-    loading,
-  } = traversal;
+  const { questionIds, questions, answers, errors, loading } = traversal;
+  const minHeight = useChatScroll(loading, questionIds.length, containerRef);
   return (
     <comps.Container id="Traversal" minHeight={minHeight} ref={containerRef}>
       {questionIds.map((questionId: any) => {

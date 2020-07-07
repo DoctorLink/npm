@@ -2,10 +2,15 @@ import React from 'react';
 import { Router } from 'react-router-dom';
 import { createMemoryHistory } from 'history';
 import '@testing-library/jest-dom/extend-expect';
-import { rootTraversalReducer } from '../src/Reducers';
+import { traversalRootReducersMapObject } from '../src/Reducers';
+import { combineReducers } from 'redux';
 import { renderWithRedux } from './utils';
 import HealthAssessment from '../src/Containers/HealthAssessment/HealthAssessment';
-import { healthRisksSet, healthAgeSet, hraWellnessSet } from '../src/Actions';
+import {
+  healthRisksGetResponse,
+  healthAgeGetResponse,
+  wellnessGetResponse,
+} from '../src/Actions';
 import { HealthAgeModel, HealthRisksModel } from 'Models';
 
 describe('HealthAssessment root component', () => {
@@ -16,6 +21,9 @@ describe('HealthAssessment root component', () => {
   afterEach(() => jest.spyOn(React, 'useEffect').mockRestore());
 
   const renderComponent = () => {
+    const rootTraversalReducer = combineReducers(
+      traversalRootReducersMapObject
+    );
     const history = createMemoryHistory({ initialEntries: ['/traversal/abc'] });
     const result = renderWithRedux(
       <Router history={history}>
@@ -36,7 +44,7 @@ describe('HealthAssessment root component', () => {
   test('Zero health age loaded: still shows nothing', () => {
     const { store, history, ...component } = renderComponent();
 
-    store.dispatch(healthAgeSet({ healthAge: 0 } as HealthAgeModel));
+    store.dispatch(healthAgeGetResponse({ healthAge: 0 } as HealthAgeModel));
 
     expect(history.location.pathname).toBe('/traversal/abc');
     expect(component.container.innerHTML).toBe('');
@@ -45,7 +53,7 @@ describe('HealthAssessment root component', () => {
   test('Positive health age loaded: redirects to health age page', () => {
     const { store, history, ...component } = renderComponent();
 
-    store.dispatch(healthAgeSet({ healthAge: 40 } as HealthAgeModel));
+    store.dispatch(healthAgeGetResponse({ healthAge: 40 } as HealthAgeModel));
 
     expect(history.location.pathname).toBe('/traversal/abc/health-age');
     expect(component.getByText('Your health age report')).toBeInTheDocument();
@@ -54,9 +62,9 @@ describe('HealthAssessment root component', () => {
   test('Zero health age, non-empty risks loaded: redirects to risks page', () => {
     const { store, history, ...component } = renderComponent();
 
-    store.dispatch(healthAgeSet({ healthAge: 0 } as HealthAgeModel));
+    store.dispatch(healthAgeGetResponse({ healthAge: 0 } as HealthAgeModel));
     store.dispatch(
-      healthRisksSet({
+      healthRisksGetResponse({
         risks: [{ time: 50, name: 'Heart Disease' }],
       } as HealthRisksModel)
     );
@@ -71,7 +79,7 @@ describe('HealthAssessment root component', () => {
     const { store, history, ...component } = renderComponent();
 
     store.dispatch(
-      healthRisksSet({
+      healthRisksGetResponse({
         risks: [{ time: 50, name: 'Heart Disease' }],
       } as HealthRisksModel)
     );
@@ -83,8 +91,10 @@ describe('HealthAssessment root component', () => {
   test('Zero health age, empty risks loaded, waiting for wellbeing: still shows nothing', () => {
     const { store, history, ...component } = renderComponent();
 
-    store.dispatch(healthAgeSet({ healthAge: 0 } as HealthAgeModel));
-    store.dispatch(healthRisksSet({ risks: [] as any[] } as HealthRisksModel));
+    store.dispatch(healthAgeGetResponse({ healthAge: 0 } as HealthAgeModel));
+    store.dispatch(
+      healthRisksGetResponse({ risks: [] as any[] } as HealthRisksModel)
+    );
 
     expect(history.location.pathname).toBe('/traversal/abc');
     expect(component.container.innerHTML).toBe('');
@@ -93,10 +103,12 @@ describe('HealthAssessment root component', () => {
   test('Zero health age, empty risks, non-empty wellbeing loaded: redirects to wellbeing', () => {
     const { store, history, ...component } = renderComponent();
 
-    store.dispatch(healthAgeSet({ healthAge: 0 } as HealthAgeModel));
-    store.dispatch(healthRisksSet({ risks: [] as any[] } as HealthRisksModel));
+    store.dispatch(healthAgeGetResponse({ healthAge: 0 } as HealthAgeModel));
     store.dispatch(
-      hraWellnessSet({
+      healthRisksGetResponse({ risks: [] as any[] } as HealthRisksModel)
+    );
+    store.dispatch(
+      wellnessGetResponse({
         scores: [{ name: 'Diet', score: 50 }],
         checkableConclusions: [],
       })

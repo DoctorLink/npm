@@ -6,5 +6,4 @@ export interface TraversalCallbacks {
   updateValue: (answerId: any, questionAnswerIds: any, value: any) => void;
   toggleCheckbox: (event: any, answerId: any, questionAnswerIds: any) => void;
   toggleRadio: (event: any, answerId: any, questionAnswerIds: any) => void;
-  setHeight: () => void;
 }

@@ -3,40 +3,35 @@ import { TraversalSummaryModel } from './Summary';
 import { ConclusionModel } from './Conclusion';
 import { ModalModel } from './Modal';
 import { HealthAssessmentModel } from './HealthAssessment';
-import { TraversalClientProducts } from './Product';
-import { Labels } from './Labels';
 
 export type TraversalState = TraversalModel & {
   loading: boolean;
   previous: boolean;
-  minHeight?: number;
 };
 
-export type ChatState = ChatModel & {
+export type ChatTraversalState = ChatModel & {
   loading: boolean;
-  minHeight?: number;
 };
 
 export type SummaryState = TraversalSummaryModel | null;
 export type ConclusionState = ConclusionModel | null;
 export type ModalState = ModalModel | null;
+export type HealthAssessmentState = HealthAssessmentModel | null;
 
-export interface BaseRootState {
+export interface TraversalBaseRootState {
+  traversal: TraversalState | ChatTraversalState;
   summary: SummaryState;
   conclusion: ConclusionState;
   modal: ModalState;
-  healthAssessment: HealthAssessmentModel;
-  clientProducts: TraversalClientProducts;
-  labels: Labels;
-  memberReference: string | null;
+  healthAssessment: HealthAssessmentState;
 }
 
-export interface TraversalRootState extends BaseRootState {
+export interface TraversalRootState extends TraversalBaseRootState {
   traversal: TraversalState;
 }
 
-export interface ChatRootState extends BaseRootState {
-  traversal: ChatState;
+export interface ChatTraversalRootState extends TraversalBaseRootState {
+  traversal: ChatTraversalState;
 }
 
-export type RootState = TraversalRootState | ChatRootState;
+export type RootState = TraversalRootState | ChatTraversalRootState;
