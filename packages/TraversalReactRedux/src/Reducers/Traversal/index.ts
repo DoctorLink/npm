@@ -51,6 +51,7 @@ export const traversalReducer: TraversalReducer = (
         ...state,
         ...action.traversal,
         loading: false,
+        answers: answersReducer(action.traversal.answers, action),
       };
     default:
       return state;
