@@ -1,9 +1,8 @@
-const parser = new DOMParser();
-
 export class XmlRules {
   value: any;
   rules: any;
   constructor(xml: string) {
+    const parser = new DOMParser();
     const element = parser.parseFromString(xml, 'text/xml').documentElement;
     this.value = element.getAttribute('value');
     this.rules = Array.from(element.getElementsByTagName('rule')).map(rule => ({
