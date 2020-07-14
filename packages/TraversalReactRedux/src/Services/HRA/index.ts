@@ -27,7 +27,7 @@ export class HealthRiskAssessmentService extends BaseService {
   public getWellness = async (traversalId: string, conclusions: number[]) => {
     const qs = conclusions.map(conc => `conclusions=${conc}`).join('&');
     return await this.fetch<any>(
-      `​${this.controllerBase}/${this.controllerName}/${traversalId}/wellness?${qs}`,
+      `${this.controllerBase}/${this.controllerName}/${traversalId}/wellness?${qs}`,
       this.options
     );
   };
