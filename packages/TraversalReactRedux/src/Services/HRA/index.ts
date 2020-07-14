@@ -5,26 +5,29 @@ export class HealthRiskAssessmentService extends BaseService {
     controllerBase: string,
     tokenFactory?: () => Promise<string | null>
   ) {
-    super(controllerBase, 'Report', tokenFactory);
+    super(controllerBase, 'Reports', tokenFactory);
   }
 
   public getSnapShot = async (traversalId: string) =>
-    await this.fetch<any>(`Snapshot/Previous/${traversalId}`, this.options);
+    await this.fetch<any>(
+      `${this.controllerBase}/${this.controllerName}/${traversalId}/previous`,
+      this.options
+    );
 
   public getComparison = async (
-    currentTraversal: string,
-    pastTraversal: string,
+    traversalId: string,
+    compareTraversalId: string,
     riskAtAge: number
   ) =>
     await this.fetch<any>(
-      `Compare/Compare/${currentTraversal}/${pastTraversal}/${riskAtAge}`,
+      `${this.controllerBase}/${this.controllerName}/${traversalId}/compare/${compareTraversalId}/${riskAtAge}`,
       this.options
     );
 
   public getWellness = async (traversalId: string, conclusions: number[]) => {
     const qs = conclusions.map(conc => `conclusions=${conc}`).join('&');
     return await this.fetch<any>(
-      `​Wellness​/${traversalId}?${qs}`,
+      `​${this.controllerBase}/${this.controllerName}/${traversalId}/wellness?${qs}`,
       this.options
     );
   };
@@ -39,7 +42,7 @@ export class HealthRiskAssessmentService extends BaseService {
       .concat(conclusions.map(conc => `conclusions=${conc}`))
       .join('&');
     return await this.fetch<any>(
-      `HealthRisk/${traversalId}?${qs}`,
+      `${this.controllerBase}/${this.controllerName}/${traversalId}/risks?${qs}`,
       this.options
     );
   };
