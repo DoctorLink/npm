@@ -14,8 +14,8 @@ export class TraversalsService extends TraversalsBaseService {
     super(controllerBase, 'Traversals', tokenFactory);
   }
 
-  public create = async (body: TraversalsCreate) =>
-    await this.fetch<TraversalsResponse>(
+  public create = (body: TraversalsCreate) =>
+    this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}`,
       {
         ...this.options,
@@ -24,8 +24,8 @@ export class TraversalsService extends TraversalsBaseService {
       }
     );
 
-  public respond = async (traversalId: string, body: TraversalsRespond[]) =>
-    await this.fetch<TraversalsResponse>(
+  public respond = (traversalId: string, body: TraversalsRespond[]) =>
+    this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/respond`,
       {
         ...this.options,
@@ -34,21 +34,27 @@ export class TraversalsService extends TraversalsBaseService {
       }
     );
 
-  public revisit = async (
-    traversalId: string,
-    body: TraversalsRevisit | undefined
-  ) =>
-    await this.fetch<TraversalsResponse>(
+  public revisit = (traversalId: string, body: TraversalsRevisit) =>
+    this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/revisit`,
       {
         ...this.options,
         method: 'POST',
-        body: body ? JSON.stringify(body) : undefined,
+        body: JSON.stringify(body),
       }
     );
 
-  public get = async (traversalId: string) =>
-    await this.fetch<TraversalsResponse>(
+  public previous = (traversalId: string) =>
+    this.fetch<TraversalsResponse>(
+      `${this.controllerBase}/${this.controllerName}/${traversalId}/previous`,
+      {
+        ...this.options,
+        method: 'POST',
+      }
+    );
+
+  public get = (traversalId: string) =>
+    this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}`,
       this.options
     );

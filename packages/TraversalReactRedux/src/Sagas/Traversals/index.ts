@@ -5,15 +5,18 @@ import {
   TRAVERSAL_POST_REQUEST,
   TRAVERSAL_RESPOND_POST_REQUEST,
   TRAVERSAL_REVISIT_POST_REQUEST,
+  TRAVERSAL_PREVIOUS_POST_REQUEST,
   TRAVERSAL_GET_REQUEST,
   traversalRespondPostResponse,
   traversalPostResponse,
   traversalRevisitPostResponse,
+  traversalPreviousPostResponse,
   traversalGetResponse,
   TraversalPostRequest,
   TraversalGetRequest,
   TraversalRespondPostRequest,
   TraversalRevisitPostRequest,
+  TraversalPreviousPostRequest,
 } from '../../Actions/Traversal';
 import { TraversalsResponse } from '../../Models/Service/Traversals';
 import flatten from '../../Helpers/flattenTraversalNodeCollection';
@@ -53,6 +56,13 @@ export class TraversalsServiceSagas extends TraversalsBaseServiceSagas {
       (data: TraversalsResponse) => traversalRevisitPostResponse(flatten(data))
     );
 
+    this.previous = this.effect(
+      TRAVERSAL_PREVIOUS_POST_REQUEST,
+      service.previous,
+      (action: TraversalPreviousPostRequest) => [action.traversalId],
+      (data: TraversalsResponse) => traversalPreviousPostResponse(flatten(data))
+    );
+
     this.get = this.effect(
       TRAVERSAL_GET_REQUEST,
       service.get,
@@ -64,6 +74,7 @@ export class TraversalsServiceSagas extends TraversalsBaseServiceSagas {
       this.create,
       this.respond,
       this.revisit,
+      this.previous,
       this.get,
       this.getQuestions,
       this.getConclusions,
@@ -77,5 +88,6 @@ export class TraversalsServiceSagas extends TraversalsBaseServiceSagas {
   public create: ForkEffect<never>;
   public respond: ForkEffect<never>;
   public revisit: ForkEffect<never>;
+  public previous: ForkEffect<never>;
   public get: ForkEffect<never>;
 }

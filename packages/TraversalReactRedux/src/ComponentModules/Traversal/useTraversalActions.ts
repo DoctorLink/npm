@@ -19,7 +19,7 @@ export const useTraversalActions = (
         )
       ),
     previous: () =>
-      dispatch(actions.traversalRevisitPostRequest(traversal.traversalId)),
+      dispatch(actions.traversalPreviousPostRequest(traversal.traversalId)),
     showSummary: () =>
       dispatch(actions.traversalSummaryGetRequest(traversal.traversalId)),
     showExplanation: (explanation: any) =>

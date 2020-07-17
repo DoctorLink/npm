@@ -94,11 +94,11 @@ export const TRAVERSAL_REVISIT_POST_REQUEST = 'TRAVERSAL_REVISIT_POST_REQUEST';
 export interface TraversalRevisitPostRequest
   extends Action<typeof TRAVERSAL_REVISIT_POST_REQUEST> {
   traversalId: string;
-  body?: TraversalsRevisit | ChatTraversalsRevisit;
+  body: TraversalsRevisit | ChatTraversalsRevisit;
 }
 export const traversalRevisitPostRequest = (
   traversalId: string,
-  body?: TraversalsRevisit | ChatTraversalsRevisit
+  body: TraversalsRevisit | ChatTraversalsRevisit
 ): TraversalRevisitPostRequest => ({
   type: TRAVERSAL_REVISIT_POST_REQUEST,
   traversalId,
@@ -116,6 +116,34 @@ export const traversalRevisitPostResponse = (
   traversal: TraversalOrChat
 ): TraversalRevisitPostResponse => ({
   type: TRAVERSAL_REVISIT_POST_RESPONSE,
+  traversal,
+  receivedAt: new Date(),
+});
+
+export const TRAVERSAL_PREVIOUS_POST_REQUEST =
+  'TRAVERSAL_PREVIOUS_POST_REQUEST';
+export interface TraversalPreviousPostRequest
+  extends Action<typeof TRAVERSAL_PREVIOUS_POST_REQUEST> {
+  traversalId: string;
+}
+export const traversalPreviousPostRequest = (
+  traversalId: string
+): TraversalPreviousPostRequest => ({
+  type: TRAVERSAL_PREVIOUS_POST_REQUEST,
+  traversalId,
+});
+
+export const TRAVERSAL_PREVIOUS_POST_RESPONSE =
+  'TRAVERSAL_PREVIOUS_POST_RESPONSE';
+export interface TraversalPreviousPostResponse
+  extends Action<typeof TRAVERSAL_PREVIOUS_POST_RESPONSE> {
+  traversal: TraversalOrChat;
+  receivedAt: Date;
+}
+export const traversalPreviousPostResponse = (
+  traversal: TraversalOrChat
+): TraversalPreviousPostResponse => ({
+  type: TRAVERSAL_PREVIOUS_POST_RESPONSE,
   traversal,
   receivedAt: new Date(),
 });
@@ -265,6 +293,8 @@ export type TraversalAction =
   | TraversalRespondPostResponse
   | TraversalRevisitPostRequest
   | TraversalRevisitPostResponse
+  | TraversalPreviousPostRequest
+  | TraversalPreviousPostResponse
   | TraversalSummaryGetRequest
   | TraversalSummaryGetResponse
   | TraversalConclusionsGetRequest

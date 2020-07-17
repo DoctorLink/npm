@@ -12,6 +12,8 @@ import {
   TRAVERSAL_GET_RESPONSE,
   TRAVERSAL_RESPOND_POST_RESPONSE,
   TRAVERSAL_REVISIT_POST_RESPONSE,
+  TRAVERSAL_PREVIOUS_POST_REQUEST,
+  TRAVERSAL_PREVIOUS_POST_RESPONSE,
 } from '../../Actions/Traversal';
 import { TraversalState } from '../../Models';
 import { answersReducer } from '../Answers';
@@ -32,21 +34,23 @@ export const traversalReducer: TraversalReducer = (
       };
     case TRAVERSAL_POST_REQUEST:
     case TRAVERSAL_GET_REQUEST:
+    case TRAVERSAL_RESPOND_POST_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case TRAVERSAL_RESPOND_POST_REQUEST:
     case TRAVERSAL_REVISIT_POST_REQUEST:
+    case TRAVERSAL_PREVIOUS_POST_REQUEST:
       return {
         ...state,
         loading: true,
-        previous: action.type === TRAVERSAL_REVISIT_POST_REQUEST,
+        previous: true,
       };
     case TRAVERSAL_POST_RESPONSE:
     case TRAVERSAL_GET_RESPONSE:
     case TRAVERSAL_RESPOND_POST_RESPONSE:
     case TRAVERSAL_REVISIT_POST_RESPONSE:
+    case TRAVERSAL_PREVIOUS_POST_RESPONSE:
       return {
         ...state,
         ...action.traversal,
