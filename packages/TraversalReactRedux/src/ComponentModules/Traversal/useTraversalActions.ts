@@ -40,7 +40,7 @@ export const useTraversalActions = (
         let forward = true;
         let answeredRadioQuestions: string[] = [];
         Object.entries(traversal.answers).forEach(answerId => {
-          const answer = answerId[1] as any;
+          const answer = answerId[1];
           if (answer.controlChecked === true)
             answeredRadioQuestions.push(
               `${answer.nodeId}_${answer.questionId}`

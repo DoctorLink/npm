@@ -13,8 +13,8 @@ export class MembersService extends BaseService {
     super(controllerBase, 'Members', tokenFactory);
   }
 
-  public create = async (body: MembersCreate) =>
-    await this.fetch<MembersResponse>(
+  public create = (body: MembersCreate) =>
+    this.fetch<MembersResponse>(
       `${this.controllerBase}/${this.controllerName}`,
       {
         ...this.options,
@@ -23,14 +23,14 @@ export class MembersService extends BaseService {
       }
     );
 
-  public get = async (memberReference: string) =>
-    await this.fetch<MembersResponse>(
+  public get = (memberReference: string) =>
+    this.fetch<MembersResponse>(
       `${this.controllerBase}/${this.controllerName}/${memberReference}`,
       this.options
     );
 
-  public getQuestions = async (memberReference: string) =>
-    await this.fetch<MembersPermanentHistoryResponse[]>(
+  public getQuestions = (memberReference: string) =>
+    this.fetch<MembersPermanentHistoryResponse[]>(
       `${this.controllerBase}/${this.controllerName}/${memberReference}/permanent-history`,
       this.options
     );

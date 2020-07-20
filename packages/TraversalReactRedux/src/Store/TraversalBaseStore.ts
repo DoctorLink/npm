@@ -8,17 +8,18 @@ import { HealthRiskAssessmentServiceSagas } from '../Sagas';
 import { HealthRiskAssessmentService } from '../Services/HRA';
 
 export class TraversalBaseStore<
-  T extends TraversalBaseRootState
-> extends BaseStore<T> {
+  TState extends TraversalBaseRootState,
+  TService extends TraversalsBaseService
+> extends BaseStore<TState> {
   constructor(
-    traversalService: TraversalsBaseServiceSagas,
-    reducersObject: ReducersMapObject<T>,
+    traversalServiceSagas: TraversalsBaseServiceSagas<TService>,
+    reducersObject: ReducersMapObject<TState>,
     hraBase?: string,
     moreEffects: ForkEffect<never>[] = [],
     tokenFactory?: () => Promise<string | null>
   ) {
     let hraServiceSagas: HealthRiskAssessmentServiceSagas | undefined;
-    let effects = [...moreEffects, ...traversalService.effects];
+    let effects = [...moreEffects, ...traversalServiceSagas.effects];
     if (hraBase) {
       hraServiceSagas = new HealthRiskAssessmentServiceSagas(
         hraBase,
@@ -27,7 +28,7 @@ export class TraversalBaseStore<
       effects = [...effects, ...hraServiceSagas.effects];
     }
     super(effects, reducersObject);
-    this.traversalService = traversalService.service;
+    this.traversalService = traversalServiceSagas.service;
     this.hraService = hraServiceSagas?.service;
 
     this.setBaseUrl = (controllerBase: string) => {
@@ -44,6 +45,6 @@ export class TraversalBaseStore<
   public setBaseUrl: (controllerBase: string) => void;
   public setToken: (token: string | null) => void;
 
-  public traversalService: TraversalsBaseService;
+  public traversalService: TService;
   public hraService: HealthRiskAssessmentService | undefined;
 }

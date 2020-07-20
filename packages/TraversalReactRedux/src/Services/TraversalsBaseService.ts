@@ -1,46 +1,38 @@
 import { BaseService } from './BaseService';
 
 export class TraversalsBaseService extends BaseService {
-  constructor(
-    controllerBase: string,
-    controllerName: string,
-    tokenFactory?: () => Promise<string | null>
-  ) {
-    super(controllerBase, controllerName, tokenFactory);
-  }
-
-  public getQuestions = async (traversalId: string) =>
-    await this.fetch<any>(
+  public getQuestions = (traversalId: string) =>
+    this.fetch<any>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/questions`,
       this.options
     );
 
-  public getConclusionReport = async (traversalId: string) =>
-    await this.fetch<any>(
+  public getConclusionReport = (traversalId: string) =>
+    this.fetch<any>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/conclusion-report`,
       this.options
     );
 
-  public getConclusions = async (traversalId: string) =>
-    await this.fetch<any>(
+  public getConclusions = (traversalId: string) =>
+    this.fetch<any>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/conclusions`,
       this.options
     );
 
-  public getTrackfile = async (traversalId: string) =>
-    await this.fetch<string>(
+  public getTrackfile = (traversalId: string) =>
+    this.fetch<string>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/track-file`,
       this.options
     );
 
-  public getHistoryLines = async (traversalId: string) =>
-    await this.fetch<any>(
+  public getHistoryLines = (traversalId: string) =>
+    this.fetch<any>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/history-lines`,
       this.options
     );
 
-  public getSummary = async (traversalId: string) =>
-    await this.fetch<any>(
+  public getSummary = (traversalId: string) =>
+    this.fetch<any>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/summary`,
       this.options
     );

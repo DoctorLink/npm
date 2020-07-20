@@ -14,8 +14,10 @@ import {
 } from '../Actions';
 import { SummaryQuestion } from '../Models';
 
-export class TraversalsBaseServiceSagas extends BaseServiceSagas {
-  constructor(service: TraversalsBaseService) {
+export class TraversalsBaseServiceSagas<
+  TService extends TraversalsBaseService
+> extends BaseServiceSagas {
+  constructor(service: TService) {
     super();
 
     this.getQuestions = this.effect(
@@ -42,7 +44,7 @@ export class TraversalsBaseServiceSagas extends BaseServiceSagas {
     this.service = service;
   }
 
-  public service: TraversalsBaseService;
+  public service: TService;
 
   public getQuestions: ForkEffect<never>;
   public getConclusionReport: ForkEffect<never>;

@@ -1,12 +1,13 @@
 import { ForkEffect } from 'redux-saga/effects';
 import { ChatTraversalRootState } from '../../Models';
 import { chatRootReducersMapObject } from '../../Reducers/root';
-import { TraversalsBaseServiceSagas } from '../../Sagas/TraversalsBaseServiceSagas';
 import { ChatTraversalsServiceSagas } from '../../Sagas/ChatTraversals';
 import { TraversalBaseStore } from '../TraversalBaseStore';
+import { ChatTraversalsService } from 'Services';
 
 export class ChatTraversalStore extends TraversalBaseStore<
-  ChatTraversalRootState
+  ChatTraversalRootState,
+  ChatTraversalsService
 > {
   constructor(
     engineBase: string,
@@ -14,7 +15,7 @@ export class ChatTraversalStore extends TraversalBaseStore<
     moreEffects?: ForkEffect<never>[],
     tokenFactory?: () => Promise<string | null>
   ) {
-    const traversalService: TraversalsBaseServiceSagas = new ChatTraversalsServiceSagas(
+    const traversalService = new ChatTraversalsServiceSagas(
       engineBase,
       tokenFactory
     );

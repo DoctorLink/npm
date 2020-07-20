@@ -38,6 +38,7 @@ export const traversalReducer: TraversalReducer = (
       return {
         ...state,
         loading: true,
+        previous: false,
       };
     case TRAVERSAL_REVISIT_POST_REQUEST:
     case TRAVERSAL_PREVIOUS_POST_REQUEST:

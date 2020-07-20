@@ -18,7 +18,9 @@ import {
 import { ChatTraversalsResponse } from '../../Models/Service/ChatTraversals';
 import flatten from '../../Helpers/flattenTraversalChat';
 
-export class ChatTraversalsServiceSagas extends TraversalsBaseServiceSagas {
+export class ChatTraversalsServiceSagas extends TraversalsBaseServiceSagas<
+  ChatTraversalsService
+> {
   constructor(
     controllerBase: string,
     tokenFactory?: () => Promise<string | null>

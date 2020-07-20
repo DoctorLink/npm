@@ -1,12 +1,7 @@
 import merge from 'lodash.merge';
 import base, { BaseTheme } from './base';
 import component, { ComponentTheme } from './components';
-
-// Makes all properties of a type optional, along with sub-properties recursively.
-// Adapted from https://stackoverflow.com/a/49936686/3248302, simplified by removing unnecessary (for our purposes) support for arrays.
-type DeepPartial<T> = {
-  [P in keyof T]?: DeepPartial<T[P]>;
-};
+import { DeepPartial } from 'Models/Utility';
 
 export interface RootTheme extends BaseTheme, ComponentTheme {}
 

@@ -21,7 +21,9 @@ import {
 import { TraversalsResponse } from '../../Models/Service/Traversals';
 import flatten from '../../Helpers/flattenTraversalNodeCollection';
 
-export class TraversalsServiceSagas extends TraversalsBaseServiceSagas {
+export class TraversalsServiceSagas extends TraversalsBaseServiceSagas<
+  TraversalsService
+> {
   constructor(
     controllerBase: string,
     tokenFactory?: () => Promise<string | null>
