@@ -5,7 +5,7 @@ import {
   TRAVERSAL_CHECKBOX_TOGGLE,
   TRAVERSAL_VALUE_CHANGE,
 } from '../../Actions';
-import { TraversalAnswer } from '.../../Models';
+import { TraversalAnswer } from '../../Models';
 
 export const answersReducer: Reducer<
   Record<string, TraversalAnswer>,

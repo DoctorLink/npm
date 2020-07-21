@@ -4,7 +4,7 @@ import {
   traversalValueChange,
 } from '../../src/Actions';
 import { answersReducer } from '../../src/Reducers';
-import { TraversalAnswer } from 'Models';
+import { TraversalAnswer } from '../../src/Models';
 
 describe('Answers reducer', () => {
   let state: Record<string, TraversalAnswer>;

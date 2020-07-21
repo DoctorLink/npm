@@ -3,7 +3,7 @@ import {
   defaultTraversalActions,
   defaultTraversalComponents,
 } from './defaults';
-import { TraversalAnswer, TraversalQuestion } from 'Models';
+import { TraversalAnswer, TraversalQuestion } from '../../Models';
 
 export const TraversalResponse: React.FC<{
   question: TraversalQuestion;

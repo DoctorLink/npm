@@ -1,5 +1,5 @@
 import flattenTraversalNodeCollection from '../src/Helpers/flattenTraversalNodeCollection';
-import { TraversalModel, TraversalsResponse } from 'Models';
+import { TraversalModel, TraversalsResponse } from '../src/Models';
 
 describe('flattenTraversalNodeCollection', () => {
   const json: TraversalsResponse = {

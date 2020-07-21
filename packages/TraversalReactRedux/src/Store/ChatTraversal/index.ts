@@ -3,7 +3,7 @@ import { ChatTraversalRootState } from '../../Models';
 import { chatRootReducersMapObject } from '../../Reducers/root';
 import { ChatTraversalsServiceSagas } from '../../Sagas/ChatTraversals';
 import { TraversalBaseStore } from '../TraversalBaseStore';
-import { ChatTraversalsService } from 'Services';
+import { ChatTraversalsService } from '../../Services';
 
 export class ChatTraversalStore extends TraversalBaseStore<
   ChatTraversalRootState,

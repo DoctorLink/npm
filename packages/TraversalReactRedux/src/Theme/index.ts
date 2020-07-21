@@ -1,7 +1,7 @@
 import merge from 'lodash.merge';
 import base, { BaseTheme } from './base';
 import component, { ComponentTheme } from './components';
-import { DeepPartial } from 'Models/Utility';
+import { DeepPartial } from '../Models/Utility';
 
 export interface RootTheme extends BaseTheme, ComponentTheme {}
 
