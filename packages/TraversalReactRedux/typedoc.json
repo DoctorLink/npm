@@ -1,0 +1,11 @@
+{
+    "inputFiles": [
+        "./src"
+    ],
+    "mode": "modules",
+    "out": "docs",
+    "ignoreCompilerErrors": "true",
+    "readme": "./src/typedoc.md",
+    "media": "./static",
+    "hideGenerator": true
+}

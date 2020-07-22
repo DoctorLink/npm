@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.doctorlink.com/" rel="noopener" target="_blank"><img width="200" src="/static/logo.png" alt="Doctorlink Design System"></a></p>
+  <a href="https://www.doctorlink.com/" rel="noopener" target="_blank"><img width="200" src="/static/logo.png" alt="Doctorlink Traversal Tools"></a></p>
 </p>
 
 <h1 align="center">DoctorLink Traversal Client Tools</h1>

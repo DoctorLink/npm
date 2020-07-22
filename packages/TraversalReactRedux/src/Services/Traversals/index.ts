@@ -1,4 +1,5 @@
 import { TraversalsBaseService } from '../TraversalsBaseService';
+import { ServiceResponse } from '../../Models/Service';
 import {
   TraversalsCreate,
   TraversalsRespond,
@@ -6,7 +7,16 @@ import {
   TraversalsResponse,
 } from '../../Models/Service/Traversals';
 
+/**
+ * A class for the Traversal Engine ChatTraversal Controller.\
+ * https://prod-platform-traversal-engine.doctorlink.engineering/api-docs/v2/index.html#tag/Traversals
+ */
 export class TraversalsService extends TraversalsBaseService {
+  /**
+   * Sets the [[controllerName]] to 'Traversals'.
+   * @param controllerBase - The service's [[controllerBase]]
+   * @param tokenFactory - Optional factory to set [[options]]'s token before [[fetch]] calls.'
+   */
   constructor(
     controllerBase: string,
     tokenFactory?: () => Promise<string | null>
@@ -14,48 +24,82 @@ export class TraversalsService extends TraversalsBaseService {
     super(controllerBase, 'Traversals', tokenFactory);
   }
 
-  public create = (body: TraversalsCreate) =>
+  /**
+   * Create a Traversal.\
+   * https://prod-platform-traversal-engine.doctorlink.engineering/api-docs/v2/index.html#operation/Traversals_CreateAsync
+   * @param body - The post body.
+   */
+  public create = (
+    body: TraversalsCreate
+  ): Promise<ServiceResponse<TraversalsResponse>> =>
     this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}`,
       {
-        ...this.options,
         method: 'POST',
         body: JSON.stringify(body),
       }
     );
 
-  public respond = (traversalId: string, body: TraversalsRespond[]) =>
+  /**
+   * Respond to a Traversal.\
+   * https://prod-platform-traversal-engine.doctorlink.engineering/api-docs/v2/index.html#operation/Traversals_RespondAsync
+   * @param traversalId - The traversal Id.
+   * @param body - The post body.
+   */
+  public respond = (
+    traversalId: string,
+    body: TraversalsRespond[]
+  ): Promise<ServiceResponse<TraversalsResponse>> =>
     this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/respond`,
       {
-        ...this.options,
         method: 'POST',
         body: JSON.stringify(body),
       }
     );
 
-  public revisit = (traversalId: string, body: TraversalsRevisit) =>
+  /**
+   * Revisit a point in a Traversal.\
+   * https://prod-platform-traversal-engine.doctorlink.engineering/api-docs/v2/index.html#operation/Traversals_RevisitAsync
+   * @param traversalId - The traversal Id.
+   * @param body - The post body.
+   */
+  public revisit = (
+    traversalId: string,
+    body: TraversalsRevisit | undefined
+  ): Promise<ServiceResponse<TraversalsResponse>> =>
     this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/revisit`,
       {
-        ...this.options,
         method: 'POST',
         body: JSON.stringify(body),
       }
     );
 
-  public previous = (traversalId: string) =>
+  /**
+   * Revisit the previous node in a Traversal.\
+   * https://prod-platform-traversal-engine.doctorlink.engineering/api-docs/v2/index.html#operation/Traversals_PreviousAsync
+   * @param traversalId - The traversal Id.
+   */
+  public previous = (
+    traversalId: string
+  ): Promise<ServiceResponse<TraversalsResponse>> =>
     this.fetch<TraversalsResponse>(
       `${this.controllerBase}/${this.controllerName}/${traversalId}/previous`,
       {
-        ...this.options,
         method: 'POST',
       }
     );
 
-  public get = (traversalId: string) =>
+  /**
+   * Get a Traversal.\
+   * https://prod-platform-traversal-engine.doctorlink.engineering/api-docs/v2/index.html#operation/Traversals_GetAsync
+   * @param traversalId - The traversal Id.
+   */
+  public get = (
+    traversalId: string
+  ): Promise<ServiceResponse<TraversalsResponse>> =>
     this.fetch<TraversalsResponse>(
-      `${this.controllerBase}/${this.controllerName}/${traversalId}`,
-      this.options
+      `${this.controllerBase}/${this.controllerName}/${traversalId}`
     );
 }
