@@ -1,0 +1,30 @@
+{
+  "name": "@doctorlink/http",
+  "version": "0.0.0",
+  "description": "Doctorlink Service Classes",
+  "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
+  "homepage": "",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "docs": "typedoc --options ../../typedoc.json",
+    "start": "run-p 'build:** -- --watch'",
+    "test": "tsc --noEmit && jest test"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}

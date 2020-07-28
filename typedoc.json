@@ -1,0 +1,12 @@
+{
+    "inputFiles": [
+        "./src"
+    ],
+    "mode": "file",
+    "out": "docs",
+    "readme": "./src/typedoc.md",
+    "media": "../../static",
+    "hideGenerator": true,
+    "target": "es6",
+    "theme": "minimal"
+}
