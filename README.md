@@ -1,5 +1,5 @@
 <p align="center">
-  <a href="https://www.doctorlink.com/" rel="noopener" target="_blank"><img width="200" src="assets/images/logo.png" alt="Doctorlink"></a></p>
+  <a href="https://www.doctorlink.com/" rel="noopener" target="_blank"><img width="200" src="typedoc/theme/assets/images/logo.png" alt="Doctorlink"></a></p>
 </p>
 
 <h1 align="center">DoctorLink NPM</h1>
