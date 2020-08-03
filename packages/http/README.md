@@ -1,11 +1,7 @@
-# `service`
+# `@doctorlink/http`
 
-> TODO: description
+Axios http classes.
 
-## Usage
+[Documentation](https://npm.doctorlink.com/modules/_doctorlink_http)
 
-```
-const service = require('service');
-
-// TODO: DEMONSTRATE API
-```
+[NPM](https://www.npmjs.com/package/@doctorlink/http)

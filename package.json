@@ -27,7 +27,12 @@
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "regenerator-runtime": "^0.13.7",
+    "rimraf": "^3.0.2",
+    "serve": "^11.3.2",
     "typedoc": "^0.17.8",
+    "typedoc-plugin-exclude-references": "^1.0.0",
+    "typedoc-plugin-lerna-packages": "^0.3.0",
     "typescript": "^3.9.7"
   },
   "eslintConfig": {
@@ -45,7 +50,8 @@
     ],
     "rules": {
       "no-console": 1,
-      "prettier/prettier": 2
+      "prettier/prettier": 2,
+      "no-case-declarations": 0
     }
   },
   "prettier": {
@@ -60,10 +66,13 @@
     }
   },
   "scripts": {
-    "docs": "lerna run docs --stream",
-    "lint": "eslint . --ext .ts,.tsx",
-    "lint-fix": "eslint . --ext .ts,.tsx --fix",
+    "build": "lerna run build --stream",
+    "docs": "rimraf docs && typedoc --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
+    "docs:serve": "npm run docs && serve docs",
+    "lint": "eslint ./packages --ext .ts,.tsx",
+    "lint-fix": "eslint ./packages --ext .ts,.tsx --fix",
     "start:http": "lerna run start --scope @doctorlink/http --stream",
+    "start:redux": "lerna run start --scope @doctorlink/redux --stream",
     "test": "lerna run test --stream"
   }
 }
