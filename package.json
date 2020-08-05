@@ -77,6 +77,7 @@
     }
   },
   "scripts": {
+    "bootstrap": "lerna exec npm install",
     "build": "lerna run build --stream",
     "docs": "rimraf docs && typedoc --options typedoc/typedoc.json --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
     "docs:serve": "npm run docs && serve docs",

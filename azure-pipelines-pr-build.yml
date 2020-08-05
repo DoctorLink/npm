@@ -19,6 +19,10 @@ steps:
       displayName: 'npm install'
 
     - script: |
+          npm run bootstrap
+      displayName: 'npm run bootstrap'
+
+    - script: |
           npm run build
       displayName: 'npm run build'
 
