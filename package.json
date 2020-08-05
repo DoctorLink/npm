@@ -77,7 +77,6 @@
     }
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap",
     "build": "lerna run build --stream",
     "docs": "rimraf docs && typedoc --options typedoc/typedoc.json --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
     "docs:serve": "npm run docs && serve docs",
@@ -87,6 +86,6 @@
     "start:redux": "lerna run start --scope @doctorlink/traversal-redux --stream",
     "start:sc": "lerna run start --scope @doctorlink/styled-components --stream",
     "test": "lerna run test --stream",
-    "postinstall": "rm -rf node_modules/@types/react-native"
+    "prepare": "lerna bootstrap && rimraf node_modules/@types/react-native && npm run build"
   }
 }

@@ -19,21 +19,13 @@ steps:
       displayName: 'npm install'
 
     - script: |
-          npm run bootstrap
-      displayName: 'npm run bootstrap'
-
-    - script: |
-          npm run postinstall
-      displayName: 'npm run postinstall'
-
-    - script: |
-          npm run build
-      displayName: 'npm run build'
-
-    - script: |
           npm run test
       displayName: 'npm run test'
 
     - script: |
           npm run lint
       displayName: 'npm run lint'
+
+    - script: |
+          npm run docs
+      displayName: 'npm run docs'
