@@ -19,12 +19,12 @@ steps:
       displayName: 'npm install'
 
     - script: |
-          npm run test
-      displayName: 'npm run test'
-
-    - script: |
           npm run build
       displayName: 'npm run build'
+
+    - script: |
+          npm run test
+      displayName: 'npm run test'
 
     - script: |
           npm run lint
