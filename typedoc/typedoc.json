@@ -1,0 +1,15 @@
+{
+    "name": "@doctorlink",
+    "mode": "modules",
+    "out": "docs",
+    "readme": "./typedoc/typedoc.md",
+    "hideGenerator": true,
+    "target": "es6",
+    "theme": "./typedoc/theme",
+    "exclude": [
+        "**/node_modules/**",
+        "**/*.test.ts",
+        "**/*.test.tsx",
+        "**/typedoc/**"
+    ]
+}

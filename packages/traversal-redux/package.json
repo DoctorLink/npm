@@ -1,0 +1,42 @@
+{
+  "name": "@doctorlink/traversal-redux",
+  "version": "0.0.0",
+  "description": "Doctorlink's redux actions and reducers",
+  "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
+  "homepage": "https://github.com/DoctorLink/npm#readme",
+  "main": "lib/index.js",
+  "typings": "lib/index.d.ts",
+  "directories": {
+    "lib": "lib",
+    "test": "test"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoctorLink/npm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DoctorLink/npm/issues"
+  },
+  "scripts": {
+    "build": "npm run build:types && npm run build:js",
+    "build:types": "tsc --emitDeclarationOnly",
+    "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
+    "start": "run-p 'build:** -- --watch'",
+    "test": "tsc --noEmit && jest test"
+  },
+  "dependencies": {
+    "@doctorlink/traversal-core": "^0.0.0",
+    "axios": "^0.19.2",
+    "normalizr": "^3.6.0",
+    "redux": "^4.0.5",
+    "redux-devtools-extension": "^2.13.8",
+    "redux-saga": "^1.1.3",
+    "reselect": "^4.0.0"
+  }
+}

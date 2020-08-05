@@ -11,15 +11,19 @@
     "@babel/preset-react": "^7.10.4",
     "@babel/preset-typescript": "^7.10.4",
     "@types/jest": "^26.0.7",
+    "@types/lodash.merge": "^4.6.6",
     "@types/node": "^14.0.24",
-    "@types/react": "^16.9.43",
+    "@types/react": "^16.9.44",
     "@types/react-dom": "^16.9.8",
+    "@types/react-redux": "^7.1.9",
+    "@types/styled-components": "^5.1.2",
     "@typescript-eslint/eslint-plugin": "^3.7.1",
     "@typescript-eslint/parser": "^3.7.1",
     "babel-jest": "^26.1.0",
     "eslint": "^7.5.0",
     "eslint-config-prettier": "^6.11.0",
     "eslint-plugin-prettier": "^3.1.4",
+    "eslint-plugin-react": "^7.20.5",
     "husky": "^4.2.5",
     "jest": "^26.1.0",
     "lerna": "^3.22.1",
@@ -27,12 +31,14 @@
     "prettier": "^2.0.5",
     "react": "^16.13.1",
     "react-dom": "^16.13.1",
+    "react-redux": "^7.2.1",
     "regenerator-runtime": "^0.13.7",
     "rimraf": "^3.0.2",
     "serve": "^11.3.2",
-    "typedoc": "^0.17.8",
+    "styled-components": "^5.1.1",
+    "typedoc": "^0.16.11",
     "typedoc-plugin-exclude-references": "^1.0.0",
-    "typedoc-plugin-lerna-packages": "^0.3.0",
+    "typedoc-plugin-lerna-packages": "^0.3.1",
     "typescript": "^3.9.7"
   },
   "eslintConfig": {
@@ -44,6 +50,7 @@
     ],
     "extends": [
       "eslint:recommended",
+      "plugin:react/recommended",
       "plugin:@typescript-eslint/eslint-recommended",
       "plugin:@typescript-eslint/recommended",
       "prettier"
@@ -51,7 +58,11 @@
     "rules": {
       "no-console": 1,
       "prettier/prettier": 2,
-      "no-case-declarations": 0
+      "no-case-declarations": 1,
+      "@typescript-eslint/no-empty-interface": 1,
+      "@typescript-eslint/no-empty-function": 1,
+      "react/prop-types": 1,
+      "react/display-name": 1
     }
   },
   "prettier": {
@@ -67,12 +78,14 @@
   },
   "scripts": {
     "build": "lerna run build --stream",
-    "docs": "rimraf docs && typedoc --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
+    "docs": "rimraf docs && typedoc --options typedoc/typedoc.json --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
     "docs:serve": "npm run docs && serve docs",
     "lint": "eslint ./packages --ext .ts,.tsx",
     "lint-fix": "eslint ./packages --ext .ts,.tsx --fix",
-    "start:http": "lerna run start --scope @doctorlink/http --stream",
-    "start:redux": "lerna run start --scope @doctorlink/redux --stream",
-    "test": "lerna run test --stream"
+    "start:core": "lerna run start --scope @doctorlink/traversal-core --stream",
+    "start:redux": "lerna run start --scope @doctorlink/traversal-redux --stream",
+    "start:sc": "lerna run start --scope @doctorlink/styled-components --stream",
+    "test": "lerna run test --stream",
+    "postinstall": "rm -rf node_modules/@types/react-native"
   }
 }
