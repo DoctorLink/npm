@@ -5,7 +5,13 @@
 <h1 align="center">DoctorLink NPM</h1>
 
 <div align="center">
+NPM Packages made by <a href="https://www.doctorlink.com/" rel="noopener" target="_blank">Doctorlink</a>
+</div>
 
-Documentation for <a href="https://github.com/DoctorLink/npm" rel="noopener" target="_blank">Doctorlink npm packages.</a>
+<div align="center">
+View the documentation at <a href="https://npm.doctorlink.com" rel="noopener" target="_blank">npm.doctorlink.com</a>
+</div>
 
+<div align="center">
+Guides available at <a href="https://developer.doctorlink.com" rel="noopener" target="_blank">developer.doctorlink.com</a>
 </div>

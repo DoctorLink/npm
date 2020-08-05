@@ -36,7 +36,7 @@
     "rimraf": "^3.0.2",
     "serve": "^11.3.2",
     "styled-components": "^5.1.1",
-    "typedoc": "^0.16.11",
+    "typedoc": "^0.17.8",
     "typedoc-plugin-exclude-references": "^1.0.0",
     "typedoc-plugin-lerna-packages": "^0.3.1",
     "typescript": "^3.9.7"
@@ -77,15 +77,16 @@
     }
   },
   "scripts": {
+    "bootstrap": "lerna bootstrap && rimraf node_modules/@types/react-native",
     "build": "lerna run build --stream",
-    "docs": "rimraf docs && typedoc --options typedoc/typedoc.json --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
-    "docs:serve": "npm run docs && serve docs",
+    "docs": "rimraf typedoc/docs && typedoc --options typedoc/typedoc.json --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
+    "docs:serve": "npm run docs && serve typedoc/docs",
     "lint": "eslint ./packages --ext .ts,.tsx",
     "lint-fix": "eslint ./packages --ext .ts,.tsx --fix",
     "start:core": "lerna run start --scope @doctorlink/traversal-core --stream",
     "start:redux": "lerna run start --scope @doctorlink/traversal-redux --stream",
     "start:sc": "lerna run start --scope @doctorlink/styled-components --stream",
     "test": "lerna run test --stream",
-    "prepare": "lerna bootstrap && rimraf node_modules/@types/react-native && npm run build"
+    "prepare": "npm run bootstrap && npm run build"
   }
 }

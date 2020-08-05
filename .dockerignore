@@ -1,0 +1,9 @@
+**/obj
+**/bin
+**/.vs
+**/.vscode
+**/.git
+**/.gitignore
+**/node_modules
+**/npm-debug.log
+**/Dockerfile
