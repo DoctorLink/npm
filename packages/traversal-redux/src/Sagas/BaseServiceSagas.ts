@@ -15,7 +15,7 @@ export class BaseServiceSagas {
   ) =>
     takeLatest(pattern, function* (action: T1) {
       try {
-        const response = yield call(request, buildCallArgs(action));
+        const response = yield call(request, ...buildCallArgs(action));
         yield put(buildAction(response.data));
       } catch (error) {
         yield put(serviceSagaError(error));

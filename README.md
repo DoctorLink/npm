@@ -16,9 +16,10 @@ View the documentation at <a href="https://npm.doctorlink.com" rel="noopener" ta
 Guides available at <a href="https://developer.doctorlink.com" rel="noopener" target="_blank">developer.doctorlink.com</a>
 </div>
 
+<p align="center"><a href="https://lerna.js.org/"><img src="https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg" alt="lerna"></a></p>
 
-[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
-[![Build Status](https://dev.azure.com/doctorlink-engineering/ENG/_apis/build/status/DoctorLink.npm?branchName=master)](https://dev.azure.com/doctorlink-engineering/ENG/_build/latest?definitionId=65&branchName=master)
+<p align="center"><a href="https://dev.azure.com/doctorlink-engineering/ENG/_build/latest?definitionId=65&amp;branchName=master"><img src="https://dev.azure.com/doctorlink-engineering/ENG/_apis/build/status/DoctorLink.npm?branchName=master" alt="Build Status"></a></p>
+
 
 ## Contents
 
@@ -27,3 +28,24 @@ Guides available at <a href="https://developer.doctorlink.com" rel="noopener" ta
 |[traversal-core](packages/traversal-core)      |Traversal models, helpers and http services|<a href="https://www.npmjs.com/package/@doctorlink/traversal-core" rel="noopener" target="_blank">:link:</a>   |
 |[traversal-redux](packages/traversal-redux)    |Traversal redux actions, reducers and sagas|<a href="https://www.npmjs.com/package/@doctorlink/traversal-redux" rel="noopener" target="_blank">:link:</a>  |
 |[styled-components](packages/styled-components)|DoctorLink styled components               |<a href="https://www.npmjs.com/package/@doctorlink/styled-components" rel="noopener" target="_blank">:link:</a>|
+
+## Development 
+
+When developing locally use `npm link /absoulte/path/to/this/repo/packages/package-name` on the package/s you need. 
+
+If you are linking to a package that uses react run this command first:
+
+```bash
+npm run prelink
+```
+
+This will remove some dev dependencies that cause issues when linking. **Tests will fail because of this**.
+
+When you are finished  run the following:
+
+
+```bash
+npm run postlink
+```
+
+This will reinstall the dev dependencies so tests will pass again.
