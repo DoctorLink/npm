@@ -34,6 +34,11 @@ steps:
       displayName: 'npm run docs'
 
     - script: |
+          echo '//registry.npmjs.org/:_authToken=$(token)' > .npmrc
+      displayName: 'npmrc token'
+      condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
+
+    - script: |
           npm run publish
       displayName: 'npm run publish'
       condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
