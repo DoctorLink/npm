@@ -87,6 +87,7 @@
     "start:redux": "lerna run start --scope @doctorlink/traversal-redux --stream",
     "start:sc": "lerna run start --scope @doctorlink/styled-components --stream",
     "test": "lerna run test --stream",
-    "prepare": "npm run bootstrap && npm run build"
+    "prepare": "npm run bootstrap && npm run build",
+    "publish": "lerna publish from-package -y"
   }
 }

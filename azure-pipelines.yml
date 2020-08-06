@@ -34,8 +34,8 @@ steps:
       displayName: 'npm run docs'
 
     - script: |
-          lerna publish from-package -y
-      displayName: 'lerna publish from-package'
+          npm run publish
+      displayName: 'npm run publish'
       condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
 
     - task: Docker@2
