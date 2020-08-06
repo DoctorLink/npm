@@ -44,3 +44,4 @@ steps:
         repository: 'doctorlink/npm'
         command: 'buildAndPush'
         Dockerfile: '**/Dockerfile'
+      condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
