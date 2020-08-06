@@ -1,4 +1,7 @@
-trigger: none
+trigger: 
+  branches:
+    include:
+    - master
 
 pr:
   branches:
@@ -29,3 +32,8 @@ steps:
     - script: |
           npm run docs
       displayName: 'npm run docs'
+
+    - script: |
+          lerna publish from-package -y
+      displayName: 'lerna publish from-package'
+      condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
