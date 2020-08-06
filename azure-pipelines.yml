@@ -37,3 +37,10 @@ steps:
           lerna publish from-package -y
       displayName: 'lerna publish from-package'
       condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
+
+    - task: Docker@2
+      inputs:
+        containerRegistry: 'Doctorlink Platform DVLP new'
+        repository: 'doctorlink/npm'
+        command: 'buildAndPush'
+        Dockerfile: '**/Dockerfile'
