@@ -38,12 +38,6 @@ steps:
       displayName: 'npmrc token'
       condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
 
-
-    - script: |
-          git update-index --assume-unchanged .npmrc
-      displayName: 'git index'
-      condition: and(succeeded(), or(eq(variables['force.push'], true), eq(variables['build.sourceBranch'], 'refs/heads/master')))
-
     - script: |
           npm run publish
       displayName: 'npm run publish'
