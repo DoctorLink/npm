@@ -1,3 +1,5 @@
+import { ControlType } from './Service/traversalsBase';
+
 interface TraversalBaseModel {
   traversalId: string;
   algoId: number;
@@ -55,13 +57,17 @@ export interface TraversalAnswer {
   controlChecked?: boolean;
 }
 
-export type ControlType = 'Checkbox' | 'Radio' | 'Number' | 'Date' | 'Text';
-
+/**
+ * The assessmnet type of a traversal.
+ */
 export interface TraversalError {
   questionId: number;
   text: string;
 }
 
+/**
+ * The assessmnet type of a traversal.
+ */
 export enum AssessmentType {
   SymptomChecker = 1,
   HealthAssessment = 2,

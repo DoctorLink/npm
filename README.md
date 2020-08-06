@@ -16,6 +16,10 @@ View the documentation at <a href="https://npm.doctorlink.com" rel="noopener" ta
 Guides available at <a href="https://developer.doctorlink.com" rel="noopener" target="_blank">developer.doctorlink.com</a>
 </div>
 
+
+[![lerna](https://img.shields.io/badge/maintained%20with-lerna-cc00ff.svg)](https://lerna.js.org/)
+[![Build Status](https://dev.azure.com/doctorlink-engineering/ENG/_apis/build/status/DoctorLink.npm?branchName=master)](https://dev.azure.com/doctorlink-engineering/ENG/_build/latest?definitionId=65&branchName=master)
+
 ## Contents
 
 |Package                                        |Description                                | NPM                                                                                                           |
