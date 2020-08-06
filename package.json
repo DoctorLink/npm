@@ -77,17 +77,20 @@
     }
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap && rimraf node_modules/@types/react-native",
+    "bootstrap": "lerna bootstrap --hoist && rimraf node_modules/@types/react-native",
     "build": "lerna run build --stream",
     "docs": "rimraf typedoc/docs && typedoc --options typedoc/typedoc.json --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
     "docs:serve": "npm run docs && serve typedoc/docs",
     "lint": "eslint ./packages --ext .ts,.tsx",
     "lint-fix": "eslint ./packages --ext .ts,.tsx --fix",
+    "start": "run-p 'start:**'",
     "start:core": "lerna run start --scope @doctorlink/traversal-core --stream",
     "start:redux": "lerna run start --scope @doctorlink/traversal-redux --stream",
     "start:sc": "lerna run start --scope @doctorlink/styled-components --stream",
     "test": "lerna run test --stream",
     "prepare": "npm run bootstrap && npm run build",
-    "publish": "lerna publish from-package -y"
+    "publish": "lerna publish from-package -y",
+    "prelink": "rimraf node_modules/react && rimraf node_modules/react-dom && rimraf node_modules/react-redux && rimraf node_modules/styled-componenets",
+    "postlink": "npm i -D react react-dom react-redux styled-components && npm run bootstrap"
   }
 }

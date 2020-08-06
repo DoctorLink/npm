@@ -1,7 +1,7 @@
 {
   "name": "@doctorlink/traversal-core",
   "version": "0.0.1",
-  "description": "Doctorlink's axios http classes",
+  "description": "Doctorlink traversal core package",
   "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
   "homepage": "https://github.com/DoctorLink/npm#readme",
   "main": "lib/index.js",

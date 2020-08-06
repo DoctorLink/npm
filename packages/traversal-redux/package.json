@@ -1,7 +1,7 @@
 {
   "name": "@doctorlink/traversal-redux",
   "version": "0.0.1",
-  "description": "Doctorlink's redux actions and reducers",
+  "description": "Doctorlink traversal redux package",
   "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
   "homepage": "https://github.com/DoctorLink/npm#readme",
   "main": "lib/index.js",
