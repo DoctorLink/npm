@@ -5,3 +5,4 @@ npm-debug.log
 packages/*/lib
 .idea
 .npmrc
+package-lock.json
