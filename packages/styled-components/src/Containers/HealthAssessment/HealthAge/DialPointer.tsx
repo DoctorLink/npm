@@ -1,39 +1,50 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const getTrianglePoints = ({ cx, cy, radius, width, height }: any) => {
-  const bottom = cy - radius;
-  const top = bottom - height;
-  const middle = cx;
-  const left = middle - width / 2;
-  const right = left + width;
-  return `${left} ${bottom}, ${right} ${bottom}, ${middle} ${top}`;
+const getTrianglePoints = ({
+  pointerWidth,
+  pointerHeight,
+  position,
+  boxHeight,
+}: any) => {
+  const bottom = boxHeight;
+  const top = bottom - pointerHeight;
+  const middle = position;
+  const left = position - pointerWidth / 2;
+  const right = left + pointerWidth;
+  return `${left} ${top}, ${right} ${top}, ${middle} ${bottom}`;
 };
 
 interface StyledPolygonProps {
-  cx: any;
-  cy: any;
-  points: any;
-  angle: any;
+  cx: number;
+  cy: number;
 }
 
 const StyledPolygon = styled.polygon<StyledPolygonProps>`
   fill: #000;
-  transform: rotate(${(p) => p.angle}deg);
   transform-origin: ${(p) => p.cx}px ${(p) => p.cy}px;
   transition: transform 0.5s;
+  stroke-linejoin: round;
+  stroke: #000;
+  stroke-width: 0.4;
 `;
 
 const DialPointer: React.FC<{
-  cx: any;
-  cy: any;
-  radius: any;
-  width: any;
-  height: any;
-  angle: any;
-}> = ({ cx, cy, radius, width, height, angle }) => {
-  const points = getTrianglePoints({ cx, cy, radius, width, height });
-  return <StyledPolygon cx={cx} cy={cy} points={points} angle={angle} />;
+  cx: number;
+  cy: number;
+  pointerWidth: number;
+  pointerHeight: number;
+  position: number;
+  boxHeight: number;
+  barHeight: number;
+}> = ({ cx, cy, pointerWidth, pointerHeight, position, boxHeight }) => {
+  const points = getTrianglePoints({
+    pointerWidth,
+    pointerHeight,
+    position,
+    boxHeight,
+  });
+  return <StyledPolygon cx={cx} cy={cy} points={points} />;
 };
 
 export { DialPointer };
