@@ -36,6 +36,7 @@
   "dependencies": {
     "@doctorlink/traversal-core": "^0.0.2",
     "@doctorlink/traversal-redux": "^0.0.2",
+    "@testing-library/jest-dom": "^5.11.2",
     "@types/react-redux": "^7.1.9",
     "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.5",

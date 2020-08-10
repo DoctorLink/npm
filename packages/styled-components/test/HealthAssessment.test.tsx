@@ -12,7 +12,10 @@ import {
   wellnessGetResponse,
 } from '../../traversal-redux/src/Actions/HealthAssessment';
 
-import { HealthAgeModel, HealthRisksModel } from '../src/Models';
+import {
+  HealthAgeModel,
+  HealthRisksModel,
+} from '../../traversal-core/src/Models/HealthAssessment';
 
 describe('HealthAssessment root component', () => {
   // Hacky way to force a re-render after useEffect runs: https://github.com/testing-library/react-testing-library/issues/215#issuecomment-438294336
