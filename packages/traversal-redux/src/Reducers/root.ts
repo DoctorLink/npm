@@ -16,12 +16,11 @@ import {
 } from '@doctorlink/traversal-core';
 
 const reducersMapObject = {
-  summary: summaryReducer as Reducer<SummaryState, Action<any>>,
-  conclusion: conclusionReducer as Reducer<ConclusionState, Action<any>>,
-  healthAssessment: healthAssessmentReducer as Reducer<
-    HealthAssessmentState,
-    Action<any>
-  >,
+  summary: <Reducer<SummaryState, Action<any>>>summaryReducer,
+  conclusion: <Reducer<ConclusionState, Action<any>>>conclusionReducer,
+  healthAssessment: <Reducer<HealthAssessmentState, Action<any>>>(
+    healthAssessmentReducer
+  ),
   modal: modalReducer,
 };
 
