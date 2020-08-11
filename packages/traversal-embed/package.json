@@ -1,0 +1,40 @@
+{
+  "name": "@doctorlink/traversal-embed",
+  "version": "0.0.2",
+  "description": "Doctorlink's embeded traversal client",
+  "keywords": [
+    "doctorlink",
+    "traversal",
+    "react"
+  ],
+  "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
+  "homepage": "https://github.com/DoctorLink/npm#readme",
+  "main": "lib/index.js",
+  "directories": {
+    "lib": "lib"
+  },
+  "files": [
+    "lib"
+  ],
+  "publishConfig": {
+    "access": "public"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/DoctorLink/npm.git"
+  },
+  "bugs": {
+    "url": "https://github.com/DoctorLink/npm/issues"
+  },
+  "scripts": {
+    "browserify": "browserify src/index.tsx -o lib/traversal-embed.js -s traversal -p [ tsify ] -t [ babelify --presets [ @babel/preset-env @babel/preset-typescript @babel/preset-react ] --plugins [ @babel/proposal-class-properties @babel/proposal-object-rest-spread @babel/plugin-transform-runtime ] ] -g [ envify --NODE_ENV production ] -g uglifyify | terser --compress --mangle",
+    "minify": "minify lib/traversal-embed.js > lib/traversal-embed.min.js",
+    "build": "npm run browserify && npm run minify",
+    "serve": "npm run build && serve ."
+  },
+  "dependencies": {
+    "@doctorlink/styled-components": "^0.0.2",
+    "@doctorlink/traversal-core": "^0.0.2",
+    "@doctorlink/traversal-redux": "^0.0.2"
+  }
+}
