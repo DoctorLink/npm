@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <title>Doctorlink Traversal Embedded Client</title>
+  </head>
+  <body>
+    <noscript>
+      You need to enable JavaScript to run this app.
+    </noscript>
+    <div id="id"></div>
+    <script src="lib/traversal-embed.js"></script>
+    <script>
+      var token = 'eyJhbGciOiJSUzI1NiIsImtpZCI6IlRJOFF5S0doVkRkS3hQeEgyYlV2bkEiLCJ0eXAiOiJhdCtqd3QifQ.eyJuYmYiOjE1OTcwOTQ3NTEsImV4cCI6MTU5NzA5ODM1MSwiaXNzIjoiaHR0cHM6Ly9wcm9kLXBsYXRmb3JtLWlkZW50aXR5LmRvY3RvcmxpbmsuZW5naW5lZXJpbmciLCJhdWQiOlsidHJhdmVyc2FsLmVuZ2luZSIsInRyYXZlcnNhbC5ocmEiLCJ0cmF2ZXJzYWwucHJvZHVjdCIsInRyYXZlcnNhbC5yZWxlYXNlIl0sImNsaWVudF9pZCI6IjBlNWFhMmQ3NDk4MzQwMzU5NWRjNDdhZmJkYmFiNzAyIiwiY2xpZW50X3JvbGUiOiJhZG1pbiIsInNjb3BlIjpbInRyYXZlcnNhbC5lbmdpbmUiLCJ0cmF2ZXJzYWwuaHJhIiwidHJhdmVyc2FsLnByb2R1Y3QiLCJ0cmF2ZXJzYWwucmVsZWFzZSJdfQ.FzoKq_4w0RZf7wdEtmBJYKDt_1QS-2H-9xZRFr7vBWhN7rbbfuJOuwp9hNp66jJHjElvgXjXlG7bCMfeEQ0vaaVVolBVNfNdAhbHa3AJUYQnZfIH0kuCrNRrcPq0tUFZB-GPw7o1EPLPnYHHQf8UfoOTXcKmGOMdcPJivQUzm0yQPCc3_Dx7WnYmRn5y6wKpFFUuqlRR2hluAQ4Ju0a-3lmgzGWH4TB9GXyX9T1YxYLQqaTHuYy-_5jqk97XJ2pFSdJuYowNohvRw44woPqYdQsvF3ozxzko7_kne90M_ndyzVldzdjeRUcsq21C3-Timycxm8W7YWpF-wKKlpI0uQ';
+      var options = {
+        urls: {
+          engine: 'https://prod-platform-traversal-engine.doctorlink.engineering/api/v2/0e5aa2d74983403595dc47afbdbab702/'
+        },
+        createOptions: {
+          productId: 1
+        },
+        tokenFactory: () => Promise.resolve(token)
+      }
+      traversal.create('id', options)
+    </script>
+</html>

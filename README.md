@@ -28,10 +28,13 @@ Guides available at <a href="https://developer.doctorlink.com" rel="noopener" ta
 |[traversal-core](packages/traversal-core)      |Traversal models, helpers and http services|<a href="https://www.npmjs.com/package/@doctorlink/traversal-core" rel="noopener" target="_blank">:link:</a>   |
 |[traversal-redux](packages/traversal-redux)    |Traversal redux actions, reducers and sagas|<a href="https://www.npmjs.com/package/@doctorlink/traversal-redux" rel="noopener" target="_blank">:link:</a>  |
 |[styled-components](packages/styled-components)|DoctorLink styled components               |<a href="https://www.npmjs.com/package/@doctorlink/styled-components" rel="noopener" target="_blank">:link:</a>|
+|[traversal-embed](packages/traversal-embed)    |Embedded Traversal Client                  |<a href="https://www.npmjs.com/package/@doctorlink/traversal-embed" rel="noopener" target="_blank">:link:</a>|
 
 ## Development 
 
-When developing locally use `npm link /absoulte/path/to/this/repo/packages/package-name` on the package/s you need. 
+When developing locally, make any changes in a branch and submit a pull request. Use `lerna version` to bump the version.
+
+If linking to an app use `npm link /absoulte/path/to/this/repo/packages/package-name` on the package/s you need. 
 
 If you are linking to a package that uses react run this command first:
 
@@ -45,7 +48,9 @@ When you are finished  run the following:
 
 
 ```bash
-npm run postlink
+npm install
 ```
 
 This will reinstall the dev dependencies so tests will pass again.
+
+**If you get an error about duplicate types run the command** `npm run bootstrap`
