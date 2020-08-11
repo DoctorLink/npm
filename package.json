@@ -69,7 +69,8 @@
     "printWidth": 80,
     "semi": true,
     "singleQuote": true,
-    "trailingComma": "es5"
+    "trailingComma": "es5", 
+    "endOfLine": "auto"
   },
   "husky": {
     "hooks": {
@@ -92,5 +93,6 @@
     "publish": "lerna publish from-package -y --ignore-scripts",
     "prelink": "rimraf node_modules/react && rimraf node_modules/react-dom && rimraf node_modules/react-redux && rimraf node_modules/styled-componenets",
     "postlink": "npm i -D react react-dom react-redux styled-components && npm run bootstrap"
-  }
+  },
+  "dependencies": {}
 }

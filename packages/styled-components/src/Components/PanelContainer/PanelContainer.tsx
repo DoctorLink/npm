@@ -8,10 +8,11 @@ export interface PanelContainerProps {
 
 const Styled = styled(motion.div)<PanelContainerProps>`
   box-sizing: border-box;
-  padding: 0 10px;
+
   float: ${(p) => p.float || 'left'};
 
   @media screen and (min-width: 800px) {
+    padding: 0 10px;
     width: 50%;
   }
 
