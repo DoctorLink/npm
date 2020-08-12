@@ -1,13 +1,14 @@
 import React from 'react';
 import styled from 'styled-components';
+import { TraversalError } from '@doctorlink/traversal-core';
 import { defaultTheme } from '../../Theme';
 
-interface Props {
+interface ContainerProps {
   textAlign: string;
-  justifyContent: string;
+  justifyContent?: string;
 }
 
-const Container = styled.div<Props>`
+const Container = styled.div<ContainerProps>`
   display: flex;
   justify-content: ${(props) => props.justifyContent || 'flex-start'};
   text-align: ${(p) => p.textAlign};
@@ -51,13 +52,22 @@ ErrorText.defaultProps = {
   theme: defaultTheme,
 };
 
-const TableHeaderCell: React.FC<{
-  text: any;
-  error: any;
-  justifyContent: any;
-  textAlign: any;
-  colspan: any;
-}> = ({ text, error, justifyContent, textAlign, colspan, children }) => (
+export interface TableHeaderCellProps {
+  text: string;
+  error?: TraversalError;
+  colspan?: number;
+  textAlign?: string;
+  justifyContent?: string;
+}
+
+const TableHeaderCell: React.FC<TableHeaderCellProps> = ({
+  text,
+  error,
+  justifyContent,
+  textAlign = 'center',
+  colspan = 1,
+  children,
+}) => (
   <th colSpan={colspan}>
     <Container textAlign={textAlign} justifyContent={justifyContent}>
       <DisplayText dangerouslySetInnerHTML={{ __html: text }} />
@@ -66,10 +76,5 @@ const TableHeaderCell: React.FC<{
     {error && <ErrorText>{error.text}</ErrorText>}
   </th>
 );
-
-TableHeaderCell.defaultProps = {
-  colspan: 1,
-  textAlign: 'center',
-};
 
 export default TableHeaderCell;

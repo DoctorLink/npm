@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { FC, InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
@@ -22,8 +22,11 @@ StyledInput.defaultProps = {
   theme: defaultTheme,
 };
 
-const DateField: React.FC<any> = ({ className, checked, ...props }) => (
-  <StyledInput className={className} {...props} />
-);
+const DateField: FC<InputHTMLAttributes<HTMLInputElement>> = ({
+  className,
+  checked,
+  type,
+  ...props
+}) => <StyledInput className={className} {...props} />;
 
 export default DateField;

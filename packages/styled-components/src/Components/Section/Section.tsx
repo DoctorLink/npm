@@ -7,7 +7,11 @@ const Text = styled.div`
   padding: 10px;
 `;
 
-export const Section: React.FC<{ text: any }> = ({ text }) =>
-  text && <Text>{text}</Text>;
+export interface SectionProps {
+  text: string;
+}
+
+export const Section: React.FC<SectionProps> = ({ text }) =>
+  text ? <Text>{text}</Text> : null;
 
 export default Section;

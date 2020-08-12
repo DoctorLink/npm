@@ -8,6 +8,7 @@ import {
 import { TraversalTable } from './TraversalTable';
 import { TraversalResponse } from './TraversalResponse';
 import { TraversalCallbacks } from './TraversalCallbacks';
+import { TraversalComponents } from './TraversalComponents';
 import { useTraversalScroll } from '../../Hooks';
 
 export interface TraversalFormProps {
@@ -15,7 +16,7 @@ export interface TraversalFormProps {
   containerRef?: MutableRefObject<any>;
   minWidthTable?: number;
   actions?: TraversalCallbacks;
-  components?: Partial<typeof defaultTraversalComponents>;
+  components?: Partial<TraversalComponents>;
 }
 
 export const TraversalForm: React.FC<TraversalFormProps> = ({

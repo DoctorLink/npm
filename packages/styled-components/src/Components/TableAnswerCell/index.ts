@@ -1,1 +1,1 @@
-export { default } from './TableAnswerCell';
+export { default, TableAnswerCellProps } from './TableAnswerCell';

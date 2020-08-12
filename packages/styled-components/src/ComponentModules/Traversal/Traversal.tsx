@@ -8,6 +8,7 @@ import {
 } from './defaults';
 import { TraversalForm } from './TraversalForm';
 import { TraversalCallbacks } from './TraversalCallbacks';
+import { TraversalComponents } from './TraversalComponents';
 
 const FlexButton = styled.div`
   flex: 1;
@@ -66,7 +67,7 @@ export interface TraversalProps {
   minWidthTable?: number;
   labels?: TraversalLabels;
   actions?: TraversalCallbacks;
-  components?: Partial<typeof defaultTraversalComponents>;
+  components?: Partial<TraversalComponents>;
 }
 
 export const Traversal: React.FC<TraversalProps> = ({

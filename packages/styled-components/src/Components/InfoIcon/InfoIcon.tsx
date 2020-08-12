@@ -65,17 +65,15 @@ Container.defaultProps = {
   theme: defaultTheme,
 };
 
-const InfoIcon: React.FC<any> = ({
-  onClick,
-  explanation,
-  inline,
-  padRight,
-  ...props
-}) => {
+export interface InfoIconProps {
+  onClick: (explanation: string) => void;
+  explanation: string | null | undefined;
+}
+
+const InfoIcon: React.FC<InfoIconProps> = ({ onClick, explanation }) => {
   if (!explanation || explanation === '' || !onClick) return null;
   return (
     <Container
-      theme={props.theme}
       onClick={(e) => {
         e.preventDefault();
         onClick(explanation);

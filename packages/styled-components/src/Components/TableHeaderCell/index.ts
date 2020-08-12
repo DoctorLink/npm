@@ -1,1 +1,1 @@
-export { default } from './TableHeaderCell';
+export { default, TableHeaderCellProps } from './TableHeaderCell';
