@@ -7,6 +7,7 @@ const StyledLine = styled.line`
   stroke: ${colors.grey300};
   stroke-width: 0.5;
   stroke-dasharray: 0.3 0.6;
+  opacity: 0.5;
 `;
 
 const GridLine: React.FC<{ percent: any; length: any }> = ({

@@ -1,22 +1,21 @@
 import React from 'react';
-import {
-  Panel,
-  HealthReportPanelHeader,
-  PanelContent,
-} from '../../../Components';
+import { Panel, PanelContent } from '../../../Components';
 import CheckableConclusions from './CheckableConclusions';
+import CheckableConclusionHeader from '../../../Components/CheckableConclusionHeader';
+import styled from 'styled-components';
 
+const StyledPanelContent = styled(PanelContent)`
+  border-radius: 0 0 8px 8px;
+`;
 const CheckableConclusionsPanel: React.FC<{
   traversalId: any;
   conclusions: any;
 }> = ({ conclusions }) => (
   <Panel>
-    <HealthReportPanelHeader>
-      See the impact of making the following changes to your lifestyle
-    </HealthReportPanelHeader>
-    <PanelContent>
+    <CheckableConclusionHeader />
+    <StyledPanelContent>
       <CheckableConclusions conclusions={conclusions} />
-    </PanelContent>
+    </StyledPanelContent>
   </Panel>
 );
 

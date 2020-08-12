@@ -13,7 +13,6 @@ export const PanelBodyText = styled.div<PanelBodyTextProps>`
     p.contrastText ? p.theme.colors.white : 'rgba(0, 0, 0, 0.87)'};
   font-size: ${(p) => p.theme.panelbodytext.fontSize}px;
   font-family: ${(p) => p.theme.panelbodytext.fontFamily};
-  font-weight: 400;
   line-height: ${(p) => p.theme.panelbodytext.lineHeight}px;
   font-weight: ${(p) => (p.bold ? 'bold' : 'normal')};
 `;

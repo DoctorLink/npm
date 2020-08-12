@@ -7,10 +7,18 @@ import { useHealthAge } from '../Hooks';
 
 const Centered = styled(PanelBodyText)`
   text-align: center;
+  @media screen and (min-width: 800px) {
+    margin-top: 20px;
+  }
 `;
 
 const FullWidthDiv = styled.div`
   display: inline;
+  @media screen and (min-width: 800px) {
+    height: 252px;
+    line-height: 1.5;
+    margin-top: 20px;
+  }
 `;
 
 const HealthAgeIndicator: React.FC<{

@@ -7,14 +7,16 @@ import {
   gridlineLabelHeight,
   barLabelWidth,
   barWidth,
+  barHeight,
+  changeableRiskColor,
 } from './chartSettings';
 import { ChartKey } from './ChartKey';
 import { GridLines } from './GridLines';
+import DiagonalStripes from './DiagonalStripes';
 
 const StyledSvg = styled.svg`
   font-size: ${fontSize};
   width: 100%;
-  max-width: 400px;
   display: block;
   margin: auto;
 `;
@@ -23,11 +25,12 @@ const RiskChart: React.FC<{ risks: any }> = ({ risks }) => {
   const chartHeight = risks.length * barInterval;
   const keyHeight = barInterval * 1.7;
   const keyTop = gridlineLabelHeight + chartHeight + 6;
-  const svgHeight = keyTop + keyHeight;
+  const svgHeight = keyTop + keyHeight - 4;
   const svgWidth = barLabelWidth + barWidth + 8;
   return (
     <StyledSvg viewBox={[0, 0, svgWidth, svgHeight] as any}>
       <title>Your health risks</title>
+      <DiagonalStripes height={barHeight} lineColor={changeableRiskColor} />
       <GridLines
         x={barLabelWidth}
         y={0}
