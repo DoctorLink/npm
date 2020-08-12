@@ -5,7 +5,7 @@ import {
   FormHTMLAttributes,
   HTMLAttributes,
   RefAttributes,
-} from 'React';
+} from 'react';
 import {
   TraversalQuestionProps,
   InfoIconProps,
