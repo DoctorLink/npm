@@ -91,7 +91,7 @@
     "docs:serve": "npm run docs && serve typedoc/docs",
     "lint": "eslint ./packages --ext .ts,.tsx",
     "lint-fix": "eslint ./packages --ext .ts,.tsx --fix",
-    "start": "run-p start:**",
+    "start": "run-p \"start:**\"",
     "start:core": "lerna run start --scope @doctorlink/traversal-core --stream",
     "start:redux": "lerna run start --scope @doctorlink/traversal-redux --stream",
     "start:sc": "lerna run start --scope @doctorlink/styled-components --stream",
