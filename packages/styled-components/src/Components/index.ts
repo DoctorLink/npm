@@ -26,20 +26,26 @@ export { default as DisplayText } from './DisplayText';
 export { default as AlgoName } from './AlgoName';
 export { default as BodyContent } from './BodyContent';
 export { default as Button } from './Button';
-export { default as Checkbox } from './Checkbox';
+export { default as Checkbox, CheckboxProps } from './Checkbox';
 export { default as DateField } from './DateField';
 export { default as Fieldset } from './Fieldset';
 export { default as GlobalStyle } from './GlobalStyle';
-export { default as InfoIcon } from './InfoIcon';
+export { default as InfoIcon, InfoIconProps } from './InfoIcon';
 export { default as Label } from './Label';
 export { default as NumberField } from './NumberField';
-export { default as Question } from './Question';
+export { default as Question, TraversalQuestionProps } from './Question';
 export { default as QuestionTitle } from './QuestionTitle';
-export { default as Radio } from './Radio';
+export { default as Radio, RadioProps } from './Radio';
 export { default as Response } from './Response';
-export { default as Section } from './Section';
-export { default as TableAnswerCell } from './TableAnswerCell';
-export { default as TableHeaderCell } from './TableHeaderCell';
+export { default as Section, SectionProps } from './Section';
+export {
+  default as TableAnswerCell,
+  TableAnswerCellProps,
+} from './TableAnswerCell';
+export {
+  default as TableHeaderCell,
+  TableHeaderCellProps,
+} from './TableHeaderCell';
 export { default as TableHeaderRow } from './TableHeaderRow';
 export { default as TableQuestion } from './TableQuestion';
 export { default as TableQuestionRow } from './TableQuestionRow';

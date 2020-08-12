@@ -1,1 +1,1 @@
-export { default } from './InfoIcon';
+export { default, InfoIconProps } from './InfoIcon';

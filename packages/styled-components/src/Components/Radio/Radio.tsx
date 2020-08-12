@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { InputHTMLAttributes } from 'react';
+import styled, { DefaultTheme } from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
 import HiddenInput from '../HiddenInput';
 
 const Icon = styled.svg``;
 
-interface Props {
-  checked: boolean;
+interface StyledRadioProps {
+  checked: boolean | undefined;
 }
 
-const StyledRadio = styled.div<Props>`
+const StyledRadio = styled.div<StyledRadioProps>`
   width: ${(props) => props.theme.radio.size}px;
   height: ${(props) => props.theme.radio.size}px;
   border-radius: ${(props) => props.theme.radio.size / 2}px;
@@ -41,7 +41,11 @@ const RadioContainer = styled.div`
   vertical-align: middle;
 `;
 
-const Radio: React.FC<any> = ({ className, checked, ...props }) => (
+export interface RadioProps extends InputHTMLAttributes<HTMLInputElement> {
+  theme?: DefaultTheme;
+}
+
+const Radio: React.FC<RadioProps> = ({ className, checked, ...props }) => (
   <RadioContainer className={className} theme={props.theme}>
     <HiddenInput type="radio" checked={checked} {...props} />
     <StyledRadio checked={checked} theme={props.theme}>

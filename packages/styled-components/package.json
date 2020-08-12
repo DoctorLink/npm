@@ -1,6 +1,6 @@
 {
   "name": "@doctorlink/styled-components",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Doctorlink styled components",
   "keywords": [
     "styled-components"
@@ -30,12 +30,12 @@
     "build": "npm run build:types && npm run build:js",
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
-    "start": "run-p 'build:** -- --watch'",
+    "start": "run-p \"build:** -- --watch\"",
     "test": "tsc --noEmit && jest test"
   },
   "dependencies": {
-    "@doctorlink/traversal-core": "^0.0.3",
-    "@doctorlink/traversal-redux": "^0.0.3",
+    "@doctorlink/traversal-core": "^0.0.4",
+    "@doctorlink/traversal-redux": "^0.0.4",
     "@testing-library/jest-dom": "^5.11.2",
     "@types/react-redux": "^7.1.9",
     "@types/react-responsive": "^8.0.2",

@@ -1,16 +1,16 @@
-import React from 'react';
-import styled from 'styled-components';
+import React, { InputHTMLAttributes } from 'react';
+import styled, { DefaultTheme } from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
 import HiddenInput from '../HiddenInput';
 
 const Icon = styled.svg``;
 
-interface Props {
-  readonly checked: boolean;
+interface StyledCheckboxProps {
+  readonly checked: boolean | undefined;
 }
 
-const StyledCheckbox = styled.div<Props>`
+const StyledCheckbox = styled.div<StyledCheckboxProps>`
   width: ${(props) => props.theme.checkbox.size}px;
   height: ${(props) => props.theme.checkbox.size}px;
   box-sizing: border-box;
@@ -41,7 +41,15 @@ const CheckboxContainer = styled.div`
   vertical-align: middle;
 `;
 
-const Checkbox: React.FC<any> = ({ className, checked, ...props }) => (
+export interface CheckboxProps extends InputHTMLAttributes<HTMLInputElement> {
+  theme?: DefaultTheme;
+}
+
+const Checkbox: React.FC<CheckboxProps> = ({
+  className,
+  checked,
+  ...props
+}) => (
   <CheckboxContainer className={className} theme={props.theme}>
     <HiddenInput type="checkbox" checked={checked} {...props} />
     <StyledCheckbox checked={checked} theme={props.theme}>

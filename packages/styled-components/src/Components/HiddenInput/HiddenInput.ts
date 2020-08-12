@@ -1,10 +1,6 @@
 import styled from 'styled-components';
 
-export interface hiddenInputProps {
-  value: any;
-}
-
-const HiddenCheckbox = styled.input<hiddenInputProps>`
+const HiddenCheckbox = styled.input`
   // Hide checkbox visually but remain accessible to screen readers.
   // Source: https://polished.js.org/docs/#hidevisually
   border: 0;

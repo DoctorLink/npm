@@ -29,7 +29,11 @@ DisplayText.defaultProps = {
   theme: defaultTheme,
 };
 
-const TraversalQuestion: React.FC<{ displayText: any }> = ({
+export interface TraversalQuestionProps {
+  displayText: string;
+}
+
+const TraversalQuestion: React.FC<TraversalQuestionProps> = ({
   displayText,
   children,
 }) => {

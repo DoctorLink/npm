@@ -3,15 +3,25 @@ import {
   defaultTraversalActions,
   defaultTraversalComponents,
 } from './defaults';
+import {
+  TraversalNode,
+  TraversalQuestion,
+  TraversalAnswer,
+  TraversalError,
+} from '@doctorlink/traversal-core';
+import { TraversalCallbacks } from './TraversalCallbacks';
+import { TraversalComponents } from './TraversalComponents';
 
-export const TraversalTable: React.FC<{
-  node: any;
-  questions: any;
-  answers: any;
-  errors: any;
-  actions?: any;
-  components?: any;
-}> = ({
+interface TraversalTableProps {
+  node: TraversalNode;
+  questions: Record<string, TraversalQuestion>;
+  answers: Record<string, TraversalAnswer>;
+  errors: Record<string, TraversalError>;
+  actions?: TraversalCallbacks;
+  components?: TraversalComponents;
+}
+
+export const TraversalTable: React.FC<TraversalTableProps> = ({
   node,
   questions,
   answers,
@@ -23,7 +33,7 @@ export const TraversalTable: React.FC<{
   return (
     <comps.TableQuestion>
       <comps.HeaderRow>
-        {questions[node.questions[0]].answers.map((answerId: any) => (
+        {questions[node.questions[0]].answers.map((answerId) => (
           <comps.HeaderCell
             key={answerId}
             text={answers[answerId].displayText}
@@ -36,7 +46,7 @@ export const TraversalTable: React.FC<{
           </comps.HeaderCell>
         ))}
       </comps.HeaderRow>
-      {node.questions.map((q: any) => {
+      {node.questions.map((q) => {
         const question = questions[q];
         const error = errors[q];
         return (
@@ -52,7 +62,7 @@ export const TraversalTable: React.FC<{
                 explanation={question.explanation}
               />
             </comps.HeaderCell>
-            {question.answers.map((answerId: any) => {
+            {question.answers.map((answerId) => {
               const answer = answers[answerId];
               return (
                 <comps.AnswerCell key={answerId} answerId={answerId}>

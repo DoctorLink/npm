@@ -3,15 +3,23 @@ import {
   defaultTraversalActions,
   defaultTraversalComponents,
 } from './defaults';
-import { TraversalAnswer, TraversalQuestion } from '@doctorlink/traversal-core';
+import {
+  TraversalAnswer,
+  TraversalQuestion,
+  TraversalError,
+} from '@doctorlink/traversal-core';
+import { TraversalCallbacks } from './TraversalCallbacks';
+import { TraversalComponents } from './TraversalComponents';
 
-export const TraversalResponse: React.FC<{
+export interface TraversalResponseProps {
   question: TraversalQuestion;
   answers: Record<string, TraversalAnswer>;
-  error: any;
-  actions?: any;
-  components?: any;
-}> = ({
+  error: TraversalError;
+  actions?: TraversalCallbacks;
+  components?: TraversalComponents;
+}
+
+export const TraversalResponse: React.FC<TraversalResponseProps> = ({
   question,
   answers,
   error,
@@ -32,7 +40,7 @@ export const TraversalResponse: React.FC<{
       {comps.QuestionTitle && question.title && (
         <comps.QuestionTitle>{question.title}</comps.QuestionTitle>
       )}
-      <comps.Question displayText={question.displayText} error={error}>
+      <comps.Question displayText={question.displayText}>
         <comps.InfoIcon
           onClick={actions.showExplanation}
           explanation={question.explanation}
@@ -98,7 +106,6 @@ export const TraversalResponse: React.FC<{
                     />
                   )}
                   <comps.DisplayText
-                    answer={answer}
                     dangerouslySetInnerHTML={{ __html: answer.displayText }}
                   />
                   <comps.InfoIcon
