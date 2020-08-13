@@ -28,6 +28,7 @@ const HealthAgeDial: React.FC<{
   return (
     <SvgBox>
       <StyledSvg viewBox={[0, 0, width, height].toString()}>
+        <title>Health age indicator</title>
         <DialPointer
           cx={centre.x}
           cy={centre.y}

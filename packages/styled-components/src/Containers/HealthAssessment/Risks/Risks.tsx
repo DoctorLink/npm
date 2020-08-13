@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Panel, PanelContainer, PanelBlocks } from '../../../Components';
+import {
+  Panel,
+  PanelContainer,
+  PanelBlocks,
+  PanelBox,
+} from '../../../Components';
 import {
   riskConclusionsSelector,
   riskExplanationsSelector,
@@ -16,13 +21,13 @@ const Risks: React.FC<{
 }> = ({ traversalId, riskConclusions, riskExplanations }) => {
   return (
     <>
-      <h2>Global Health Check Scores</h2>
       <PanelBlocks>
         <PanelContainer float="right">
-          <Panel>
+          <PanelBox>
             <RiskScores traversalId={traversalId} />
-          </Panel>
+          </PanelBox>
         </PanelContainer>
+
         <PanelContainer>
           <CheckableConclusionsPanel
             traversalId={traversalId}

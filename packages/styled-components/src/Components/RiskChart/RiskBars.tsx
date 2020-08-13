@@ -33,10 +33,13 @@ const RiskBar: React.FC<{ risk: any; y: any }> = ({ risk, y }) => {
         x={0}
       />
       <StyledRect
-        fill={changeableRiskColor}
+        fill="url(#diagonalstripes)"
         width={changeableWidth}
-        height={barHeight}
+        height={barHeight - 0.4}
         x={minimumWidth}
+        y={0.2}
+        strokeWidth=".2"
+        stroke={changeableRiskColor}
       />
     </svg>
   );

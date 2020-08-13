@@ -1,7 +1,6 @@
 import React, { FC } from 'react';
 import { defaultTheme } from '../../Theme';
 import styled from 'styled-components';
-import { useMediaQuery } from 'react-responsive';
 import { PanelBodyText } from '../../Components';
 
 const ConclusionsTitle = styled.div`
@@ -10,6 +9,9 @@ const ConclusionsTitle = styled.div`
   padding-top: 10px;
   line-height: 2;
   margin-top: 1px;
+  @media screen and (min-width: 800px) {
+    border-radius: 8px 8px 0 0;
+  }
 `;
 
 ConclusionsTitle.defaultProps = {
@@ -24,23 +26,18 @@ const Centered = styled(PanelBodyText)`
 `;
 
 const CheckableConclusionHeader: FC = () => {
-  const isTabletOrMobileDevice = useMediaQuery({
-    query: '(max-device-width: 799px)',
-  });
   return (
     <React.Fragment>
-      {isTabletOrMobileDevice && (
-        <ConclusionsTitle>
+      <ConclusionsTitle>
+        <Centered contrastText>
+          <strong>Your recommendations</strong>
+        </Centered>
+        <article>
           <Centered contrastText>
-            <strong>Your recommendations</strong>
+            Tick the checkboxes to see your results change
           </Centered>
-          <article>
-            <Centered contrastText>
-              Tick the checkboxes to see your results change
-            </Centered>
-          </article>
-        </ConclusionsTitle>
-      )}
+        </article>
+      </ConclusionsTitle>
     </React.Fragment>
   );
 };

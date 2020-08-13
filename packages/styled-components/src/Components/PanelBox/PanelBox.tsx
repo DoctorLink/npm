@@ -8,7 +8,6 @@ const StyledPanel = styled(motion.div)`
     background-color: white;
     border: 1px solid #dbdbdb;
     box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.1);
-    padding-top: 40px;
     margin-bottom: 30px;
     overflow: hidden;
   }

@@ -25,6 +25,10 @@ export interface ColorsTheme {
   normal: string;
   chartTurquoise: string;
   chartPink: string;
+  chartGreen: string;
+  chartRed: string;
+  dropdownBorder: string;
+  dropdownArrowBackground: string;
 }
 
 const colors: ColorsTheme = {
@@ -54,6 +58,10 @@ const colors: ColorsTheme = {
   normal: '#008000',
   chartTurquoise: '#1eddc5',
   chartPink: '#e42dad',
+  chartGreen: '#0DBEA4',
+  chartRed: '#E20404',
+  dropdownBorder: '#c8c8c8',
+  dropdownArrowBackground: '#EDEDED',
 };
 
 export default colors;
