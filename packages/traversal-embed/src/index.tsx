@@ -8,58 +8,41 @@ import {
   TraversalStore,
 } from '@doctorlink/traversal-redux';
 
-export interface EmbedOptions {
-  theme?: any;
+export { createTheme } from '@doctorlink/styled-components';
+
+export interface Config {
+  elementId: string;
   urls: { engine: string; hra: string };
+  theme?: any;
   tokenFactory?: () => Promise<string | null>;
 }
 
-export interface CreateEmbedOptions extends EmbedOptions {
-  createOptions: TraversalsBaseCreate;
-}
-
-export interface GetEmbedOptions extends EmbedOptions {
-  traversalId: string;
-}
-
-const getStartOptions = (
-  userOptions: CreateEmbedOptions
-): CreateEmbedOptions => ({
-  theme: defaultTheme,
-  ...userOptions,
-});
-
-const getContinueOptions = (userOptions: GetEmbedOptions): GetEmbedOptions => ({
-  theme: defaultTheme,
-  ...userOptions,
-});
-
-export function create(element: string, userOptions: CreateEmbedOptions) {
-  const options = getStartOptions(userOptions);
+export function create(config: Config, body: TraversalsBaseCreate) {
+  const theme = config.theme ? config.theme : defaultTheme;
   const traversalStore = new TraversalStore(
-    options.urls.engine,
-    options.urls.hra,
+    config.urls.engine,
+    config.urls.hra,
     undefined,
-    options.tokenFactory
+    config.tokenFactory
   );
-  traversalStore.store.dispatch(traversalPostRequest(options.createOptions));
+  traversalStore.store.dispatch(traversalPostRequest(body));
   ReactDOM.render(
-    <TraversalApp theme={options.theme} store={traversalStore.store} />,
-    document.getElementById(element)
+    <TraversalApp theme={theme} store={traversalStore.store} />,
+    document.getElementById(config.elementId)
   );
 }
 
-export function get(element: string, userOptions: GetEmbedOptions) {
-  const options = getContinueOptions(userOptions);
+export function get(config: Config, traversalId: string) {
+  const theme = config.theme ? config.theme : defaultTheme;
   const traversalStore = new TraversalStore(
-    options.urls.engine,
-    options.urls.hra,
+    config.urls.engine,
+    config.urls.hra,
     undefined,
-    options.tokenFactory
+    config.tokenFactory
   );
-  traversalStore.store.dispatch(traversalGetRequest(options.traversalId));
+  traversalStore.store.dispatch(traversalGetRequest(traversalId));
   ReactDOM.render(
-    <TraversalApp theme={options.theme} store={traversalStore.store} />,
-    document.getElementById(element)
+    <TraversalApp theme={theme} store={traversalStore.store} />,
+    document.getElementById(config.elementId)
   );
 }
