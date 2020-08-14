@@ -4,6 +4,7 @@ import HealthReportPanelHeader from '../HealthReportPanelHeader';
 import { NotAvailableContent } from './NotAvailableContent';
 import SummaryLine, { ISummaryLine } from './SummaryLine';
 import SummaryPanelContainer from '../SummaryPanelContainer';
+import { HealthComparisonSummary } from '@doctorlink/traversal-core';
 
 export interface ISummary {
   risk: ISummaryLine[];
@@ -11,7 +12,9 @@ export interface ISummary {
   myNumbers: ISummaryLine[];
 }
 
-const Summary: React.FC<{ summary: ISummary }> = ({ summary }) => {
+const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
+  summary,
+}) => {
   const risks = convertToArray(summary.risk);
   const wellness = convertToArray(summary.wellness);
   const myNumbers = convertToArray(summary.myNumbers);
@@ -82,7 +85,7 @@ const Summary: React.FC<{ summary: ISummary }> = ({ summary }) => {
   );
 };
 
-function convertToArray(obj: any) {
+function convertToArray(obj: Record<string, string>) {
   return Object.keys(obj).map((key) => ({
     key: key,
     value: obj[key],

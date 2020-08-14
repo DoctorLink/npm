@@ -11,12 +11,12 @@ export interface HealthRisksGetRequest
   extends Action<typeof HEALTH_RISKS_GET_REQUEST> {
   traversalId: string;
   ages: number[];
-  conclusions: string[];
+  conclusions: number[];
 }
 export const healthRisksGetRequest = (
   traversalId: string,
   ages: number[],
-  conclusions: string[]
+  conclusions: number[]
 ): HraAction => ({
   type: HEALTH_RISKS_GET_REQUEST,
   traversalId,
@@ -40,11 +40,11 @@ export const HEALTH_AGE_GET_REQUEST = 'HEALTH_AGE_GET_REQUEST';
 export interface HealthAgeGetRequest
   extends Action<typeof HEALTH_AGE_GET_REQUEST> {
   traversalId: string;
-  conclusions: string[];
+  conclusions: number[];
 }
 export const healthAgeGetRequest = (
   traversalId: string,
-  conclusions: string[]
+  conclusions: number[]
 ): HealthAgeGetRequest => ({
   type: HEALTH_AGE_GET_REQUEST,
   traversalId,
@@ -67,11 +67,11 @@ export const WELLNESS_GET_REQUEST = 'WELLNESS_GET_REQUEST';
 export interface WellnessGetRequest
   extends Action<typeof WELLNESS_GET_REQUEST> {
   traversalId: string;
-  conclusions: string[];
+  conclusions: number[];
 }
 export const wellnessGetRequest = (
   traversalId: string,
-  conclusions: string[]
+  conclusions: number[]
 ): WellnessGetRequest => ({
   type: WELLNESS_GET_REQUEST,
   traversalId,
@@ -125,9 +125,9 @@ export const hraComparisonReportGetResponse = (
 export const HRA_CONCLUSION_CHECK = 'HRA_CONCLUSION_CHECK';
 export interface HraConclusionCheck
   extends Action<typeof HRA_CONCLUSION_CHECK> {
-  id: string;
+  id: number;
 }
-export const hraConclusionCheck = (id: string): HraConclusionCheck => ({
+export const hraConclusionCheck = (id: number): HraConclusionCheck => ({
   type: HRA_CONCLUSION_CHECK,
   id,
 });
@@ -135,9 +135,9 @@ export const hraConclusionCheck = (id: string): HraConclusionCheck => ({
 export const HRA_CONCLUSION_UNCHECK = 'HRA_CONCLUSION_UNCHECK';
 export interface HraConclusionUncheck
   extends Action<typeof HRA_CONCLUSION_UNCHECK> {
-  id: string;
+  id: number;
 }
-export const hraConclusionUncheck = (id: string): HraConclusionUncheck => ({
+export const hraConclusionUncheck = (id: number): HraConclusionUncheck => ({
   type: HRA_CONCLUSION_UNCHECK,
   id,
 });

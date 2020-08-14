@@ -15,8 +15,8 @@ import {
   Pip,
 } from '../../Components/CarouselNavigation';
 import NavigationButtons from '../../Components/NavigationButtons';
-import { useHRARoutes } from './Hooks';
 import ComparisonReport from './ComparisonReport/ComparisonReport';
+import { useHRARoutes, HraRouteName } from '../../Hooks';
 
 const A = styled.a`
   cursor: pointer;
@@ -62,7 +62,7 @@ const Sections: React.FC<{
 };
 
 const HealthAssessment: React.FC<{
-  traversalId: any;
+  traversalId: string;
 }> = ({ traversalId }) => {
   const dispatch = useDispatch();
 
@@ -71,7 +71,7 @@ const HealthAssessment: React.FC<{
   }, [dispatch, traversalId]);
 
   const { routes, initialRoute } = useHRARoutes(traversalId);
-  const [currentRoute, setCurrentRoute] = useState<string>();
+  const [currentRoute, setCurrentRoute] = useState<HraRouteName>();
   const [visible, setIsVisible] = useState<boolean>();
 
   useEffect(() => {
@@ -103,7 +103,7 @@ const HealthAssessment: React.FC<{
         <BottomBar>
           <CarouselNav>
             <CarouselContainer>
-              {routes.map((route: any) => (
+              {routes.map((route) => (
                 <A
                   key={route}
                   onClick={() => setCurrentRoute(route)}

@@ -1,4 +1,5 @@
 import React from 'react';
+import { NumberConclusion as NumberConclusionModel } from '@doctorlink/traversal-core';
 import { PanelConclusion } from '../../../Components';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
 import {
@@ -7,9 +8,9 @@ import {
   NumberConclusionContent,
 } from './Conclusion';
 
-const NumberConclusion: React.FC<{
-  conclusion: any;
-}> = ({ conclusion }) => (
+const NumberConclusion: React.FC<{ conclusion: NumberConclusionModel }> = ({
+  conclusion,
+}) => (
   <Conclusion>
     <NumberConclusionContent>
       <ConclusionContent>{conclusion.displayText}</ConclusionContent>
@@ -22,11 +23,11 @@ const NumberConclusion: React.FC<{
 );
 
 const NumberConclusions: React.FC<{
-  conclusions: any;
+  conclusions: NumberConclusionModel[];
 }> = ({ conclusions }) => {
   return (
     <>
-      {conclusions.map((conc: any) => (
+      {conclusions.map((conc) => (
         <PanelConclusion key={conc.assetId}>
           <NumberConclusion conclusion={conc} />
         </PanelConclusion>

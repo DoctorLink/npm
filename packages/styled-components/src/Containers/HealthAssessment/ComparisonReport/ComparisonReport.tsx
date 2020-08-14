@@ -4,26 +4,25 @@ import { TextField, Button } from '../../../Components';
 import CompareRiskCharts from '../../../Components/ComparisonReport/CompareRiskCharts';
 import CompareWellbeingCharts from '../../../Components/ComparisonReport/CompareWellbeingCharts';
 import CompareNumbers from '../../../Components/ComparisonReport/CompareNumbers';
-import Summary, {
-  ISummary,
-} from '../../../Components/ComparisonReport/Summary';
+import Summary from '../../../Components/ComparisonReport/Summary';
 import {
   hraComparisonReportGetRequest,
   hraComparisonReportGetResponse,
   parseNumberConclusion,
 } from '@doctorlink/traversal-redux';
-import { useRiskSummary } from '../Hooks';
+import { useRiskSummary } from '../../../Hooks';
 import {
   Text,
   Label,
   Select,
   Content,
 } from '../../../Components/ComparisonReport/Fields';
+import { RootState, HealthComparisonSummary } from '@doctorlink/traversal-core';
 
 const AgeOptions = [80, 90, 100, 110];
 
 const ComparisonReport: React.FC<{
-  traversal: any;
+  traversal: string;
 }> = ({ traversal }) => {
   const [selectedAge, setSelectedAge] = useState(80);
   const onDropdownChange = (e: any) => setSelectedAge(e.target.value);
@@ -43,7 +42,7 @@ const ComparisonReport: React.FC<{
   };
 
   const comparisonReport = useSelector(
-    (state: any) => state.healthAssessment.comparisonReport
+    (state: RootState) => state.healthAssessment.comparisonReport
   );
 
   interface compare {
@@ -54,9 +53,10 @@ const ComparisonReport: React.FC<{
 
   const [current, setCurrent] = useState<compare>();
   const [previous, setPrevious] = useState<compare>();
-  const [summary, setSummary] = useState<ISummary>();
+  const [summary, setSummary] = useState<HealthComparisonSummary | null>();
 
   useEffect(() => {
+    if (!comparisonReport) return;
     const currentRiskOutput =
       comparisonReport.currentSnapshot &&
       comparisonReport.currentSnapshot.riskOutput;
@@ -87,7 +87,7 @@ const ComparisonReport: React.FC<{
       myNumbers:
         !!prevConclusions && prevConclusions.map(parseNumberConclusion),
     });
-    setSummary(!!comparisonReport.summary && comparisonReport.summary);
+    setSummary(comparisonReport.summary);
   }, [comparisonReport]);
 
   return (
@@ -118,7 +118,7 @@ const ComparisonReport: React.FC<{
         </form>
       </Content>
 
-      {comparisonReport.loaded &&
+      {comparisonReport?.loaded &&
         (!!current && !!previous && !!summary ? (
           <>
             <Summary summary={summary}></Summary>

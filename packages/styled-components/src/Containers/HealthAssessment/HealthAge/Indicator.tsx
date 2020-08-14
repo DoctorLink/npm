@@ -3,7 +3,7 @@ import { UpdateWhenVisible, PanelBodyText } from '../../../Components';
 import { HealthAgeDial } from './HealthAgeDial';
 import { HealthAgeTile } from './HealthAgeTile';
 import styled from 'styled-components';
-import { useHealthAge } from '../Hooks';
+import { useHealthAge } from '../../../Hooks';
 
 const Centered = styled(PanelBodyText)`
   text-align: center;

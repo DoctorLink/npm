@@ -5,7 +5,7 @@ import {
   RiskChart,
   UpdateWhenVisible,
 } from '../../../Components';
-import { useRiskSummary } from '../Hooks';
+import { useRiskSummary } from '../../../Hooks';
 import HealthReportTitle from '../../../Components/HealthReportTitle';
 import styled from 'styled-components';
 
@@ -35,7 +35,7 @@ const StyledPanelContent = styled(PanelContent)`
 `;
 
 const RiskScores: React.FC<{
-  traversalId?: any;
+  traversalId: string;
 }> = ({ traversalId }) => {
   const [selectedAge, setSelectedAge] = useState(90);
   const riskSummary = useRiskSummary(traversalId, AgeOptions);
@@ -44,9 +44,7 @@ const RiskScores: React.FC<{
   const { age, risks } = riskSummary;
   const visibleAgeOptions = AgeOptions.filter((option) => option > age);
   const selectedTimescale = selectedAge - age;
-  const selectedRisks = risks.filter(
-    (risk: any) => risk.time === selectedTimescale
-  );
+  const selectedRisks = risks.filter((risk) => risk.time === selectedTimescale);
 
   const onDropdownChange = (e: any) => setSelectedAge(e.target.value);
   return (

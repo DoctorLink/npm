@@ -1,10 +1,12 @@
-import { createSelector } from 'reselect';
+import { createSelector, Selector } from 'reselect';
+import { RootState, Conclusion } from '@doctorlink/traversal-core';
 
-export const conclusionsSelector = (state: {
-  conclusion: { conclusions: any };
-}) => (state.conclusion && state.conclusion.conclusions) || [];
+export type ConclusionsSelector = Selector<RootState, Conclusion[]>;
+
+export const conclusionsSelector: ConclusionsSelector = (state) =>
+  (state.conclusion && state.conclusion.conclusions) || [];
 
 export const nonSilentConclusionsSelector = createSelector(
   conclusionsSelector,
-  (conclusions: any[]) => conclusions.filter((c: { silent: any }) => !c.silent)
+  (conclusions) => conclusions.filter((c) => !c.silent)
 );
