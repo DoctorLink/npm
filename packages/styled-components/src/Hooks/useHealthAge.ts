@@ -1,17 +1,18 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  wellnessGetRequest,
+  healthAgeGetRequest,
   healthAssessmentSelector,
 } from '@doctorlink/traversal-redux';
+import { HealthAgeModel } from '@doctorlink/traversal-core';
 
-export const useWellness = (traversalId: any) => {
-  const { wellness, checkedConclusions } = useSelector(
+export const useHealthAge = (traversalId: string): HealthAgeModel => {
+  const { healthAge, checkedConclusions } = useSelector(
     healthAssessmentSelector
   );
   const dispatch = useDispatch();
   useEffect(() => {
-    dispatch(wellnessGetRequest(traversalId, checkedConclusions));
+    dispatch(healthAgeGetRequest(traversalId, checkedConclusions));
   }, [traversalId, checkedConclusions, dispatch]);
-  return wellness;
+  return healthAge;
 };

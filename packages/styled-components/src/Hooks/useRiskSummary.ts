@@ -1,5 +1,6 @@
 import { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { HealthRisksModel } from '@doctorlink/traversal-core';
 import {
   healthRisksGetRequest,
   healthAssessmentSelector,
@@ -7,7 +8,10 @@ import {
 
 const defaultAges = [90];
 
-export const useRiskSummary = (traversalId: any, ages: any = defaultAges) => {
+export const useRiskSummary = (
+  traversalId: string,
+  ages: number[] = defaultAges
+): HealthRisksModel => {
   const { riskSummary, checkedConclusions } = useSelector(
     healthAssessmentSelector
   );

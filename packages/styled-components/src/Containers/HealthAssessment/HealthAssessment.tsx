@@ -10,7 +10,7 @@ import HealthAge from './HealthAge/HealthAge';
 import Wellbeing from './Wellbeing/Wellbeing';
 import ActionsAndNumbers from './ActionsAndNumbers/ActionsAndNumbers';
 import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
-import { useHRARoutes } from './Hooks';
+import { useHRARoutes, HraRouteName } from '../../Hooks';
 import ComparisonReport from './ComparisonReport/ComparisonReport';
 
 const bottomBarHeight = '100px';
@@ -31,7 +31,7 @@ const BottomBar = styled.footer`
 `;
 
 const HealthAssessment: React.FC<{
-  traversalId: any;
+  traversalId: string;
 }> = ({ traversalId }) => {
   const dispatch = useDispatch();
   useEffect(() => {
@@ -44,7 +44,7 @@ const HealthAssessment: React.FC<{
   if (!initialRoute) return null;
 
   const basePath = `/traversal/${traversalId}`;
-  const resolveRoute = (route: any) => `${basePath}/${route}`;
+  const resolveRoute = (route: HraRouteName) => `${basePath}/${route}`;
 
   return (
     <div id="Traversal">

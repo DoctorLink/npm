@@ -13,11 +13,12 @@ import {
 import Explanations from '../Conclusions/Explanations';
 import CheckableConclusionsPanel from '../Conclusions/CheckableConclusionsPanel';
 import RiskScores from './RiskScores';
+import { Conclusion, RootState } from '@doctorlink/traversal-core';
 
 const Risks: React.FC<{
-  traversalId: any;
-  riskConclusions: any;
-  riskExplanations: any;
+  traversalId: string;
+  riskConclusions: Conclusion[];
+  riskExplanations: Conclusion[];
 }> = ({ traversalId, riskConclusions, riskExplanations }) => {
   return (
     <>
@@ -47,7 +48,7 @@ const Risks: React.FC<{
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   riskConclusions: riskConclusionsSelector(state),
   riskExplanations: riskExplanationsSelector(state),
 });

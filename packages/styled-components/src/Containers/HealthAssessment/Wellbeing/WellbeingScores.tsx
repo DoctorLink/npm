@@ -5,10 +5,10 @@ import {
   WellbeingChart,
   UpdateWhenVisible,
 } from '../../../Components';
-import { useWellness } from '../Hooks';
+import { useWellness } from '../../../Hooks';
 
 const WellbeingScores: React.FC<{
-  traversalId: any;
+  traversalId: string;
 }> = ({ traversalId }) => {
   const wellness = useWellness(traversalId);
   return (

@@ -1,7 +1,4 @@
 import { useSelector, useDispatch } from 'react-redux';
-// import { useHealthAge } from "./useHealthAge";
-// import { useRiskSummary } from "./useRiskSummary";
-// import { useWellness } from "./useWellness";
 import {
   healthAssessmentSelector,
   myNumbersSelector,
@@ -13,7 +10,27 @@ import {
 } from '@doctorlink/traversal-redux';
 import { useState, useEffect } from 'react';
 
-export const useHRARoutes = (traversalId: any) => {
+export type HraRouteName =
+  | 'health-age'
+  | 'risks'
+  | 'wellbeing'
+  | 'my-numbers'
+  | 'info'
+  | 'comparison-report';
+
+interface RouteDefinition {
+  path: HraRouteName;
+  enabled: boolean;
+  defer?: boolean;
+}
+
+export interface HraRoutes {
+  routes: HraRouteName[];
+  initialRoute: HraRouteName | undefined;
+  allLoaded: boolean;
+}
+
+export const useHRARoutes = (traversalId: string): HraRoutes => {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(healthAgeGetRequest(traversalId, []));
@@ -29,7 +46,7 @@ export const useHRARoutes = (traversalId: any) => {
   const nowDue = useSelector(actionsNowDueSelector);
   const conclusionsLoaded = conclusions.length > 0;
 
-  const routeDefs = [
+  const routeDefs: RouteDefinition[] = [
     {
       path: 'health-age',
       defer: !healthAge.loaded,
@@ -51,10 +68,9 @@ export const useHRARoutes = (traversalId: any) => {
       enabled: myNumbers.length > 0 || nowDue.length > 0,
     },
     { path: 'info', enabled: true },
-    { path: 'comparison-report', enabled: true },
   ];
 
-  const [initialRoute, setInitialRoute] = useState<string>();
+  const [initialRoute, setInitialRoute] = useState<HraRouteName>();
 
   // Find the initial route to redirect to, if known.
   // If we are waiting for data before we can make that call, use undefined for now.
@@ -72,5 +88,7 @@ export const useHRARoutes = (traversalId: any) => {
     .filter((route) => route.enabled)
     .map((route) => route.path);
 
-  return { routes, initialRoute };
+  const allLoaded = routeDefs.findIndex((def) => def.defer) === -1;
+
+  return { routes, initialRoute, allLoaded };
 };
