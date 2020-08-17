@@ -12,6 +12,7 @@ export interface Conclusion {
 
 export interface NumberConclusion extends Conclusion {
   value: string; // string not number because it could be '?' if unknown.
+  color: string;
 }
 
 export interface ConclusionModel {
