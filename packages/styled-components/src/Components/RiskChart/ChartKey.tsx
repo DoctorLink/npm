@@ -13,7 +13,7 @@ const KeyItem: React.FC<{
   border: string;
 }> = ({ x, y, fill, label, border }) => {
   const textX = 5;
-  const textY = boxSize / 2;
+  const textY = boxSize / 2 + 0.3;
   return (
     <svg x={x} y={y}>
       <rect
@@ -40,7 +40,7 @@ export const ChartKey: React.FC<{ x: number; y: number }> = ({ x, y }) => (
       border={minimumRiskColor}
     />
     <KeyItem
-      x={40}
+      x={48}
       y={0}
       fill="url(#diagonalstripes)"
       label="Risk you can change"

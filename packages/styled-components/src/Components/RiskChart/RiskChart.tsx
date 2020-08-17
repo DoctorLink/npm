@@ -19,6 +19,10 @@ const StyledSvg = styled.svg`
   width: 100%;
   display: block;
   margin: auto;
+  padding-top: 15px;
+  @media screen and (max-width: 355px) {
+    height: 200px;
+  }
 `;
 
 const RiskChart: React.FC<{ risks: any }> = ({ risks }) => {
@@ -28,7 +32,10 @@ const RiskChart: React.FC<{ risks: any }> = ({ risks }) => {
   const svgHeight = keyTop + keyHeight - 4;
   const svgWidth = barLabelWidth + barWidth + 8;
   return (
-    <StyledSvg viewBox={[0, 0, svgWidth, svgHeight] as any}>
+    <StyledSvg
+      viewBox={[0, 0, svgWidth, svgHeight] as any}
+      preserveAspectRatio="none"
+    >
       <title>Your health risks</title>
       <DiagonalStripes height={barHeight} lineColor={changeableRiskColor} />
       <GridLines

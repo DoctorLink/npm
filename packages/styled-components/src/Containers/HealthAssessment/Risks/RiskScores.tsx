@@ -21,7 +21,7 @@ const FlexBox = styled.div`
 `;
 
 const Right = styled.div`
-  padding-right: 3%;
+  padding-right: 1%;
 `;
 
 const Header = styled.div`
