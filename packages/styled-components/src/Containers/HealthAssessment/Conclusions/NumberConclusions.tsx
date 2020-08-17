@@ -22,14 +22,6 @@ const NameContent = styled.div`
   margin-bottom: 3px;
 `;
 
-const StyledInfoButton = styled(InfoButton)`
-  &&& {
-    .button {
-      top: -10px;
-    }
-  }
-`;
-
 const NumberConclusion: React.FC<{ conclusion: NumberConclusionModel }> = ({
   conclusion,
 }) => (
@@ -44,7 +36,7 @@ const NumberConclusion: React.FC<{ conclusion: NumberConclusionModel }> = ({
         )}
       </NumberTextContent>
       <div>{conclusion.value}</div>
-      <StyledInfoButton explanation={conclusion.explanation} />
+      <InfoButton explanation={conclusion.explanation} />
     </NumberConclusionContent>
   </Conclusion>
 );
