@@ -9,5 +9,6 @@ export function parseNumberConclusion(conclusion: {
   return {
     ...conclusion,
     value: xmlRules.value || '?',
+    color: xmlRules.getRuleValue(xmlRules.value),
   };
 }

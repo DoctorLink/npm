@@ -1,6 +1,6 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 import PanelBodyText from '../PanelBodyText';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
 const StyledPanelBodyText = styled(PanelBodyText)`
@@ -12,8 +12,13 @@ StyledPanelBodyText.defaultProps = {
   theme: defaultTheme,
 };
 
-export const HealthReportTitle: React.FC = ({ children }) => (
-  <StyledPanelBodyText bold>{children}</StyledPanelBodyText>
+export const HealthReportTitle: React.FC<{
+  style?: CSSProperties;
+  children: ReactNode;
+}> = ({ children, ...props }) => (
+  <StyledPanelBodyText bold {...props}>
+    {children}
+  </StyledPanelBodyText>
 );
 
 export default HealthReportTitle;

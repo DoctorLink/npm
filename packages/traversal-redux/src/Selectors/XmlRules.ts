@@ -15,6 +15,8 @@ export class XmlRules {
   }
 
   getRuleValue(comparisonValue = this.value) {
+    if (!comparisonValue) return undefined;
+
     const matchingRule = this.rules.find(
       (rule: { low: number | null; high: number | null }) => {
         const withinLowerBound =

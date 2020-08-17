@@ -29,6 +29,8 @@ export interface ColorsTheme {
   chartRed: string;
   dropdownBorder: string;
   dropdownArrowBackground: string;
+  warningFill: string;
+  warningExclamation: string;
 }
 
 const colors: ColorsTheme = {
@@ -62,6 +64,8 @@ const colors: ColorsTheme = {
   chartRed: '#E20404',
   dropdownBorder: '#c8c8c8',
   dropdownArrowBackground: '#EDEDED',
+  warningFill: '#FFDE33',
+  warningExclamation: '#495A79',
 };
 
 export default colors;

@@ -1,15 +1,13 @@
 import React from 'react';
 import { PanelConclusion } from '../../../Components';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
-import { Conclusion, ConclusionContent } from './Conclusion';
+import { Conclusion } from './Conclusion';
 
 const NonCheckableConclusion: React.FC<{
   conclusion: any;
 }> = ({ conclusion }) => (
   <Conclusion>
-    <ConclusionContent style={{ padding: 0 }}>
-      {conclusion.displayText}
-    </ConclusionContent>
+    <div>{conclusion.displayText}</div>
     <InfoButton explanation={conclusion.explanation} />
   </Conclusion>
 );
