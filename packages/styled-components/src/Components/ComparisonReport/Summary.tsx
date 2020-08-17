@@ -6,12 +6,6 @@ import SummaryLine, { ISummaryLine } from './SummaryLine';
 import SummaryPanelContainer from '../SummaryPanelContainer';
 import { HealthComparisonSummary } from '@doctorlink/traversal-core';
 
-export interface ISummary {
-  risk: ISummaryLine[];
-  wellness: ISummaryLine[];
-  myNumbers: ISummaryLine[];
-}
-
 const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
   summary,
 }) => {
@@ -29,7 +23,7 @@ const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
             </HealthReportPanelHeader>
             <PanelContent>
               {risks ? (
-                risks.map((risk: any) => (
+                risks.map((risk) => (
                   <PanelConclusion key={risk.key}>
                     <SummaryLine summaryLine={risk} />
                   </PanelConclusion>
@@ -49,7 +43,7 @@ const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
             </HealthReportPanelHeader>
             <PanelContent>
               {wellness ? (
-                wellness.map((wn: any) => (
+                wellness.map((wn) => (
                   <PanelConclusion key={wn.key}>
                     <SummaryLine summaryLine={wn} />
                   </PanelConclusion>
@@ -69,7 +63,7 @@ const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
             </HealthReportPanelHeader>
             <PanelContent>
               {myNumbers ? (
-                myNumbers.map((myNumber: any) => (
+                myNumbers.map((myNumber) => (
                   <PanelConclusion key={myNumber.key}>
                     <SummaryLine summaryLine={myNumber} />
                   </PanelConclusion>
@@ -85,7 +79,7 @@ const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
   );
 };
 
-function convertToArray(obj: Record<string, string>) {
+function convertToArray(obj: Record<string, string>): ISummaryLine[] {
   return Object.keys(obj).map((key) => ({
     key: key,
     value: obj[key],
