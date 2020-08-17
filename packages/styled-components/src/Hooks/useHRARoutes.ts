@@ -27,6 +27,7 @@ interface RouteDefinition {
 export interface HraRoutes {
   routes: HraRouteName[];
   initialRoute: HraRouteName | undefined;
+  allLoaded: boolean;
 }
 
 export const useHRARoutes = (traversalId: string): HraRoutes => {
@@ -87,5 +88,7 @@ export const useHRARoutes = (traversalId: string): HraRoutes => {
     .filter((route) => route.enabled)
     .map((route) => route.path);
 
-  return { routes, initialRoute };
+  const allLoaded = routeDefs.findIndex((def) => def.defer) === -1;
+
+  return { routes, initialRoute, allLoaded };
 };
