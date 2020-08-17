@@ -1,9 +1,10 @@
 import React from 'react';
-import { WarningIcon } from '../../../Components';
+import { NumberConclusion as NumberConclusionModel } from '@doctorlink/traversal-core';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
 import { Conclusion, NumberConclusionContent } from './Conclusion';
 import colors from '../../../Theme/base/colors';
 import styled from 'styled-components';
+import { WarningIcon } from '../../../Components';
 
 const NumberTextContent = styled.div`
   display: flex;
@@ -29,33 +30,31 @@ const StyledInfoButton = styled(InfoButton)`
   }
 `;
 
-const NumberConclusion: React.FC<{
-  conclusion: any;
-}> = ({ conclusion }) => {
-  return (
-    <Conclusion>
-      <NumberConclusionContent>
-        <NumberTextContent>
-          <NameContent>{conclusion.displayText}</NameContent>
-          {conclusion.color && (
-            <IconContent>
-              <WarningIcon color={conclusion.color} />
-            </IconContent>
-          )}
-        </NumberTextContent>
-        <div>{conclusion.value}</div>
-        <StyledInfoButton explanation={conclusion.explanation} />
-      </NumberConclusionContent>
-    </Conclusion>
-  );
-};
+const NumberConclusion: React.FC<{ conclusion: NumberConclusionModel }> = ({
+  conclusion,
+}) => (
+  <Conclusion>
+    <NumberConclusionContent>
+      <NumberTextContent>
+        <NameContent>{conclusion.displayText}</NameContent>
+        {conclusion.color && (
+          <IconContent>
+            <WarningIcon color={conclusion.color} />
+          </IconContent>
+        )}
+      </NumberTextContent>
+      <div>{conclusion.value}</div>
+      <StyledInfoButton explanation={conclusion.explanation} />
+    </NumberConclusionContent>
+  </Conclusion>
+);
 
 const NumberConclusions: React.FC<{
-  conclusions: any;
+  conclusions: NumberConclusionModel[];
 }> = ({ conclusions }) => {
   return (
     <>
-      {conclusions.map((conc: any) => (
+      {conclusions.map((conc) => (
         <div key={conc.assetId}>
           <NumberConclusion conclusion={conc} />
         </div>

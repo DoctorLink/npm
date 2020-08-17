@@ -85,7 +85,7 @@
     }
   },
   "scripts": {
-    "bootstrap": "lerna bootstrap --hoist && rimraf node_modules/@types/react-native",
+    "bootstrap": "lerna bootstrap --hoist && rimraf **/node_modules/@types/react-native",
     "build": "lerna run build --stream",
     "docs": "rimraf typedoc/docs && typedoc --options typedoc/typedoc.json --plugin typedoc-plugin-exclude-references,typedoc-plugin-lerna-packages",
     "docs:serve": "npm run docs && serve typedoc/docs",

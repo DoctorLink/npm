@@ -16,7 +16,7 @@ export type ChatTraversalState = ChatModel & {
 export type SummaryState = TraversalSummaryModel | null;
 export type ConclusionState = ConclusionModel | null;
 export type ModalState = ModalModel | null;
-export type HealthAssessmentState = HealthAssessmentModel | null;
+export type HealthAssessmentState = HealthAssessmentModel;
 
 export interface TraversalBaseRootState {
   traversal: TraversalState | ChatTraversalState;
