@@ -17,7 +17,13 @@ import {
   Select,
   Content,
 } from '../../../Components/ComparisonReport/Fields';
-import { RootState, HealthComparisonSummary } from '@doctorlink/traversal-core';
+import {
+  RootState,
+  HealthComparisonSummary,
+  HealthRiskModel,
+  WellnessScore,
+  NumberConclusion,
+} from '@doctorlink/traversal-core';
 
 const AgeOptions = [80, 90, 100, 110];
 
@@ -46,9 +52,9 @@ const ComparisonReport: React.FC<{
   );
 
   interface compare {
-    risks: any;
-    wellness: any;
-    myNumbers: any;
+    risks: HealthRiskModel[] | null;
+    wellness: WellnessScore[] | null;
+    myNumbers: NumberConclusion[] | null;
   }
 
   const [current, setCurrent] = useState<compare>();
@@ -70,22 +76,21 @@ const ComparisonReport: React.FC<{
       comparisonReport.previousSnapshot &&
       comparisonReport.previousSnapshot.wellnessOutput;
     const currentConclusions =
-      !!comparisonReport.currentSnapshot &&
+      comparisonReport.currentSnapshot &&
       comparisonReport.currentSnapshot.myNumbers;
     const prevConclusions =
-      !!comparisonReport.previousSnapshot &&
+      comparisonReport.previousSnapshot &&
       comparisonReport.previousSnapshot.myNumbers;
     setCurrent({
-      risks: !!currentRiskOutput && currentRiskOutput.risks,
-      wellness: !!currentWellbeingOutput && currentWellbeingOutput.scores,
+      risks: currentRiskOutput && currentRiskOutput.risks,
+      wellness: currentWellbeingOutput && currentWellbeingOutput.scores,
       myNumbers:
-        !!currentConclusions && currentConclusions.map(parseNumberConclusion),
+        currentConclusions && currentConclusions.map(parseNumberConclusion),
     });
     setPrevious({
-      risks: !!previousRiskOutput && previousRiskOutput.risks,
-      wellness: !!previousWellbeingOutput && previousWellbeingOutput.scores,
-      myNumbers:
-        !!prevConclusions && prevConclusions.map(parseNumberConclusion),
+      risks: previousRiskOutput && previousRiskOutput.risks,
+      wellness: previousWellbeingOutput && previousWellbeingOutput.scores,
+      myNumbers: prevConclusions && prevConclusions.map(parseNumberConclusion),
     });
     setSummary(comparisonReport.summary);
   }, [comparisonReport]);

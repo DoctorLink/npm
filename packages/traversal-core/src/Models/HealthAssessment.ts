@@ -59,7 +59,10 @@ export interface HealthComparisonSnapshot {
   traversalId: string;
   memberRef: string | null;
   clientId: string | null;
-  riskOutput: Omit<HealthRisksModel, 'checkableConclusions'>;
+  riskOutput: {
+    age: number;
+    risks: HealthRiskModel[];
+  };
   wellnessOutput: { scores: WellnessScore[] };
   myNumbers: Conclusion[];
   createdDate: string;
