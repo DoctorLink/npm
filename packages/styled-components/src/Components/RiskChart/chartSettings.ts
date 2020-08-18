@@ -1,6 +1,6 @@
 import colors from '../../Theme/base/colors';
 
-export const fontSize = '.17rem';
+export const fontSize = '3px';
 export const barInterval = 6;
 export const barHeight = 3;
 export const barLabelWidth = 32;

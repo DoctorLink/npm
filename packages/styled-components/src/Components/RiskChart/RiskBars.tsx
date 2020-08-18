@@ -35,9 +35,9 @@ const RiskBar: React.FC<{ risk: any; y: any }> = ({ risk, y }) => {
       <StyledRect
         fill="url(#diagonalstripes)"
         width={changeableWidth}
-        height={barHeight - 0.4}
+        height={barHeight - 0.2}
         x={minimumWidth}
-        y={0.2}
+        y={0.1}
         strokeWidth=".2"
         stroke={changeableRiskColor}
       />

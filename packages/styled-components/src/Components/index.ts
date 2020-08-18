@@ -77,3 +77,5 @@ export { default as SummaryPanelContainer } from './SummaryPanelContainer';
 export { default as HiddenInput } from './HiddenInput';
 
 export * from './CarouselNavigation';
+
+export { WarningIcon } from './WarningIcon';

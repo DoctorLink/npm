@@ -1,23 +1,29 @@
 import React from 'react';
-import {
-  Panel,
-  PanelContainer,
-  HealthReportPanelHeader,
-  PanelContent,
-} from '../../../Components';
+import { PanelContainer, PanelContent, PanelBox } from '../../../Components';
 import NumberConclusions from '../Conclusions/NumberConclusions';
+import HealthReportTitle from '../../../Components/HealthReportTitle';
+import styled from 'styled-components';
+
+const StyledContent = styled(PanelContent)`
+  line-height: 3;
+  @media screen and (max-width: 799px) {
+    margin-top: -16px;
+  }
+`;
 
 export const MyNumbers: React.FC<{
   numbersConclusions: any;
 }> = ({ numbersConclusions }) => {
   return (
     <PanelContainer>
-      <Panel>
-        <HealthReportPanelHeader>Your numbers</HealthReportPanelHeader>
-        <PanelContent>
+      <PanelBox>
+        <StyledContent>
+          <HealthReportTitle style={{ marginBottom: '10px' }}>
+            My numbers
+          </HealthReportTitle>
           <NumberConclusions conclusions={numbersConclusions} />
-        </PanelContent>
-      </Panel>
+        </StyledContent>
+      </PanelBox>
     </PanelContainer>
   );
 };

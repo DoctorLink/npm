@@ -1,24 +1,43 @@
 import React from 'react';
 import { NumberConclusion as NumberConclusionModel } from '@doctorlink/traversal-core';
-import { PanelConclusion } from '../../../Components';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
-import {
-  Conclusion,
-  ConclusionContent,
-  NumberConclusionContent,
-} from './Conclusion';
+import { Conclusion, NumberConclusionContent } from './Conclusion';
+import colors from '../../../Theme/base/colors';
+import styled from 'styled-components';
+import { WarningIcon } from '../../../Components';
+
+const NumberTextContent = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: flex-start;
+  align-items: center;
+  width: 50%;
+`;
+
+const IconContent = styled.div`
+  padding-left: 10px;
+`;
+
+const NameContent = styled.div`
+  margin-bottom: 3px;
+`;
 
 const NumberConclusion: React.FC<{ conclusion: NumberConclusionModel }> = ({
   conclusion,
 }) => (
   <Conclusion>
     <NumberConclusionContent>
-      <ConclusionContent>{conclusion.displayText}</ConclusionContent>
-      <ConclusionContent>
-        <strong>{conclusion.value}</strong>
-      </ConclusionContent>
+      <NumberTextContent>
+        <NameContent>{conclusion.displayText}</NameContent>
+        {conclusion.color && (
+          <IconContent>
+            <WarningIcon color={conclusion.color} />
+          </IconContent>
+        )}
+      </NumberTextContent>
+      <div>{conclusion.value}</div>
+      <InfoButton explanation={conclusion.explanation} />
     </NumberConclusionContent>
-    <InfoButton explanation={conclusion.explanation} />
   </Conclusion>
 );
 
@@ -28,9 +47,9 @@ const NumberConclusions: React.FC<{
   return (
     <>
       {conclusions.map((conc) => (
-        <PanelConclusion key={conc.assetId}>
+        <div key={conc.assetId}>
           <NumberConclusion conclusion={conc} />
-        </PanelConclusion>
+        </div>
       ))}
     </>
   );
