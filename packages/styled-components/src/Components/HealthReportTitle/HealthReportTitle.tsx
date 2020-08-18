@@ -14,7 +14,6 @@ StyledPanelBodyText.defaultProps = {
 
 export const HealthReportTitle: React.FC<{
   style?: CSSProperties;
-  children: ReactNode;
 }> = ({ children, ...props }) => (
   <StyledPanelBodyText bold {...props}>
     {children}
