@@ -1,18 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
 import { RiskBars } from './RiskBars';
-import {
+import { changeableRiskColor } from './riskChartSettings';
+import { ChartKey } from './ChartKey';
+import { GridLines, chartSettings } from '../HorizontalBarChart';
+import DiagonalStripes from './DiagonalStripes';
+import { HealthRiskModel } from '@doctorlink/traversal-core';
+
+const {
   fontSize,
   barInterval,
   gridlineLabelHeight,
   barLabelWidth,
   barWidth,
   barHeight,
-  changeableRiskColor,
-} from './chartSettings';
-import { ChartKey } from './ChartKey';
-import { GridLines } from './GridLines';
-import DiagonalStripes from './DiagonalStripes';
+} = chartSettings;
 
 const StyledSvg = styled.svg`
   font-size: ${fontSize};
@@ -25,7 +27,11 @@ const StyledSvg = styled.svg`
   }
 `;
 
-const RiskChart: React.FC<{ risks: any }> = ({ risks }) => {
+interface RiskChartProps {
+  risks: HealthRiskModel[];
+}
+
+const RiskChart: React.FC<RiskChartProps> = ({ risks }) => {
   const chartHeight = risks.length * barInterval;
   const keyHeight = barInterval * 1.7;
   const keyTop = gridlineLabelHeight + chartHeight + 6;
@@ -33,7 +39,7 @@ const RiskChart: React.FC<{ risks: any }> = ({ risks }) => {
   const svgWidth = barLabelWidth + barWidth + 8;
   return (
     <StyledSvg
-      viewBox={[0, 0, svgWidth, svgHeight] as any}
+      viewBox={`0, 0, ${svgWidth}, ${svgHeight}`}
       preserveAspectRatio="none"
     >
       <title>Your health risks</title>

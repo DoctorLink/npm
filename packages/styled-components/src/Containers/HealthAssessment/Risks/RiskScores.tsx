@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, ChangeEvent } from 'react';
 import {
   PanelContent,
   InlineDropdown,
@@ -34,9 +34,11 @@ const StyledPanelContent = styled(PanelContent)`
   }
 `;
 
-const RiskScores: React.FC<{
+interface RiskScoresProps {
   traversalId: string;
-}> = ({ traversalId }) => {
+}
+
+const RiskScores: React.FC<RiskScoresProps> = ({ traversalId }) => {
   const [selectedAge, setSelectedAge] = useState(90);
   const riskSummary = useRiskSummary(traversalId, AgeOptions);
   if (!riskSummary) return null;
@@ -46,7 +48,8 @@ const RiskScores: React.FC<{
   const selectedTimescale = selectedAge - age;
   const selectedRisks = risks.filter((risk) => risk.time === selectedTimescale);
 
-  const onDropdownChange = (e: any) => setSelectedAge(e.target.value);
+  const onDropdownChange = (e: ChangeEvent<HTMLSelectElement>) =>
+    setSelectedAge(+e.target.value);
   return (
     <React.Fragment>
       <StyledPanelContent>

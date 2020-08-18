@@ -1,6 +1,13 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 
-function mapOption(option: any) {
+export interface OptionObject {
+  text: string;
+  value: string | number;
+}
+
+export type Option = string | number | OptionObject;
+
+function mapOption(option: Option): OptionObject {
   if (typeof option === 'object') {
     if (option.value === undefined) {
       throw new Error('Option objects must contain a value property.');
@@ -8,19 +15,19 @@ function mapOption(option: any) {
     return option;
   }
 
-  return { text: option, value: option };
+  return { text: `${option}`, value: option };
 }
 
 export const Dropdown: React.FC<{
-  options: any;
-  value: any;
-  onChange: any;
-  className?: any;
+  options: Option[];
+  value: string | number;
+  onChange: (event: ChangeEvent<HTMLSelectElement>) => void;
+  className?: string;
 }> = ({ options, value, onChange, className }) => {
   const optionObjects = options.map(mapOption);
   return (
     <select value={value} onChange={onChange} className={className}>
-      {optionObjects.map((opt: any) => (
+      {optionObjects.map((opt) => (
         <option key={opt.value} value={opt.value}>
           {opt.text || opt.value}
         </option>
