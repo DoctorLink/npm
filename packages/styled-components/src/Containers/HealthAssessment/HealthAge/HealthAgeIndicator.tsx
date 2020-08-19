@@ -26,10 +26,11 @@ const HealthAgeIndicator: React.FC<{
 }> = ({ traversalId }) => {
   const { age, healthAge, minimumHealthAge } = useHealthAge(traversalId);
   const ageReduction = healthAge - minimumHealthAge;
+  const yourHealthAge = 'Your health age is';
   return (
-    <FullWidthDiv>
+    <FullWidthDiv title={`${yourHealthAge} ${healthAge}`}>
       <Centered>
-        <strong>Your health age is</strong>
+        <strong>{yourHealthAge}</strong>
       </Centered>
       <UpdateWhenVisible>
         <HealthAgeTile healthAge={healthAge} />
