@@ -10,13 +10,13 @@ const StyledLine = styled.line`
   opacity: 0.5;
 `;
 
-const GridLine: React.FC<{ percent: any; length: any }> = ({
+const GridLine: React.FC<{ percent: number; length: number }> = ({
   percent,
   length,
 }) => {
   return (
     <svg x={`${percent}%`} overflow="visible">
-      <text x={2} y={gridlineLabelHeight / 2} textAnchor="middle">
+      <text x={0} y={gridlineLabelHeight / 2} textAnchor="middle">
         {percent}%
       </text>
       <StyledLine
@@ -31,12 +31,14 @@ const GridLine: React.FC<{ percent: any; length: any }> = ({
 
 const intervals = [0, 25, 50, 75, 100];
 
-const GridLines: React.FC<{ x: any; y: any; width: any; lineLength: any }> = ({
-  x,
-  y,
-  width,
-  lineLength,
-}) => {
+interface GridLinesProps {
+  x: number;
+  y: number;
+  width: number;
+  lineLength: number;
+}
+
+const GridLines: React.FC<GridLinesProps> = ({ x, y, width, lineLength }) => {
   return (
     <svg x={x} y={y} width={width} overflow="visible">
       {intervals.map((pc) => (

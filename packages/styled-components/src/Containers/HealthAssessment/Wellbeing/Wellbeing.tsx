@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Panel, PanelContainer, PanelBlocks } from '../../../Components';
+import {
+  Panel,
+  PanelBox,
+  PanelContainer,
+  PanelBlocks,
+} from '../../../Components';
 import {
   wellnessConclusionsSelector,
   wellnessExplanationsSelector,
@@ -8,41 +13,45 @@ import {
 import CheckableConclusionsPanel from '../Conclusions/CheckableConclusionsPanel';
 import Explanations from '../Conclusions/Explanations';
 import WellbeingScores from './WellbeingScores';
+import { RootState, Conclusion } from '@doctorlink/traversal-core';
 
-const Wellbeing: React.FC<{
-  traversalId: any;
-  wellnessConclusions: any;
-  wellnessExplanations: any;
-}> = ({ traversalId, wellnessConclusions, wellnessExplanations }) => {
+interface WellbeingProps {
+  traversalId: string;
+  wellnessConclusions: Conclusion[];
+  wellnessExplanations: Conclusion[];
+}
+
+const Wellbeing: React.FC<WellbeingProps> = ({
+  traversalId,
+  wellnessConclusions,
+  wellnessExplanations,
+}) => {
   return (
-    <>
-      <h2>Global Health Check Scores</h2>
-      <PanelBlocks>
-        <PanelContainer float="right">
-          <Panel>
-            <WellbeingScores traversalId={traversalId} />
-          </Panel>
-        </PanelContainer>
-        <PanelContainer>
-          <CheckableConclusionsPanel
-            traversalId={traversalId}
-            conclusions={wellnessConclusions}
+    <PanelBlocks>
+      <PanelContainer float="right">
+        <PanelBox>
+          <WellbeingScores traversalId={traversalId} />
+        </PanelBox>
+      </PanelContainer>
+      <PanelContainer>
+        <CheckableConclusionsPanel
+          traversalId={traversalId}
+          conclusions={wellnessConclusions}
+        />
+      </PanelContainer>
+      <PanelContainer>
+        <Panel>
+          <Explanations
+            title="Your lifestyle scores explained"
+            explanations={wellnessExplanations}
           />
-        </PanelContainer>
-        <PanelContainer>
-          <Panel>
-            <Explanations
-              title="Your lifestyle scores explained"
-              explanations={wellnessExplanations}
-            />
-          </Panel>
-        </PanelContainer>
-      </PanelBlocks>
-    </>
+        </Panel>
+      </PanelContainer>
+    </PanelBlocks>
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   wellnessConclusions: wellnessConclusionsSelector(state),
   wellnessExplanations: wellnessExplanationsSelector(state),
 });

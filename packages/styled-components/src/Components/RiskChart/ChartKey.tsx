@@ -1,9 +1,6 @@
 import React from 'react';
-import {
-  barHeight as boxSize,
-  minimumRiskColor,
-  changeableRiskColor,
-} from './chartSettings';
+import { minimumRiskColor, changeableRiskColor } from './riskChartSettings';
+import { barHeight as boxSize } from '../HorizontalBarChart/chartSettings';
 
 const KeyItem: React.FC<{
   x: number;
