@@ -2,7 +2,7 @@ export function getPointerPosition(
   age: number,
   healthAge: number,
   minHealthAge: number
-) {
+): number {
   const middle = 50;
   const minSwing = minHealthAge - age;
   const maxSwing = age;
