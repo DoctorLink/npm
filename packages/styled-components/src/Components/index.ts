@@ -79,3 +79,4 @@ export { default as HiddenInput } from './HiddenInput';
 export * from './CarouselNavigation';
 
 export { WarningIcon } from './WarningIcon';
+export { default as CheckableConclusionHeader } from './CheckableConclusionHeader';
