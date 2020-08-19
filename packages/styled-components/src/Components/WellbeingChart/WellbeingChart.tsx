@@ -1,61 +1,33 @@
 import React from 'react';
-import styled from 'styled-components';
 import { WellbeingBars } from './WellbeingBars';
-import { XAxis, YAxis } from './Axes';
-import { OverallWellbeingLine } from './OverallWellbeingLine';
-import {
-  fontSize,
-  chartWidth,
-  barMaxHeight,
-  barTop,
-  origin,
-} from './chartSettings';
+import { ChartSvg, GridLines, chartSettings } from '../HorizontalBarChart';
+import { WellnessScore } from '@doctorlink/traversal-core';
 
-const StyledSvg = styled.svg`
-  font-size: ${fontSize};
-  overflow: visible;
-  width: 100%;
-  max-width: 400px;
-  display: block;
-  margin: auto;
-`;
+const {
+  barInterval,
+  gridlineLabelHeight,
+  barLabelWidth,
+  barWidth,
+} = chartSettings;
 
-const getY = (percent: any) => (1 - percent / 100) * barMaxHeight + barTop;
+interface WellbeingChartProps {
+  scores: WellnessScore[];
+}
 
-const mapDataPoints = (scores: any) => {
-  const barInterval = chartWidth / (scores.length + 1);
-  return scores.map((score: any, index: any) => ({
-    label: score.name,
-    value: score.score,
-    // These are coordinates in SVG space (relative to top left), not relative to the chart origin.
-    x: origin.x + (index + 1) * barInterval,
-    y: getY(score.score),
-  }));
-};
-
-const yAxisLabels = [0, 25, 50, 75, 100].map((percent) => ({
-  label: `${percent}%`,
-  y: getY(percent),
-}));
-
-const WellbeingChart: React.FC<{ scores: any }> = ({ scores }) => {
-  const overallScore = scores.find((s: any) => s.name === 'Overall Wellbeing');
-  const individualScores = scores.filter((s: any) => s !== overallScore);
-  const data = mapDataPoints(individualScores);
+export const WellbeingChart: React.FC<WellbeingChartProps> = ({ scores }) => {
+  const chartHeight = scores.length * barInterval;
+  const svgHeight = gridlineLabelHeight + chartHeight + 6;
+  const svgWidth = barLabelWidth + barWidth + 8;
   return (
-    <StyledSvg viewBox="0 0 100 90">
-      <title>Your lifestyle scores</title>
-      <WellbeingBars data={data} />
-      <XAxis data={data} />
-      <YAxis labels={yAxisLabels} />
-      {overallScore && (
-        <OverallWellbeingLine
-          percent={overallScore.score}
-          y={getY(overallScore.score)}
-        />
-      )}
-    </StyledSvg>
+    <ChartSvg width={svgWidth} height={svgHeight}>
+      <title>Your lifestyle and wellbeing scores</title>
+      <GridLines
+        x={barLabelWidth}
+        y={0}
+        width={barWidth}
+        lineLength={chartHeight}
+      />
+      <WellbeingBars scores={scores} x={0} y={gridlineLabelHeight} />
+    </ChartSvg>
   );
 };
-
-export { WellbeingChart };

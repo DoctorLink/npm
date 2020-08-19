@@ -8,12 +8,19 @@ import {
 import CheckableConclusionsPanel from '../Conclusions/CheckableConclusionsPanel';
 import Explanations from '../Conclusions/Explanations';
 import WellbeingScores from './WellbeingScores';
+import { RootState, Conclusion } from '@doctorlink/traversal-core';
 
-const Wellbeing: React.FC<{
-  traversalId: any;
-  wellnessConclusions: any;
-  wellnessExplanations: any;
-}> = ({ traversalId, wellnessConclusions, wellnessExplanations }) => {
+interface WellbeingProps {
+  traversalId: string;
+  wellnessConclusions: Conclusion[];
+  wellnessExplanations: Conclusion[];
+}
+
+const Wellbeing: React.FC<WellbeingProps> = ({
+  traversalId,
+  wellnessConclusions,
+  wellnessExplanations,
+}) => {
   return (
     <>
       <h2>Global Health Check Scores</h2>
@@ -42,7 +49,7 @@ const Wellbeing: React.FC<{
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   wellnessConclusions: wellnessConclusionsSelector(state),
   wellnessExplanations: wellnessExplanationsSelector(state),
 });

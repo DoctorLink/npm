@@ -1,65 +1,78 @@
 import React from 'react';
 import styled from 'styled-components';
-import {
-  barColor,
-  barWidth,
-  barTop,
-  chartTop,
-  chartHeight,
-  origin,
-  chartWidth,
-} from './chartSettings';
+import { WellnessScore } from '@doctorlink/traversal-core';
+import { LabelledBar, chartSettings } from '../HorizontalBarChart';
+import colors from '../../Theme/base/colors';
+import { DialPointer } from '../DialPointer';
 
-interface Props {
-  translate: any;
-}
+const { barWidth } = chartSettings;
+const barHeight = 2;
+const barArrowLength = 1;
+const pointerHeight = 1.75;
+const pointerWidth = 1.75;
 
-// Using transform: translateY to position the bars, with a clipPath to hide the portions outside the chart area, to make the transitions work.
-// You could use transform: scale, but that doesn't play nicely with rounded linecaps.
-const StyledLine = styled.line<Props>`
-  stroke: ${barColor};
-  stroke-width: ${barWidth};
-  stroke-linecap: round;
-  transform: translateY(${(p) => p.translate}px);
-  transition: transform 0.3s;
+const barPoints = [
+  [0, 0],
+  [barWidth - barArrowLength, 0],
+  [barWidth, barHeight / 2],
+  [barWidth - barArrowLength, barHeight],
+  [0, barHeight],
+]
+  .map((pt) => pt.join(' '))
+  .join(',');
+
+const Bar = styled.polygon`
+  width: 100%;
+  fill: url(#rag-gradient);
 `;
 
-const Bar: React.FC<{ dataPoint: any }> = ({ dataPoint }) => {
-  const { label, value, x, y } = dataPoint;
+const Gradient: React.FC = () => (
+  <linearGradient id="rag-gradient">
+    <stop offset="0" stopColor={colors.green100} />
+    <stop offset="25%" stopColor={colors.greenyellow} />
+    <stop offset="50%" stopColor={colors.orange200} />
+    <stop offset="75%" stopColor={colors.redgreen} />
+    <stop offset="100%" stopColor={colors.red300} />
+  </linearGradient>
+);
+
+const WellbeingBar: React.FC<{ score: WellnessScore }> = ({ score }) => {
+  const position = barWidth * (score.score / 100);
   return (
     <g>
       <title>
-        {label}: {value}%
+        {score.name}: {score.score}%
       </title>
-      <StyledLine
-        x1={x}
-        x2={x}
-        y1={origin.y}
-        y2={barTop}
-        translate={y - barTop}
+      <Bar points={barPoints} />
+      <DialPointer
+        pointerWidth={pointerWidth}
+        pointerHeight={pointerHeight}
+        position={position}
+        bottom={0}
       />
     </g>
   );
 };
 
-export const WellbeingBars: React.FC<{ data: any }> = ({ data }) => {
+export interface WellbeingBarsProps {
+  scores: WellnessScore[];
+  x: number;
+  y: number;
+}
+
+export const WellbeingBars: React.FC<WellbeingBarsProps> = ({
+  scores,
+  x,
+  y,
+}) => {
   return (
-    <g>
-      <defs>
-        <clipPath id="chart-area">
-          <rect
-            x={origin.x}
-            y={chartTop}
-            width={chartWidth}
-            height={chartHeight}
-          />
-        </clipPath>
-      </defs>
-      <g clipPath="url(#chart-area)">
-        {data.map((item: any) => (
-          <Bar key={item.label} dataPoint={item} />
-        ))}
-      </g>
-    </g>
+    <svg x={x} y={y} overflow="visible">
+      <Gradient />
+      {scores.map((score, i) => (
+        <LabelledBar key={score.name} name={score.name} index={i}>
+          <WellbeingBar score={score} />
+        </LabelledBar>
+      ))}
+    </svg>
   );
 };

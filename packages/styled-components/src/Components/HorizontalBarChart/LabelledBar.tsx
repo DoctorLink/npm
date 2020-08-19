@@ -12,7 +12,7 @@ interface BarWrapperProps {
 
 const BarWrapper: React.FC<BarWrapperProps> = ({ y, children }) => {
   return (
-    <svg x={barLabelWidth} y={y} width={barWidth}>
+    <svg x={barLabelWidth} y={y} width={barWidth} overflow="visible">
       {children}
     </svg>
   );

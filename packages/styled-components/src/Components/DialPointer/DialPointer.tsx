@@ -20,7 +20,6 @@ interface StyledPolygonProps {
 const StyledPolygon = styled.polygon<StyledPolygonProps>`
   fill: #666;
   stroke: #666;
-  stroke-width: 0.4px;
   stroke-linejoin: round;
   transform: translateX(${(p) => p.position}px);
   transition: transform 0.5s;
@@ -40,7 +39,14 @@ const DialPointer: React.FC<DialPointerProps> = ({
   bottom,
 }) => {
   const points = getTrianglePoints(bottom, pointerWidth, pointerHeight);
-  return <StyledPolygon position={position} points={points} />;
+  const strokeWidth = pointerWidth * pointerHeight * 0.05;
+  return (
+    <StyledPolygon
+      position={position}
+      points={points}
+      strokeWidth={strokeWidth}
+    />
+  );
 };
 
 export { DialPointer };
