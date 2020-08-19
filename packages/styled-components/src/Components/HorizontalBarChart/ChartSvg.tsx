@@ -4,6 +4,7 @@ import { chartSettings } from '../HorizontalBarChart';
 
 const StyledSvg = styled.svg`
   font-size: ${chartSettings.fontSize};
+  overflow: visible;
   width: 100%;
   display: block;
   margin: auto;

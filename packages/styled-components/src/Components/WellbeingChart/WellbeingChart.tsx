@@ -17,7 +17,7 @@ interface WellbeingChartProps {
 export const WellbeingChart: React.FC<WellbeingChartProps> = ({ scores }) => {
   const chartHeight = scores.length * barInterval;
   const svgHeight = gridlineLabelHeight + chartHeight + 6;
-  const svgWidth = barLabelWidth + barWidth + 8;
+  const svgWidth = barLabelWidth + barWidth + 4;
   return (
     <ChartSvg width={svgWidth} height={svgHeight}>
       <title>Your lifestyle and wellbeing scores</title>

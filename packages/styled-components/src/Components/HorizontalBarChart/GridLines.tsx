@@ -16,7 +16,7 @@ const GridLine: React.FC<{ percent: number; length: number }> = ({
 }) => {
   return (
     <svg x={`${percent}%`} overflow="visible">
-      <text x={2} y={gridlineLabelHeight / 2} textAnchor="middle">
+      <text x={0} y={gridlineLabelHeight / 2} textAnchor="middle">
         {percent}%
       </text>
       <StyledLine

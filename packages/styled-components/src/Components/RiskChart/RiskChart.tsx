@@ -23,7 +23,7 @@ const RiskChart: React.FC<RiskChartProps> = ({ risks }) => {
   const keyHeight = barInterval * 1.7;
   const keyTop = gridlineLabelHeight + chartHeight + 6;
   const svgHeight = keyTop + keyHeight - 4;
-  const svgWidth = barLabelWidth + barWidth + 8;
+  const svgWidth = barLabelWidth + barWidth + 4;
   return (
     <ChartSvg width={svgWidth} height={svgHeight}>
       <title>Your health risks</title>
