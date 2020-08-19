@@ -28,11 +28,11 @@ const Bar = styled.polygon`
 
 const Gradient: React.FC = () => (
   <linearGradient id="rag-gradient">
-    <stop offset="0" stopColor={colors.green100} />
-    <stop offset="25%" stopColor={colors.greenyellow} />
+    <stop offset="0" stopColor={colors.red300} />
+    <stop offset="25%" stopColor={colors.redgreen} />
     <stop offset="50%" stopColor={colors.orange200} />
-    <stop offset="75%" stopColor={colors.redgreen} />
-    <stop offset="100%" stopColor={colors.red300} />
+    <stop offset="75%" stopColor={colors.greenyellow} />
+    <stop offset="100%" stopColor={colors.green100} />
   </linearGradient>
 );
 
