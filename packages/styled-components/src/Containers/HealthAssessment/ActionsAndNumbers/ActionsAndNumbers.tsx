@@ -5,7 +5,7 @@ import {
   actionsNowDueSelector,
 } from '@doctorlink/traversal-redux';
 import PanelBlocks from '../../../Components/PanelBlocks';
-import { MyNumbers } from './MyNumbers';
+import { MyNumbersBox } from './MyNumbersBox';
 import { ActionsNowDue } from './ActionsNowDue';
 
 const ActionsAndNumbers: React.FC<{
@@ -16,7 +16,7 @@ const ActionsAndNumbers: React.FC<{
     <>
       <PanelBlocks>
         {numbersConclusions.length > 0 && (
-          <MyNumbers numbersConclusions={numbersConclusions} />
+          <MyNumbersBox numbersConclusions={numbersConclusions} />
         )}
         {actionConclusions.length > 0 && (
           <ActionsNowDue actionConclusions={actionConclusions} />
