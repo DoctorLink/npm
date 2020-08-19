@@ -1,4 +1,4 @@
-import React, { ReactNode } from 'react';
+import React from 'react';
 import PanelBodyText from '../PanelBodyText';
 import styled, { CSSProperties } from 'styled-components';
 import { defaultTheme } from '../../Theme';

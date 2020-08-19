@@ -1,6 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { Panel, PanelContainer, PanelBlocks } from '../../../Components';
+import {
+  Panel,
+  PanelBox,
+  PanelContainer,
+  PanelBlocks,
+} from '../../../Components';
 import {
   wellnessConclusionsSelector,
   wellnessExplanationsSelector,
@@ -22,30 +27,27 @@ const Wellbeing: React.FC<WellbeingProps> = ({
   wellnessExplanations,
 }) => {
   return (
-    <>
-      <h2>Global Health Check Scores</h2>
-      <PanelBlocks>
-        <PanelContainer float="right">
-          <Panel>
-            <WellbeingScores traversalId={traversalId} />
-          </Panel>
-        </PanelContainer>
-        <PanelContainer>
-          <CheckableConclusionsPanel
-            traversalId={traversalId}
-            conclusions={wellnessConclusions}
+    <PanelBlocks>
+      <PanelContainer float="right">
+        <PanelBox>
+          <WellbeingScores traversalId={traversalId} />
+        </PanelBox>
+      </PanelContainer>
+      <PanelContainer>
+        <CheckableConclusionsPanel
+          traversalId={traversalId}
+          conclusions={wellnessConclusions}
+        />
+      </PanelContainer>
+      <PanelContainer>
+        <Panel>
+          <Explanations
+            title="Your lifestyle scores explained"
+            explanations={wellnessExplanations}
           />
-        </PanelContainer>
-        <PanelContainer>
-          <Panel>
-            <Explanations
-              title="Your lifestyle scores explained"
-              explanations={wellnessExplanations}
-            />
-          </Panel>
-        </PanelContainer>
-      </PanelBlocks>
-    </>
+        </Panel>
+      </PanelContainer>
+    </PanelBlocks>
   );
 };
 

@@ -17,6 +17,7 @@ export { default as PanelBox } from './PanelBox';
 export { default as PanelConclusionTitle } from './PanelConclusionTitle';
 export { default as PanelSVG } from './PanelSVG';
 export { default as HealthReportPanelHeader } from './HealthReportPanelHeader';
+export { default as HealthReportTitle } from './HealthReportTitle';
 
 export { AccordionHeader, AccordionBody } from './Accordion';
 export { RiskChart } from './RiskChart';
