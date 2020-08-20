@@ -14,6 +14,7 @@ export interface ColorsTheme {
   red300: string;
   redgreen: string;
   lightBlue100: string;
+  linkBlue: string;
   orange100: string;
   orange200: string;
   lightYellow100: string;
@@ -49,6 +50,7 @@ const colors: ColorsTheme = {
   red300: '#e50707',
   redgreen: '#ff6400',
   lightBlue100: '#00C4FA',
+  linkBlue: '#406FD6',
   orange100: '#F0A700',
   orange200: '#ffcc00',
   lightYellow100: '#FFED7B',

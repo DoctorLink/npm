@@ -1,7 +1,7 @@
 import React from 'react';
 import { NumberConclusion as NumberConclusionModel } from '@doctorlink/traversal-core';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
-import { Conclusion, NumberConclusionContent } from './Conclusion';
+import { ConclusionContainer, NumberConclusionContent } from './Conclusion';
 import colors from '../../../Theme/base/colors';
 import styled from 'styled-components';
 import { WarningIcon } from '../../../Components';
@@ -25,7 +25,7 @@ const NameContent = styled.div`
 const NumberConclusion: React.FC<{ conclusion: NumberConclusionModel }> = ({
   conclusion,
 }) => (
-  <Conclusion>
+  <ConclusionContainer>
     <NumberConclusionContent>
       <NumberTextContent>
         <NameContent>{conclusion.displayText}</NameContent>
@@ -38,7 +38,7 @@ const NumberConclusion: React.FC<{ conclusion: NumberConclusionModel }> = ({
       <div>{conclusion.value}</div>
       <InfoButton explanation={conclusion.explanation} />
     </NumberConclusionContent>
-  </Conclusion>
+  </ConclusionContainer>
 );
 
 const NumberConclusions: React.FC<{
