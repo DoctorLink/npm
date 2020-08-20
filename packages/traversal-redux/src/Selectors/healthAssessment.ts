@@ -146,7 +146,7 @@ export const healthAgeExplanationSelector: Selector<
   (rules, healthAgeDiff) => rules && rules.getRuleValue(healthAgeDiff)
 );
 
-export function mergeArrays<T>(...arrays: T[][]): T[] {
+function mergeArrays<T>(...arrays: T[][]): T[] {
   let jointArray: T[] = [];
 
   arrays.forEach((array) => {
