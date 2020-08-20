@@ -1,6 +1,6 @@
 import React, { FC } from 'react';
 import { defaultTheme } from '../../Theme';
-import styled from 'styled-components';
+import styled, { CSSProperties } from 'styled-components';
 import { PanelBodyText } from '../../Components';
 
 const ConclusionsTitle = styled.div`
@@ -25,10 +25,12 @@ const Centered = styled(PanelBodyText)`
   }
 `;
 
-const CheckableConclusionHeader: FC = () => {
+const CheckableConclusionHeader: FC<{ style?: CSSProperties }> = ({
+  ...props
+}) => {
   return (
     <React.Fragment>
-      <ConclusionsTitle>
+      <ConclusionsTitle {...props}>
         <Centered contrastText>
           <strong>Your recommendations</strong>
         </Centered>
