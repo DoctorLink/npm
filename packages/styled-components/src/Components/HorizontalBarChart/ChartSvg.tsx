@@ -8,13 +8,11 @@ const StyledSvg = styled.svg`
   display: block;
   margin: auto;
   padding-top: 15px;
-  @media screen and (max-width: 355px) {
-    height: 200px;
-    font-size: ${chartSettings.fontSize}px;
+  @media screen and (max-width: 375px) {
+    font-size: ${chartSettings.fontSize};
   }
-
-  @media screen and (min-width: 356px) {
-    font-size: ${chartSettings.fontSize - 0.65}px;
+  @media screen and (min-width: 376px) {
+    font-size: ${chartSettings.desktopFontSize};
   }
 `;
 
