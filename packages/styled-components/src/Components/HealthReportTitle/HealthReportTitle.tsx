@@ -4,8 +4,11 @@ import styled, { CSSProperties } from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
 const StyledPanelBodyText = styled(PanelBodyText)`
-  color: ${(p) => p.theme.colors.brand100};
-  font-weight: 600;
+  color: ${(p) => p.theme.healthreporttitle.color};
+  font-family: ${(p) => p.theme.healthreporttitle.fontFamily};
+  font-weight: ${(p) => p.theme.healthreporttitle.fontWeight};
+  font-size: ${(p) => p.theme.healthreporttitle.fontSize}px;
+  line-height: ${(p) => p.theme.healthreporttitle.lineHeight}px;
 `;
 
 StyledPanelBodyText.defaultProps = {
