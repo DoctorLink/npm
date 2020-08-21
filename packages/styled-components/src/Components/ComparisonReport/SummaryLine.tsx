@@ -1,6 +1,6 @@
 import React from 'react';
 import {
-  ConclusionCotnainer,
+  ConclusionContainer,
   NumberConclusionContent,
   ComparisonContent,
 } from '../../Containers/HealthAssessment/Conclusions/Conclusion';
@@ -41,14 +41,14 @@ const SummaryLine: React.FC<{
   }
 
   return (
-    <ConclusionCotnainer>
+    <ConclusionContainer>
       <NumberConclusionContent>
         <ComparisonContent>{summaryLine.key}</ComparisonContent>
         <ComparisonContent>
           <strong style={{ color: clr }}>{text}</strong>
         </ComparisonContent>
       </NumberConclusionContent>
-    </ConclusionCotnainer>
+    </ConclusionContainer>
   );
 };
 
