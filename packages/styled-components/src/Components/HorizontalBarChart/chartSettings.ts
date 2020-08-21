@@ -1,4 +1,5 @@
-export const fontSize = '3.4px';
+export const fontSize = '3.5px';
+export const desktopFontSize = '2.75px';
 export const barInterval = 6;
 export const barHeight = 3;
 export const barLabelWidth = 32;

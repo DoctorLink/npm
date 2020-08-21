@@ -38,6 +38,17 @@ const wellnessConclusionIdsSelector: Selector<
   (hra) => hra.wellness.checkableConclusions
 );
 
+const allConclusionIdsSelector: Selector<
+  RootState,
+  number[]
+> = createSelector(
+  healthAgeConclusionIdsSelector,
+  riskConclusionIdsSelector,
+  wellnessConclusionIdsSelector,
+  (healthConclusionIds, riskConclusionIds, wellnessConclusionIds) =>
+    mergeArrays(healthConclusionIds, riskConclusionIds, wellnessConclusionIds)
+);
+
 const createFilteredConclusionsSelector = (
   conclusionIdsSelector: Selector<RootState, number[]>
 ): ConclusionsSelector =>
@@ -55,6 +66,10 @@ export const riskConclusionsSelector = createFilteredConclusionsSelector(
 );
 export const wellnessConclusionsSelector = createFilteredConclusionsSelector(
   wellnessConclusionIdsSelector
+);
+
+export const allConclusionsSelector = createFilteredConclusionsSelector(
+  allConclusionIdsSelector
 );
 
 export const additionalConclusionsSelector: ConclusionsSelector = createSelector(
@@ -130,3 +145,12 @@ export const healthAgeExplanationSelector: Selector<
   healthAgeDiffSelector,
   (rules, healthAgeDiff) => rules && rules.getRuleValue(healthAgeDiff)
 );
+
+function mergeArrays<T>(...arrays: T[][]): T[] {
+  let jointArray: T[] = [];
+
+  arrays.forEach((array) => {
+    jointArray = [...jointArray, ...array];
+  });
+  return Array.from(new Set([...jointArray]));
+}

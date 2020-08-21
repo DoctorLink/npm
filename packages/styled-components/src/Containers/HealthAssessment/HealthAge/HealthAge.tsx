@@ -13,8 +13,7 @@ import {
   healthAgeExplanationSelector,
 } from '@doctorlink/traversal-redux';
 import CheckableConclusions from '../Conclusions/CheckableConclusions';
-
-import HealthAgeIndicator from './Indicator';
+import HealthAgeIndicator from './HealthAgeIndicator';
 import { PanelBox } from '../../../Components';
 import CheckableConclusionHeader from '../../../Components/CheckableConclusionHeader';
 

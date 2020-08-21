@@ -5,6 +5,7 @@ import {
   hraConclusionCheck,
   hraConclusionUncheck,
 } from '@doctorlink/traversal-redux';
+import { Conclusion } from '@doctorlink/traversal-core/lib/Models/Conclusion';
 import {
   PanelConclusion,
   Checkbox,
@@ -12,19 +13,28 @@ import {
   DisplayText,
 } from '../../../Components';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
-import { Conclusion } from './Conclusion';
+import { ConclusionContainer } from './Conclusion';
+
+import { useToggle } from '../../../Hooks/useToggle';
+import Color from '../../../Theme/base/colors';
 
 const ConclusionLabel = styled(Label)`
   padding: 0;
   box-shadow: none;
 `;
 
+const StyledLink = styled.a`
+  cursor: pointer;
+  color: ${Color.linkBlue};
+  text-decoration: underline;
+`;
+
 const CheckableConclusion: React.FC<{
-  conclusion: any;
-  checked: any;
-  onChange: any;
+  conclusion: Conclusion;
+  checked: boolean;
+  onChange: (assetId: number, checked: boolean) => void;
 }> = ({ conclusion, checked, onChange }) => (
-  <Conclusion>
+  <ConclusionContainer>
     <ConclusionLabel>
       <Checkbox
         type="checkbox"
@@ -34,18 +44,21 @@ const CheckableConclusion: React.FC<{
       <DisplayText>{conclusion.displayText}</DisplayText>
     </ConclusionLabel>
     <InfoButton explanation={conclusion.explanation} />
-  </Conclusion>
+  </ConclusionContainer>
 );
 
 const CheckableConclusions: React.FC<{
-  conclusions: any;
-  selectedIds: any;
+  conclusions: Conclusion[];
+  selectedIds: number[];
   dispatch: any;
-}> = ({ conclusions, selectedIds, dispatch }) => {
-  const onCheckboxChange = (assetId: any, checked: any) =>
+  restrictList?: number;
+}> = ({ conclusions, selectedIds, dispatch, restrictList }) => {
+  const onCheckboxChange = (assetId: number, checked: boolean) =>
     checked
       ? dispatch(hraConclusionCheck(assetId))
       : dispatch(hraConclusionUncheck(assetId));
+  const numberOfLines = restrictList ?? conclusions.length;
+  const [moreLines, setMoreLines] = useToggle(false);
 
   if (conclusions.length === 0) {
     return null;
@@ -53,8 +66,11 @@ const CheckableConclusions: React.FC<{
 
   return (
     <>
-      {conclusions.map((conc: any) => (
-        <PanelConclusion key={conc.assetId}>
+      {conclusions.map((conc, i) => (
+        <PanelConclusion
+          key={conc.assetId}
+          style={{ display: i < numberOfLines || moreLines ? 'block' : 'none' }}
+        >
           <CheckableConclusion
             conclusion={conc}
             checked={selectedIds.indexOf(conc.assetId) > -1}
@@ -62,6 +78,13 @@ const CheckableConclusions: React.FC<{
           />
         </PanelConclusion>
       ))}
+      {restrictList && !moreLines && conclusions.length >= restrictList && (
+        <PanelConclusion>
+          <StyledLink onClick={setMoreLines}>
+            View more additional recommendations
+          </StyledLink>
+        </PanelConclusion>
+      )}
     </>
   );
 };

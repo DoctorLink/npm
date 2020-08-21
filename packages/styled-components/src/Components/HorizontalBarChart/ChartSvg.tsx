@@ -3,14 +3,16 @@ import styled from 'styled-components';
 import { chartSettings } from '../HorizontalBarChart';
 
 const StyledSvg = styled.svg`
-  font-size: ${chartSettings.fontSize};
   overflow: visible;
   width: 100%;
   display: block;
   margin: auto;
   padding-top: 15px;
-  @media screen and (max-width: 355px) {
-    height: 200px;
+  @media screen and (max-width: 375px) {
+    font-size: ${chartSettings.fontSize};
+  }
+  @media screen and (min-width: 376px) {
+    font-size: ${chartSettings.desktopFontSize};
   }
 `;
 

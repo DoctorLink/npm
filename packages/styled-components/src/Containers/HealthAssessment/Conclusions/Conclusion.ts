@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import theme from '../../../Theme/base';
 
-export const Conclusion = styled.div`
+export const ConclusionContainer = styled.div`
   display: flex;
   justify-content: space-between;
 `;
