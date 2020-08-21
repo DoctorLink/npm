@@ -57,8 +57,7 @@ const CheckableConclusions: React.FC<{
     checked
       ? dispatch(hraConclusionCheck(assetId))
       : dispatch(hraConclusionUncheck(assetId));
-  const numberOfLines =
-    restrictList === undefined ? conclusions.length : restrictList;
+  const numberOfLines = restrictList ?? conclusions.length;
   const [moreLines, setMoreLines] = useToggle(false);
 
   if (conclusions.length === 0) {
