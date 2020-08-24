@@ -1,7 +1,7 @@
 import { useToggle } from './useToggle';
 import { useMemo } from 'react';
 
-export interface UseRestrictedListResult<T> {
+export interface RestrictedListContext<T> {
   isRestricted: boolean;
   restrictedItems: T[];
   showAll: boolean;
@@ -11,7 +11,7 @@ export interface UseRestrictedListResult<T> {
 export function useRestrictedList<T>(
   items: T[],
   limit: number | undefined
-): UseRestrictedListResult<T> {
+): RestrictedListContext<T> {
   const numberToShow = limit ?? items.length;
   const isRestricted = limit !== undefined && items.length > limit;
 
