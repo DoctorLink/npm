@@ -1,24 +1,15 @@
 import React from 'react';
-import styled from 'styled-components';
 import { Conclusion } from '@doctorlink/traversal-core';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
-
-const ConclusionList = styled.ul`
-  list-style: inside;
-  padding-left: 0;
-`;
-
-const ConclusionItem = styled.li`
-  padding-bottom: 10px;
-`;
+import { ConclusionContent } from './Conclusion';
 
 const NonCheckableConclusion: React.FC<{
   conclusion: Conclusion;
 }> = ({ conclusion }) => (
-  <ConclusionItem>
-    {conclusion.displayText}
+  <ConclusionContent>
+    <div>{conclusion.displayText}</div>
     <InfoButton explanation={conclusion.explanation} />
-  </ConclusionItem>
+  </ConclusionContent>
 );
 
 const NonCheckableConclusions: React.FC<{
@@ -29,11 +20,11 @@ const NonCheckableConclusions: React.FC<{
   }
 
   return (
-    <ConclusionList>
-      {conclusions.map((conc: Conclusion) => (
+    <>
+      {conclusions.map((conc) => (
         <NonCheckableConclusion key={conc.assetId} conclusion={conc} />
       ))}
-    </ConclusionList>
+    </>
   );
 };
 

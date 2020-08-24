@@ -2,20 +2,16 @@ import React from 'react';
 import { PanelContent } from '../../../Components';
 import NumberConclusions from '../Conclusions/NumberConclusions';
 import HealthReportTitle from '../../../Components/HealthReportTitle';
-import styled from 'styled-components';
 import { NumberConclusion } from '@doctorlink/traversal-core';
 
-const StyledContent = styled(PanelContent)`
-  line-height: 3;
-`;
 export const MyNumbers: React.FC<{
   numbersConclusions: NumberConclusion[];
 }> = ({ numbersConclusions }) => {
   const title = 'My numbers';
   return (
-    <StyledContent title={title}>
+    <PanelContent title={title}>
       <HealthReportTitle>{title}</HealthReportTitle>
       <NumberConclusions conclusions={numbersConclusions} />
-    </StyledContent>
+    </PanelContent>
   );
 };

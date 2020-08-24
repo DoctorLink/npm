@@ -1,7 +1,7 @@
 import React from 'react';
 import {
   ConclusionContainer,
-  NumberConclusionContent,
+  ConclusionContent,
   ComparisonContent,
 } from '../../Containers/HealthAssessment/Conclusions/Conclusion';
 
@@ -42,12 +42,12 @@ const SummaryLine: React.FC<{
 
   return (
     <ConclusionContainer>
-      <NumberConclusionContent>
+      <ConclusionContent>
         <ComparisonContent>{summaryLine.key}</ComparisonContent>
         <ComparisonContent>
           <strong style={{ color: clr }}>{text}</strong>
         </ComparisonContent>
-      </NumberConclusionContent>
+      </ConclusionContent>
     </ConclusionContainer>
   );
 };

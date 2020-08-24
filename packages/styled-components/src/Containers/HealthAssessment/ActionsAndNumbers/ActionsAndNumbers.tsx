@@ -5,8 +5,8 @@ import {
   actionsNowDueSelector,
   additionalConclusionsSelector,
 } from '@doctorlink/traversal-redux';
-import PanelBlocks from '../../../Components/PanelBlocks';
-import { MyNumbersBox } from './MyNumbersBox';
+import { PanelBlocks, PanelContainer, Panel } from '../../../Components';
+import { MyNumbers } from './MyNumbers';
 import { ActionsNowDue } from './ActionsNowDue';
 import { AdditionalInfo } from '../AdditionalInfo/AdditionalInfo';
 
@@ -30,13 +30,25 @@ const ActionsAndNumbers: React.FC<ActionsAndNumbersProps> = ({
   return (
     <PanelBlocks>
       {numbersConclusions.length > 0 && (
-        <MyNumbersBox numbersConclusions={numbersConclusions} />
+        <PanelContainer>
+          <Panel>
+            <MyNumbers numbersConclusions={numbersConclusions} />
+          </Panel>
+        </PanelContainer>
       )}
       {actionConclusions.length > 0 && (
-        <ActionsNowDue actionConclusions={actionConclusions} />
+        <PanelContainer>
+          <Panel>
+            <ActionsNowDue actionConclusions={actionConclusions} />
+          </Panel>
+        </PanelContainer>
       )}
       {additionalConclusions.length > 0 && (
-        <AdditionalInfo additionalConclusions={additionalConclusions} />
+        <PanelContainer>
+          <Panel>
+            <AdditionalInfo additionalConclusions={additionalConclusions} />
+          </Panel>
+        </PanelContainer>
       )}
     </PanelBlocks>
   );
