@@ -1,6 +1,7 @@
-import React from 'react';
+import React, { ChangeEvent } from 'react';
 import styled from 'styled-components';
 import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
 import {
   hraConclusionCheck,
   hraConclusionUncheck,
@@ -15,8 +16,8 @@ import {
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
 import { ConclusionContainer } from './Conclusion';
 
-import { useToggle } from '../../../Hooks/useToggle';
-import Color from '../../../Theme/base/colors';
+import { useRestrictedList } from '../../../Hooks';
+import { RootState } from '@doctorlink/traversal-core';
 
 const ConclusionLabel = styled(Label)`
   padding: 0;
@@ -25,8 +26,9 @@ const ConclusionLabel = styled(Label)`
 
 const StyledLink = styled.a`
   cursor: pointer;
-  color: ${Color.linkBlue};
+  color: ${(p) => p.theme.colors.linkBlue};
   text-decoration: underline;
+  font-size: ${(p) => p.theme.healthReportConclusion.fontSize}px;
 `;
 
 const CheckableConclusion: React.FC<{
@@ -39,7 +41,9 @@ const CheckableConclusion: React.FC<{
       <Checkbox
         type="checkbox"
         checked={checked}
-        onChange={(e: any) => onChange(conclusion.assetId, e.target.checked)}
+        onChange={(e: ChangeEvent<HTMLInputElement>) =>
+          onChange(conclusion.assetId, e.target.checked)
+        }
       />
       <DisplayText>{conclusion.displayText}</DisplayText>
     </ConclusionLabel>
@@ -50,15 +54,20 @@ const CheckableConclusion: React.FC<{
 const CheckableConclusions: React.FC<{
   conclusions: Conclusion[];
   selectedIds: number[];
-  dispatch: any;
+  dispatch: Dispatch;
   restrictList?: number;
 }> = ({ conclusions, selectedIds, dispatch, restrictList }) => {
   const onCheckboxChange = (assetId: number, checked: boolean) =>
     checked
       ? dispatch(hraConclusionCheck(assetId))
       : dispatch(hraConclusionUncheck(assetId));
-  const numberOfLines = restrictList ?? conclusions.length;
-  const [moreLines, setMoreLines] = useToggle(false);
+
+  const {
+    isRestricted,
+    restrictedItems,
+    showAll,
+    toggleShowAll,
+  } = useRestrictedList(conclusions, restrictList);
 
   if (conclusions.length === 0) {
     return null;
@@ -66,11 +75,8 @@ const CheckableConclusions: React.FC<{
 
   return (
     <>
-      {conclusions.map((conc, i) => (
-        <PanelConclusion
-          key={conc.assetId}
-          style={{ display: i < numberOfLines || moreLines ? 'block' : 'none' }}
-        >
+      {restrictedItems.map((conc) => (
+        <PanelConclusion key={conc.assetId}>
           <CheckableConclusion
             conclusion={conc}
             checked={selectedIds.indexOf(conc.assetId) > -1}
@@ -78,10 +84,12 @@ const CheckableConclusions: React.FC<{
           />
         </PanelConclusion>
       ))}
-      {restrictList && !moreLines && conclusions.length >= restrictList && (
+      {isRestricted && (
         <PanelConclusion>
-          <StyledLink onClick={setMoreLines}>
-            View more additional recommendations
+          <StyledLink onClick={toggleShowAll}>
+            {showAll
+              ? 'View fewer recommendations'
+              : 'View more additional recommendations'}
           </StyledLink>
         </PanelConclusion>
       )}
@@ -89,7 +97,7 @@ const CheckableConclusions: React.FC<{
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   selectedIds: state.healthAssessment.checkedConclusions,
 });
 export default connect(mapStateToProps)(CheckableConclusions);
