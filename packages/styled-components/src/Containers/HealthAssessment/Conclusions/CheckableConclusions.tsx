@@ -29,6 +29,10 @@ const StyledLink = styled.a`
   text-decoration: underline;
 `;
 
+const StyledDisplayText = styled(DisplayText)`
+  font-size: inherit;
+`;
+
 const CheckableConclusion: React.FC<{
   conclusion: Conclusion;
   checked: boolean;
@@ -41,7 +45,7 @@ const CheckableConclusion: React.FC<{
         checked={checked}
         onChange={(e: any) => onChange(conclusion.assetId, e.target.checked)}
       />
-      <DisplayText>{conclusion.displayText}</DisplayText>
+      <StyledDisplayText>{conclusion.displayText}</StyledDisplayText>
     </ConclusionLabel>
     <InfoButton explanation={conclusion.explanation} />
   </ConclusionContainer>
