@@ -1,32 +1,39 @@
 import React from 'react';
-import { PanelConclusion } from '../../../Components';
+import styled from 'styled-components';
+import { Conclusion } from '@doctorlink/traversal-core';
 import { InfoIconConnected as InfoButton } from '../../InfoIcon';
-import { ConclusionContainer } from './Conclusion';
+
+const ConclusionList = styled.ul`
+  list-style: inside;
+  padding-left: 0;
+`;
+
+const ConclusionItem = styled.li`
+  padding-bottom: 10px;
+`;
 
 const NonCheckableConclusion: React.FC<{
-  conclusion: any;
+  conclusion: Conclusion;
 }> = ({ conclusion }) => (
-  <ConclusionContainer>
-    <div>{conclusion.displayText}</div>
+  <ConclusionItem>
+    {conclusion.displayText}
     <InfoButton explanation={conclusion.explanation} />
-  </ConclusionContainer>
+  </ConclusionItem>
 );
 
 const NonCheckableConclusions: React.FC<{
-  conclusions: any;
+  conclusions: Conclusion[];
 }> = ({ conclusions }) => {
   if (conclusions.length === 0) {
     return null;
   }
 
   return (
-    <>
-      {conclusions.map((conc: any) => (
-        <PanelConclusion key={conc.assetId}>
-          <NonCheckableConclusion conclusion={conc} />
-        </PanelConclusion>
+    <ConclusionList>
+      {conclusions.map((conc: Conclusion) => (
+        <NonCheckableConclusion key={conc.assetId} conclusion={conc} />
       ))}
-    </>
+    </ConclusionList>
   );
 };
 

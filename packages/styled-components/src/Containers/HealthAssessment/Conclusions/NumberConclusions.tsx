@@ -45,13 +45,13 @@ const NumberConclusions: React.FC<{
   conclusions: NumberConclusionModel[];
 }> = ({ conclusions }) => {
   return (
-    <>
+    <div>
       {conclusions.map((conc) => (
         <div key={conc.assetId}>
           <NumberConclusion conclusion={conc} />
         </div>
       ))}
-    </>
+    </div>
   );
 };
 

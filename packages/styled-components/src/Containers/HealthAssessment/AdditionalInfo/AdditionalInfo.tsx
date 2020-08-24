@@ -1,38 +1,24 @@
 import React from 'react';
-import { connect } from 'react-redux';
+import { Conclusion } from '@doctorlink/traversal-core';
 import {
   Panel,
   PanelContainer,
-  PanelBlocks,
-  HealthReportPanelHeader,
+  HealthReportTitle,
   PanelContent,
 } from '../../../Components';
-import { additionalConclusionsSelector } from '@doctorlink/traversal-redux';
 import NonCheckableConclusions from '../Conclusions/NonCheckableConclusions';
 
-const AdditionalInfo: React.FC<{
-  additionalConclusions: any;
+export const AdditionalInfo: React.FC<{
+  additionalConclusions: Conclusion[];
 }> = ({ additionalConclusions }) => {
   return (
-    <>
-      <h2>Global Health Check Scores</h2>
-      <PanelBlocks>
-        <PanelContainer>
-          <Panel>
-            <HealthReportPanelHeader>
-              Additional Information
-            </HealthReportPanelHeader>
-            <PanelContent>
-              <NonCheckableConclusions conclusions={additionalConclusions} />
-            </PanelContent>
-          </Panel>
-        </PanelContainer>
-      </PanelBlocks>
-    </>
+    <PanelContainer>
+      <Panel>
+        <PanelContent>
+          <HealthReportTitle>Additional Information</HealthReportTitle>
+          <NonCheckableConclusions conclusions={additionalConclusions} />
+        </PanelContent>
+      </Panel>
+    </PanelContainer>
   );
 };
-
-const mapStateToProps = (state: any) => ({
-  additionalConclusions: additionalConclusionsSelector(state),
-});
-export default connect(mapStateToProps)(AdditionalInfo);

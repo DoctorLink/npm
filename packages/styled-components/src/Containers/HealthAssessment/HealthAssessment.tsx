@@ -9,7 +9,6 @@ import Risks from './Risks/Risks';
 import HealthAge from './HealthAge/HealthAge';
 import Wellbeing from './Wellbeing/Wellbeing';
 import ActionsAndNumbers from './ActionsAndNumbers/ActionsAndNumbers';
-import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 import { useHRARoutes, HraRouteName } from '../../Hooks';
 import ComparisonReport from './ComparisonReport/ComparisonReport';
 
@@ -70,7 +69,6 @@ const HealthAssessment: React.FC<{
             path={`${basePath}/comparison-report`}
             render={() => <ComparisonReport traversal={traversalId} />}
           />
-          <Route path={`${basePath}/info`} component={AdditionalInfo} />
           {initialRoute && (
             <Route
               render={() => <Redirect to={resolveRoute(initialRoute)} />}
