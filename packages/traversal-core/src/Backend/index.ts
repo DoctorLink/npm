@@ -29,6 +29,10 @@ export interface ClientCredentialsOptions {
    * The Client Secret. Sensitive data, should be set via an environment variable and only used server side.
    */
   clientSecret: string;
+  /**
+   * If true, logging will be enabled
+   */
+  logging?: boolean;
 }
 
 /**
@@ -44,7 +48,7 @@ export class ClientCredentialsTokenProvider {
    * @param options - The [[ClientCredentialsOptions]]
    */
   constructor(options: ClientCredentialsOptions) {
-    this.options = options;
+    this.options = { logging: true, ...options };
   }
 
   /**
@@ -57,7 +61,8 @@ export class ClientCredentialsTokenProvider {
 
     const { identityUrl, clientId, clientSecret } = this.options;
 
-    console.log('Requesting Client Credentials Token.');
+    if (this.options.logging)
+      console.log('Requesting Client Credentials Token.');
 
     const { data } = await axios.post<ClientCredentialsToken>(
       `${identityUrl}connect/token`,
@@ -72,7 +77,7 @@ export class ClientCredentialsTokenProvider {
       expiry: Date.now() + (data.expires_in - 30) * 1000,
     };
 
-    console.log('Client Credentials Token updated.');
+    if (this.options.logging) console.log('Client Credentials Token updated.');
 
     return this.token;
   }
@@ -99,7 +104,7 @@ export const createClientCredentialsMiddleware = (
       if (token) req.headers.authorization = `bearer ${token.access_token}`;
       next();
     } catch (error) {
-      console.log(error);
+      if (options.logging) console.log(error);
       res.statusCode = 401;
       res.end(
         JSON.stringify({ message: 'Client credentials authentication failed' })
