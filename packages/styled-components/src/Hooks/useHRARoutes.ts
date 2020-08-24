@@ -15,7 +15,6 @@ export type HraRouteName =
   | 'risks'
   | 'wellbeing'
   | 'my-numbers'
-  | 'info'
   | 'comparison-report';
 
 interface RouteDefinition {
@@ -67,7 +66,6 @@ export const useHRARoutes = (traversalId: string): HraRoutes => {
       defer: !conclusionsLoaded,
       enabled: myNumbers.length > 0 || nowDue.length > 0,
     },
-    { path: 'info', enabled: true },
   ];
 
   const [initialRoute, setInitialRoute] = useState<HraRouteName>();

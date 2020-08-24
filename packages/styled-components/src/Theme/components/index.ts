@@ -8,6 +8,10 @@ import chatpreviousanswer, {
 import checkbox, { CheckboxTheme } from './checkbox';
 import datefield, { DateFieldTheme } from './datefield';
 import errortext, { ErrorTextTheme } from './errortext';
+import healthreportconclusion, {
+  HealthReportConclusionTheme,
+} from './healthReportConclusion';
+import healthreporttitle, { HealthReportTitleTheme } from './healthreporttitle';
 import infoicon, { InfoIconTheme } from './infoicon';
 import label, { LabelTheme } from './label';
 import modal, { ModalTheme } from './modal';
@@ -37,6 +41,8 @@ export interface ComponentTheme {
   datefield: DateFieldTheme;
   displayText: DisplayTextTheme;
   errortext: ErrorTextTheme;
+  healthReportConclusion: HealthReportConclusionTheme;
+  healthreporttitle: HealthReportTitleTheme;
   infoicon: InfoIconTheme;
   label: LabelTheme;
   modal: ModalTheme;
@@ -65,6 +71,8 @@ const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   datefield: datefield(baseTheme),
   displayText: displayText(baseTheme),
   errortext: errortext(baseTheme),
+  healthReportConclusion: healthreportconclusion(baseTheme),
+  healthreporttitle: healthreporttitle(baseTheme),
   infoicon: infoicon(baseTheme),
   label: label(baseTheme),
   modal: modal(baseTheme),

@@ -3,7 +3,6 @@ import Risks from './Risks/Risks';
 import HealthAge from './HealthAge/HealthAge';
 import Wellbeing from './Wellbeing/Wellbeing';
 import ActionsAndNumbers from './ActionsAndNumbers/ActionsAndNumbers';
-import AdditionalInfo from './AdditionalInfo/AdditionalInfo';
 import ComparisonReport from './ComparisonReport/ComparisonReport';
 
 interface HealthAssessmentPageProps {
@@ -26,8 +25,6 @@ export const HealthAssessmentPage: React.FC<HealthAssessmentPageProps> = ({
       return <ActionsAndNumbers />;
     case 'comparison-report':
       return <ComparisonReport traversal={traversalId} />;
-    case 'info':
-      return <AdditionalInfo />;
     default:
       return null;
   }

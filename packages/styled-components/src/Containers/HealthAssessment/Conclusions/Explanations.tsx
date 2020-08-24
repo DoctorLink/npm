@@ -2,11 +2,15 @@ import React, { useState } from 'react';
 import {
   AccordionHeader,
   AccordionBody,
-  HealthReportPanelHeader,
+  HealthReportTitle,
   PanelContent,
   PanelConclusion,
 } from '../../../Components';
-import { replaceLineBreaks } from '@doctorlink/traversal-core';
+import {
+  replaceLineBreaks,
+  Conclusion,
+  ConclusionBullet,
+} from '@doctorlink/traversal-core';
 
 const HtmlContent = ({ children = '', element = 'div' }) =>
   React.createElement(element, {
@@ -14,14 +18,14 @@ const HtmlContent = ({ children = '', element = 'div' }) =>
   });
 
 const Bullets: React.FC<{
-  bullets: any;
+  bullets: ConclusionBullet[];
 }> = ({ bullets }) => {
   const [header, ...items] = bullets;
   return (
     <>
       {header && <HtmlContent>{header.displayText}</HtmlContent>}
       <ul>
-        {items.map((item: any) => (
+        {items.map((item) => (
           <HtmlContent element="li" key={item.bulletUniqueId}>
             {item.displayText}
           </HtmlContent>
@@ -32,7 +36,7 @@ const Bullets: React.FC<{
 };
 
 const Explanation: React.FC<{
-  conclusion: any;
+  conclusion: Conclusion;
 }> = ({ conclusion }) => {
   const [open, setOpen] = useState(false);
   const toggleOpen = () => setOpen(!open);
@@ -51,18 +55,16 @@ const Explanation: React.FC<{
 };
 
 const Explanations: React.FC<{
-  title: any;
-  explanations: any;
+  title: string;
+  explanations: Conclusion[];
 }> = ({ title, explanations }) => {
   return (
-    <>
-      <HealthReportPanelHeader>{title}</HealthReportPanelHeader>
-      <PanelContent>
-        {explanations.map((conc: any) => (
-          <Explanation key={conc.assetId} conclusion={conc} />
-        ))}
-      </PanelContent>
-    </>
+    <PanelContent>
+      <HealthReportTitle>{title}</HealthReportTitle>
+      {explanations.map((conc) => (
+        <Explanation key={conc.assetId} conclusion={conc} />
+      ))}
+    </PanelContent>
   );
 };
 

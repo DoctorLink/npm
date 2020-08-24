@@ -17,7 +17,9 @@ const FlexBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: ${(p) => p.theme.typography.regular.size}px;
   font-weight: 600;
+  margin-bottom: ${(p) => p.theme.spacing.padding}px;
 `;
 
 const Right = styled.div`
@@ -26,12 +28,6 @@ const Right = styled.div`
 
 const Header = styled.div`
   line-height: 2;
-`;
-
-const StyledPanelContent = styled(PanelContent)`
-  @media screen and (max-width: 799px) {
-    margin-top: -16px;
-  }
 `;
 
 interface RiskScoresProps {
@@ -52,7 +48,7 @@ const RiskScores: React.FC<RiskScoresProps> = ({ traversalId }) => {
     setSelectedAge(+e.target.value);
   return (
     <React.Fragment>
-      <StyledPanelContent>
+      <PanelContent>
         <Header>
           <HealthReportTitle>My health risks</HealthReportTitle>
           <FlexBox>
@@ -69,7 +65,7 @@ const RiskScores: React.FC<RiskScoresProps> = ({ traversalId }) => {
         <UpdateWhenVisible offset={{ top: -30 }}>
           <RiskChart risks={selectedRisks} />
         </UpdateWhenVisible>
-      </StyledPanelContent>
+      </PanelContent>
     </React.Fragment>
   );
 };

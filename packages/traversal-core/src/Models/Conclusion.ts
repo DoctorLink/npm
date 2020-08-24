@@ -8,11 +8,18 @@ export interface Conclusion {
   subCategory: string;
   explanation: string;
   moreDetail: string;
+  bullets: ConclusionBullet[];
 }
 
 export interface NumberConclusion extends Conclusion {
   value: string; // string not number because it could be '?' if unknown.
   color: string;
+}
+
+export interface ConclusionBullet {
+  bulletId: number;
+  bulletUniqueId: number;
+  displayText: string;
 }
 
 export interface ConclusionModel {

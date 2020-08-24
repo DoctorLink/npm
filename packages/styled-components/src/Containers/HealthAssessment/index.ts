@@ -8,3 +8,4 @@ export { MyNumbers } from './ActionsAndNumbers/MyNumbers';
 export { default as CheckableConclusions } from './Conclusions/CheckableConclusions';
 export { default as WellbeingScores } from './Wellbeing/WellbeingScores';
 export { CheckableConclusionWithHeader } from './Conclusions/CheckableConclusionWithHeader';
+export { AdditionalInfo } from './AdditionalInfo/AdditionalInfo';

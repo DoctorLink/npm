@@ -1,38 +1,39 @@
 import React from 'react';
-import { connect } from 'react-redux';
-import {
-  Panel,
-  PanelContainer,
-  PanelBlocks,
-  HealthReportPanelHeader,
-  PanelContent,
-} from '../../../Components';
-import { additionalConclusionsSelector } from '@doctorlink/traversal-redux';
+import { Conclusion } from '@doctorlink/traversal-core';
+import { HealthReportTitle, PanelContent } from '../../../Components';
 import NonCheckableConclusions from '../Conclusions/NonCheckableConclusions';
+import { ConclusionContent } from '../Conclusions/Conclusion';
+import { useRestrictedList } from '../../../Hooks';
+import styled from 'styled-components';
 
-const AdditionalInfo: React.FC<{
-  additionalConclusions: any;
-}> = ({ additionalConclusions }) => {
+const StyledLink = styled.a`
+  cursor: pointer;
+  color: ${(p) => p.theme.colors.linkBlue};
+  text-decoration: underline;
+`;
+
+export const AdditionalInfo: React.FC<{
+  additionalConclusions: Conclusion[];
+  restrictList?: number;
+}> = ({ additionalConclusions, restrictList }) => {
+  const {
+    isRestricted,
+    restrictedItems,
+    showAll,
+    toggleShowAll,
+  } = useRestrictedList(additionalConclusions, restrictList);
+
   return (
-    <>
-      <h2>Global Health Check Scores</h2>
-      <PanelBlocks>
-        <PanelContainer>
-          <Panel>
-            <HealthReportPanelHeader>
-              Additional Information
-            </HealthReportPanelHeader>
-            <PanelContent>
-              <NonCheckableConclusions conclusions={additionalConclusions} />
-            </PanelContent>
-          </Panel>
-        </PanelContainer>
-      </PanelBlocks>
-    </>
+    <PanelContent>
+      <HealthReportTitle>Additional Information</HealthReportTitle>
+      <NonCheckableConclusions conclusions={restrictedItems} />
+      {isRestricted && (
+        <ConclusionContent>
+          <StyledLink onClick={toggleShowAll}>
+            {showAll ? 'View less' : 'View more additional information'}
+          </StyledLink>
+        </ConclusionContent>
+      )}
+    </PanelContent>
   );
 };
-
-const mapStateToProps = (state: any) => ({
-  additionalConclusions: additionalConclusionsSelector(state),
-});
-export default connect(mapStateToProps)(AdditionalInfo);

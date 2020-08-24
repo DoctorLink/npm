@@ -7,7 +7,6 @@ const StyledSvg = styled.svg`
   width: 100%;
   display: block;
   margin: auto;
-  padding-top: 15px;
   @media screen and (max-width: 375px) {
     font-size: ${chartSettings.fontSize};
   }
