@@ -4,10 +4,14 @@ import {
   Panel,
   PanelContainer,
   PanelBlocks,
-  HealthReportPanelHeader,
+  HealthReportTitle,
   PanelContent,
 } from '../../../Components';
-import { replaceLineBreaks } from '@doctorlink/traversal-core';
+import {
+  replaceLineBreaks,
+  Conclusion,
+  RootState,
+} from '@doctorlink/traversal-core';
 import {
   healthAgeConclusionsSelector,
   healthAgeExplanationSelector,
@@ -17,11 +21,17 @@ import HealthAgeIndicator from './HealthAgeIndicator';
 import { PanelBox } from '../../../Components';
 import CheckableConclusionHeader from '../../../Components/CheckableConclusionHeader';
 
-const HealthAge: React.FC<{
-  traversalId: any;
-  healthAgeConclusions: any;
-  explanation: any;
-}> = ({ traversalId, healthAgeConclusions, explanation }) => {
+interface HealthAgeProps {
+  traversalId: string;
+  healthAgeConclusions: Conclusion[];
+  explanation: string | null;
+}
+
+const HealthAge: React.FC<HealthAgeProps> = ({
+  traversalId,
+  healthAgeConclusions,
+  explanation,
+}) => {
   return (
     <>
       <PanelBlocks>
@@ -39,10 +49,8 @@ const HealthAge: React.FC<{
         {explanation && (
           <PanelContainer>
             <Panel>
-              <HealthReportPanelHeader>
-                Your health age explained
-              </HealthReportPanelHeader>
               <PanelContent>
+                <HealthReportTitle>Your health age explained</HealthReportTitle>
                 <div
                   dangerouslySetInnerHTML={{
                     __html: replaceLineBreaks(explanation),
@@ -57,7 +65,7 @@ const HealthAge: React.FC<{
   );
 };
 
-const mapStateToProps = (state: any) => ({
+const mapStateToProps = (state: RootState) => ({
   healthAgeConclusions: healthAgeConclusionsSelector(state),
   explanation: healthAgeExplanationSelector(state),
 });

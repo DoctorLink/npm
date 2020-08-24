@@ -17,9 +17,7 @@ export const MyNumbers: React.FC<{
   const title = 'My numbers';
   return (
     <StyledContent title={title}>
-      <HealthReportTitle style={{ marginBottom: '10px' }}>
-        {title}
-      </HealthReportTitle>
+      <HealthReportTitle>{title}</HealthReportTitle>
       <NumberConclusions conclusions={numbersConclusions} />
     </StyledContent>
   );

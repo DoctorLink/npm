@@ -17,7 +17,9 @@ const FlexBox = styled.div`
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
+  font-size: ${(p) => p.theme.typography.regular.size}px;
   font-weight: 600;
+  margin-bottom: ${(p) => p.theme.spacing.padding}px;
 `;
 
 const Right = styled.div`
