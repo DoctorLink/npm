@@ -1,5 +1,5 @@
 import React from 'react';
-import { PanelContainer, PanelBox } from '../../../Components';
+import { PanelContainer, Panel } from '../../../Components';
 import { MyNumbers } from './MyNumbers';
 import { NumberConclusion } from '@doctorlink/traversal-core';
 
@@ -8,9 +8,9 @@ export const MyNumbersBox: React.FC<{
 }> = ({ numbersConclusions }) => {
   return (
     <PanelContainer>
-      <PanelBox>
+      <Panel>
         <MyNumbers numbersConclusions={numbersConclusions}></MyNumbers>
-      </PanelBox>
+      </Panel>
     </PanelContainer>
   );
 };

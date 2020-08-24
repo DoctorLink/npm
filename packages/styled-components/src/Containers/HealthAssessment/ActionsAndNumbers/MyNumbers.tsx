@@ -7,9 +7,6 @@ import { NumberConclusion } from '@doctorlink/traversal-core';
 
 const StyledContent = styled(PanelContent)`
   line-height: 3;
-  @media screen and (max-width: 799px) {
-    margin-top: -16px;
-  }
 `;
 export const MyNumbers: React.FC<{
   numbersConclusions: NumberConclusion[];
