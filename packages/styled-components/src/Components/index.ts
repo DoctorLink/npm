@@ -83,3 +83,7 @@ export { WarningIcon } from './WarningIcon';
 export { default as CheckableConclusionHeader } from './CheckableConclusionHeader';
 export { default as ComparisonReportSummary } from './ComparisonReport/Summary';
 export { default as CompareRisks } from './ComparisonReport/CompareRisks';
+export {
+  HealthReportExplanation,
+  HtmlContent,
+} from './HealthReportExplanation';
