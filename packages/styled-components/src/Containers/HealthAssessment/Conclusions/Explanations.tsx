@@ -4,6 +4,7 @@ import {
   AccordionBody,
   HealthReportTitle,
   HealthReportExplanation,
+  HealthReportExplanationBody,
   PanelContent,
   PanelConclusion,
 } from '../../../Components';
@@ -17,7 +18,9 @@ const Explanation: React.FC<{
   return (
     <PanelConclusion>
       <AccordionHeader open={open} toggleOpen={toggleOpen}>
-        {conclusion.displayText}
+        <HealthReportExplanationBody>
+          {conclusion.displayText}
+        </HealthReportExplanationBody>
       </AccordionHeader>
       <AccordionBody open={open}>
         <HealthReportExplanation conclusion={conclusion} />
