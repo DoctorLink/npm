@@ -61,6 +61,7 @@ export interface HealthComparisonSnapshot {
   clientId: string | null;
   riskOutput: {
     age: number;
+    healthAge: number;
     risks: HealthRiskModel[];
   };
   wellnessOutput: { scores: WellnessScore[] };
