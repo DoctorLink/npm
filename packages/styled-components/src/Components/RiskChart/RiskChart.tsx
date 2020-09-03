@@ -16,9 +16,10 @@ const {
 
 interface RiskChartProps {
   risks: HealthRiskModel[];
+  highlightRisk?: string;
 }
 
-const RiskChart: React.FC<RiskChartProps> = ({ risks }) => {
+const RiskChart: React.FC<RiskChartProps> = ({ risks, highlightRisk }) => {
   const chartHeight = risks.length * barInterval;
   const keyHeight = barInterval * 1.7;
   const keyTop = gridlineLabelHeight + chartHeight + 6;
@@ -34,7 +35,12 @@ const RiskChart: React.FC<RiskChartProps> = ({ risks }) => {
         width={barWidth}
         lineLength={chartHeight}
       />
-      <RiskBars risks={risks} x={0} y={gridlineLabelHeight} />
+      <RiskBars
+        risks={risks}
+        highlightRisk={highlightRisk}
+        x={0}
+        y={gridlineLabelHeight}
+      />
       <ChartKey x={0} y={keyTop} />
     </ChartSvg>
   );

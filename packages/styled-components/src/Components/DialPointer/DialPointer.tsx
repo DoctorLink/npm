@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { SVGAttributes } from 'react';
 import styled from 'styled-components';
 
 const getTrianglePoints = (
@@ -30,6 +30,7 @@ interface DialPointerProps {
   pointerHeight: number;
   position: number;
   bottom: number;
+  opacity?: number;
 }
 
 const DialPointer: React.FC<DialPointerProps> = ({
@@ -37,6 +38,7 @@ const DialPointer: React.FC<DialPointerProps> = ({
   pointerHeight,
   position,
   bottom,
+  opacity,
 }) => {
   const points = getTrianglePoints(bottom, pointerWidth, pointerHeight);
   const strokeWidth = pointerWidth * pointerHeight * 0.05;
@@ -45,6 +47,7 @@ const DialPointer: React.FC<DialPointerProps> = ({
       position={position}
       points={points}
       strokeWidth={strokeWidth}
+      opacity={opacity}
     />
   );
 };

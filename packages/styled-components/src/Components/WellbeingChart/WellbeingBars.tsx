@@ -36,19 +36,29 @@ const Gradient: React.FC = () => (
   </linearGradient>
 );
 
-const WellbeingBar: React.FC<{ score: WellnessScore }> = ({ score }) => {
+interface WellbeingBarProps {
+  score: WellnessScore;
+  highlightScore?: string;
+}
+
+const WellbeingBar: React.FC<WellbeingBarProps> = ({
+  score,
+  highlightScore,
+}) => {
   const position = barWidth * (score.score / 100);
+  const opacity = highlightScore && highlightScore !== score.name ? 0.2 : 1;
   return (
     <g>
       <title>
         {score.name}: {score.score}%
       </title>
-      <Bar points={barPoints} />
+      <Bar points={barPoints} opacity={opacity} />
       <DialPointer
         pointerWidth={pointerWidth}
         pointerHeight={pointerHeight}
         position={position}
         bottom={0}
+        opacity={opacity}
       />
     </g>
   );
@@ -56,12 +66,14 @@ const WellbeingBar: React.FC<{ score: WellnessScore }> = ({ score }) => {
 
 export interface WellbeingBarsProps {
   scores: WellnessScore[];
+  highlightScore?: string;
   x: number;
   y: number;
 }
 
 export const WellbeingBars: React.FC<WellbeingBarsProps> = ({
   scores,
+  highlightScore,
   x,
   y,
 }) => {
@@ -70,7 +82,7 @@ export const WellbeingBars: React.FC<WellbeingBarsProps> = ({
       <Gradient />
       {scores.map((score, i) => (
         <LabelledBar key={score.name} name={score.name} index={i}>
-          <WellbeingBar score={score} />
+          <WellbeingBar score={score} highlightScore={highlightScore} />
         </LabelledBar>
       ))}
     </svg>
