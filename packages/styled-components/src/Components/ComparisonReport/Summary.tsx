@@ -13,8 +13,7 @@ import SummaryDivider from '../SummaryDivider';
 const StyledPanelContent = styled(PanelContent)`
   padding: 16px 0;
   @media screen and (min-width: 800px) {
-    padding: ${(p) => p.theme.panelcontent.padding}px
-      ${(p) => p.theme.panelcontent.padding}px;
+    padding: ${(p) => p.theme.panelcontent.padding}px;
   }
 `;
 
@@ -28,7 +27,7 @@ const StyledPanelBox = styled(PanelBox)`
     min-height: 470px;
     max-height: 485px;
   }
-  padding-top: 15px;
+  padding-top: 13px;
 `;
 
 const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
