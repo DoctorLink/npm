@@ -69,6 +69,7 @@
       "no-case-declarations": 1,
       "@typescript-eslint/no-empty-interface": 1,
       "@typescript-eslint/no-empty-function": 1,
+      "@typescript-eslint/no-unused-vars": [2, { "ignoreRestSiblings": true }],
       "react/prop-types": 0,
       "react/display-name": 1
     }

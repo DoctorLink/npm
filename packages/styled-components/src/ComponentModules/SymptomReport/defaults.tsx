@@ -60,5 +60,5 @@ export const defaultSymptomReportComponents = {
 };
 
 export const defaultSymptomReportActions: SymptomReportCallbacks = {
-  showExplanation: (_explanation: any) => undefined,
+  showExplanation: () => undefined,
 };

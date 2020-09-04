@@ -106,12 +106,9 @@ export const defaultChatComponents = {
 
 export const defaultChatActions: ChatTraversalCallbacks = {
   next: () => undefined,
-  jump: (_question: any) => undefined,
-  showExplanation: (_explanation: any) => undefined,
-  updateValue: (_answerId: any, _questionAnswerIds: any, _value: any) =>
-    undefined,
-  toggleCheckbox: (_event: any, _answerId: any, _questionAnswerIds: any) =>
-    undefined,
-  toggleRadio: (_event: any, _answerId: any, _questionAnswerIds: any) =>
-    undefined,
+  jump: () => undefined,
+  showExplanation: () => undefined,
+  updateValue: () => undefined,
+  toggleCheckbox: () => undefined,
+  toggleRadio: () => undefined,
 };
