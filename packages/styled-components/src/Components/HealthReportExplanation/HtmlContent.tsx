@@ -1,8 +1,7 @@
 import React, { FC, HTMLAttributes } from 'react';
-import { replaceLineBreaks } from '@doctorlink/traversal-core';
 
 export interface HtmlContentProps extends HTMLAttributes<HTMLElement> {
-  element?: keyof HTMLElementTagNameMap;
+  element?: keyof JSX.IntrinsicElements;
 }
 
 export const HtmlContent: FC<HtmlContentProps> = ({
@@ -12,7 +11,8 @@ export const HtmlContent: FC<HtmlContentProps> = ({
 }) =>
   React.createElement(element, {
     ...props,
-    dangerouslySetInnerHTML: { __html: replaceLineBreaks(children) },
+    style: { whiteSpace: 'pre-wrap' },
+    dangerouslySetInnerHTML: { __html: children },
   });
 
 HtmlContent.displayName = 'HtmlContent';
