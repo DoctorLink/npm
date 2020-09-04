@@ -6,19 +6,16 @@ import {
   PanelBlocks,
   HealthReportTitle,
   PanelContent,
+  HtmlContent,
 } from '../../../Components';
-import {
-  replaceLineBreaks,
-  Conclusion,
-  RootState,
-} from '@doctorlink/traversal-core';
+import { Conclusion, RootState } from '@doctorlink/traversal-core';
 import {
   healthAgeConclusionsSelector,
   healthAgeExplanationSelector,
 } from '@doctorlink/traversal-redux';
 import CheckableConclusions from '../Conclusions/CheckableConclusions';
 import HealthAgeIndicator from './HealthAgeIndicator';
-import { PanelBox } from '../../../Components';
+import { PanelBox, HealthReportExplanationBody } from '../../../Components';
 import CheckableConclusionHeader from '../../../Components/CheckableConclusionHeader';
 
 interface HealthAgeProps {
@@ -51,11 +48,9 @@ const HealthAge: React.FC<HealthAgeProps> = ({
             <Panel>
               <PanelContent>
                 <HealthReportTitle>Your health age explained</HealthReportTitle>
-                <div
-                  dangerouslySetInnerHTML={{
-                    __html: replaceLineBreaks(explanation),
-                  }}
-                />
+                <HealthReportExplanationBody>
+                  <HtmlContent>{explanation}</HtmlContent>
+                </HealthReportExplanationBody>
               </PanelContent>
             </Panel>
           </PanelContainer>

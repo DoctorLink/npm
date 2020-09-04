@@ -12,9 +12,13 @@ const {
 
 interface WellbeingChartProps {
   scores: WellnessScore[];
+  highlightScore?: string;
 }
 
-export const WellbeingChart: React.FC<WellbeingChartProps> = ({ scores }) => {
+export const WellbeingChart: React.FC<WellbeingChartProps> = ({
+  scores,
+  highlightScore,
+}) => {
   const chartHeight = scores.length * barInterval;
   const svgHeight = gridlineLabelHeight + chartHeight + 6;
   const svgWidth = barLabelWidth + barWidth + 4;
@@ -27,7 +31,12 @@ export const WellbeingChart: React.FC<WellbeingChartProps> = ({ scores }) => {
         width={barWidth}
         lineLength={chartHeight}
       />
-      <WellbeingBars scores={scores} x={0} y={gridlineLabelHeight} />
+      <WellbeingBars
+        scores={scores}
+        highlightScore={highlightScore}
+        x={0}
+        y={gridlineLabelHeight}
+      />
     </ChartSvg>
   );
 };

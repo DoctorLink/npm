@@ -3,37 +3,12 @@ import {
   AccordionHeader,
   AccordionBody,
   HealthReportTitle,
+  HealthReportExplanation,
+  HealthReportExplanationBody,
   PanelContent,
   PanelConclusion,
 } from '../../../Components';
-import {
-  replaceLineBreaks,
-  Conclusion,
-  ConclusionBullet,
-} from '@doctorlink/traversal-core';
-
-const HtmlContent = ({ children = '', element = 'div' }) =>
-  React.createElement(element, {
-    dangerouslySetInnerHTML: { __html: replaceLineBreaks(children) },
-  });
-
-const Bullets: React.FC<{
-  bullets: ConclusionBullet[];
-}> = ({ bullets }) => {
-  const [header, ...items] = bullets;
-  return (
-    <>
-      {header && <HtmlContent>{header.displayText}</HtmlContent>}
-      <ul>
-        {items.map((item) => (
-          <HtmlContent element="li" key={item.bulletUniqueId}>
-            {item.displayText}
-          </HtmlContent>
-        ))}
-      </ul>
-    </>
-  );
-};
+import { Conclusion } from '@doctorlink/traversal-core';
 
 const Explanation: React.FC<{
   conclusion: Conclusion;
@@ -43,12 +18,12 @@ const Explanation: React.FC<{
   return (
     <PanelConclusion>
       <AccordionHeader open={open} toggleOpen={toggleOpen}>
-        {conclusion.displayText}
+        <HealthReportExplanationBody>
+          {conclusion.displayText}
+        </HealthReportExplanationBody>
       </AccordionHeader>
       <AccordionBody open={open}>
-        <HtmlContent>{conclusion.explanation}</HtmlContent>
-        <HtmlContent>{conclusion.moreDetail}</HtmlContent>
-        <Bullets bullets={conclusion.bullets} />
+        <HealthReportExplanation conclusion={conclusion} />
       </AccordionBody>
     </PanelConclusion>
   );

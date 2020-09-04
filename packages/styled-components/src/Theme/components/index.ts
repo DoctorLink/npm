@@ -11,6 +11,9 @@ import errortext, { ErrorTextTheme } from './errortext';
 import healthreportconclusion, {
   HealthReportConclusionTheme,
 } from './healthReportConclusion';
+import healthreportexplanation, {
+  HealthReportExplanationTheme,
+} from './healthReportExplanation';
 import healthreporttitle, { HealthReportTitleTheme } from './healthreporttitle';
 import infoicon, { InfoIconTheme } from './infoicon';
 import label, { LabelTheme } from './label';
@@ -46,6 +49,7 @@ export interface ComponentTheme {
   displayText: DisplayTextTheme;
   errortext: ErrorTextTheme;
   healthReportConclusion: HealthReportConclusionTheme;
+  healthReportExplanation: HealthReportExplanationTheme;
   healthreporttitle: HealthReportTitleTheme;
   comparisonreporttitle: ComparisonReportTitleTheme;
   infoicon: InfoIconTheme;
@@ -78,6 +82,7 @@ const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   displayText: displayText(baseTheme),
   errortext: errortext(baseTheme),
   healthReportConclusion: healthreportconclusion(baseTheme),
+  healthReportExplanation: healthreportexplanation(baseTheme),
   healthreporttitle: healthreporttitle(baseTheme),
   comparisonreporttitle: comparisonreporttitle(baseTheme),
   infoicon: infoicon(baseTheme),

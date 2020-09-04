@@ -3,10 +3,8 @@ import styled from 'styled-components';
 import colors from '../../Theme/base/colors';
 
 const StyledDiv = styled.div`
-  display: inline-block;
   width: 16px;
   height: 16px;
-  float: right;
 `;
 
 const StyledPolyline = styled.polyline`
@@ -23,7 +21,7 @@ const StyledPolyline = styled.polyline`
   }
 `;
 
-const OpenIcon: React.FC<{ open: any }> = ({ open }) => {
+const OpenIcon: React.FC<{ open: boolean }> = ({ open }) => {
   const className = open ? 'open' : 'closed';
   return (
     <StyledDiv>
