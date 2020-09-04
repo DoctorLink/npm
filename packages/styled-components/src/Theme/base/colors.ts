@@ -32,6 +32,8 @@ export interface ColorsTheme {
   dropdownArrowBackground: string;
   warningFill: string;
   warningExclamation: string;
+  dividerBackground: string;
+  dividerBoxShadow: string;
 }
 
 const colors: ColorsTheme = {
@@ -68,6 +70,8 @@ const colors: ColorsTheme = {
   dropdownArrowBackground: '#EDEDED',
   warningFill: '#FFDE33',
   warningExclamation: '#495A79',
+  dividerBackground: '#f5f5f5',
+  dividerBoxShadow: '#e0e0e0',
 };
 
 export default colors;

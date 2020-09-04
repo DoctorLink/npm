@@ -5,11 +5,14 @@ import { PanelContainerProps } from '../../Components/PanelContainer/PanelContai
 
 const Styled = styled(motion.div)<PanelContainerProps>`
   box-sizing: border-box;
-  padding: 0 10px;
+
   float: ${(p) => p.float || 'left'};
 
   @media screen and (min-width: 600px) {
     width: 33.3%;
+    &:not(:last-child) {
+      padding-right: 16px;
+    }
   }
 
   @media screen and (max-width: 799px) {

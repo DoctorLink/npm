@@ -32,6 +32,10 @@ import tableheadercell, { TableHeaderCellTheme } from './tableheadercell';
 import tablerow, { TableRowTheme } from './tablerow';
 import textfield, { TextFieldTheme } from './textfield';
 import title, { TitleTheme } from './title';
+import comparisonreporttitle, {
+  ComparisonReportTitleTheme,
+} from './comparisonreporttitle';
+import summarydivider, { SummaryDividerTheme } from './summarydivider';
 
 export interface ComponentTheme {
   algoname: AlgoNameTheme;
@@ -43,6 +47,7 @@ export interface ComponentTheme {
   errortext: ErrorTextTheme;
   healthReportConclusion: HealthReportConclusionTheme;
   healthreporttitle: HealthReportTitleTheme;
+  comparisonreporttitle: ComparisonReportTitleTheme;
   infoicon: InfoIconTheme;
   label: LabelTheme;
   modal: ModalTheme;
@@ -56,6 +61,7 @@ export interface ComponentTheme {
   questiontitle: QuestionTitleTheme;
   radio: RadioTheme;
   summary: SummaryTheme;
+  summaryDivider: SummaryDividerTheme;
   tableanswercell: TableAnswerCellTheme;
   tableheadercell: TableHeaderCellTheme;
   tablerow: TableRowTheme;
@@ -73,6 +79,7 @@ const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   errortext: errortext(baseTheme),
   healthReportConclusion: healthreportconclusion(baseTheme),
   healthreporttitle: healthreporttitle(baseTheme),
+  comparisonreporttitle: comparisonreporttitle(baseTheme),
   infoicon: infoicon(baseTheme),
   label: label(baseTheme),
   modal: modal(baseTheme),
@@ -86,6 +93,7 @@ const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   questiontitle: questiontitle(baseTheme),
   radio: radio(baseTheme),
   summary: summary(baseTheme),
+  summaryDivider: summarydivider(baseTheme),
   tableanswercell: tableanswercell(baseTheme),
   tableheadercell: tableheadercell(baseTheme),
   tablerow: tablerow(baseTheme),

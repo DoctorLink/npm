@@ -1,9 +1,8 @@
 import React from 'react';
-import {
-  ConclusionContainer,
-  ConclusionContent,
-  ComparisonContent,
-} from '../../Containers/HealthAssessment/Conclusions/Conclusion';
+import DisplayText from '../DisplayText';
+import TickIcon from './TickIcon';
+import CrossIcon from './CrossIcon';
+import styled from 'styled-components';
 
 export interface ISummaryLine {
   key: string;
@@ -13,25 +12,10 @@ export interface ISummaryLine {
 const SummaryLine: React.FC<{
   summaryLine: ISummaryLine;
 }> = ({ summaryLine }) => {
-  let clr = 'black';
-  switch (summaryLine.value) {
-    case 'Better':
-      clr = 'green';
-      break;
-    case 'Worse':
-      clr = 'red';
-      break;
-    case 'NoChange':
-      clr = 'grey';
-      break;
-    default:
-      break;
-  }
-
   let text = summaryLine.value;
   switch (summaryLine.value) {
     case 'NotApplicable':
-      text = 'NA';
+      text = 'Not applicable';
       break;
     case 'NoChange':
       text = 'No Change';
@@ -40,15 +24,48 @@ const SummaryLine: React.FC<{
       break;
   }
 
+  const SummaryRow = styled.div`
+    display: flex;
+    justify-content: space-between;
+    padding: 15px 0 15px 0;
+    box-shadow: 0 1px 0 0 #e2e2e2;
+    &:last-of-type {
+      box-shadow: none;
+      padding: 15px 0 0 0;
+    }
+    &:first-of-type {
+      border-top: 1px solid #e2e2e2;
+    }
+  `;
+
+  const SummaryKey = styled(DisplayText)`
+    padding-left: 0px;
+    width: 50%;
+  `;
+
+  const SummaryValue = styled(DisplayText)`
+    text-align: right;
+    width: 40%;
+  `;
+
+  const Icon = styled(DisplayText)`
+    width: 10%;
+  `;
+
   return (
-    <ConclusionContainer>
-      <ConclusionContent>
-        <ComparisonContent>{summaryLine.key}</ComparisonContent>
-        <ComparisonContent>
-          <strong style={{ color: clr }}>{text}</strong>
-        </ComparisonContent>
-      </ConclusionContent>
-    </ConclusionContainer>
+    <SummaryRow>
+      <SummaryKey>{summaryLine.key}</SummaryKey>
+      <SummaryValue>{text}</SummaryValue>
+      <Icon>
+        {summaryLine.value === 'Better' ? (
+          <TickIcon />
+        ) : summaryLine.value === 'Worse' ? (
+          <CrossIcon />
+        ) : (
+          <></>
+        )}
+      </Icon>
+    </SummaryRow>
   );
 };
 
