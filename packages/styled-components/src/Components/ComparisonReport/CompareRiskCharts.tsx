@@ -8,7 +8,6 @@ import {
   StyledPanelBlock,
   StyledReportTitle,
 } from './SummaryPanel';
-import ComparisonReportTitle from '../ComparisonReportTitle';
 import { HealthRiskModel } from '@doctorlink/traversal-core';
 import styled from 'styled-components';
 
