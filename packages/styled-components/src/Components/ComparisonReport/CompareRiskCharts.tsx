@@ -1,36 +1,54 @@
 import React from 'react';
-import { PanelBlocks, PanelContainer, Panel } from '..';
+import { SummaryPanelContainer } from '..';
 import RiskChart from '../RiskChart/RiskChart';
-import HealthReportPanelHeader from '../HealthReportPanelHeader';
 import { NotAvailableContent } from './NotAvailableContent';
+import {
+  StyledPanelBox,
+  StyledPanelContent,
+  StyledPanelBlock,
+  StyledReportTitle,
+} from './SummaryPanel';
+import ComparisonReportTitle from '../ComparisonReportTitle';
+import { HealthRiskModel } from '@doctorlink/traversal-core';
+import styled from 'styled-components';
+
+const StyledSummaryPanelContainer = styled(SummaryPanelContainer)`
+  width: 50%;
+`;
 
 const CompareRiskCharts: React.FC<{
-  currentScores: any;
-  pastScores: any;
-}> = ({ currentScores, pastScores }) => {
+  currentScores: HealthRiskModel[];
+  pastScores: HealthRiskModel[];
+  currentTitle: string;
+  pastTitle: string;
+}> = ({ currentScores, pastScores, currentTitle, pastTitle }) => {
   return (
-    <PanelBlocks style={{ minHeight: '520px' }}>
-      <PanelContainer float="left">
-        <HealthReportPanelHeader>Current Risk</HealthReportPanelHeader>
-        <Panel>
-          {currentScores ? (
-            <RiskChart risks={currentScores} />
-          ) : (
-            <NotAvailableContent>No data available</NotAvailableContent>
-          )}
-        </Panel>
-      </PanelContainer>
-      <PanelContainer float="right">
-        <HealthReportPanelHeader>Past Risk</HealthReportPanelHeader>
-        <Panel>
-          {pastScores ? (
-            <RiskChart risks={pastScores} />
-          ) : (
-            <NotAvailableContent>No data available</NotAvailableContent>
-          )}
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+    <StyledPanelBlock>
+      <StyledSummaryPanelContainer>
+        <StyledPanelBox>
+          <StyledReportTitle>{currentTitle}</StyledReportTitle>
+          <StyledPanelContent>
+            {currentScores ? (
+              <RiskChart risks={currentScores} />
+            ) : (
+              <NotAvailableContent>No data available</NotAvailableContent>
+            )}
+          </StyledPanelContent>
+        </StyledPanelBox>
+      </StyledSummaryPanelContainer>
+      <StyledSummaryPanelContainer>
+        <StyledPanelBox>
+          <StyledReportTitle>{pastTitle}</StyledReportTitle>
+          <StyledPanelContent>
+            {pastScores ? (
+              <RiskChart risks={pastScores} />
+            ) : (
+              <NotAvailableContent>No data available</NotAvailableContent>
+            )}
+          </StyledPanelContent>
+        </StyledPanelBox>
+      </StyledSummaryPanelContainer>
+    </StyledPanelBlock>
   );
 };
 

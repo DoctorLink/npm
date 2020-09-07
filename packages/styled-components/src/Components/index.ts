@@ -82,5 +82,5 @@ export * from './CarouselNavigation';
 export { WarningIcon } from './WarningIcon';
 export { default as CheckableConclusionHeader } from './CheckableConclusionHeader';
 export { default as ComparisonReportSummary } from './ComparisonReport/Summary';
-export { default as CompareRisks } from './ComparisonReport/CompareRisks';
+export { default as CompareRiskCharts } from './ComparisonReport/CompareRiskCharts';
 export * from './HealthReportExplanation';
