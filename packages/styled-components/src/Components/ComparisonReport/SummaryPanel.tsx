@@ -30,6 +30,7 @@ export const StyledPanelBlock = styled.div`
 
 export const StyledReportTitle = styled(ComparisonReportTitle)`
   color: ${(p) => p.theme.healthreporttitle.color};
+  padding-top: 10px;
 `;
 
 StyledReportTitle.defaultProps = {
