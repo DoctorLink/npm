@@ -84,5 +84,6 @@ export { default as CheckableConclusionHeader } from './CheckableConclusionHeade
 export { default as ComparisonReportSummary } from './ComparisonReport/Summary';
 export { default as CompareRiskCharts } from './ComparisonReport/CompareRiskCharts';
 export { default as CompareWellbeingCharts } from './ComparisonReport/CompareWellbeingCharts';
+export { default as CompareNumbers } from './ComparisonReport/CompareNumbers';
 
 export * from './HealthReportExplanation';

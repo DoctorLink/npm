@@ -1,42 +1,27 @@
 import React from 'react';
-import { PanelBlocks, PanelContainer, Panel, PanelContent } from '..';
-import HealthReportPanelHeader from '../HealthReportPanelHeader';
-import NumberConclusions from '../../Containers/HealthAssessment/Conclusions/NumberConclusions';
-import { NotAvailableContent } from './NotAvailableContent';
+import { NumberConclusion } from '@doctorlink/traversal-core';
+import CompareMyNumber from './CompareMyNumber';
+import { StyledPanelBlock } from './SummaryPanel';
 
 const CompareNumbers: React.FC<{
-  currentNumbers: any;
-  pastNumbers: any;
-}> = ({ currentNumbers, pastNumbers }) => {
+  currentNumbers: NumberConclusion[];
+  pastNumbers: NumberConclusion[];
+  currentTitle?: string;
+  pastTitle?: string;
+}> = ({ currentNumbers, pastNumbers, currentTitle, pastTitle }) => {
   return (
-    <PanelBlocks style={{ minHeight: '500px' }}>
-      <PanelContainer>
-        <Panel>
-          <HealthReportPanelHeader>
-            Your Current Numbers
-          </HealthReportPanelHeader>
-          <PanelContent>
-            {currentNumbers ? (
-              <NumberConclusions conclusions={currentNumbers} />
-            ) : (
-              <NotAvailableContent>No data available</NotAvailableContent>
-            )}
-          </PanelContent>
-        </Panel>
-      </PanelContainer>
-      <PanelContainer>
-        <Panel>
-          <HealthReportPanelHeader>Your Past Numbers</HealthReportPanelHeader>
-          <PanelContent>
-            {pastNumbers ? (
-              <NumberConclusions conclusions={pastNumbers} />
-            ) : (
-              <NotAvailableContent>No data available</NotAvailableContent>
-            )}
-          </PanelContent>
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+    <StyledPanelBlock>
+      <CompareMyNumber
+        style={{ marginRight: '8px' }}
+        title={currentTitle}
+        numbers={currentNumbers}
+      />
+      <CompareMyNumber
+        style={{ marginLeft: '8px' }}
+        title={pastTitle}
+        numbers={pastNumbers}
+      />
+    </StyledPanelBlock>
   );
 };
 
