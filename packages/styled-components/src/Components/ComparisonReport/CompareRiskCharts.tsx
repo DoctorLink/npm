@@ -12,8 +12,8 @@ const ageOptions = [80, 90, 100, 110];
 interface CompareRiskChartsProps {
   currentSnapshot: HealthComparisonSnapshot;
   previousSnapshot: HealthComparisonSnapshot;
-  currentTitle: string;
-  pastTitle: string;
+  currentTitle?: string;
+  pastTitle?: string;
 }
 
 const FlexBox = styled.div`

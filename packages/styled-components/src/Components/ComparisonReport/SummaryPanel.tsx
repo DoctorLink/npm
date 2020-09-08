@@ -36,3 +36,10 @@ export const StyledReportTitle = styled(ComparisonReportTitle)`
 StyledReportTitle.defaultProps = {
   theme: defaultTheme,
 };
+
+export const ComparisonPanel = styled(PanelBox)`
+  @media screen and (min-width: 800px) {
+    width: 49.22%;
+    float: left;
+  }
+`;

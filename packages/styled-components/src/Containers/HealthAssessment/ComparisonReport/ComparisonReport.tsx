@@ -23,6 +23,7 @@ import {
   HealthRiskModel,
   WellnessScore,
   NumberConclusion,
+  HealthComparisonSnapshot,
 } from '@doctorlink/traversal-core';
 
 const AgeOptions = [80, 90, 100, 110];
@@ -128,12 +129,16 @@ const ComparisonReport: React.FC<{
           <>
             <Summary summary={summary}></Summary>
             <CompareRiskCharts
-              currentScores={current.risks}
-              pastScores={previous.risks}
+              currentSnapshot={
+                comparisonReport.currentSnapshot as HealthComparisonSnapshot
+              }
+              previousSnapshot={
+                comparisonReport.previousSnapshot as HealthComparisonSnapshot
+              }
             ></CompareRiskCharts>
             <CompareWellbeingCharts
-              currentScores={current.wellness}
-              pastScores={previous.wellness}
+              currentScores={current.wellness as WellnessScore[]}
+              pastScores={previous.wellness as WellnessScore[]}
             ></CompareWellbeingCharts>
             <CompareNumbers
               currentNumbers={current.myNumbers}

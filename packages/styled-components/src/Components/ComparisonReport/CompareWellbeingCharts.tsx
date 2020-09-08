@@ -1,36 +1,27 @@
 import React from 'react';
-import { PanelBlocks, PanelContainer, Panel } from '..';
-import HealthReportPanelHeader from '../HealthReportPanelHeader';
-import { WellbeingChart } from '../WellbeingChart/WellbeingChart';
-import { NotAvailableContent } from './NotAvailableContent';
+import { StyledPanelBlock } from './SummaryPanel';
+import { WellnessScore } from '@doctorlink/traversal-core';
+import CompareWellbeingChart from './CompareWellbeingChart';
 
 const CompareWellbeingCharts: React.FC<{
-  currentScores: any;
-  pastScores: any;
-}> = ({ currentScores, pastScores }) => {
+  currentScores: WellnessScore[];
+  pastScores: WellnessScore[];
+  currentTitle?: string;
+  pastTitle?: string;
+}> = ({ currentScores, pastScores, currentTitle, pastTitle }) => {
   return (
-    <PanelBlocks style={{ minHeight: '470px' }}>
-      <PanelContainer float="left">
-        <HealthReportPanelHeader>Current Wellbeing</HealthReportPanelHeader>
-        <Panel>
-          {currentScores ? (
-            <WellbeingChart scores={currentScores} />
-          ) : (
-            <NotAvailableContent>No data available</NotAvailableContent>
-          )}
-        </Panel>
-      </PanelContainer>
-      <PanelContainer float="right">
-        <HealthReportPanelHeader>Past Wellbeing</HealthReportPanelHeader>
-        <Panel>
-          {pastScores ? (
-            <WellbeingChart scores={pastScores} />
-          ) : (
-            <NotAvailableContent>No data available</NotAvailableContent>
-          )}
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+    <StyledPanelBlock>
+      <CompareWellbeingChart
+        style={{ marginRight: '8px' }}
+        title={currentTitle}
+        scores={currentScores}
+      />
+      <CompareWellbeingChart
+        style={{ marginLeft: '8px' }}
+        title={pastTitle}
+        scores={pastScores}
+      />
+    </StyledPanelBlock>
   );
 };
 

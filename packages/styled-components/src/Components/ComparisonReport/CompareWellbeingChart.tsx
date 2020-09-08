@@ -1,31 +1,31 @@
 import React from 'react';
-import RiskChart from '../RiskChart/RiskChart';
 import { NotAvailableContent } from './NotAvailableContent';
 import {
   StyledPanelContent,
   StyledReportTitle,
   ComparisonPanel,
 } from './SummaryPanel';
-import { HealthRiskModel } from '@doctorlink/traversal-core';
+import { WellnessScore } from '@doctorlink/traversal-core';
 import { CSSProperties } from 'styled-components';
+import { WellbeingChart } from '../WellbeingChart';
 
-interface CompareRiskChartProps {
+interface CompareWellbeingChartProps {
   title?: string;
-  risks: HealthRiskModel[];
+  scores: WellnessScore[];
   style: CSSProperties;
 }
 
-const CompareRiskChart: React.FC<CompareRiskChartProps> = ({
+const CompareWellbeingChart: React.FC<CompareWellbeingChartProps> = ({
   title,
-  risks,
+  scores,
   ...props
 }) => {
   return (
     <ComparisonPanel {...props}>
       {title && <StyledReportTitle>{title}</StyledReportTitle>}
       <StyledPanelContent>
-        {risks ? (
-          <RiskChart risks={risks} />
+        {scores ? (
+          <WellbeingChart scores={scores} />
         ) : (
           <NotAvailableContent>No data available</NotAvailableContent>
         )}
@@ -34,4 +34,4 @@ const CompareRiskChart: React.FC<CompareRiskChartProps> = ({
   );
 };
 
-export default CompareRiskChart;
+export default CompareWellbeingChart;
