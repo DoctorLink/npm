@@ -34,6 +34,7 @@ export interface ColorsTheme {
   warningExclamation: string;
   dividerBackground: string;
   dividerBoxShadow: string;
+  toggleAssessmentBorder: string;
 }
 
 const colors: ColorsTheme = {
@@ -72,6 +73,7 @@ const colors: ColorsTheme = {
   warningExclamation: '#495A79',
   dividerBackground: '#f5f5f5',
   dividerBoxShadow: '#e0e0e0',
+  toggleAssessmentBorder: '#e2e2e2',
 };
 
 export default colors;

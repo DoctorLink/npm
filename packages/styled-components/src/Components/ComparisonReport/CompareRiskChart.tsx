@@ -12,17 +12,19 @@ import { CSSProperties } from 'styled-components';
 interface CompareRiskChartProps {
   title?: string;
   risks: HealthRiskModel[];
+  mobileView?: boolean;
   style: CSSProperties;
 }
 
 const CompareRiskChart: React.FC<CompareRiskChartProps> = ({
   title,
   risks,
+  mobileView,
   ...props
 }) => {
   return (
     <ComparisonPanel {...props}>
-      {title && <StyledReportTitle>{title}</StyledReportTitle>}
+      {title && !mobileView && <StyledReportTitle>{title}</StyledReportTitle>}
       <StyledPanelContent>
         {risks ? (
           <RiskChart risks={risks} />

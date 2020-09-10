@@ -53,9 +53,9 @@ const ComparisonReport: React.FC<{
   );
 
   interface compare {
-    risks: HealthRiskModel[] | null;
-    wellness: WellnessScore[] | null;
-    myNumbers: NumberConclusion[] | null;
+    risks: HealthRiskModel[];
+    wellness: WellnessScore[];
+    myNumbers: NumberConclusion[];
   }
 
   const [current, setCurrent] = useState<compare>();
@@ -137,12 +137,12 @@ const ComparisonReport: React.FC<{
               }
             ></CompareRiskCharts>
             <CompareWellbeingCharts
-              currentScores={current.wellness as WellnessScore[]}
-              pastScores={previous.wellness as WellnessScore[]}
+              currentScores={current.wellness}
+              previousScores={previous.wellness}
             ></CompareWellbeingCharts>
             <CompareNumbers
               currentNumbers={current.myNumbers}
-              pastNumbers={previous.myNumbers}
+              previousNumbers={previous.myNumbers}
             ></CompareNumbers>
           </>
         ) : (

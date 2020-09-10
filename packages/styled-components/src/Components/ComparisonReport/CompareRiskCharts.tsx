@@ -6,21 +6,15 @@ import { useDispatch } from 'react-redux';
 import { hraComparisonReportGetRequest } from '@doctorlink/traversal-redux';
 import { InlineDropdown } from '../Dropdown';
 import CompareRiskChart from './CompareRiskChart';
+import ToggleAssessment from './ToggleAssessment';
 
 const ageOptions = [80, 90, 100, 110];
 
-interface CompareRiskChartsProps {
-  currentSnapshot: HealthComparisonSnapshot;
-  previousSnapshot: HealthComparisonSnapshot;
-  currentTitle?: string;
-  pastTitle?: string;
-}
-
-const FlexBox = styled.div`
+const FlexBox = styled.div<{ mobileView?: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: row;
-  justify-content: flex-end;
+  justify-content: ${(p) => (p.mobileView ? 'flex-start' : 'flex-end')};
   align-items: center;
   font-size: ${(p) => p.theme.typography.regular.size}px;
   font-weight: 600;
@@ -31,14 +25,25 @@ const Right = styled.div`
   padding-left: 10px;
 `;
 
+interface CompareRiskChartsProps {
+  currentSnapshot: HealthComparisonSnapshot;
+  previousSnapshot: HealthComparisonSnapshot;
+  currentTitle?: string;
+  previousTitle?: string;
+  mobileView?: boolean;
+}
+
 const CompareRiskCharts: React.FC<CompareRiskChartsProps> = ({
   currentSnapshot,
   previousSnapshot,
   currentTitle,
-  pastTitle,
+  previousTitle,
+  mobileView,
 }) => {
   const [selectedAge, setSelectedAge] = useState(90);
   const dispatch = useDispatch();
+  const age = currentSnapshot.riskOutput.age;
+  const visibleAgeOptions = ageOptions.filter((option) => option > age);
   const onDropdownChange = (e: ChangeEvent<HTMLSelectElement>) => {
     const value = +e.target.value;
     setSelectedAge(value);
@@ -53,27 +58,44 @@ const CompareRiskCharts: React.FC<CompareRiskChartsProps> = ({
   const currentRisks = currentSnapshot && currentSnapshot.riskOutput.risks;
   const prevRisks = previousSnapshot && previousSnapshot.riskOutput.risks;
 
+  const [active, setActive] = useState('current');
+  const marginLeft = !mobileView ? '8px' : '0px';
+  const marginRight = !mobileView ? '8px' : '0px';
   return (
     <StyledPanelBlock>
-      <FlexBox>
+      <FlexBox mobileView={mobileView}>
         <div>Health risks before the age of</div>
         <Right>
           <InlineDropdown
-            options={ageOptions}
+            options={visibleAgeOptions}
             value={selectedAge}
             onChange={onDropdownChange}
           />
         </Right>
       </FlexBox>
-      <CompareRiskChart
-        style={{ marginRight: '8px' }}
-        title={currentTitle}
-        risks={currentRisks}
-      />
-      <CompareRiskChart
-        style={{ marginLeft: '8px' }}
-        title={pastTitle}
-        risks={prevRisks}
+
+      {(active === 'current' || !mobileView) && (
+        <CompareRiskChart
+          style={{ marginRight: marginRight }}
+          title={currentTitle}
+          risks={currentRisks}
+          mobileView={mobileView}
+        />
+      )}
+
+      {(active === 'previous' || !mobileView) && (
+        <CompareRiskChart
+          style={{ marginLeft: marginLeft }}
+          title={previousTitle}
+          risks={prevRisks}
+          mobileView={mobileView}
+        />
+      )}
+      <ToggleAssessment
+        active={active}
+        onSetActive={setActive}
+        currentTitle={currentTitle}
+        previousTitle={previousTitle}
       />
     </StyledPanelBlock>
   );

@@ -8,3 +8,4 @@ export { default as CheckableConclusions } from './Conclusions/CheckableConclusi
 export { default as WellbeingScores } from './Wellbeing/WellbeingScores';
 export { CheckableConclusionWithHeader } from './Conclusions/CheckableConclusionWithHeader';
 export { AdditionalInfo } from './AdditionalInfo/AdditionalInfo';
+export { ComparisonReportPage } from './ComparisonReportPage';

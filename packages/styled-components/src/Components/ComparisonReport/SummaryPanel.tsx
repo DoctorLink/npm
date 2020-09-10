@@ -25,7 +25,13 @@ export const StyledPanelBox = styled(PanelBox)`
 `;
 
 export const StyledPanelBlock = styled.div`
-  padding-top: 30px;
+  @media screen and (max-width: 799px) {
+    padding-top: 10px;
+  }
+
+  @media screen and (min-width: 800px) {
+    padding-top: 30px;
+  }
 `;
 
 export const StyledReportTitle = styled(ComparisonReportTitle)`
@@ -39,7 +45,7 @@ StyledReportTitle.defaultProps = {
 
 export const ComparisonPanel = styled(PanelBox)`
   @media screen and (min-width: 800px) {
-    width: 49.22%;
+    width: 49.2%;
     float: left;
   }
 `;

@@ -6,3 +6,4 @@ export * from './useRestrictedList';
 export * from './useRiskSummary';
 export * from './useTraversalScroll';
 export * from './useWellness';
+export * from './useComparisonRoutes';

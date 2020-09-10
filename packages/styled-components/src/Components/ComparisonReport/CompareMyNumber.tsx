@@ -12,17 +12,19 @@ import NumberConclusions from '../../Containers/HealthAssessment/Conclusions/Num
 interface CompareMyNumberProps {
   title?: string;
   numbers: NumberConclusion[];
+  mobileView?: boolean;
   style: CSSProperties;
 }
 
 const CompareMyNumber: React.FC<CompareMyNumberProps> = ({
   title,
   numbers,
+  mobileView,
   ...props
 }) => {
   return (
     <ComparisonPanel {...props}>
-      {title && <StyledReportTitle>{title}</StyledReportTitle>}
+      {title && !mobileView && <StyledReportTitle>{title}</StyledReportTitle>}
       <StyledPanelContent>
         {numbers ? (
           <NumberConclusions conclusions={numbers} />
