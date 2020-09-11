@@ -1,34 +1,11 @@
 import React from 'react';
-import { PanelContent } from '..';
 import { NotAvailableContent } from './NotAvailableContent';
 import SummaryLine, { ISummaryLine } from './SummaryLine';
 import SummaryPanelContainer from '../SummaryPanelContainer';
 import { HealthComparisonSummary } from '@doctorlink/traversal-core';
 import ComparisonReportTitle from '../ComparisonReportTitle';
-import PanelBox from '../PanelBox';
-import styled from 'styled-components';
-import { defaultTheme } from '../../Theme';
 import SummaryDivider from '../SummaryDivider';
-
-const StyledPanelContent = styled(PanelContent)`
-  padding: 16px 0;
-  @media screen and (min-width: 800px) {
-    padding: ${(p) => p.theme.panelcontent.padding}px;
-  }
-`;
-
-StyledPanelContent.defaultProps = {
-  theme: defaultTheme,
-};
-
-const StyledPanelBox = styled(PanelBox)`
-  overflow: auto;
-  @media screen and (min-width: 800px) {
-    min-height: 470px;
-    max-height: 485px;
-  }
-  padding-top: 13px;
-`;
+import { StyledPanelBox, StyledPanelContent } from './SummaryPanel';
 
 const Summary: React.FC<{ summary: HealthComparisonSummary }> = ({
   summary,

@@ -31,9 +31,9 @@ export interface WellnessModel {
 
 export interface HealthComparisonModel {
   loaded?: boolean;
-  summary: HealthComparisonSummary | null;
-  currentSnapshot: HealthComparisonSnapshot | null;
-  previousSnapshot: HealthComparisonSnapshot | null;
+  summary: HealthComparisonSummary;
+  currentSnapshot: HealthComparisonSnapshot;
+  previousSnapshot: HealthComparisonSnapshot;
 }
 
 export interface HealthRiskModel {

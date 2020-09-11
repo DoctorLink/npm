@@ -35,9 +35,43 @@ const defaultState: HealthAssessmentState = {
   checkedConclusions: [],
   comparisonReport: {
     loaded: false,
-    summary: null,
-    currentSnapshot: null,
-    previousSnapshot: null,
+    summary: {
+      risk: {},
+      wellness: {},
+      myNumbers: {},
+    },
+    currentSnapshot: {
+      id: 0,
+      traversalId: '',
+      clientId: '',
+      createdDate: '',
+      memberRef: '',
+      myNumbers: [],
+      riskOutput: {
+        age: 0,
+        healthAge: 0,
+        risks: [],
+      },
+      wellnessOutput: {
+        scores: [],
+      },
+    },
+    previousSnapshot: {
+      id: 0,
+      traversalId: '',
+      clientId: '',
+      createdDate: '',
+      memberRef: '',
+      myNumbers: [],
+      riskOutput: {
+        age: 0,
+        healthAge: 0,
+        risks: [],
+      },
+      wellnessOutput: {
+        scores: [],
+      },
+    },
   },
 };
 

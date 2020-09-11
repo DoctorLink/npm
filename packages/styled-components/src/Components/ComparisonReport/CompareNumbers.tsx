@@ -1,42 +1,56 @@
-import React from 'react';
-import { PanelBlocks, PanelContainer, Panel, PanelContent } from '..';
-import HealthReportPanelHeader from '../HealthReportPanelHeader';
-import NumberConclusions from '../../Containers/HealthAssessment/Conclusions/NumberConclusions';
-import { NotAvailableContent } from './NotAvailableContent';
+import React, { useState } from 'react';
+import { NumberConclusion } from '@doctorlink/traversal-core';
+import CompareMyNumber from './CompareMyNumber';
+import { StyledPanelBlock } from './SummaryPanel';
+import ToggleAssessment from './ToggleAssessment';
+import ComparisonReportTitle from '../ComparisonReportTitle';
 
 const CompareNumbers: React.FC<{
-  currentNumbers: any;
-  pastNumbers: any;
-}> = ({ currentNumbers, pastNumbers }) => {
+  currentNumbers: NumberConclusion[];
+  previousNumbers: NumberConclusion[];
+  currentTitle?: string;
+  previousTitle?: string;
+  mobileView?: boolean;
+}> = ({
+  currentNumbers,
+  previousNumbers,
+  currentTitle,
+  previousTitle,
+  mobileView,
+}) => {
+  const [active, setActive] = useState('current');
+  const marginLeft = !mobileView ? '8px' : '0px';
+  const marginRight = !mobileView ? '8px' : '0px';
   return (
-    <PanelBlocks style={{ minHeight: '500px' }}>
-      <PanelContainer>
-        <Panel>
-          <HealthReportPanelHeader>
-            Your Current Numbers
-          </HealthReportPanelHeader>
-          <PanelContent>
-            {currentNumbers ? (
-              <NumberConclusions conclusions={currentNumbers} />
-            ) : (
-              <NotAvailableContent>No data available</NotAvailableContent>
-            )}
-          </PanelContent>
-        </Panel>
-      </PanelContainer>
-      <PanelContainer>
-        <Panel>
-          <HealthReportPanelHeader>Your Past Numbers</HealthReportPanelHeader>
-          <PanelContent>
-            {pastNumbers ? (
-              <NumberConclusions conclusions={pastNumbers} />
-            ) : (
-              <NotAvailableContent>No data available</NotAvailableContent>
-            )}
-          </PanelContent>
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+    <StyledPanelBlock>
+      {mobileView && (
+        <ComparisonReportTitle>Your numbers</ComparisonReportTitle>
+      )}
+      {(active === 'current' || !mobileView) && (
+        <CompareMyNumber
+          style={{ marginRight: marginRight }}
+          title={currentTitle}
+          numbers={currentNumbers}
+          mobileView={mobileView}
+        />
+      )}
+      {(active === 'previous' || !mobileView) && (
+        <CompareMyNumber
+          style={{ marginLeft: marginLeft }}
+          title={previousTitle}
+          numbers={previousNumbers}
+          mobileView={mobileView}
+        />
+      )}
+      {mobileView && (
+        <ToggleAssessment
+          active={active}
+          onSetActive={setActive}
+          currentTitle={currentTitle}
+          previousTitle={previousTitle}
+        />
+      )}
+    </StyledPanelBlock>
   );
 };
 

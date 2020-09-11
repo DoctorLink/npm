@@ -39,6 +39,7 @@ import comparisonreporttitle, {
   ComparisonReportTitleTheme,
 } from './comparisonreporttitle';
 import summarydivider, { SummaryDividerTheme } from './summarydivider';
+import toggleassessment, { ToggleAssessmentTheme } from './toggleassessment';
 
 export interface ComponentTheme {
   algoname: AlgoNameTheme;
@@ -71,6 +72,7 @@ export interface ComponentTheme {
   tablerow: TableRowTheme;
   textfield: TextFieldTheme;
   title: TitleTheme;
+  toggleAssessment: ToggleAssessmentTheme;
 }
 
 const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
@@ -104,6 +106,7 @@ const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   tablerow: tablerow(baseTheme),
   textfield: textfield(baseTheme),
   title: title(baseTheme),
+  toggleAssessment: toggleassessment(baseTheme),
 });
 
 export default componentTheme;

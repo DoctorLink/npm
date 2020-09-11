@@ -1,36 +1,54 @@
-import React from 'react';
-import { PanelBlocks, PanelContainer, Panel } from '..';
-import HealthReportPanelHeader from '../HealthReportPanelHeader';
-import { WellbeingChart } from '../WellbeingChart/WellbeingChart';
-import { NotAvailableContent } from './NotAvailableContent';
+import React, { useState } from 'react';
+import { StyledPanelBlock } from './SummaryPanel';
+import { WellnessScore } from '@doctorlink/traversal-core';
+import CompareWellbeingChart from './CompareWellbeingChart';
+import ToggleAssessment from './ToggleAssessment';
+import ComparisonReportTitle from '../ComparisonReportTitle';
 
 const CompareWellbeingCharts: React.FC<{
-  currentScores: any;
-  pastScores: any;
-}> = ({ currentScores, pastScores }) => {
+  currentScores: WellnessScore[];
+  previousScores: WellnessScore[];
+  currentTitle?: string;
+  previousTitle?: string;
+  mobileView?: boolean;
+}> = ({
+  currentScores,
+  previousScores,
+  currentTitle,
+  previousTitle,
+  mobileView,
+}) => {
+  const [active, setActive] = useState('current');
+  const marginLeft = !mobileView ? '8px' : '0px';
+  const marginRight = !mobileView ? '8px' : '0px';
   return (
-    <PanelBlocks style={{ minHeight: '470px' }}>
-      <PanelContainer float="left">
-        <HealthReportPanelHeader>Current Wellbeing</HealthReportPanelHeader>
-        <Panel>
-          {currentScores ? (
-            <WellbeingChart scores={currentScores} />
-          ) : (
-            <NotAvailableContent>No data available</NotAvailableContent>
-          )}
-        </Panel>
-      </PanelContainer>
-      <PanelContainer float="right">
-        <HealthReportPanelHeader>Past Wellbeing</HealthReportPanelHeader>
-        <Panel>
-          {pastScores ? (
-            <WellbeingChart scores={pastScores} />
-          ) : (
-            <NotAvailableContent>No data available</NotAvailableContent>
-          )}
-        </Panel>
-      </PanelContainer>
-    </PanelBlocks>
+    <StyledPanelBlock>
+      {mobileView && <ComparisonReportTitle>Lifestyle</ComparisonReportTitle>}
+      {(active === 'current' || !mobileView) && (
+        <CompareWellbeingChart
+          style={{ marginRight: marginRight }}
+          title={currentTitle}
+          scores={currentScores}
+          mobileView={mobileView}
+        />
+      )}
+      {(active === 'previous' || !mobileView) && (
+        <CompareWellbeingChart
+          style={{ marginLeft: marginLeft }}
+          title={previousTitle}
+          scores={previousScores}
+          mobileView={mobileView}
+        />
+      )}
+      {mobileView && (
+        <ToggleAssessment
+          active={active}
+          onSetActive={setActive}
+          currentTitle={currentTitle}
+          previousTitle={previousTitle}
+        />
+      )}
+    </StyledPanelBlock>
   );
 };
 

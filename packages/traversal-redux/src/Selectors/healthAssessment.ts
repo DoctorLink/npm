@@ -10,6 +10,7 @@ import {
   HealthAssessmentState,
   RootState,
   NumberConclusion,
+  HealthComparisonModel,
 } from '@doctorlink/traversal-core';
 
 export const healthAssessmentSelector: Selector<
@@ -144,6 +145,14 @@ export const healthAgeExplanationSelector: Selector<
   healthAgeRulesSelector,
   healthAgeDiffSelector,
   (rules, healthAgeDiff) => rules && rules.getRuleValue(healthAgeDiff)
+);
+
+export const comparisonReportSelector: Selector<
+  RootState,
+  HealthComparisonModel | null
+> = createSelector(
+  healthAssessmentSelector,
+  (healthAssessment) => healthAssessment.comparisonReport
 );
 
 function mergeArrays<T>(...arrays: T[][]): T[] {
