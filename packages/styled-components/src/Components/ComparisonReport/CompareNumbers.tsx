@@ -42,12 +42,14 @@ const CompareNumbers: React.FC<{
           mobileView={mobileView}
         />
       )}
-      <ToggleAssessment
-        active={active}
-        onSetActive={setActive}
-        currentTitle={currentTitle}
-        previousTitle={previousTitle}
-      />
+      {mobileView && (
+        <ToggleAssessment
+          active={active}
+          onSetActive={setActive}
+          currentTitle={currentTitle}
+          previousTitle={previousTitle}
+        />
+      )}
     </StyledPanelBlock>
   );
 };

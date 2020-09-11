@@ -23,7 +23,7 @@ const CompareWellbeingCharts: React.FC<{
   const marginRight = !mobileView ? '8px' : '0px';
   return (
     <StyledPanelBlock>
-      {mobileView && <ComparisonReportTitle>Life style</ComparisonReportTitle>}
+      {mobileView && <ComparisonReportTitle>Lifestyle</ComparisonReportTitle>}
       {(active === 'current' || !mobileView) && (
         <CompareWellbeingChart
           style={{ marginRight: marginRight }}
@@ -40,12 +40,14 @@ const CompareWellbeingCharts: React.FC<{
           mobileView={mobileView}
         />
       )}
-      <ToggleAssessment
-        active={active}
-        onSetActive={setActive}
-        currentTitle={currentTitle}
-        previousTitle={previousTitle}
-      />
+      {mobileView && (
+        <ToggleAssessment
+          active={active}
+          onSetActive={setActive}
+          currentTitle={currentTitle}
+          previousTitle={previousTitle}
+        />
+      )}
     </StyledPanelBlock>
   );
 };

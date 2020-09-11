@@ -3,9 +3,6 @@ import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
 const BottomBar = styled.div`
-  @media screen and (min-width: 800px) {
-    display: none;
-  }
   @media screen and (max-width: 799px) {
     margin-top: ${(p) => p.theme.toggleAssessment.marginTop}px;
     display: block;
@@ -60,16 +57,16 @@ const ToggleAssessment: FC<ToggleAssessmentProps> = ({
   return (
     <BottomBar>
       <div
-        className={active === 'current' ? 'active' : 'inactive'}
-        onClick={() => onSetActive('current')}
-      >
-        {currentTitle}
-      </div>
-      <div
         className={active === 'previous' ? 'active' : 'inactive'}
         onClick={() => onSetActive('previous')}
       >
         {previousTitle}
+      </div>
+      <div
+        className={active === 'current' ? 'active' : 'inactive'}
+        onClick={() => onSetActive('current')}
+      >
+        {currentTitle}
       </div>
     </BottomBar>
   );

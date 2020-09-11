@@ -91,12 +91,15 @@ const CompareRiskCharts: React.FC<CompareRiskChartsProps> = ({
           mobileView={mobileView}
         />
       )}
-      <ToggleAssessment
-        active={active}
-        onSetActive={setActive}
-        currentTitle={currentTitle}
-        previousTitle={previousTitle}
-      />
+
+      {mobileView && (
+        <ToggleAssessment
+          active={active}
+          onSetActive={setActive}
+          currentTitle={currentTitle}
+          previousTitle={previousTitle}
+        />
+      )}
     </StyledPanelBlock>
   );
 };

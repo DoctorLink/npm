@@ -3,7 +3,6 @@ import {
   comparisonReportSelector,
   hraComparisonReportGetRequest,
 } from '@doctorlink/traversal-redux';
-import { HealthComparisonModel } from '@doctorlink/traversal-core';
 import { useState, useEffect } from 'react';
 
 export type ComparisonRouteName = 'risks' | 'wellbeing' | 'my-numbers';
@@ -32,10 +31,8 @@ export const useComparisonRoutes = (
     );
   }, [dispatch, traversalId, pastTraversalId, riskAtAge]);
 
-  const comparisonReport = useSelector(
-    comparisonReportSelector
-  ) as HealthComparisonModel;
-  const reportLoaded = comparisonReport.loaded ?? false;
+  const comparisonReport = useSelector(comparisonReportSelector);
+  const reportLoaded = comparisonReport?.loaded ?? false;
 
   const routeDefs: RouteDefinition[] = [
     {

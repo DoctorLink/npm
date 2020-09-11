@@ -9,7 +9,6 @@ import {
   comparisonReportSelector,
   parseNumberConclusion,
 } from '@doctorlink/traversal-redux';
-import { HealthComparisonModel } from '@doctorlink/traversal-core';
 
 interface ComparisonReportPageProps {
   route: string;
@@ -24,9 +23,10 @@ export const ComparisonReportPage: React.FC<ComparisonReportPageProps> = ({
   previousTitle,
   mobileView,
 }) => {
-  const comparisonReport = useSelector(
-    comparisonReportSelector
-  ) as HealthComparisonModel;
+  const comparisonReport = useSelector(comparisonReportSelector);
+  if (!comparisonReport)
+    return <div>Error occured while loading comparison report.</div>;
+
   const current = comparisonReport.currentSnapshot;
   const prev = comparisonReport.previousSnapshot;
 
