@@ -1,6 +1,7 @@
 import React, { FC } from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
+import { AnimatePresence, motion } from 'framer-motion';
 
 const BottomBar = styled.div`
   @media screen and (max-width: 799px) {
@@ -13,31 +14,48 @@ const BottomBar = styled.div`
     letter-spacing: 0;
     line-height: ${(p) => p.theme.toggleAssessment.lineHeight}px;
     text-align: center;
-    & .active {
-      margin: ${(p) => p.theme.toggleAssessment.buttonMargin}px;
-      height: 26px;
-      width: ${(p) => p.theme.toggleAssessment.buttonWidth}%;
-      border-radius: ${(p) =>
-        p.theme.toggleAssessment.activeButtonBorderRadius}px;
-      background: linear-gradient(
-        180deg,
-        ${(p) => p.theme.toggleAssessment.activeButtonBackgroundColor1} 10%,
-        ${(p) => p.theme.toggleAssessment.activeButtonBackgroundColor2} 90%
-      );
-      color: ${(p) => p.theme.toggleAssessment.activeButtonTextColor};
-      float: left;
-    }
-    & .inactive {
-      margin: ${(p) => p.theme.toggleAssessment.buttonMargin}px;
-      height: 26px;
-      width: ${(p) => p.theme.toggleAssessment.buttonWidth}%;
-      color: ${(p) => p.theme.toggleAssessment.inactiveTextColor};
-      float: left;
-    }
   }
 `;
 
+const Active = styled(motion.div).attrs({
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+})`
+  margin: ${(p) => p.theme.toggleAssessment.buttonMargin}px;
+  height: 26px;
+  width: ${(p) => p.theme.toggleAssessment.buttonWidth}%;
+  border-radius: ${(p) => p.theme.toggleAssessment.activeButtonBorderRadius}px;
+  background: linear-gradient(
+    180deg,
+    ${(p) => p.theme.toggleAssessment.activeButtonBackgroundColor1} 10%,
+    ${(p) => p.theme.toggleAssessment.activeButtonBackgroundColor2} 90%
+  );
+  color: ${(p) => p.theme.toggleAssessment.activeButtonTextColor};
+  float: left;
+`;
+
+const Inactive = styled(motion.div).attrs({
+  initial: { opacity: 0 },
+  animate: { opacity: 1 },
+  exit: { opacity: 0 },
+})`
+  margin: ${(p) => p.theme.toggleAssessment.buttonMargin}px;
+  height: 26px;
+  width: ${(p) => p.theme.toggleAssessment.buttonWidth}%;
+  color: ${(p) => p.theme.toggleAssessment.inactiveTextColor};
+  float: left;
+`;
+
 BottomBar.defaultProps = {
+  theme: defaultTheme,
+};
+
+Active.defaultProps = {
+  theme: defaultTheme,
+};
+
+Inactive.defaultProps = {
   theme: defaultTheme,
 };
 
@@ -56,18 +74,26 @@ const ToggleAssessment: FC<ToggleAssessmentProps> = ({
 }) => {
   return (
     <BottomBar>
-      <div
-        className={active === 'previous' ? 'active' : 'inactive'}
-        onClick={() => onSetActive('previous')}
-      >
-        {previousTitle}
-      </div>
-      <div
-        className={active === 'current' ? 'active' : 'inactive'}
-        onClick={() => onSetActive('current')}
-      >
-        {currentTitle}
-      </div>
+      <AnimatePresence>
+        {active === 'previous' ? (
+          <Active onClick={() => onSetActive('previous')}>
+            {previousTitle}
+          </Active>
+        ) : (
+          <Inactive onClick={() => onSetActive('previous')}>
+            {previousTitle}
+          </Inactive>
+        )}
+      </AnimatePresence>
+      <AnimatePresence>
+        {active === 'current' ? (
+          <Active onClick={() => onSetActive('current')}>{currentTitle}</Active>
+        ) : (
+          <Inactive onClick={() => onSetActive('current')}>
+            {currentTitle}
+          </Inactive>
+        )}
+      </AnimatePresence>
     </BottomBar>
   );
 };
