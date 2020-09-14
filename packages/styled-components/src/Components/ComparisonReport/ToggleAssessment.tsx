@@ -72,27 +72,17 @@ const ToggleAssessment: FC<ToggleAssessmentProps> = ({
   active,
   onSetActive,
 }) => {
+  const [Previous, Current] =
+    active === 'previous' ? [Active, Inactive] : [Inactive, Active];
   return (
     <BottomBar>
       <AnimatePresence>
-        {active === 'previous' ? (
-          <Active onClick={() => onSetActive('previous')}>
-            {previousTitle}
-          </Active>
-        ) : (
-          <Inactive onClick={() => onSetActive('previous')}>
-            {previousTitle}
-          </Inactive>
-        )}
+        <Previous onClick={() => onSetActive('previous')}>
+          {previousTitle}
+        </Previous>
       </AnimatePresence>
       <AnimatePresence>
-        {active === 'current' ? (
-          <Active onClick={() => onSetActive('current')}>{currentTitle}</Active>
-        ) : (
-          <Inactive onClick={() => onSetActive('current')}>
-            {currentTitle}
-          </Inactive>
-        )}
+        <Current onClick={() => onSetActive('current')}>{currentTitle}</Current>
       </AnimatePresence>
     </BottomBar>
   );
