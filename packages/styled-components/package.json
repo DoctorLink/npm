@@ -1,6 +1,6 @@
 {
   "name": "@doctorlink/styled-components",
-  "version": "0.4.2",
+  "version": "0.4.3",
   "description": "Doctorlink styled components",
   "keywords": [
     "styled-components"
@@ -34,8 +34,8 @@
     "test": "tsc --noEmit && jest test"
   },
   "dependencies": {
-    "@doctorlink/traversal-core": "^0.4.2",
-    "@doctorlink/traversal-redux": "^0.4.2",
+    "@doctorlink/traversal-core": "^0.4.3",
+    "@doctorlink/traversal-redux": "^0.4.3",
     "@testing-library/jest-dom": "^5.11.2",
     "@types/react-redux": "^7.1.9",
     "@types/react-responsive": "^8.0.2",
