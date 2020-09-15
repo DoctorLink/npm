@@ -13,7 +13,7 @@ interface CompareRiskChartProps {
   title?: string;
   risks: HealthRiskModel[];
   mobileView?: boolean;
-  style: CSSProperties;
+  style?: CSSProperties;
 }
 
 const CompareRiskChart: React.FC<CompareRiskChartProps> = ({

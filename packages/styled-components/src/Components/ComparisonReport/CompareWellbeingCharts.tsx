@@ -19,26 +19,30 @@ const CompareWellbeingCharts: React.FC<{
   mobileView,
 }) => {
   const [active, setActive] = useState('current');
-  const marginLeft = !mobileView ? '8px' : '0px';
-  const marginRight = !mobileView ? '8px' : '0px';
   return (
     <StyledPanelBlock>
       {mobileView && <ComparisonReportTitle>Lifestyle</ComparisonReportTitle>}
-      {(active === 'current' || !mobileView) && (
+      {mobileView ? (
         <CompareWellbeingChart
-          style={{ marginRight: marginRight }}
-          title={currentTitle}
-          scores={currentScores}
+          title={active === 'current' ? currentTitle : previousTitle}
+          scores={active === 'current' ? currentScores : previousScores}
           mobileView={mobileView}
         />
-      )}
-      {(active === 'previous' || !mobileView) && (
-        <CompareWellbeingChart
-          style={{ marginLeft: marginLeft }}
-          title={previousTitle}
-          scores={previousScores}
-          mobileView={mobileView}
-        />
+      ) : (
+        <React.Fragment>
+          <CompareWellbeingChart
+            style={{ marginRight: '8px' }}
+            title={currentTitle}
+            scores={currentScores}
+            mobileView={mobileView}
+          />
+          <CompareWellbeingChart
+            style={{ marginLeft: '8px' }}
+            title={previousTitle}
+            scores={previousScores}
+            mobileView={mobileView}
+          />
+        </React.Fragment>
       )}
       {mobileView && (
         <ToggleAssessment

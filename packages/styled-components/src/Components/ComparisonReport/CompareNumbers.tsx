@@ -19,28 +19,32 @@ const CompareNumbers: React.FC<{
   mobileView,
 }) => {
   const [active, setActive] = useState('current');
-  const marginLeft = !mobileView ? '8px' : '0px';
-  const marginRight = !mobileView ? '8px' : '0px';
   return (
     <StyledPanelBlock>
       {mobileView && (
         <ComparisonReportTitle>Your numbers</ComparisonReportTitle>
       )}
-      {(active === 'current' || !mobileView) && (
+      {mobileView ? (
         <CompareMyNumber
-          style={{ marginRight: marginRight }}
-          title={currentTitle}
-          numbers={currentNumbers}
+          title={active === 'current' ? currentTitle : previousTitle}
+          numbers={active === 'current' ? currentNumbers : previousNumbers}
           mobileView={mobileView}
         />
-      )}
-      {(active === 'previous' || !mobileView) && (
-        <CompareMyNumber
-          style={{ marginLeft: marginLeft }}
-          title={previousTitle}
-          numbers={previousNumbers}
-          mobileView={mobileView}
-        />
+      ) : (
+        <React.Fragment>
+          <CompareMyNumber
+            style={{ marginRight: '8px' }}
+            title={currentTitle}
+            numbers={currentNumbers}
+            mobileView={mobileView}
+          />
+          <CompareMyNumber
+            style={{ marginLeft: '8px' }}
+            title={previousTitle}
+            numbers={previousNumbers}
+            mobileView={mobileView}
+          />
+        </React.Fragment>
       )}
       {mobileView && (
         <ToggleAssessment
