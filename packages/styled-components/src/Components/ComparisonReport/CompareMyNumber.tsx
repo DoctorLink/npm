@@ -13,7 +13,7 @@ interface CompareMyNumberProps {
   title?: string;
   numbers: NumberConclusion[];
   mobileView?: boolean;
-  style: CSSProperties;
+  style?: CSSProperties;
 }
 
 const CompareMyNumber: React.FC<CompareMyNumberProps> = ({

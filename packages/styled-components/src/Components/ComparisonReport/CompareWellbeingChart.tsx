@@ -13,7 +13,7 @@ interface CompareWellbeingChartProps {
   title?: string;
   scores: WellnessScore[];
   mobileView?: boolean;
-  style: CSSProperties;
+  style?: CSSProperties;
 }
 
 const CompareWellbeingChart: React.FC<CompareWellbeingChartProps> = ({

@@ -59,8 +59,6 @@ const CompareRiskCharts: React.FC<CompareRiskChartsProps> = ({
   const prevRisks = previousSnapshot && previousSnapshot.riskOutput.risks;
 
   const [active, setActive] = useState('current');
-  const marginLeft = !mobileView ? '8px' : '0px';
-  const marginRight = !mobileView ? '8px' : '0px';
   return (
     <StyledPanelBlock>
       <FlexBox mobileView={mobileView}>
@@ -74,22 +72,27 @@ const CompareRiskCharts: React.FC<CompareRiskChartsProps> = ({
         </Right>
       </FlexBox>
 
-      {(active === 'current' || !mobileView) && (
+      {mobileView ? (
         <CompareRiskChart
-          style={{ marginRight: marginRight }}
-          title={currentTitle}
-          risks={currentRisks}
+          title={active === 'current' ? currentTitle : previousTitle}
+          risks={active === 'current' ? currentRisks : prevRisks}
           mobileView={mobileView}
         />
-      )}
-
-      {(active === 'previous' || !mobileView) && (
-        <CompareRiskChart
-          style={{ marginLeft: marginLeft }}
-          title={previousTitle}
-          risks={prevRisks}
-          mobileView={mobileView}
-        />
+      ) : (
+        <React.Fragment>
+          <CompareRiskChart
+            style={{ marginRight: '8px' }}
+            title={currentTitle}
+            risks={currentRisks}
+            mobileView={mobileView}
+          />
+          <CompareRiskChart
+            style={{ marginLeft: '8px' }}
+            title={previousTitle}
+            risks={prevRisks}
+            mobileView={mobileView}
+          />
+        </React.Fragment>
       )}
 
       {mobileView && (
