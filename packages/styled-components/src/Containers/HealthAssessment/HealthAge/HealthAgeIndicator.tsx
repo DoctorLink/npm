@@ -4,6 +4,7 @@ import { HealthAgeDial } from './HealthAgeDial';
 import { HealthAgeTile } from './HealthAgeTile';
 import styled from 'styled-components';
 import { useHealthAge } from '../../../Hooks';
+import { HealthAgeModel } from '@doctorlink/traversal-core';
 
 const Centered = styled(PanelBodyText)`
   text-align: center;
@@ -17,10 +18,14 @@ const FullWidthDiv = styled.div`
   }
 `;
 
-const HealthAgeIndicator: React.FC<{
-  traversalId: string;
-}> = ({ traversalId }) => {
-  const { age, healthAge, minimumHealthAge } = useHealthAge(traversalId);
+export interface HealthAgeIndicatorProps {
+  healthAgeModel: HealthAgeModel;
+}
+
+export const HealthAgeIndicator: React.FC<HealthAgeIndicatorProps> = ({
+  healthAgeModel,
+}) => {
+  const { age, healthAge, minimumHealthAge } = healthAgeModel;
   const ageReduction = healthAge - minimumHealthAge;
   const yourHealthAge = 'Your health age is';
   return (
@@ -54,4 +59,10 @@ const HealthAgeIndicator: React.FC<{
     </FullWidthDiv>
   );
 };
-export default HealthAgeIndicator;
+
+export const HealthAgeIndicatorConnected: React.FC<{
+  traversalId: string;
+}> = ({ traversalId }) => {
+  const healthAge = useHealthAge(traversalId);
+  return <HealthAgeIndicator healthAgeModel={healthAge} />;
+};
