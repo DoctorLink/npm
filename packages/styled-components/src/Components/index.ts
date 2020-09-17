@@ -85,5 +85,6 @@ export { default as ComparisonReportSummary } from './ComparisonReport/Summary';
 export { default as CompareRiskCharts } from './ComparisonReport/CompareRiskCharts';
 export { default as CompareWellbeingCharts } from './ComparisonReport/CompareWellbeingCharts';
 export { default as CompareNumbers } from './ComparisonReport/CompareNumbers';
+export { default as SummaryDivider } from './SummaryDivider';
 
 export * from './HealthReportExplanation';
