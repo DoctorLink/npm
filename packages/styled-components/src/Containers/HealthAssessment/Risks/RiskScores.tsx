@@ -7,6 +7,7 @@ import {
 import { useRiskSummary } from '../../../Hooks';
 import HealthReportTitle from '../../../Components/HealthReportTitle';
 import styled from 'styled-components';
+import { HealthRisksModel } from '@doctorlink/traversal-core';
 
 const AgeOptions = [50, 60, 70, 80, 90, 100, 110];
 
@@ -14,14 +15,11 @@ const Header = styled.div`
   line-height: 2;
 `;
 
-interface RiskScoresProps {
-  traversalId: string;
+export interface RiskScoresProps {
+  riskSummary: HealthRisksModel;
 }
 
-const RiskScores: React.FC<RiskScoresProps> = ({ traversalId }) => {
-  const riskSummary = useRiskSummary(traversalId, AgeOptions);
-  if (!riskSummary) return null;
-
+export const RiskScores: React.FC<RiskScoresProps> = ({ riskSummary }) => {
   return (
     <PanelContent>
       <Header>
@@ -34,4 +32,10 @@ const RiskScores: React.FC<RiskScoresProps> = ({ traversalId }) => {
   );
 };
 
-export default RiskScores;
+export const RiskScoresConnected: React.FC<{
+  traversalId: string;
+}> = ({ traversalId }) => {
+  const riskSummary = useRiskSummary(traversalId, AgeOptions);
+  if (!riskSummary) return null;
+  return <RiskScores riskSummary={riskSummary} />;
+};
