@@ -1,6 +1,6 @@
 {
   "name": "@doctorlink/traversal-embed",
-  "version": "0.4.3",
+  "version": "0.4.4",
   "description": "Doctorlink's embeded traversal client",
   "keywords": [
     "doctorlink",
@@ -33,8 +33,8 @@
     "serve": "npm run build && serve ."
   },
   "dependencies": {
-    "@doctorlink/styled-components": "^0.4.3",
-    "@doctorlink/traversal-core": "^0.4.3",
-    "@doctorlink/traversal-redux": "^0.4.3"
+    "@doctorlink/styled-components": "^0.4.4",
+    "@doctorlink/traversal-core": "^0.4.4",
+    "@doctorlink/traversal-redux": "^0.4.4"
   }
 }
