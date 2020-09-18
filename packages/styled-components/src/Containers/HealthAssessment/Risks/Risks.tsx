@@ -12,7 +12,7 @@ import {
 } from '@doctorlink/traversal-redux';
 import Explanations from '../Conclusions/Explanations';
 import CheckableConclusionsPanel from '../Conclusions/CheckableConclusionsPanel';
-import RiskScores from './RiskScores';
+import { RiskScoresConnected as RiskScores } from './RiskScores';
 import { Conclusion, RootState } from '@doctorlink/traversal-core';
 
 const Risks: React.FC<{

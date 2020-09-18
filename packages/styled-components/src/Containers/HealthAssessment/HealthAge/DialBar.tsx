@@ -2,9 +2,18 @@ import React from 'react';
 import styled from 'styled-components';
 import colors from '../../../Theme/base/colors';
 
-const Rectangle = styled.div`
-  height: 24px;
+const TextWrapper = styled.div`
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  font-size: 0.75rem;
+`;
+
+const Bar = styled.div`
+  height: 8px;
   width: 100%;
+  border-radius: 4px;
+  margin-bottom: 8px;
   background: linear-gradient(
     270deg,
     ${colors.green100} 0%,
@@ -13,34 +22,21 @@ const Rectangle = styled.div`
     ${colors.redgreen} 75%,
     ${colors.red300} 100%
   );
-  display: flex;
-  flex-direction: row;
-  justify-content: space-between;
-  @media screen and (min-width: 800px) {
-    border-radius: 0 0 8px 8px;
-  }
 `;
 
-const Text = styled.div`
-  font-size: 0.75rem;
-  color: ${colors.white};
-  align-self: center;
-`;
-
-const LeftText = styled(Text)`
-  padding-left: 2%;
-`;
-
-const RightText = styled(Text)`
-  padding-right: 2%;
-`;
+const Labels: React.FC = () => (
+  <TextWrapper>
+    <span>Unhealthy</span>
+    <span>Healthy</span>
+  </TextWrapper>
+);
 
 const DialBar: React.FC = () => {
   return (
-    <Rectangle>
-      <LeftText>Unhealthy</LeftText>
-      <RightText>Healthy</RightText>
-    </Rectangle>
+    <div>
+      <Bar />
+      <Labels />
+    </div>
   );
 };
 

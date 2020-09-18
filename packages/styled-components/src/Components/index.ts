@@ -20,7 +20,7 @@ export { default as HealthReportPanelHeader } from './HealthReportPanelHeader';
 export { default as HealthReportTitle } from './HealthReportTitle';
 
 export { AccordionHeader, AccordionBody } from './Accordion';
-export { RiskChart } from './RiskChart';
+export { RiskChart, InteractiveRiskChart } from './RiskChart';
 export { WellbeingChart } from './WellbeingChart';
 
 export { default as DisplayText } from './DisplayText';
