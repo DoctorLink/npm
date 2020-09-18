@@ -11,7 +11,6 @@ export const HealthAgeIndicatorMini: React.FC<HealthAgeIndicatorProps> = ({
     <div title={`Your health age is ${healthAge}`}>
       <HealthAgeTile healthAge={healthAge} />
       <HealthAgeDial
-        mini
         age={age}
         healthAge={healthAge}
         minimumHealthAge={minimumHealthAge}

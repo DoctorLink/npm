@@ -1,7 +1,7 @@
 import React from 'react';
 import { getPointerPosition } from './getPointerPosition';
 import { DialPointer } from '../../../Components/DialPointer';
-import { DialBar, DialBarMini } from './DialBar';
+import { DialBar } from './DialBar';
 import styled from 'styled-components';
 
 const width = 100;
@@ -21,14 +21,12 @@ interface HealthAgeDialProps {
   age: number;
   healthAge: number;
   minimumHealthAge: number;
-  mini?: boolean;
 }
 
 const HealthAgeDial: React.FC<HealthAgeDialProps> = ({
   age,
   healthAge,
   minimumHealthAge,
-  mini,
 }) => {
   const position = getPointerPosition(age, healthAge, minimumHealthAge);
   return (
@@ -42,7 +40,7 @@ const HealthAgeDial: React.FC<HealthAgeDialProps> = ({
           bottom={height}
         />
       </StyledSvg>
-      {mini ? <DialBarMini /> : <DialBar />}
+      <DialBar />
     </SvgBox>
   );
 };

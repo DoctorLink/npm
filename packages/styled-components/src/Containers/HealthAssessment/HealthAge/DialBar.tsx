@@ -10,8 +10,10 @@ const TextWrapper = styled.div`
 `;
 
 const Bar = styled.div`
-  height: 24px;
+  height: 8px;
   width: 100%;
+  border-radius: 4px;
+  margin-bottom: 8px;
   background: linear-gradient(
     270deg,
     ${colors.green100} 0%,
@@ -20,20 +22,6 @@ const Bar = styled.div`
     ${colors.redgreen} 75%,
     ${colors.red300} 100%
   );
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-
-  ${TextWrapper} {
-    color: ${colors.white};
-    padding: 0 2%;
-  }
-`;
-
-const ThinBar = styled(Bar)`
-  height: 8px;
-  border-radius: 4px;
-  margin-bottom: 8px;
 `;
 
 const Labels: React.FC = () => (
@@ -45,17 +33,11 @@ const Labels: React.FC = () => (
 
 const DialBar: React.FC = () => {
   return (
-    <Bar>
+    <div>
+      <Bar />
       <Labels />
-    </Bar>
+    </div>
   );
 };
 
-const DialBarMini: React.FC = () => (
-  <div>
-    <ThinBar />
-    <Labels />
-  </div>
-);
-
-export { DialBar, DialBarMini };
+export { DialBar };
