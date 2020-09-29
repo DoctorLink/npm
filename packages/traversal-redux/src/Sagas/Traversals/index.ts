@@ -1,4 +1,4 @@
-import { ForkEffect } from 'redux-saga/effects';
+import { call, ForkEffect, takeLatest } from 'redux-saga/effects';
 import {
   TraversalsService,
   TraversalsResponse,
@@ -6,6 +6,7 @@ import {
 } from '@doctorlink/traversal-core';
 import { TraversalsBaseServiceSagas } from '../TraversalsBaseServiceSagas';
 import {
+  TRAVERSAL_SET_BASE_URL,
   TRAVERSAL_POST_REQUEST,
   TRAVERSAL_RESPOND_POST_REQUEST,
   TRAVERSAL_REVISIT_POST_REQUEST,
@@ -16,6 +17,7 @@ import {
   traversalRevisitPostResponse,
   traversalPreviousPostResponse,
   traversalGetResponse,
+  TraversalSetBaseUrl,
   TraversalPostRequest,
   TraversalGetRequest,
   TraversalRespondPostRequest,
@@ -31,7 +33,7 @@ export class TraversalsServiceSagas extends TraversalsBaseServiceSagas<
     tokenFactory?: () => Promise<string | null>
   ) {
     const service = new TraversalsService(controllerBase, tokenFactory);
-    super(service);
+    super(service, false);
 
     this.create = this.effect(
       TRAVERSAL_POST_REQUEST,
@@ -74,7 +76,14 @@ export class TraversalsServiceSagas extends TraversalsBaseServiceSagas<
       (data: TraversalsResponse) => traversalGetResponse(flatten(data))
     );
 
+    this.setBaseUrl = takeLatest(TRAVERSAL_SET_BASE_URL, function* (
+      action: TraversalSetBaseUrl
+    ) {
+      yield call(service.setBaseUrl, action.baseUrl);
+    });
+
     this.effects = [
+      this.setBaseUrl,
       this.create,
       this.respond,
       this.revisit,
@@ -94,4 +103,5 @@ export class TraversalsServiceSagas extends TraversalsBaseServiceSagas<
   public revisit: ForkEffect<never>;
   public previous: ForkEffect<never>;
   public get: ForkEffect<never>;
+  public setBaseUrl: ForkEffect<never>;
 }

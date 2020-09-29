@@ -8,6 +8,16 @@ import {
   SummaryQuestion,
 } from '@doctorlink/traversal-core';
 
+export const TRAVERSAL_SET_BASE_URL = 'TRAVERSAL_SET_BASE_URL';
+export interface TraversalSetBaseUrl
+  extends Action<typeof TRAVERSAL_SET_BASE_URL> {
+  baseUrl: string;
+}
+export const traversalSetBaseUrl = (baseUrl: string): TraversalSetBaseUrl => ({
+  type: TRAVERSAL_SET_BASE_URL,
+  baseUrl,
+});
+
 export const TRAVERSAL_POST_REQUEST = 'TRAVERSAL_POST_REQUEST';
 export interface TraversalPostRequest
   extends Action<typeof TRAVERSAL_POST_REQUEST> {

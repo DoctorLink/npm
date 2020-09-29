@@ -19,7 +19,6 @@ export type ModalState = ModalModel | null;
 export type HealthAssessmentState = HealthAssessmentModel;
 
 export interface TraversalBaseRootState {
-  traversal: TraversalState | ChatTraversalState;
   summary: SummaryState;
   conclusion: ConclusionState;
   modal: ModalState;
@@ -31,7 +30,12 @@ export interface TraversalRootState extends TraversalBaseRootState {
 }
 
 export interface ChatTraversalRootState extends TraversalBaseRootState {
-  traversal: ChatTraversalState;
+  chatTraversal: ChatTraversalState;
+}
+
+export interface DualTraversalRootState extends TraversalBaseRootState {
+  traversal: TraversalState;
+  chatTraversal: ChatTraversalState;
 }
 
 export type RootState = TraversalRootState | ChatTraversalRootState;

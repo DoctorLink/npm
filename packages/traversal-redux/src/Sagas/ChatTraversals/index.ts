@@ -1,4 +1,4 @@
-import { ForkEffect } from 'redux-saga/effects';
+import { call, ForkEffect, takeLatest } from 'redux-saga/effects';
 import {
   ChatTraversalsService,
   ChatTraversalsResponse,
@@ -6,19 +6,21 @@ import {
 } from '@doctorlink/traversal-core';
 import { TraversalsBaseServiceSagas } from '../TraversalsBaseServiceSagas';
 import {
-  TRAVERSAL_POST_REQUEST,
-  TRAVERSAL_RESPOND_POST_REQUEST,
-  TRAVERSAL_REVISIT_POST_REQUEST,
-  TRAVERSAL_GET_REQUEST,
-  traversalRespondPostResponse,
-  traversalPostResponse,
-  traversalRevisitPostResponse,
-  traversalGetResponse,
-  TraversalPostRequest,
-  TraversalGetRequest,
-  TraversalRespondPostRequest,
-  TraversalRevisitPostRequest,
-} from '../../Actions/Traversal';
+  CHATTRAVERSAL_SET_BASE_URL,
+  CHATTRAVERSAL_POST_REQUEST,
+  CHATTRAVERSAL_RESPOND_POST_REQUEST,
+  CHATTRAVERSAL_REVISIT_POST_REQUEST,
+  CHATTRAVERSAL_GET_REQUEST,
+  chatTraversalRespondPostResponse,
+  chatTraversalPostResponse,
+  chatTraversalRevisitPostResponse,
+  chatTraversalGetResponse,
+  ChatTraversalSetBaseUrl,
+  ChatTraversalPostRequest,
+  ChatTraversalGetRequest,
+  ChatTraversalRespondPostRequest,
+  ChatTraversalRevisitPostRequest,
+} from '../../Actions/ChatTraversal';
 
 export class ChatTraversalsServiceSagas extends TraversalsBaseServiceSagas<
   ChatTraversalsService
@@ -28,43 +30,49 @@ export class ChatTraversalsServiceSagas extends TraversalsBaseServiceSagas<
     tokenFactory?: () => Promise<string | null>
   ) {
     const service = new ChatTraversalsService(controllerBase, tokenFactory);
-    super(service);
+    super(service, true);
 
     this.create = this.effect(
-      TRAVERSAL_POST_REQUEST,
+      CHATTRAVERSAL_POST_REQUEST,
       service.create,
-      (action: TraversalPostRequest) => [action.body],
-      (data: ChatTraversalsResponse) => traversalPostResponse(flatten(data))
+      (action: ChatTraversalPostRequest) => [action.body],
+      (data: ChatTraversalsResponse) => chatTraversalPostResponse(flatten(data))
     );
 
     this.respond = this.effect(
-      TRAVERSAL_RESPOND_POST_REQUEST,
+      CHATTRAVERSAL_RESPOND_POST_REQUEST,
       service.respond,
-      (action: TraversalRespondPostRequest) => [
+      (action: ChatTraversalRespondPostRequest) => [
         action.traversalId,
         action.body,
       ],
       (data: ChatTraversalsResponse) =>
-        traversalRespondPostResponse(flatten(data))
+        chatTraversalRespondPostResponse(flatten(data))
     );
 
     this.revisit = this.effect(
-      TRAVERSAL_REVISIT_POST_REQUEST,
+      CHATTRAVERSAL_REVISIT_POST_REQUEST,
       service.revisit,
-      (action: TraversalRevisitPostRequest) => [
+      (action: ChatTraversalRevisitPostRequest) => [
         action.traversalId,
         action.body,
       ],
       (data: ChatTraversalsResponse) =>
-        traversalRevisitPostResponse(flatten(data))
+        chatTraversalRevisitPostResponse(flatten(data))
     );
 
     this.get = this.effect(
-      TRAVERSAL_GET_REQUEST,
+      CHATTRAVERSAL_GET_REQUEST,
       service.get,
-      (action: TraversalGetRequest) => [action.traversalId],
-      (data: ChatTraversalsResponse) => traversalGetResponse(flatten(data))
+      (action: ChatTraversalGetRequest) => [action.traversalId],
+      (data: ChatTraversalsResponse) => chatTraversalGetResponse(flatten(data))
     );
+
+    this.setBaseUrl = takeLatest(CHATTRAVERSAL_SET_BASE_URL, function* (
+      action: ChatTraversalSetBaseUrl
+    ) {
+      yield call(service.setBaseUrl, action.baseUrl);
+    });
 
     this.effects = [
       this.create,
@@ -74,6 +82,7 @@ export class ChatTraversalsServiceSagas extends TraversalsBaseServiceSagas<
       this.getQuestions,
       this.getConclusions,
       this.getConclusionReport,
+      this.setBaseUrl,
     ];
 
     this.service = service;
@@ -84,4 +93,5 @@ export class ChatTraversalsServiceSagas extends TraversalsBaseServiceSagas<
   public respond: ForkEffect<never>;
   public revisit: ForkEffect<never>;
   public get: ForkEffect<never>;
+  public setBaseUrl: ForkEffect<never>;
 }

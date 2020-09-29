@@ -6,7 +6,7 @@ import { ChatTraversal, useChatActions } from '../../ComponentModules';
 export const ChatTraversalConnected: React.FC = () => {
   const ref = useRef();
   const traversal = useSelector(
-    (state: ChatTraversalRootState) => state.traversal
+    (state: ChatTraversalRootState) => state.chatTraversal
   );
   const actions = useChatActions(traversal);
 
