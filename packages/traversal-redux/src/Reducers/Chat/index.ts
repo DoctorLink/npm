@@ -6,41 +6,41 @@ import {
   ChatTraversalState,
 } from '@doctorlink/traversal-core';
 import {
-  TraversalAction,
-  TRAVERSAL_RADIO_TOGGLE,
-  TRAVERSAL_CHECKBOX_TOGGLE,
-  TRAVERSAL_VALUE_CHANGE,
-  TRAVERSAL_RESPOND_POST_REQUEST,
-  TRAVERSAL_REVISIT_POST_REQUEST,
-  TRAVERSAL_POST_RESPONSE,
-  TRAVERSAL_GET_RESPONSE,
-  TRAVERSAL_RESPOND_POST_RESPONSE,
-  TRAVERSAL_REVISIT_POST_RESPONSE,
+  ChatTraversalAction,
+  CHATTRAVERSAL_RADIO_TOGGLE,
+  CHATTRAVERSAL_CHECKBOX_TOGGLE,
+  CHATTRAVERSAL_VALUE_CHANGE,
+  CHATTRAVERSAL_RESPOND_POST_REQUEST,
+  CHATTRAVERSAL_REVISIT_POST_REQUEST,
+  CHATTRAVERSAL_POST_RESPONSE,
+  CHATTRAVERSAL_GET_RESPONSE,
+  CHATTRAVERSAL_RESPOND_POST_RESPONSE,
+  CHATTRAVERSAL_REVISIT_POST_RESPONSE,
 } from '../../Actions';
-import { answersReducer } from '../Answers';
+import { chatAnswersReducer } from '../Answers';
 
-export type ChatReducer = Reducer<ChatTraversalState, TraversalAction>;
+export type ChatReducer = Reducer<ChatTraversalState, ChatTraversalAction>;
 
 export const chatReducer: ChatReducer = (
   state = {} as ChatTraversalState,
   action
 ) => {
   switch (action.type) {
-    case TRAVERSAL_RADIO_TOGGLE:
-    case TRAVERSAL_CHECKBOX_TOGGLE:
-    case TRAVERSAL_VALUE_CHANGE:
+    case CHATTRAVERSAL_RADIO_TOGGLE:
+    case CHATTRAVERSAL_CHECKBOX_TOGGLE:
+    case CHATTRAVERSAL_VALUE_CHANGE:
       if (
         !action.id.startsWith(state.questionIds[state.questionIds.length - 1])
       )
         return state;
-      return { ...state, answers: answersReducer(state.answers, action) };
-    case TRAVERSAL_RESPOND_POST_REQUEST:
-    case TRAVERSAL_REVISIT_POST_REQUEST:
+      return { ...state, answers: chatAnswersReducer(state.answers, action) };
+    case CHATTRAVERSAL_RESPOND_POST_REQUEST:
+    case CHATTRAVERSAL_REVISIT_POST_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case TRAVERSAL_RESPOND_POST_RESPONSE:
+    case CHATTRAVERSAL_RESPOND_POST_RESPONSE:
       let nextQuestionIds = state.questionIds;
       let nextQuestions = state.questions;
       let nextAnswers = state.answers;
@@ -52,7 +52,7 @@ export const chatReducer: ChatReducer = (
           ),
         ];
         nextQuestions = Object.assign({}, state.questions, chat.questions);
-        nextAnswers = answersReducer(
+        nextAnswers = chatAnswersReducer(
           Object.assign({}, state.answers, chat.answers),
           action
         );
@@ -68,7 +68,7 @@ export const chatReducer: ChatReducer = (
         assessmentType: chat.assessmentType,
         loading: false,
       };
-    case TRAVERSAL_REVISIT_POST_RESPONSE:
+    case CHATTRAVERSAL_REVISIT_POST_RESPONSE:
       chat = action.traversal as ChatModel;
       const ids = [...state.questionIds];
       ids.length = ids.indexOf(chat.questionIds[0]) + 1;
@@ -88,20 +88,20 @@ export const chatReducer: ChatReducer = (
         ...state,
         questionIds: ids,
         questions: questions,
-        answers: answersReducer(newAnswers, action),
+        answers: chatAnswersReducer(newAnswers, action),
         completed: chat.completed,
         errors: chat.errors,
         algoId: chat.algoId,
         assessmentType: chat.assessmentType,
         loading: false,
       };
-    case TRAVERSAL_POST_RESPONSE:
-    case TRAVERSAL_GET_RESPONSE:
+    case CHATTRAVERSAL_POST_RESPONSE:
+    case CHATTRAVERSAL_GET_RESPONSE:
       return {
         ...(action.traversal as ChatModel),
         minHeight: 0,
         loading: false,
-        answers: answersReducer(action.traversal.answers, action),
+        answers: chatAnswersReducer(action.traversal.answers, action),
       };
     default:
       return state;
@@ -109,5 +109,5 @@ export const chatReducer: ChatReducer = (
 };
 
 export const chatReducerMapObject = {
-  traversal: chatReducer,
+  chatTraversal: chatReducer,
 };

@@ -10,7 +10,8 @@ export const ConclusionReportConnected: React.FC<{
   traversalId: any;
   assessmentType: AssessmentType;
   noRouter?: boolean;
-}> = ({ traversalId, assessmentType, noRouter }) => {
+  chat?: boolean;
+}> = ({ traversalId, assessmentType, noRouter, chat = false }) => {
   const HealthAssessment =
     noRouter === true
       ? HealthAssessmentConnected
@@ -19,6 +20,6 @@ export const ConclusionReportConnected: React.FC<{
     case 2:
       return <HealthAssessment traversalId={traversalId} />;
     default:
-      return <SymptomReport traversalId={traversalId} />;
+      return <SymptomReport traversalId={traversalId} chat={chat} />;
   }
 };

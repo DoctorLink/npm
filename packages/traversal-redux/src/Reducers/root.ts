@@ -6,6 +6,7 @@ import { summaryReducer } from './Summary';
 import { modalReducer } from './Modal';
 import { healthAssessmentReducer } from './HealthAssessment';
 import {
+  DualTraversalRootState,
   TraversalRootState,
   ChatTraversalRootState,
   HealthAssessmentState,
@@ -31,6 +32,12 @@ export const traversalRootReducersMapObject: ReducersMapObject<TraversalRootStat
 };
 
 export const chatRootReducersMapObject: ReducersMapObject<ChatTraversalRootState> = {
-  traversal: chatReducer as Reducer<ChatTraversalState, Action<any>>,
+  chatTraversal: chatReducer as Reducer<ChatTraversalState, Action<any>>,
+  ...reducersMapObject,
+};
+
+export const dualRootReducersMapObject: ReducersMapObject<DualTraversalRootState> = {
+  traversal: traversalReducer as Reducer<TraversalState, Action<any>>,
+  chatTraversal: chatReducer as Reducer<ChatTraversalState, Action<any>>,
   ...reducersMapObject,
 };

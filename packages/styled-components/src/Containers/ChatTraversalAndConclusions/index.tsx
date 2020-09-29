@@ -7,7 +7,7 @@ import { ChatTraversalRootState } from '@doctorlink/traversal-core';
 export const ChatTraversalAndConclusionsConnected: React.FC = () => {
   const ref = useRef();
   const traversal = useSelector(
-    (state: ChatTraversalRootState) => state.traversal
+    (state: ChatTraversalRootState) => state.chatTraversal
   );
   const actions = useChatActions(traversal);
 
@@ -21,6 +21,7 @@ export const ChatTraversalAndConclusionsConnected: React.FC = () => {
         traversalId={traversal.traversalId}
         assessmentType={traversal.assessmentType}
         noRouter={true}
+        chat={true}
       />
     );
   }

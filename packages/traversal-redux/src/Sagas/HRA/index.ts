@@ -1,4 +1,4 @@
-import { ForkEffect } from 'redux-saga/effects';
+import { call, ForkEffect, takeLatest } from 'redux-saga/effects';
 import {
   HealthRiskAssessmentService,
   HealthComparisonModel,
@@ -8,10 +8,12 @@ import {
 } from '@doctorlink/traversal-core';
 import { BaseServiceSagas } from '../BaseServiceSagas';
 import {
+  HRA_SET_BASE_URL,
   HRA_COMPARISONREPORT_GET_REQUEST,
   HEALTH_AGE_GET_REQUEST,
   WELLNESS_GET_REQUEST,
   HEALTH_RISKS_GET_REQUEST,
+  HraSetBaseUrl,
   HraComparisonReportGetRequest,
   WellnessGetRequest,
   HealthAgeGetRequest,
@@ -84,11 +86,18 @@ export class HealthRiskAssessmentServiceSagas extends BaseServiceSagas {
       (data: HealthRisksModel) => healthRisksGetResponse(data)
     );
 
+    this.setBaseUrl = takeLatest(HRA_SET_BASE_URL, function* (
+      action: HraSetBaseUrl
+    ) {
+      yield call(service.setBaseUrl, action.baseUrl);
+    });
+
     this.effects = [
       this.getHealthAge,
       this.getComparison,
       this.getWellness,
       this.getHealthRisk,
+      this.setBaseUrl,
     ];
 
     this.service = service;
@@ -99,4 +108,5 @@ export class HealthRiskAssessmentServiceSagas extends BaseServiceSagas {
   public getComparison: ForkEffect<never>;
   public getWellness: ForkEffect<never>;
   public getHealthRisk: ForkEffect<never>;
+  public setBaseUrl: ForkEffect<never>;
 }

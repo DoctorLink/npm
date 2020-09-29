@@ -6,6 +6,15 @@ import {
   HealthComparisonModel,
 } from '@doctorlink/traversal-core';
 
+export const HRA_SET_BASE_URL = 'HRA_SET_BASE_URL';
+export interface HraSetBaseUrl extends Action<typeof HRA_SET_BASE_URL> {
+  baseUrl: string;
+}
+export const hraSetBaseUrl = (baseUrl: string): HraSetBaseUrl => ({
+  type: HRA_SET_BASE_URL,
+  baseUrl,
+});
+
 export const HEALTH_RISKS_GET_REQUEST = 'HEALTH_RISKS_GET_REQUEST';
 export interface HealthRisksGetRequest
   extends Action<typeof HEALTH_RISKS_GET_REQUEST> {
