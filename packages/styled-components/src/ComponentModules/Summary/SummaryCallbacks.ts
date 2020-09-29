@@ -1,5 +1,5 @@
-type ChatJump = (algoId: any, nodeId: any, assetId: any) => void;
-type TraversalJump = (algoId: any, nodeId: any) => void;
+type ChatJump = (algoId: number, nodeId: number, assetId: number) => void;
+type TraversalJump = (algoId: number, nodeId: number) => void;
 type Jump = ChatJump | TraversalJump;
 
 export interface SummaryCallbacks {

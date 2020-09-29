@@ -33,18 +33,12 @@ export class TraversalBaseStore<
     this.traversalService = traversalServiceSagas.service;
     this.hraService = hraServiceSagas?.service;
 
-    this.setBaseUrl = (controllerBase: string) => {
-      this.hraService?.setBaseUrl(controllerBase);
-      this.traversalService.setBaseUrl(controllerBase);
-    };
-
     this.setToken = (token: string | null) => {
       this.hraService?.setToken(token);
       this.traversalService.setToken(token);
     };
   }
 
-  public setBaseUrl: (controllerBase: string) => void;
   public setToken: (token: string | null) => void;
 
   public traversalService: TService;

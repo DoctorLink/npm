@@ -47,12 +47,6 @@ export class DualTraversalStore extends BaseStore<DualTraversalRootState> {
     this.traversalService = traversalServiceSagas.service;
     this.chatTraversalService = chatTraversalServiceSags.service;
 
-    this.setBaseUrl = (controllerBase: string) => {
-      this.hraService?.setBaseUrl(controllerBase);
-      this.traversalService.setBaseUrl(controllerBase);
-      this.chatTraversalService.setBaseUrl(controllerBase);
-    };
-
     this.setToken = (token: string | null) => {
       this.hraService?.setToken(token);
       this.traversalService.setToken(token);
@@ -60,7 +54,6 @@ export class DualTraversalStore extends BaseStore<DualTraversalRootState> {
     };
   }
 
-  public setBaseUrl: (controllerBase: string) => void;
   public setToken: (token: string | null) => void;
 
   public traversalService: TraversalsService;
