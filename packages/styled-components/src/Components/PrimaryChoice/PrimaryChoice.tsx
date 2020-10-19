@@ -60,12 +60,14 @@ export type PrimaryChoiceProps = {
 );
 
 const PrimaryChoice = React.forwardRef<HTMLLabelElement, PrimaryChoiceProps>(
-  ({ displayText, button, children, ...props }, ref) => (
-    <Label as={button ? 'button' : 'label'} ref={ref} {...props}>
-      {children}
-      <Text dangerouslySetInnerHTML={{ __html: displayText }} />
-    </Label>
-  )
+  function PrimaryChoice({ displayText, button, children, ...props }, ref) {
+    return (
+      <Label as={button ? 'button' : 'label'} ref={ref} {...props}>
+        {children}
+        <Text dangerouslySetInnerHTML={{ __html: displayText }} />
+      </Label>
+    );
+  }
 );
 
 export default PrimaryChoice;

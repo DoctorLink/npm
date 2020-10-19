@@ -78,7 +78,7 @@ export interface ChatPreviousAnswerProps {
 const ChatPreviousAnswer = React.forwardRef<
   HTMLButtonElement,
   ChatPreviousAnswerProps
->(({ answer, jumpBack }, ref) => {
+>(function ChatPreviousAnswer({ answer, jumpBack }, ref) {
   if (!answer.controlChecked) return null;
   const text = `${answer.controlValue ? answer.controlValue + ' ' : ''}${
     answer.displayText

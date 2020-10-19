@@ -40,13 +40,15 @@ export interface ChatPreviousAnswersProps extends HTMLMotionProps<'div'> {
 const ChatPreviousAnswers = React.forwardRef<
   HTMLDivElement,
   ChatPreviousAnswersProps
->(({ jumpBack, children, ...props }, ref) => (
-  <PreviousAnswersContainer ref={ref} {...props}>
-    <PreviousAnswersContent>
-      <div>{children}</div>
-      <ChangeAnswer onClick={jumpBack}>Click to change</ChangeAnswer>
-    </PreviousAnswersContent>
-  </PreviousAnswersContainer>
-));
+>(function ChatPreviousAnswers({ jumpBack, children, ...props }, ref) {
+  return (
+    <PreviousAnswersContainer ref={ref} {...props}>
+      <PreviousAnswersContent>
+        <div>{children}</div>
+        <ChangeAnswer onClick={jumpBack}>Click to change</ChangeAnswer>
+      </PreviousAnswersContent>
+    </PreviousAnswersContainer>
+  );
+});
 
 export default ChatPreviousAnswers;

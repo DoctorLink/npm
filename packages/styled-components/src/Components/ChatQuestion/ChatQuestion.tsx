@@ -83,15 +83,20 @@ export interface ChatQuestionProps extends HTMLMotionProps<'div'> {
 }
 
 const ChatQuestion = React.forwardRef<HTMLDivElement, ChatQuestionProps>(
-  ({ displayText, error, current, children, ...props }, ref) => (
-    <QuestionWrapper current={current} ref={ref} {...props}>
-      <QuestionContent>
-        <span dangerouslySetInnerHTML={{ __html: displayText }}></span>
-        {error && <ErrorText>{error.text}</ErrorText>}
-        {children}
-      </QuestionContent>
-    </QuestionWrapper>
-  )
+  function ChatQuestion(
+    { displayText, error, current, children, ...props },
+    ref
+  ) {
+    return (
+      <QuestionWrapper current={current} ref={ref} {...props}>
+        <QuestionContent>
+          <span dangerouslySetInnerHTML={{ __html: displayText }}></span>
+          {error && <ErrorText>{error.text}</ErrorText>}
+          {children}
+        </QuestionContent>
+      </QuestionWrapper>
+    );
+  }
 );
 
 export default ChatQuestion;

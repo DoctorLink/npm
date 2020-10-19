@@ -30,12 +30,14 @@ export interface ChatFormProps extends HTMLMotionProps<'form'> {
 }
 
 const ChatForm = React.forwardRef<HTMLFormElement, ChatFormProps>(
-  ({ renderSubmit, disableSubmit, ...props }, ref) => (
-    <Form ref={ref} {...props}>
-      {renderSubmit && <HiddenSubmit disabled={disableSubmit} />}
-      {props.children}
-    </Form>
-  )
+  function ChatForm({ renderSubmit, disableSubmit, ...props }, ref) {
+    return (
+      <Form ref={ref} {...props}>
+        {renderSubmit && <HiddenSubmit disabled={disableSubmit} />}
+        {props.children}
+      </Form>
+    );
+  }
 );
 
 export default ChatForm;
