@@ -1,3 +1,4 @@
+import { TraversalAnswer } from '@doctorlink/traversal-core';
 import React from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
@@ -69,18 +70,24 @@ const PreviousAnswerText = styled.div`
   white-space: pre-line;
 `;
 
-const ChatPreviousAnswer = React.forwardRef<any, any>(
-  ({ answer, jumpBack }, ref) => {
-    if (!answer.controlChecked) return null;
-    const text = `${answer.controlValue ? answer.controlValue + ' ' : ''}${
-      answer.displayText
-    }`;
-    return (
-      <PreviousAnswer ref={ref} onClick={jumpBack}>
-        <PreviousAnswerText dangerouslySetInnerHTML={{ __html: text }} />
-      </PreviousAnswer>
-    );
-  }
-);
+export interface ChatPreviousAnswerProps {
+  answer: TraversalAnswer;
+  jumpBack: () => void;
+}
+
+const ChatPreviousAnswer = React.forwardRef<
+  HTMLButtonElement,
+  ChatPreviousAnswerProps
+>(({ answer, jumpBack }, ref) => {
+  if (!answer.controlChecked) return null;
+  const text = `${answer.controlValue ? answer.controlValue + ' ' : ''}${
+    answer.displayText
+  }`;
+  return (
+    <PreviousAnswer ref={ref} onClick={jumpBack}>
+      <PreviousAnswerText dangerouslySetInnerHTML={{ __html: text }} />
+    </PreviousAnswer>
+  );
+});
 
 export default ChatPreviousAnswer;

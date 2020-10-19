@@ -1,7 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
-import { motion } from 'framer-motion';
+import { HTMLMotionProps, motion } from 'framer-motion';
+import { TraversalError } from '@doctorlink/traversal-core';
 
 const QuestionContent = styled.div`
   white-space: pre-line;
@@ -66,12 +67,22 @@ const QuestionWrapper = styled(motion.div)<Props>`
   }
 `;
 
+QuestionWrapper.defaultProps = {
+  theme: defaultTheme,
+};
+
 const ErrorText = styled.div`
   font-size: 12px;
   color: rgb(179, 0, 0);
 `;
 
-const ChatQuestion = React.forwardRef<any, any>(
+export interface ChatQuestionProps extends HTMLMotionProps<'div'> {
+  displayText: string;
+  error: TraversalError;
+  current: boolean;
+}
+
+const ChatQuestion = React.forwardRef<HTMLDivElement, ChatQuestionProps>(
   ({ displayText, error, current, children, ...props }, ref) => (
     <QuestionWrapper current={current} ref={ref} {...props}>
       <QuestionContent>
@@ -82,9 +93,5 @@ const ChatQuestion = React.forwardRef<any, any>(
     </QuestionWrapper>
   )
 );
-
-ChatQuestion.defaultProps = {
-  theme: defaultTheme,
-};
 
 export default ChatQuestion;

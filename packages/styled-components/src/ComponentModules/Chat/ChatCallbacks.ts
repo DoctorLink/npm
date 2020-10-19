@@ -1,8 +1,23 @@
+import { TraversalQuestion } from '@doctorlink/traversal-core';
+import { SyntheticEvent } from 'react';
+
 export interface ChatTraversalCallbacks {
   next: () => void;
-  jump: (_question: any) => void;
-  showExplanation: (explanation: any) => void;
-  updateValue: (answerId: any, questionAnswerIds: any, value: any) => void;
-  toggleCheckbox: (event: any, answerId: any, questionAnswerIds: any) => void;
-  toggleRadio: (event: any, answerId: any, questionAnswerIds: any) => void;
+  jump: (question: TraversalQuestion) => void;
+  showExplanation: (explanation: string) => void;
+  updateValue: (
+    answerId: string,
+    questionAnswerIds: string[],
+    value: string
+  ) => void;
+  toggleCheckbox: (
+    event: SyntheticEvent<HTMLInputElement>,
+    answerId: string,
+    questionAnswerIds: string[]
+  ) => void;
+  toggleRadio: (
+    event: SyntheticEvent<HTMLInputElement>,
+    answerId: string,
+    questionAnswerIds: string[]
+  ) => void;
 }

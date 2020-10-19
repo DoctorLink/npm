@@ -1,1 +1,1 @@
-export { default } from './ChatInfoIcon';
+export { default, ChatInfoIconProps } from './ChatInfoIcon';

@@ -1,1 +1,1 @@
-export { default } from './ChatForm';
+export { default, ChatFormProps } from './ChatForm';

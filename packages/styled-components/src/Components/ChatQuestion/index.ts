@@ -1,1 +1,1 @@
-export { default } from './ChatQuestion';
+export { default, ChatQuestionProps } from './ChatQuestion';

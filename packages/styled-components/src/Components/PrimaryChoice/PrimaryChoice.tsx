@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { LabelHTMLAttributes, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 const Label = styled.label`
@@ -52,7 +52,14 @@ const Text = styled.span`
   }
 `;
 
-const PrimaryChoice = React.forwardRef<any, any>(
+export type PrimaryChoiceProps = {
+  displayText: string;
+} & (
+  | ({ button?: false } & LabelHTMLAttributes<HTMLLabelElement>)
+  | ({ button: true } & ButtonHTMLAttributes<HTMLButtonElement>)
+);
+
+const PrimaryChoice = React.forwardRef<HTMLLabelElement, PrimaryChoiceProps>(
   ({ displayText, button, children, ...props }, ref) => (
     <Label as={button ? 'button' : 'label'} ref={ref} {...props}>
       {children}

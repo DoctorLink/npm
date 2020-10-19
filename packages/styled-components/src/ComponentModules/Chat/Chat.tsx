@@ -1,12 +1,16 @@
-import React from 'react';
+import React, { FormEvent, RefObject } from 'react';
 import { defaultChatActions, defaultChatComponents } from './defaults';
 import { useChatScroll } from '../../Hooks/useChatScroll';
+import { ChatTraversalState, DisplaySection } from '@doctorlink/traversal-core';
+import { ChatTraversalCallbacks } from './ChatCallbacks';
+import { ChatComponents } from './ChatComponents';
 
 export const ChatTraversal: React.FC<{
-  traversal: any;
-  containerRef?: any;
-  actions?: any;
-  components?: any;
+  traversal: ChatTraversalState;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  containerRef?: RefObject<any>;
+  actions?: ChatTraversalCallbacks;
+  components?: ChatComponents;
 }> = ({
   traversal,
   containerRef,
@@ -18,33 +22,30 @@ export const ChatTraversal: React.FC<{
   const minHeight = useChatScroll(loading, questionIds.length, containerRef);
   return (
     <comps.Container id="Traversal" minHeight={minHeight} ref={containerRef}>
-      {questionIds.map((questionId: any) => {
+      {questionIds.map((questionId) => {
         const lastQuestion = questionId === questionIds[questionIds.length - 1];
         const current = lastQuestion && !loading;
         const question = questions[questionId];
         const error = errors[questionId];
         const display = question.data.display
           ? question.data.display
-          : [
+          : ([
               {
                 header: null,
-                answers: question.answers.map((x: any) =>
-                  Number(x.split('_')[3])
-                ),
+                answers: question.answers.map((x) => Number(x.split('_')[3])),
               },
-            ];
+            ] as DisplaySection[]);
         const questionAnswers = question.answers.map(
-          (answerId: any) => answers[answerId]
+          (answerId) => answers[answerId]
         );
         const showContinueButton =
           questionAnswers.length === 0 ||
-          questionAnswers.filter((x: any) => x.controlType !== 'Radio').length >
-            0;
+          questionAnswers.filter((x) => x.controlType !== 'Radio').length > 0;
         const disableContinued =
           questionAnswers.length > 0 &&
-          questionAnswers.filter((x: any) => x.controlChecked).length === 0;
+          questionAnswers.filter((x) => x.controlChecked).length === 0;
         const jumpBack = () => actions.jump(question);
-        const handleSubmit = (event: any) => {
+        const handleSubmit = (event: FormEvent) => {
           event.preventDefault();
           actions.next();
         };
@@ -67,18 +68,18 @@ export const ChatTraversal: React.FC<{
             {current && (
               <comps.Form
                 key={`Answers_${questionId}`}
-                onSubmit={(e: any) => handleSubmit(e)}
+                onSubmit={handleSubmit}
                 renderSubmit={!showContinueButton}
                 disableSubmit={disableContinued}
               >
-                {display.map((section: any, i: any) => {
-                  const sectionAnswerKeys = question.answers.filter((x: any) =>
+                {display.map((section, i) => {
+                  const sectionAnswerKeys = question.answers.filter((x) =>
                     section.answers.includes(Number(x.split('_')[3]))
                   );
                   return (
                     <React.Fragment key={i}>
                       <comps.Section text={section.header} />
-                      {sectionAnswerKeys.map((answerId: any) => {
+                      {sectionAnswerKeys.map((answerId) => {
                         const answer = answers[answerId];
                         return (
                           <comps.ChoiceContainer key={answerId}>
@@ -89,14 +90,12 @@ export const ChatTraversal: React.FC<{
                                 <comps.HiddenInput
                                   type="checkbox"
                                   id={answerId}
-                                  value={true}
                                   checked={answer.controlChecked}
-                                  onChange={(e: any) =>
+                                  onChange={(e) =>
                                     actions.toggleCheckbox(
                                       e,
                                       answerId,
-                                      question.answers,
-                                      true
+                                      question.answers
                                     )
                                   }
                                 />
@@ -114,15 +113,13 @@ export const ChatTraversal: React.FC<{
                                       0,
                                       answerId.lastIndexOf('_')
                                     )}
-                                    value={true}
                                     checked={answer.controlChecked}
-                                    onChange={() => {}}
-                                    onClick={(e: any) =>
+                                    onChange={() => undefined}
+                                    onClick={(e) =>
                                       actions.toggleRadio(
                                         e,
                                         answerId,
-                                        question.answers,
-                                        true
+                                        question.answers
                                       )
                                     }
                                   />
@@ -140,15 +137,13 @@ export const ChatTraversal: React.FC<{
                                       0,
                                       answerId.lastIndexOf('_')
                                     )}
-                                    value={true}
                                     checked={answer.controlChecked}
-                                    onChange={() => {}}
-                                    onClick={(e: any) =>
+                                    onChange={() => undefined}
+                                    onClick={(e) =>
                                       actions.toggleRadio(
                                         e,
                                         answerId,
-                                        question.answers,
-                                        true
+                                        question.answers
                                       )
                                     }
                                   />
@@ -160,7 +155,7 @@ export const ChatTraversal: React.FC<{
                               <comps.TextWrapper text={answer.displayText}>
                                 <comps.TextField
                                   value={answer.controlValue || ''}
-                                  onChange={(e: any) =>
+                                  onChange={(e) =>
                                     actions.updateValue(
                                       answerId,
                                       question.answers,
@@ -198,7 +193,7 @@ export const ChatTraversal: React.FC<{
                 key={`PreviousAnswers_${questionId}`}
                 jumpBack={jumpBack}
               >
-                {question.answers.map((a: any) => (
+                {question.answers.map((a) => (
                   <comps.PreviousAnswer
                     key={a}
                     jumpBack={jumpBack}

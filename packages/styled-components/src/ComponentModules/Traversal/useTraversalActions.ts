@@ -13,6 +13,7 @@ import {
   traversalCheckboxToggle,
   traversalRadioToggle,
 } from '@doctorlink/traversal-redux';
+import { isClickEvent } from '../isClickEvent';
 
 export const useTraversalActions = (
   traversal: TraversalModel
@@ -31,19 +32,15 @@ export const useTraversalActions = (
       dispatch(traversalPreviousPostRequest(traversal.traversalId)),
     showSummary: () =>
       dispatch(traversalSummaryGetRequest(traversal.traversalId)),
-    showExplanation: (explanation: any) =>
+    showExplanation: (explanation) =>
       dispatch(populateModal(explanation, 'Explanation')),
-    updateValue: (answerId: any, questionAnswerIds: any, value: any) =>
+    updateValue: (answerId, questionAnswerIds, value) =>
       dispatch(traversalValueChange(answerId, questionAnswerIds, value)),
-    toggleCheckbox: (_event: any, answerId: any, questionAnswerIds: any) =>
+    toggleCheckbox: (_event, answerId, questionAnswerIds) =>
       dispatch(traversalCheckboxToggle(answerId, questionAnswerIds)),
-    toggleRadio: (event: any, answerId: any, questionAnswerIds: any) => {
+    toggleRadio: (event, answerId, questionAnswerIds) => {
       dispatch(traversalRadioToggle(answerId, questionAnswerIds, true));
-      if (
-        event.type === 'click' &&
-        event.clientX !== 0 &&
-        event.clientY !== 0
-      ) {
+      if (isClickEvent(event) && event.clientX !== 0 && event.clientY !== 0) {
         let forward = true;
         const answeredRadioQuestions: string[] = [];
         Object.entries(traversal.answers).forEach((answerId) => {

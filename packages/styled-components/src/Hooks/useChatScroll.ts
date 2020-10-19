@@ -5,7 +5,7 @@ export const useChatScroll = function (
   loading: boolean,
   totalQuestions: number,
   ref?: MutableRefObject<any>
-) {
+): number {
   const [height, setHeight] = useState(0);
   const [minHeight, setMinHeight] = useState(0);
   const prevHeight = usePrevious(height);
