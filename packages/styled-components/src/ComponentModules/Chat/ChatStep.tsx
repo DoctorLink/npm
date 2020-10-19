@@ -2,7 +2,7 @@ import React from 'react';
 import { ChatTraversalState } from '@doctorlink/traversal-core';
 import { ChatTraversalCallbacks } from './ChatCallbacks';
 import { ChatComponents } from './ChatComponents';
-import { CurrentStep } from './CurrentStep';
+import { ChatAnswerForm } from './ChatAnswerForm';
 
 interface ChatStepProps {
   questionId: string;
@@ -35,7 +35,6 @@ export const ChatStep: React.FC<ChatStepProps> = ({
   return (
     <Step id={lastQuestion ? 'CurrentQuestion' : ''}>
       <Question
-        key={`Question_${questionId}`}
         current={current}
         displayText={question.displayText}
         error={error}
@@ -46,7 +45,7 @@ export const ChatStep: React.FC<ChatStepProps> = ({
         />
       </Question>
       {current && (
-        <CurrentStep
+        <ChatAnswerForm
           question={question}
           answers={answers}
           actions={actions}

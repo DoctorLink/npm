@@ -10,14 +10,14 @@ import { ChatAnswer } from './ChatAnswer';
 
 const extractAnswerId = (answerKey: string) => Number(answerKey.split('_')[3]);
 
-interface CurrentStepProps {
+interface ChatAnswerFormProps {
   question: TraversalQuestion;
   answers: Record<string, TraversalAnswer>;
   actions: ChatTraversalCallbacks;
   components: ChatComponents;
 }
 
-export const CurrentStep: React.FC<CurrentStepProps> = ({
+export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
   question,
   answers,
   actions,
@@ -44,7 +44,6 @@ export const CurrentStep: React.FC<CurrentStepProps> = ({
 
   return (
     <Form
-      key={`Answers_${question.questionId}`}
       onSubmit={handleSubmit}
       renderSubmit={!showContinueButton}
       disableSubmit={disableContinued}
