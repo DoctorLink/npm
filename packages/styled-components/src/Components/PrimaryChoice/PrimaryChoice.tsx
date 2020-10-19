@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { LabelHTMLAttributes, ButtonHTMLAttributes } from 'react';
 import styled from 'styled-components';
 
 const Label = styled.label`
@@ -52,13 +52,22 @@ const Text = styled.span`
   }
 `;
 
-const PrimaryChoice = React.forwardRef<any, any>(
-  ({ displayText, button, children, ...props }, ref) => (
-    <Label as={button ? 'button' : 'label'} ref={ref} {...props}>
-      {children}
-      <Text dangerouslySetInnerHTML={{ __html: displayText }} />
-    </Label>
-  )
+export type PrimaryChoiceProps = {
+  displayText: string;
+} & (
+  | ({ button?: false } & LabelHTMLAttributes<HTMLLabelElement>)
+  | ({ button: true } & ButtonHTMLAttributes<HTMLButtonElement>)
+);
+
+const PrimaryChoice = React.forwardRef<HTMLLabelElement, PrimaryChoiceProps>(
+  function PrimaryChoice({ displayText, button, children, ...props }, ref) {
+    return (
+      <Label as={button ? 'button' : 'label'} ref={ref} {...props}>
+        {children}
+        <Text dangerouslySetInnerHTML={{ __html: displayText }} />
+      </Label>
+    );
+  }
 );
 
 export default PrimaryChoice;

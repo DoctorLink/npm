@@ -1,6 +1,5 @@
-import React from 'react';
+import React, { HTMLAttributes } from 'react';
 import styled from 'styled-components';
-import { defaultTheme } from '../../Theme';
 
 const ChatGroupContainer = styled.div`
   margin-bottom: 34px;
@@ -16,14 +15,13 @@ const ChatContent = styled.div`
   margin: 0px auto;
 `;
 
-const Step: React.FC<any> = ({ children, ...props }) => (
+const Step: React.FC<HTMLAttributes<HTMLDivElement>> = ({
+  children,
+  ...props
+}) => (
   <ChatGroupContainer {...props}>
     <ChatContent>{children}</ChatContent>
   </ChatGroupContainer>
 );
-
-Step.defaultProps = {
-  theme: defaultTheme,
-};
 
 export default Step;

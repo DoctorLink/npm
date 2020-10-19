@@ -1,11 +1,11 @@
 import styled from 'styled-components';
 
-const HiddenCheckbox = styled.input`
+const HiddenInput = styled.input`
   // Hide checkbox visually but remain accessible to screen readers.
   // Source: https://polished.js.org/docs/#hidevisually
   border: 0;
   clip: rect(0 0 0 0);
-  clippath: inset(50%);
+  clip-path: inset(50%);
   height: 1px;
   margin: -1px;
   overflow: hidden;
@@ -15,4 +15,4 @@ const HiddenCheckbox = styled.input`
   width: 1px;
 `;
 
-export default HiddenCheckbox;
+export default HiddenInput;

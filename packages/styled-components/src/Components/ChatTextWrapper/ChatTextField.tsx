@@ -48,7 +48,14 @@ const DisplayText = styled.div`
   box-sizing: border-box;
 `;
 
-const ChatTextField: React.FC<{ text: any }> = ({ children, text }) => (
+export interface ChatTextWrapperProps {
+  text: string;
+}
+
+const ChatTextWrapper: React.FC<ChatTextWrapperProps> = ({
+  children,
+  text,
+}) => (
   <TextFieldWrapper>
     <TextFieldPadding>
       <TextFieldInner>{children}</TextFieldInner>
@@ -57,4 +64,4 @@ const ChatTextField: React.FC<{ text: any }> = ({ children, text }) => (
   </TextFieldWrapper>
 );
 
-export default ChatTextField;
+export default ChatTextWrapper;

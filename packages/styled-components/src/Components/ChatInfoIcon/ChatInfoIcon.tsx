@@ -1,6 +1,5 @@
 import React from 'react';
 import styled from 'styled-components';
-import { defaultTheme } from '../../Theme';
 
 const InfoButtonContainer = styled.div`
   height: 100%;
@@ -85,11 +84,15 @@ const Lable05 = styled.span`
   justify-content: inherit;
 `;
 
-const InfoIcon: React.FC<{
-  explanation: any;
-  showExplanation: any;
-  theme?: any;
-}> = ({ explanation, showExplanation }) => {
+export interface ChatInfoIconProps {
+  explanation: string | null | undefined;
+  showExplanation: (explanation: string) => void;
+}
+
+const ChatInfoIcon: React.FC<ChatInfoIconProps> = ({
+  explanation,
+  showExplanation,
+}) => {
   if (!explanation || explanation === '' || !showExplanation) return null;
   return (
     <InfoButtonContainer>
@@ -112,8 +115,4 @@ const InfoIcon: React.FC<{
   );
 };
 
-InfoIcon.defaultProps = {
-  theme: defaultTheme,
-};
-
-export default InfoIcon;
+export default ChatInfoIcon;

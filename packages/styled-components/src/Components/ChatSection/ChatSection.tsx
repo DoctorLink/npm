@@ -9,7 +9,11 @@ const Section = styled.div`
   color: white;
 `;
 
-const ChatSection: React.FC<{ text: any }> = ({ text }) =>
-  text && <Section>{text}</Section>;
+export interface ChatSectionProps {
+  text: string | null;
+}
+
+const ChatSection: React.FC<ChatSectionProps> = ({ text }) =>
+  text ? <Section>{text}</Section> : null;
 
 export default ChatSection;

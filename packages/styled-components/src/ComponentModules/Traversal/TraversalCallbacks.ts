@@ -1,3 +1,5 @@
+import { SyntheticEvent } from 'react';
+
 export type UpdateValueCallback = (
   answerId: string,
   questionAnswerIds: string[],
@@ -5,14 +7,14 @@ export type UpdateValueCallback = (
 ) => void;
 
 export type ToggleRadioCallback = (
-  event: string,
+  event: SyntheticEvent<HTMLInputElement>,
   answerId: string,
   questionAnswerIds: string[],
   checked: boolean
 ) => void;
 
 export type ToggleCheckboxCallback = (
-  event: string,
+  event: SyntheticEvent<HTMLInputElement>,
   answerId: string,
   questionAnswerIds: string[]
 ) => void;

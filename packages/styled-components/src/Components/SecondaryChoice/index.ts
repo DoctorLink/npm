@@ -1,1 +1,1 @@
-export { default } from './SecondaryChoice';
+export { default, SecondaryChoiceProps } from './SecondaryChoice';

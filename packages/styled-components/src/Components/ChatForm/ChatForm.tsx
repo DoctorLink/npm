@@ -1,10 +1,10 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
-const HiddenSubmit = styled.input.attrs<any>({
+const HiddenSubmit = styled.input.attrs({
   type: 'submit',
-  tabIndex: '-1',
+  tabIndex: -1,
 })`
   position: absolute;
   left: -9999px;
@@ -24,13 +24,20 @@ const Form = styled(motion.form)`
   max-width: 440px;
 `;
 
-const ChatForm = React.forwardRef<any, any>(
-  ({ renderSubmit, disableSubmit, ...props }, ref) => (
-    <Form ref={ref} {...props}>
-      {renderSubmit && <HiddenSubmit disabled={disableSubmit} />}
-      {props.children}
-    </Form>
-  )
+export interface ChatFormProps extends HTMLMotionProps<'form'> {
+  renderSubmit: boolean;
+  disableSubmit: boolean;
+}
+
+const ChatForm = React.forwardRef<HTMLFormElement, ChatFormProps>(
+  function ChatForm({ renderSubmit, disableSubmit, ...props }, ref) {
+    return (
+      <Form ref={ref} {...props}>
+        {renderSubmit && <HiddenSubmit disabled={disableSubmit} />}
+        {props.children}
+      </Form>
+    );
+  }
 );
 
 export default ChatForm;

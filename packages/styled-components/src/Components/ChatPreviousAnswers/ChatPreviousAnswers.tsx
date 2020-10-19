@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
-import { defaultTheme } from '../../Theme';
-import { motion } from 'framer-motion';
+import { HTMLMotionProps, motion } from 'framer-motion';
 
 const PreviousAnswersContainer = styled(motion.div)`
   max-width: 440px;
@@ -34,19 +33,22 @@ const ChangeAnswer = styled.div`
   margin-left: auto;
 `;
 
-const PreviousQuestion = React.forwardRef<any, any>(
-  ({ jumpBack, children, ...props }, ref) => (
+export interface ChatPreviousAnswersProps extends HTMLMotionProps<'div'> {
+  jumpBack: () => void;
+}
+
+const ChatPreviousAnswers = React.forwardRef<
+  HTMLDivElement,
+  ChatPreviousAnswersProps
+>(function ChatPreviousAnswers({ jumpBack, children, ...props }, ref) {
+  return (
     <PreviousAnswersContainer ref={ref} {...props}>
       <PreviousAnswersContent>
         <div>{children}</div>
         <ChangeAnswer onClick={jumpBack}>Click to change</ChangeAnswer>
       </PreviousAnswersContent>
     </PreviousAnswersContainer>
-  )
-);
+  );
+});
 
-PreviousQuestion.defaultProps = {
-  theme: defaultTheme,
-};
-
-export default PreviousQuestion;
+export default ChatPreviousAnswers;

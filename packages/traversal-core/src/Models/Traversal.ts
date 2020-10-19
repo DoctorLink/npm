@@ -37,12 +37,13 @@ export interface TraversalNode {
 }
 
 export interface TraversalQuestion {
+  algoId: number;
   nodeId: number;
   questionId: number;
   displayText: string;
   title: string | null;
   explanation: string | null;
-  data: Record<string, any>;
+  data: QuestionData;
   answers: Array<string>;
 }
 
@@ -57,8 +58,17 @@ export interface TraversalAnswer {
   controlChecked?: boolean;
 }
 
+export interface QuestionData extends Record<string, any> {
+  display?: DisplaySection[];
+}
+
+export interface DisplaySection {
+  header: string | null;
+  answers: number[];
+}
+
 /**
- * The assessmnet type of a traversal.
+ * The assessment type of a traversal.
  */
 export interface TraversalError {
   questionId: number;

@@ -1,1 +1,1 @@
-export { default } from './ChatPreviousAnswers';
+export { default, ChatPreviousAnswersProps } from './ChatPreviousAnswers';

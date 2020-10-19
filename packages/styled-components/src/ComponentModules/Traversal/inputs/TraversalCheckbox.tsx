@@ -20,6 +20,6 @@ export const TraversalCheckbox: React.FC<TraversalCheckboxProps> = ({
   <Comp
     id={answerId}
     checked={checked}
-    onChange={(e: any) => action(e, answerId, siblingIds)}
+    onChange={(e) => action(e, answerId, siblingIds)}
   />
 );

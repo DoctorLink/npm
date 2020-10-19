@@ -10,6 +10,7 @@ import {
   chatTraversalCheckboxToggle,
   chatTraversalRadioToggle,
 } from '@doctorlink/traversal-redux';
+import { isClickEvent } from '../isClickEvent';
 
 export const useChatActions = (
   traversal: ChatModel
@@ -24,7 +25,7 @@ export const useChatActions = (
           createChatResponse(traversal)
         )
       ),
-    jump: (question: any) =>
+    jump: (question) =>
       dispatch(
         chatTraversalRevisitPostRequest(traversal.traversalId, {
           algoId: question.algoId,
@@ -32,19 +33,15 @@ export const useChatActions = (
           assetId: question.questionId,
         })
       ),
-    showExplanation: (explanation: any) =>
+    showExplanation: (explanation) =>
       dispatch(populateModal(explanation, 'Explanation')),
-    updateValue: (answerId: any, questionAnswerIds: any, value: any) =>
+    updateValue: (answerId, questionAnswerIds, value) =>
       dispatch(chatTraversalValueChange(answerId, questionAnswerIds, value)),
-    toggleCheckbox: (_event: any, answerId: any, questionAnswerIds: any) =>
+    toggleCheckbox: (_event, answerId, questionAnswerIds) =>
       dispatch(chatTraversalCheckboxToggle(answerId, questionAnswerIds)),
-    toggleRadio: (event: any, answerId: any, questionAnswerIds: any) => {
+    toggleRadio: (event, answerId, questionAnswerIds) => {
       dispatch(chatTraversalRadioToggle(answerId, questionAnswerIds, true));
-      if (
-        event.type === 'click' &&
-        event.clientX !== 0 &&
-        event.clientY !== 0
-      ) {
+      if (isClickEvent(event) && event.clientX !== 0 && event.clientY !== 0) {
         dispatch(
           chatTraversalRespondPostRequest(
             traversalId,
