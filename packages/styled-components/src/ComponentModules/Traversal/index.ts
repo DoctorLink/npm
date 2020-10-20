@@ -1,5 +1,6 @@
 export * from './Traversal';
 export * from './TraversalCallbacks';
+export * from './TraversalComponents';
 export * from './TraversalForm';
 export * from './TraversalResponse';
 export * from './TraversalTable';
