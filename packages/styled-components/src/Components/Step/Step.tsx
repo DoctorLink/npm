@@ -10,7 +10,7 @@ const ChatGroupContainer = styled.div`
 `;
 
 const ChatContent = styled.div`
-  max-width: 640px;
+  max-width: 440px;
   text-align: left;
   margin: 0px auto;
 `;

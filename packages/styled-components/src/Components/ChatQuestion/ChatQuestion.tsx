@@ -6,7 +6,6 @@ import { TraversalError } from '@doctorlink/traversal-core';
 
 const QuestionContent = styled.div`
   white-space: pre-line;
-  max-width: 440px;
   display: flex;
   align-items: center;
   box-sizing: border-box;
@@ -36,7 +35,7 @@ const QuestionWrapper = styled(motion.div)<QuestionWrapperProps>`
   width: 100%;
   box-sizing: border-box;
   transition: width 300ms ease 0s;
-  padding: ${(p) => p.theme.chatQuestion.padding}px;
+  padding: ${(p) => p.theme.chatQuestion.padding}px 0;
 
   ${QuestionContent} {
     width: ${(p) => (p.current ? '100%' : 'auto')};

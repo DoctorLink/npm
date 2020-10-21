@@ -21,7 +21,6 @@ const Form = styled(motion.form)`
   display: flex;
   -ms-flex-direction: column;
   flex-direction: column;
-  max-width: 440px;
 `;
 
 export interface ChatFormProps extends HTMLMotionProps<'form'> {

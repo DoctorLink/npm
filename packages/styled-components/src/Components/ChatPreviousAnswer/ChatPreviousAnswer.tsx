@@ -28,7 +28,6 @@ const PreviousAnswer = styled.button.attrs({ tabindex: '0' })`
   line-height: 24px;
   font-weight: 200;
   min-width: 100px;
-  max-width: 440px;
   text-align: center;
   white-space: pre-line;
   border-width: initial;
