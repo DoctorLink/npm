@@ -28,10 +28,10 @@ export const ChatAnswer: React.FC<{
     InfoIcon,
   } = components;
 
-  return (
-    <ChoiceContainer>
-      {answer.controlType === 'Checkbox' && (
-        <PrimaryChoice displayText={answer.displayText}>
+  const renderInput = () => {
+    switch (answer.controlType) {
+      case 'Checkbox':
+        return (
           <HiddenInput
             type="checkbox"
             id={answerId}
@@ -40,48 +40,65 @@ export const ChatAnswer: React.FC<{
               actions.toggleCheckbox(e, answerId, questionAnswerIds)
             }
           />
+        );
+      case 'Radio':
+        return (
+          <HiddenInput
+            type="radio"
+            id={answerId}
+            name={answerId}
+            // name={answerId.substring(0, answerId.lastIndexOf('_'))}
+            checked={answer.controlChecked}
+            onChange={() => undefined}
+            onClick={(e) => actions.toggleRadio(e, answerId, questionAnswerIds)}
+          />
+        );
+      case 'Text':
+      case 'Number':
+      case 'Date':
+        return (
+          <TextWrapper text={answer.displayText}>
+            <TextField
+              value={answer.controlValue || ''}
+              onChange={(e) =>
+                actions.updateValue(answerId, questionAnswerIds, e.target.value)
+              }
+            />
+          </TextWrapper>
+        );
+      default:
+        return null;
+    }
+  };
+
+  const infoIcon = (
+    <InfoIcon
+      showExplanation={actions.showExplanation}
+      explanation={answer.explanation}
+    />
+  );
+
+  return (
+    <ChoiceContainer>
+      {renderInput()}
+      {answer.controlType === 'Checkbox' && (
+        <PrimaryChoice displayText={answer.displayText} htmlFor={answerId}>
+          {infoIcon}
         </PrimaryChoice>
       )}
       {answer.controlType === 'Radio' && !showContinueButton && (
-        <PrimaryChoice displayText={answer.displayText}>
-          <HiddenInput
-            type="radio"
-            id={answerId}
-            name={answerId.substring(0, answerId.lastIndexOf('_'))}
-            checked={answer.controlChecked}
-            onChange={() => undefined}
-            onClick={(e) => actions.toggleRadio(e, answerId, questionAnswerIds)}
-          />
+        <PrimaryChoice displayText={answer.displayText} htmlFor={answerId}>
+          {infoIcon}
         </PrimaryChoice>
       )}
       {answer.controlType === 'Radio' && showContinueButton && (
-        <SecondaryChoice displayText={answer.displayText}>
-          <HiddenInput
-            type="radio"
-            id={answerId}
-            name={answerId.substring(0, answerId.lastIndexOf('_'))}
-            checked={answer.controlChecked}
-            onChange={() => undefined}
-            onClick={(e) => actions.toggleRadio(e, answerId, questionAnswerIds)}
-          />
+        <SecondaryChoice displayText={answer.displayText} htmlFor={answerId}>
+          {infoIcon}
         </SecondaryChoice>
       )}
       {(answer.controlType === 'Text' ||
         answer.controlType === 'Number' ||
-        answer.controlType === 'Date') && (
-        <TextWrapper text={answer.displayText}>
-          <TextField
-            value={answer.controlValue || ''}
-            onChange={(e) =>
-              actions.updateValue(answerId, questionAnswerIds, e.target.value)
-            }
-          />
-        </TextWrapper>
-      )}
-      <InfoIcon
-        showExplanation={actions.showExplanation}
-        explanation={answer.explanation}
-      />
+        answer.controlType === 'Date') && <>{infoIcon}</>}
     </ChoiceContainer>
   );
 };

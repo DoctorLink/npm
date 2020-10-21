@@ -2,9 +2,11 @@ import { BaseTheme } from '../base';
 import algoname, { AlgoNameTheme } from './algoname';
 import displayText, { DisplayTextTheme } from './displayText';
 import button, { ButtonTheme } from './button';
+import chatAnswer, { ChatAnswerTheme } from './chatAnswer';
 import chatpreviousanswer, {
   ChatPreviousAnswerTheme,
 } from './chatpreviousanswer';
+import chatQuestion, { ChatQuestionTheme } from './chatQuestion';
 import checkbox, { CheckboxTheme } from './checkbox';
 import datefield, { DateFieldTheme } from './datefield';
 import errortext, { ErrorTextTheme } from './errortext';
@@ -44,7 +46,9 @@ import toggleassessment, { ToggleAssessmentTheme } from './toggleassessment';
 export interface ComponentTheme {
   algoname: AlgoNameTheme;
   button: ButtonTheme;
+  chatAnswer: ChatAnswerTheme;
   chatpreviousanswer: ChatPreviousAnswerTheme;
+  chatQuestion: ChatQuestionTheme;
   checkbox: CheckboxTheme;
   datefield: DateFieldTheme;
   displayText: DisplayTextTheme;
@@ -78,7 +82,9 @@ export interface ComponentTheme {
 const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   algoname: algoname(baseTheme),
   button: button(baseTheme),
+  chatAnswer: chatAnswer(baseTheme),
   chatpreviousanswer: chatpreviousanswer(baseTheme),
+  chatQuestion: chatQuestion(baseTheme),
   checkbox: checkbox(baseTheme),
   datefield: datefield(baseTheme),
   displayText: displayText(baseTheme),
