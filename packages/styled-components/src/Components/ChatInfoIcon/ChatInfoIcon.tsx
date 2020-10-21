@@ -1,6 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
+import IconButton from '../IconButton';
 
 const InfoButtonContainer = styled.div`
   height: 100%;
@@ -17,33 +18,7 @@ Icon.defaultProps = {
   theme: defaultTheme,
 };
 
-const InfoButton = styled.button.attrs({ type: 'button' })`
-  background: transparent;
-  border: 0;
-  cursor: pointer;
-  display: inline-flex;
-  outline: none;
-  align-items: center;
-  user-select: none;
-  vertical-align: middle;
-  justify-content: center;
-  text-decoration: none;
-  background-color: transparent;
-  -webkit-appearance: none;
-  -webkit-tap-highlight-color: transparent;
-
-  flex: 0 0 auto;
-  width: 48px;
-  color: rgba(0, 0, 0, 0.54);
-  height: 48px;
-  padding: 0;
-  font-size: 1.5rem;
-  text-align: center;
-  transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-  border-radius: 50%;
-
-  z-index: 1;
-
+const InfoButton = styled(IconButton)`
   &:hover {
     ${Icon} {
       fill: ${(p) => p.theme.infoicon.hoverColor};

@@ -7,6 +7,7 @@ export interface ChatPreviousAnswerTheme {
   fontSize: number;
   color: string;
   hoverColor: string;
+  focusColor: string;
 }
 
 export default (baseTheme: BaseTheme): ChatPreviousAnswerTheme => ({
@@ -16,4 +17,5 @@ export default (baseTheme: BaseTheme): ChatPreviousAnswerTheme => ({
   fontSize: baseTheme.typography.regular.size,
   color: baseTheme.colors.brand100,
   hoverColor: baseTheme.colors.brand200,
+  focusColor: baseTheme.colors.lightBlue100,
 });

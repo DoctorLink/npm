@@ -52,7 +52,8 @@ const PreviousAnswer = styled.button.attrs({ tabindex: '0' })`
   }
 
   &:focus {
-    box-shadow: 0 0 5px 0 #00c4fa;
+    box-shadow: 0 0 5px 0
+      ${(props) => props.theme.chatpreviousanswer.focusColor};
   }
 
   &:hover {

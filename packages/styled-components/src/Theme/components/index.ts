@@ -9,6 +9,7 @@ import chatpreviousanswer, {
 import chatQuestion, { ChatQuestionTheme } from './chatQuestion';
 import checkbox, { CheckboxTheme } from './checkbox';
 import datefield, { DateFieldTheme } from './datefield';
+import editAnswerIcon, { EditAnswerIconTheme } from './editAnswerIcon';
 import errortext, { ErrorTextTheme } from './errortext';
 import healthreportconclusion, {
   HealthReportConclusionTheme,
@@ -52,6 +53,7 @@ export interface ComponentTheme {
   checkbox: CheckboxTheme;
   datefield: DateFieldTheme;
   displayText: DisplayTextTheme;
+  editAnswerIcon: EditAnswerIconTheme;
   errortext: ErrorTextTheme;
   healthReportConclusion: HealthReportConclusionTheme;
   healthReportExplanation: HealthReportExplanationTheme;
@@ -88,6 +90,7 @@ const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   checkbox: checkbox(baseTheme),
   datefield: datefield(baseTheme),
   displayText: displayText(baseTheme),
+  editAnswerIcon: editAnswerIcon(baseTheme),
   errortext: errortext(baseTheme),
   healthReportConclusion: healthreportconclusion(baseTheme),
   healthReportExplanation: healthreportexplanation(baseTheme),

@@ -67,6 +67,7 @@ export { default as ChatTextWrapper } from './ChatTextWrapper';
 export { default as ChatTextField } from './ChatTextField';
 export { default as ChatSection } from './ChatSection';
 export { default as ChoiceContainer } from './ChoiceContainer';
+export { default as EditAnswerButton } from './EditAnswerButton';
 export { default as PrimaryChoice } from './PrimaryChoice';
 export { default as SecondaryChoice } from './SecondaryChoice';
 
