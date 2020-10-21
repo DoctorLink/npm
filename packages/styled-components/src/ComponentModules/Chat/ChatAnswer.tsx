@@ -46,8 +46,7 @@ export const ChatAnswer: React.FC<{
           <HiddenInput
             type="radio"
             id={answerId}
-            name={answerId}
-            // name={answerId.substring(0, answerId.lastIndexOf('_'))}
+            name={answerId.substring(0, answerId.lastIndexOf('_'))}
             checked={answer.controlChecked}
             onChange={() => undefined}
             onClick={(e) => actions.toggleRadio(e, answerId, questionAnswerIds)}
