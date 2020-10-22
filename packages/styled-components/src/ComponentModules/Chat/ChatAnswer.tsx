@@ -52,6 +52,21 @@ export const ChatAnswer: React.FC<{
         </TextWrapper>
       );
     case 'Checkbox':
+      return (
+        <ChoiceContainer>
+          <HiddenInput
+            type="checkbox"
+            id={answerId}
+            checked={answer.controlChecked}
+            onChange={(e) =>
+              actions.toggleCheckbox(e, answerId, questionAnswerIds)
+            }
+          />
+          <PrimaryChoice displayText={answer.displayText} htmlFor={answerId}>
+            {infoIcon}
+          </PrimaryChoice>
+        </ChoiceContainer>
+      );
     case 'Radio': {
       const Choice =
         answer.controlType === 'Radio' && showContinueButton
@@ -59,28 +74,14 @@ export const ChatAnswer: React.FC<{
           : PrimaryChoice;
       return (
         <ChoiceContainer>
-          {answer.controlType === 'Checkbox' && (
-            <HiddenInput
-              type="checkbox"
-              id={answerId}
-              checked={answer.controlChecked}
-              onChange={(e) =>
-                actions.toggleCheckbox(e, answerId, questionAnswerIds)
-              }
-            />
-          )}
-          {answer.controlType === 'Radio' && (
-            <HiddenInput
-              type="radio"
-              id={answerId}
-              name={answerId.substring(0, answerId.lastIndexOf('_'))}
-              checked={answer.controlChecked}
-              onChange={() => undefined}
-              onClick={(e) =>
-                actions.toggleRadio(e, answerId, questionAnswerIds)
-              }
-            />
-          )}
+          <HiddenInput
+            type="radio"
+            id={answerId}
+            name={answerId.substring(0, answerId.lastIndexOf('_'))}
+            checked={answer.controlChecked}
+            onChange={() => undefined}
+            onClick={(e) => actions.toggleRadio(e, answerId, questionAnswerIds)}
+          />
           <Choice displayText={answer.displayText} htmlFor={answerId}>
             {infoIcon}
           </Choice>
