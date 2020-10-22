@@ -1,13 +1,8 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const TextFieldWrapper = styled.div`
-  padding: 33px 70px;
-`;
-
 const TextFieldPadding = styled.div`
   margin-bottom: 0px;
-  padding-top: 18px;
   padding-bottom: 18px;
 `;
 
@@ -43,7 +38,7 @@ const DisplayText = styled.div`
   background: transparent;
   padding: 10px 18px 0;
   flex: 1 1 0%;
-  font-size: 18px;
+  font-size: 14px;
   line-height: 22px;
   box-sizing: border-box;
 `;
@@ -56,12 +51,10 @@ const ChatTextWrapper: React.FC<ChatTextWrapperProps> = ({
   children,
   text,
 }) => (
-  <TextFieldWrapper>
-    <TextFieldPadding>
-      <TextFieldInner>{children}</TextFieldInner>
-      <DisplayText dangerouslySetInnerHTML={{ __html: text }} />
-    </TextFieldPadding>
-  </TextFieldWrapper>
+  <TextFieldPadding>
+    <TextFieldInner>{children}</TextFieldInner>
+    <DisplayText dangerouslySetInnerHTML={{ __html: text }} />
+  </TextFieldPadding>
 );
 
 export default ChatTextWrapper;

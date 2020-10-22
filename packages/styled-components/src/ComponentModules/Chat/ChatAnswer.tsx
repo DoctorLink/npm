@@ -28,48 +28,6 @@ export const ChatAnswer: React.FC<{
     InfoIcon,
   } = components;
 
-  const renderInput = () => {
-    switch (answer.controlType) {
-      case 'Checkbox':
-        return (
-          <HiddenInput
-            type="checkbox"
-            id={answerId}
-            checked={answer.controlChecked}
-            onChange={(e) =>
-              actions.toggleCheckbox(e, answerId, questionAnswerIds)
-            }
-          />
-        );
-      case 'Radio':
-        return (
-          <HiddenInput
-            type="radio"
-            id={answerId}
-            name={answerId.substring(0, answerId.lastIndexOf('_'))}
-            checked={answer.controlChecked}
-            onChange={() => undefined}
-            onClick={(e) => actions.toggleRadio(e, answerId, questionAnswerIds)}
-          />
-        );
-      case 'Text':
-      case 'Number':
-      case 'Date':
-        return (
-          <TextWrapper text={answer.displayText}>
-            <TextField
-              value={answer.controlValue || ''}
-              onChange={(e) =>
-                actions.updateValue(answerId, questionAnswerIds, e.target.value)
-              }
-            />
-          </TextWrapper>
-        );
-      default:
-        return null;
-    }
-  };
-
   const infoIcon = (
     <InfoIcon
       showExplanation={actions.showExplanation}
@@ -77,27 +35,59 @@ export const ChatAnswer: React.FC<{
     />
   );
 
-  return (
-    <ChoiceContainer>
-      {renderInput()}
-      {answer.controlType === 'Checkbox' && (
-        <PrimaryChoice displayText={answer.displayText} htmlFor={answerId}>
+  switch (answer.controlType) {
+    case 'Text':
+    case 'Number':
+    case 'Date':
+      return (
+        <TextWrapper text={answer.displayText}>
+          <TextField
+            type={answer.controlType.toLowerCase()}
+            value={answer.controlValue || ''}
+            onChange={(e) =>
+              actions.updateValue(answerId, questionAnswerIds, e.target.value)
+            }
+          />
           {infoIcon}
-        </PrimaryChoice>
-      )}
-      {answer.controlType === 'Radio' && !showContinueButton && (
-        <PrimaryChoice displayText={answer.displayText} htmlFor={answerId}>
-          {infoIcon}
-        </PrimaryChoice>
-      )}
-      {answer.controlType === 'Radio' && showContinueButton && (
-        <SecondaryChoice displayText={answer.displayText} htmlFor={answerId}>
-          {infoIcon}
-        </SecondaryChoice>
-      )}
-      {(answer.controlType === 'Text' ||
-        answer.controlType === 'Number' ||
-        answer.controlType === 'Date') && <>{infoIcon}</>}
-    </ChoiceContainer>
-  );
+        </TextWrapper>
+      );
+    case 'Checkbox':
+    case 'Radio': {
+      const Choice =
+        answer.controlType === 'Radio' && showContinueButton
+          ? SecondaryChoice
+          : PrimaryChoice;
+      return (
+        <ChoiceContainer>
+          {answer.controlType === 'Checkbox' && (
+            <HiddenInput
+              type="checkbox"
+              id={answerId}
+              checked={answer.controlChecked}
+              onChange={(e) =>
+                actions.toggleCheckbox(e, answerId, questionAnswerIds)
+              }
+            />
+          )}
+          {answer.controlType === 'Radio' && (
+            <HiddenInput
+              type="radio"
+              id={answerId}
+              name={answerId.substring(0, answerId.lastIndexOf('_'))}
+              checked={answer.controlChecked}
+              onChange={() => undefined}
+              onClick={(e) =>
+                actions.toggleRadio(e, answerId, questionAnswerIds)
+              }
+            />
+          )}
+          <Choice displayText={answer.displayText} htmlFor={answerId}>
+            {infoIcon}
+          </Choice>
+        </ChoiceContainer>
+      );
+    }
+    default:
+      return null;
+  }
 };

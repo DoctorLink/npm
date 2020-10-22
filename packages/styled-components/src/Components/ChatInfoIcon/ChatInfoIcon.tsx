@@ -6,6 +6,8 @@ import IconButton from '../IconButton';
 const InfoButtonContainer = styled.div`
   height: 100%;
   max-height: 60px;
+  display: flex;
+  align-items: center;
 `;
 
 const Icon = styled.svg`
