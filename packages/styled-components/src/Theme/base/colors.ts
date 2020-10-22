@@ -35,6 +35,8 @@ export interface ColorsTheme {
   dividerBackground: string;
   dividerBoxShadow: string;
   toggleAssessmentBorder: string;
+  inputFocus: string;
+  iconFocus: string;
 }
 
 const colors: ColorsTheme = {
@@ -74,6 +76,8 @@ const colors: ColorsTheme = {
   dividerBackground: '#f5f5f5',
   dividerBoxShadow: '#e0e0e0',
   toggleAssessmentBorder: '#e2e2e2',
+  inputFocus: '#00C4FA',
+  iconFocus: '#00C4FA',
 };
 
 export default colors;

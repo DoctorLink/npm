@@ -9,7 +9,7 @@ export interface EditAnswerIconTheme {
 
 export default (baseTheme: BaseTheme): EditAnswerIconTheme => ({
   color: baseTheme.colors.brand100,
-  hoverColor: baseTheme.colors.lightBlue100,
-  focusColor: baseTheme.colors.lightBlue100,
+  hoverColor: baseTheme.colors.iconFocus,
+  focusColor: baseTheme.colors.iconFocus,
   size: 20,
 });

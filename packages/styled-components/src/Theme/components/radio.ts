@@ -26,6 +26,6 @@ export default (baseTheme: BaseTheme): RadioTheme => ({
     color: baseTheme.colors.brand50,
   },
   focus: {
-    color: baseTheme.colors.lightBlue100,
+    color: baseTheme.colors.inputFocus,
   },
 });

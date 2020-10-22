@@ -13,5 +13,5 @@ export default (baseTheme: BaseTheme): ChatAnswerTheme => ({
   fontFamily: baseTheme.typography.fontFamily,
   fontSize: baseTheme.typography.regular.size,
   checkedColor: baseTheme.colors.brand50,
-  focusColor: baseTheme.colors.lightBlue100,
+  focusColor: baseTheme.colors.inputFocus,
 });

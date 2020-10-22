@@ -10,8 +10,8 @@ export interface InfoIconTheme {
 
 export default (baseTheme: BaseTheme): InfoIconTheme => ({
   color: baseTheme.colors.brand100,
-  hoverColor: baseTheme.colors.lightBlue100,
-  focusColor: baseTheme.colors.lightBlue100,
+  hoverColor: baseTheme.colors.iconFocus,
+  focusColor: baseTheme.colors.iconFocus,
   padding: baseTheme.spacing.padding,
   size: baseTheme.typography.regular.lineHeight,
 });

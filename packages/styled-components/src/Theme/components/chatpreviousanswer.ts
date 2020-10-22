@@ -17,5 +17,5 @@ export default (baseTheme: BaseTheme): ChatPreviousAnswerTheme => ({
   fontSize: baseTheme.typography.regular.size,
   color: baseTheme.colors.brand100,
   hoverColor: baseTheme.colors.brand200,
-  focusColor: baseTheme.colors.lightBlue100,
+  focusColor: baseTheme.colors.inputFocus,
 });

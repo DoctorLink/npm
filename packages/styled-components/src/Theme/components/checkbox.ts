@@ -28,6 +28,6 @@ export default (baseTheme: BaseTheme): CheckboxTheme => ({
     color: baseTheme.colors.brand50,
   },
   focus: {
-    color: baseTheme.colors.lightBlue100,
+    color: baseTheme.colors.inputFocus,
   },
 });
