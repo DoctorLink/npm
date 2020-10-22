@@ -9,6 +9,7 @@ import PrimaryChoice from '../../Components/PrimaryChoice';
 import SecondaryChoice from '../../Components/SecondaryChoice';
 import Section from '../../Components/ChatSection';
 import HiddenInput from '../../Components/HiddenInput';
+import Button from '../../Components/Button';
 import { ChatTraversalCallbacks } from './ChatCallbacks';
 import { ChatComponents } from './ChatComponents';
 import { ChatContainer as Container } from './ChatContainer';
@@ -30,6 +31,7 @@ export const defaultChatComponents: ChatComponents = {
   SecondaryChoice,
   Section,
   HiddenInput,
+  Button,
 };
 
 export const defaultChatActions: ChatTraversalCallbacks = {

@@ -7,6 +7,7 @@ const ChoiceContainer = styled.div`
 
   &:last-child {
     border-bottom: 1px solid rgb(200, 205, 215);
+    margin-bottom: 24px;
   }
 `;
 

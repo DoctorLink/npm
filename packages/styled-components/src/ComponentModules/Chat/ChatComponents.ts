@@ -1,4 +1,5 @@
 import {
+  ButtonHTMLAttributes,
   ComponentType,
   HTMLAttributes,
   InputHTMLAttributes,
@@ -35,4 +36,5 @@ export interface ChatComponents {
   SecondaryChoice: ComponentType<SecondaryChoiceProps>;
   Section: ComponentType<ChatSectionProps>;
   HiddenInput: ComponentType<InputHTMLAttributes<HTMLInputElement>>;
+  Button: ComponentType<ButtonHTMLAttributes<HTMLButtonElement>>;
 }

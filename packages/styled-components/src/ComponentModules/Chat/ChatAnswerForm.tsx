@@ -23,7 +23,7 @@ export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
   actions,
   components,
 }) => {
-  const { Form, ChoiceContainer, SecondaryChoice } = components;
+  const { Form, Section, Button } = components;
   const display = question.data.display ?? [
     {
       header: null,
@@ -48,36 +48,33 @@ export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
       renderSubmit={!showContinueButton}
       disableSubmit={disableContinued}
     >
-      {display.map((section, i) => {
-        const sectionAnswerKeys = question.answers.filter((x) =>
-          section.answers.includes(extractAnswerId(x))
-        );
-        return (
-          <React.Fragment key={i}>
-            <components.Section text={section.header} />
-            {sectionAnswerKeys.map((answerId) => (
-              <ChatAnswer
-                key={answerId}
-                answer={answers[answerId]}
-                answerId={answerId}
-                questionAnswerIds={question.answers}
-                showContinueButton={showContinueButton}
-                actions={actions}
-                components={components}
-              />
-            ))}
-          </React.Fragment>
-        );
-      })}
+      <section>
+        {display.map((section, i) => {
+          const sectionAnswerKeys = question.answers.filter((x) =>
+            section.answers.includes(extractAnswerId(x))
+          );
+          return (
+            <React.Fragment key={i}>
+              <Section text={section.header} />
+              {sectionAnswerKeys.map((answerId) => (
+                <ChatAnswer
+                  key={answerId}
+                  answer={answers[answerId]}
+                  answerId={answerId}
+                  questionAnswerIds={question.answers}
+                  showContinueButton={showContinueButton}
+                  actions={actions}
+                  components={components}
+                />
+              ))}
+            </React.Fragment>
+          );
+        })}
+      </section>
       {showContinueButton && (
-        <ChoiceContainer>
-          <SecondaryChoice
-            type="submit"
-            disabled={disableContinued}
-            displayText="Continue"
-            button={true}
-          />
-        </ChoiceContainer>
+        <Button type="submit" disabled={disableContinued}>
+          Continue
+        </Button>
       )}
       {/* Notes */}
     </Form>
