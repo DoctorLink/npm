@@ -1,4 +1,4 @@
-import React, { LabelHTMLAttributes, ButtonHTMLAttributes } from 'react';
+import React, { ReactElement, LabelHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
@@ -46,19 +46,20 @@ const Text = styled.span`
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
 `;
 
-export type PrimaryChoiceProps = {
+export interface PrimaryChoiceProps
+  extends LabelHTMLAttributes<HTMLLabelElement> {
   displayText: string;
-} & (
-  | ({ button?: false } & LabelHTMLAttributes<HTMLLabelElement>)
-  | ({ button: true } & ButtonHTMLAttributes<HTMLButtonElement>)
-);
+  input?: ReactElement;
+  infoIcon?: ReactElement;
+}
 
 const PrimaryChoice = React.forwardRef<HTMLLabelElement, PrimaryChoiceProps>(
-  function PrimaryChoice({ displayText, button, children, ...props }, ref) {
+  function PrimaryChoice({ displayText, input, infoIcon, ...props }, ref) {
     return (
-      <Label as={button ? 'button' : 'label'} ref={ref} {...props}>
+      <Label ref={ref} {...props}>
+        {input ?? null}
         <Text dangerouslySetInnerHTML={{ __html: displayText }} />
-        {children}
+        {infoIcon ?? null}
       </Label>
     );
   }

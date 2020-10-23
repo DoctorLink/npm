@@ -5,6 +5,7 @@ import {
   InputHTMLAttributes,
   RefAttributes,
 } from 'react';
+import { CheckboxProps, RadioProps } from '../../Components';
 import { ChatFormProps } from '../../Components/ChatForm';
 import { ChatInfoIconProps } from '../../Components/ChatInfoIcon';
 import { ChatPreviousAnswerProps } from '../../Components/ChatPreviousAnswer';
@@ -37,4 +38,6 @@ export interface ChatComponents {
   Section: ComponentType<ChatSectionProps>;
   HiddenInput: ComponentType<InputHTMLAttributes<HTMLInputElement>>;
   Button: ComponentType<ButtonHTMLAttributes<HTMLButtonElement>>;
+  Radio: ComponentType<RadioProps>;
+  Checkbox: ComponentType<CheckboxProps>;
 }

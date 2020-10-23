@@ -56,17 +56,22 @@ export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
           return (
             <React.Fragment key={i}>
               <Section text={section.header} />
-              {sectionAnswerKeys.map((answerId) => (
-                <ChatAnswer
-                  key={answerId}
-                  answer={answers[answerId]}
-                  answerId={answerId}
-                  questionAnswerIds={question.answers}
-                  showContinueButton={showContinueButton}
-                  actions={actions}
-                  components={components}
-                />
-              ))}
+              {sectionAnswerKeys.map((answerId) => {
+                const answer = answers[answerId];
+                const secondaryChoice =
+                  showContinueButton && answer.controlType == 'Radio';
+                return (
+                  <ChatAnswer
+                    key={answerId}
+                    answer={answer}
+                    answerId={answerId}
+                    questionAnswerIds={question.answers}
+                    secondaryChoice={secondaryChoice}
+                    actions={actions}
+                    components={components}
+                  />
+                );
+              })}
             </React.Fragment>
           );
         })}
