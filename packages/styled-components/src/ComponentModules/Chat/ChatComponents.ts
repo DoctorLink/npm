@@ -14,7 +14,6 @@ import { ChatQuestionProps } from '../../Components/ChatQuestion';
 import { ChatSectionProps } from '../../Components/ChatSection';
 import { ChatTextWrapperProps } from '../../Components/ChatTextWrapper';
 import { PrimaryChoiceProps } from '../../Components/PrimaryChoice';
-import { SecondaryChoiceProps } from '../../Components/SecondaryChoice';
 import { ChatContainerProps } from './ChatContainer';
 
 type HTMLComponentType<E, P = unknown> = ComponentType<
@@ -34,7 +33,6 @@ export interface ChatComponents {
   TextField: ComponentType<InputHTMLAttributes<HTMLInputElement>>;
   ChoiceContainer: ComponentType<HTMLAttributes<HTMLDivElement>>;
   PrimaryChoice: ComponentType<PrimaryChoiceProps>;
-  SecondaryChoice: ComponentType<SecondaryChoiceProps>;
   Section: ComponentType<ChatSectionProps>;
   HiddenInput: ComponentType<InputHTMLAttributes<HTMLInputElement>>;
   Button: ComponentType<ButtonHTMLAttributes<HTMLButtonElement>>;

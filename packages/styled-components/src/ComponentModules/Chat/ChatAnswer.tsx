@@ -7,22 +7,12 @@ export const ChatAnswer: React.FC<{
   answer: TraversalAnswer;
   answerId: string;
   questionAnswerIds: string[];
-  secondaryChoice: boolean;
   actions: ChatTraversalCallbacks;
   components: ChatComponents;
-}> = ({
-  answer,
-  answerId,
-  questionAnswerIds,
-  secondaryChoice,
-  actions,
-  components,
-}) => {
+}> = ({ answer, answerId, questionAnswerIds, actions, components }) => {
   const {
     ChoiceContainer,
     PrimaryChoice,
-    SecondaryChoice,
-    HiddenInput,
     TextWrapper,
     TextField,
     InfoIcon,
@@ -74,10 +64,10 @@ export const ChatAnswer: React.FC<{
     case 'Radio': {
       return (
         <ChoiceContainer>
-          {secondaryChoice ? (
-            <>
-              <HiddenInput
-                type="radio"
+          <PrimaryChoice
+            displayText={answer.displayText}
+            input={
+              <Radio
                 id={answerId}
                 name={answerId.substring(0, answerId.lastIndexOf('_'))}
                 checked={answer.controlChecked}
@@ -86,29 +76,9 @@ export const ChatAnswer: React.FC<{
                   actions.toggleRadio(e, answerId, questionAnswerIds)
                 }
               />
-              <SecondaryChoice
-                htmlFor={answerId}
-                displayText={answer.displayText}
-                infoIcon={infoIcon}
-              />
-            </>
-          ) : (
-            <PrimaryChoice
-              displayText={answer.displayText}
-              input={
-                <Radio
-                  id={answerId}
-                  name={answerId.substring(0, answerId.lastIndexOf('_'))}
-                  checked={answer.controlChecked}
-                  onChange={() => undefined}
-                  onClick={(e) =>
-                    actions.toggleRadio(e, answerId, questionAnswerIds)
-                  }
-                />
-              }
-              infoIcon={infoIcon}
-            />
-          )}
+            }
+            infoIcon={infoIcon}
+          />
         </ChoiceContainer>
       );
     }

@@ -6,7 +6,6 @@ import TextWrapper from '../../Components/ChatTextWrapper';
 import TextField from '../../Components/ChatTextField';
 import ChoiceContainer from '../../Components/ChoiceContainer';
 import PrimaryChoice from '../../Components/PrimaryChoice';
-import SecondaryChoice from '../../Components/SecondaryChoice';
 import Section from '../../Components/ChatSection';
 import HiddenInput from '../../Components/HiddenInput';
 import Button from '../../Components/Button';
@@ -30,7 +29,6 @@ export const defaultChatComponents: ChatComponents = {
   TextField,
   ChoiceContainer,
   PrimaryChoice,
-  SecondaryChoice,
   Section,
   HiddenInput,
   Button,
