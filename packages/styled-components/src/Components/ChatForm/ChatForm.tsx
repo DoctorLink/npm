@@ -29,7 +29,7 @@ const ChatForm = React.forwardRef<HTMLFormElement, ChatFormProps>(
   function ChatForm({ disableSubmit, ...props }, ref) {
     return (
       <Form ref={ref} {...props}>
-        {<HiddenSubmit disabled={disableSubmit} />}
+        <HiddenSubmit disabled={disableSubmit} />
         {props.children}
       </Form>
     );
