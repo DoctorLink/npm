@@ -19,5 +19,5 @@ export default (baseTheme: BaseTheme): DateFieldTheme => ({
   textAlign: baseTheme.typography.inputField.textAlign,
   borderColor: baseTheme.colors.grey250,
   hoverColor: baseTheme.colors.brand100,
-  focusColor: baseTheme.colors.lightBlue100,
+  focusColor: baseTheme.colors.inputFocus,
 });

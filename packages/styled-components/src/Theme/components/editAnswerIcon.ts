@@ -1,17 +1,15 @@
 import { BaseTheme } from '../base';
 
-export interface InfoIconTheme {
+export interface EditAnswerIconTheme {
   color: string;
   hoverColor: string;
   focusColor: string;
-  padding: number;
   size: number;
 }
 
-export default (baseTheme: BaseTheme): InfoIconTheme => ({
+export default (baseTheme: BaseTheme): EditAnswerIconTheme => ({
   color: baseTheme.colors.brand100,
   hoverColor: baseTheme.colors.iconFocus,
   focusColor: baseTheme.colors.iconFocus,
-  padding: baseTheme.spacing.padding,
-  size: baseTheme.typography.regular.lineHeight,
+  size: 20,
 });

@@ -23,7 +23,7 @@ export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
   actions,
   components,
 }) => {
-  const { Form, ChoiceContainer, SecondaryChoice } = components;
+  const { Form, Section, Button } = components;
   const display = question.data.display ?? [
     {
       header: null,
@@ -43,41 +43,36 @@ export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
   };
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      renderSubmit={!showContinueButton}
-      disableSubmit={disableContinued}
-    >
-      {display.map((section, i) => {
-        const sectionAnswerKeys = question.answers.filter((x) =>
-          section.answers.includes(extractAnswerId(x))
-        );
-        return (
-          <React.Fragment key={i}>
-            <components.Section text={section.header} />
-            {sectionAnswerKeys.map((answerId) => (
-              <ChatAnswer
-                key={answerId}
-                answer={answers[answerId]}
-                answerId={answerId}
-                questionAnswerIds={question.answers}
-                showContinueButton={showContinueButton}
-                actions={actions}
-                components={components}
-              />
-            ))}
-          </React.Fragment>
-        );
-      })}
+    <Form onSubmit={handleSubmit} disableSubmit={disableContinued}>
+      <section>
+        {display.map((section, i) => {
+          const sectionAnswerKeys = question.answers.filter((x) =>
+            section.answers.includes(extractAnswerId(x))
+          );
+          return (
+            <React.Fragment key={i}>
+              <Section text={section.header} />
+              {sectionAnswerKeys.map((answerId) => {
+                const answer = answers[answerId];
+                return (
+                  <ChatAnswer
+                    key={answerId}
+                    answer={answer}
+                    answerId={answerId}
+                    questionAnswerIds={question.answers}
+                    actions={actions}
+                    components={components}
+                  />
+                );
+              })}
+            </React.Fragment>
+          );
+        })}
+      </section>
       {showContinueButton && (
-        <ChoiceContainer>
-          <SecondaryChoice
-            type="submit"
-            disabled={disableContinued}
-            displayText="Continue"
-            button={true}
-          />
-        </ChoiceContainer>
+        <Button type="submit" disabled={disableContinued}>
+          Continue
+        </Button>
       )}
       {/* Notes */}
     </Form>

@@ -1,21 +1,17 @@
 import { BaseTheme } from '../base';
 
-export interface ChatPreviousAnswerTheme {
-  borderRadius: number;
+export interface ChatAnswerTheme {
   padding: number;
   fontFamily: string;
   fontSize: number;
-  color: string;
-  hoverColor: string;
+  checkedColor: string;
   focusColor: string;
 }
 
-export default (baseTheme: BaseTheme): ChatPreviousAnswerTheme => ({
-  borderRadius: 6,
+export default (baseTheme: BaseTheme): ChatAnswerTheme => ({
   padding: 16,
   fontFamily: baseTheme.typography.fontFamily,
   fontSize: baseTheme.typography.regular.size,
-  color: baseTheme.colors.brand100,
-  hoverColor: baseTheme.colors.brand200,
+  checkedColor: baseTheme.colors.brand50,
   focusColor: baseTheme.colors.inputFocus,
 });

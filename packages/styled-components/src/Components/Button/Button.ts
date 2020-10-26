@@ -4,10 +4,7 @@ import { defaultTheme } from '../../Theme';
 const Button = styled.button`
   font-family: ${(props) => props.theme.button.fontFamily};
   transition: all 150ms;
-  background-color: ${(props) =>
-    props.disabled
-      ? props.theme.button.disabled.color
-      : props.theme.button.color};
+  background-color: ${(props) => props.theme.button.color};
   border: none;
   border-radius: ${(props) => props.theme.button.borderRadius}px;
   color: white;
@@ -16,12 +13,19 @@ const Button = styled.button`
   text-decoration: none;
   display: inline-block;
   font-size: ${(props) => props.theme.button.fontSize}px;
-  cursor: ${(props) => (props.disabled ? 'not-allowed' : 'pointer')};
+  cursor: pointer;
+
   &:hover {
-    background: ${(props) =>
-      props.disabled
-        ? props.theme.button.disabled.hoverColor
-        : props.theme.button.hoverColor};
+    background: ${(props) => props.theme.button.hoverColor};
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    background: ${(props) => props.theme.button.disabled.color};
+
+    &:hover {
+      background: ${(props) => props.theme.button.disabled.hoverColor};
+    }
   }
 `;
 

@@ -4,6 +4,10 @@ export interface TypographyTheme {
     size: number;
     lineHeight: number;
   };
+  small: {
+    size: number;
+    lineHeight: number;
+  };
   error: {
     size: number;
   };
@@ -35,6 +39,10 @@ const typography: TypographyTheme = {
   regular: {
     size: 16,
     lineHeight: 24,
+  },
+  small: {
+    size: 14,
+    lineHeight: 20,
   },
   error: {
     size: 12,
