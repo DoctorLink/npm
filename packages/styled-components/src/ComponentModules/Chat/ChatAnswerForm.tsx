@@ -43,11 +43,7 @@ export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
   };
 
   return (
-    <Form
-      onSubmit={handleSubmit}
-      renderSubmit={!showContinueButton}
-      disableSubmit={disableContinued}
-    >
+    <Form onSubmit={handleSubmit} disableSubmit={disableContinued}>
       <section>
         {display.map((section, i) => {
           const sectionAnswerKeys = question.answers.filter((x) =>

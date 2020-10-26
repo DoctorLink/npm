@@ -22,15 +22,14 @@ const Form = styled(motion.form)`
 `;
 
 export interface ChatFormProps extends HTMLMotionProps<'form'> {
-  renderSubmit: boolean;
   disableSubmit: boolean;
 }
 
 const ChatForm = React.forwardRef<HTMLFormElement, ChatFormProps>(
-  function ChatForm({ renderSubmit, disableSubmit, ...props }, ref) {
+  function ChatForm({ disableSubmit, ...props }, ref) {
     return (
       <Form ref={ref} {...props}>
-        {renderSubmit && <HiddenSubmit disabled={disableSubmit} />}
+        {<HiddenSubmit disabled={disableSubmit} />}
         {props.children}
       </Form>
     );
