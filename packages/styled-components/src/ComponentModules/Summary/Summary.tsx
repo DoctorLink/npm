@@ -78,16 +78,24 @@ export const Summary: React.FC<{
                     <comps.Answers>
                       {question.answers
                         .filter((x) => x.isAnswered)
-                        .map((answer) => (
+                        .map((answer) => {
+                          let answerValue = '';
+                          if (answer.value && answer.type === 85) {
+                            answerValue = new Intl.DateTimeFormat('en-US').format(Date.parse(answer.value))  + ' ';
+                          }
+                          else if (answer.value) {
+                            answerValue = answer.value + ' ';
+                          }
+                          return (
                           <comps.AnswerText
                             key={`${question.algoId}_${question.nodeId}_${answer.answerId}`}
                             dangerouslySetInnerHTML={{
                               __html: `${
-                                answer.value ? answer.value + ' ' : ''
+                                answerValue
                               }${answer.displayText}`,
                             }}
                           />
-                        ))}
+                        )})}
                       {question.answers.filter((x) => x.isAnswered).length ===
                         0 &&
                         question.answers.filter((x) => x.answerId === 0)
