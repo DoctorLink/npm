@@ -41,15 +41,13 @@ export const useTraversalActions = (
     toggleRadio: (event, answerId, questionAnswerIds) => {
       dispatch(traversalRadioToggle(answerId, questionAnswerIds, true));
       if (isClickEvent(event) && event.clientX !== 0 && event.clientY !== 0) {
-        let forward = false;   
-        let questionLength = Object.keys(traversal.questions).length;
+        let forward = false;
+        const questionLength = Object.keys(traversal.questions).length;
         // if a traversal "page" contains only one question, we can auto-forward.
-        if (questionLength === 1) {
-          forward = true;
-        }
+        if (questionLength === 1) forward = true;
         else if (questionLength === 2) {
           Object.keys(traversal.questions).forEach((questionKey) => {
-            var question = traversal.questions[questionKey];
+            const question = traversal.questions[questionKey];
             // if one of the 2 questions is a message, we can auto-forward.
             if (question.answers.length === 0) forward = true;
           });
