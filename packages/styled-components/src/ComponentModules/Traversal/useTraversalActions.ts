@@ -41,18 +41,19 @@ export const useTraversalActions = (
     toggleRadio: (event, answerId, questionAnswerIds) => {
       dispatch(traversalRadioToggle(answerId, questionAnswerIds, true));
       if (isClickEvent(event) && event.clientX !== 0 && event.clientY !== 0) {
-        let forward = true;
-        const answeredRadioQuestions: string[] = [];
-        Object.entries(traversal.answers).forEach((answerId) => {
-          const answer = answerId[1];
-          if (answer.controlChecked === true)
-            answeredRadioQuestions.push(
-              `${answer.nodeId}_${answer.questionId}`
-            );
-        });
-        Object.keys(traversal.questions).forEach((question) => {
-          if (!answeredRadioQuestions.includes(question)) forward = false;
-        });
+        let forward = false;   
+        let questionLength = Object.keys(traversal.questions).length;
+        // if a traversal "page" contains only one question, we can auto-forward.
+        if (questionLength === 1) {
+          forward = true;
+        }
+        else if (questionLength === 2) {
+          Object.keys(traversal.questions).forEach((questionKey) => {
+            var question = traversal.questions[questionKey];
+            // if one of the 2 questions is a message, we can auto-forward.
+            if (question.answers.length === 0) forward = true;
+          });
+        }
         if (forward)
           dispatch(
             traversalRespondPostRequest(
