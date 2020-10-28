@@ -80,8 +80,8 @@ export const Summary: React.FC<{
                         .filter((x) => x.isAnswered)
                         .map((answer) => {
                           let answerValue = '';
-                          if (answer.value && answer.type === 85) {
-                            answerValue = new Intl.DateTimeFormat('en-US').format(Date.parse(answer.value))  + ' ';
+                          if (answer.value && answer.nodeType === "DateEnter") {
+                            answerValue = answer.value.toLocaleDateString()  + ' ';
                           }
                           else if (answer.value) {
                             answerValue = answer.value + ' ';

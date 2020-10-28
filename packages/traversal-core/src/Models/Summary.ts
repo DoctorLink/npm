@@ -11,6 +11,8 @@ export interface SummaryQuestion {
   displayText: string;
   summaryText: string;
   clinicalText: string;
+  nodeType: string;
+  nodeTypeId: number;
   answers: SummaryAnswer[];
 }
 
@@ -21,7 +23,8 @@ export interface SummaryAnswer {
   groupId: number;
   nodeId: number;
   assetId: number;
-  nodeType: number;
+  nodeType: string;
+  nodeTypeId: number;
   answerId: number;
   nextNodeId: number;
   value: string | null;
