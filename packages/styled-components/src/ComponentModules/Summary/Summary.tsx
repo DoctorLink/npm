@@ -81,20 +81,22 @@ export const Summary: React.FC<{
                         .map((answer) => {
                           let answerValue = '';
                           if (answer.value && answer.nodeType === 'DateEnter') {
-                            answerValue = (new Intl.DateTimeFormat()
-                            .format(Date.parse(answer.value))).toString()  + ' ';
-                          }
-                          else if (answer.value) {
+                            answerValue =
+                              new Intl.DateTimeFormat()
+                                .format(Date.parse(answer.value))
+                                .toString() + ' ';
+                          } else if (answer.value) {
                             answerValue = answer.value + ' ';
                           }
                           return (
-                          <comps.AnswerText
-                            key={`${question.algoId}_${question.nodeId}_${answer.answerId}`}
-                            dangerouslySetInnerHTML={{
-                              __html: `${answerValue}${answer.displayText}`,
-                            }}
-                          />
-                        )})}
+                            <comps.AnswerText
+                              key={`${question.algoId}_${question.nodeId}_${answer.answerId}`}
+                              dangerouslySetInnerHTML={{
+                                __html: `${answerValue}${answer.displayText}`,
+                              }}
+                            />
+                          );
+                        })}
                       {question.answers.filter((x) => x.isAnswered).length ===
                         0 &&
                         question.answers.filter((x) => x.answerId === 0)
