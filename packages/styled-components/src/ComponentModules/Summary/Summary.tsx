@@ -81,7 +81,7 @@ export const Summary: React.FC<{
                         .map((answer) => {
                           let answerValue = '';
                           if (answer.value && answer.nodeType === "DateEnter") {
-                            answerValue = answer.value.toLocaleDateString()  + ' ';
+                            answerValue = (new Intl.DateTimeFormat().format(Date.parse(answer.value))).toString()  + ' ';
                           }
                           else if (answer.value) {
                             answerValue = answer.value + ' ';
