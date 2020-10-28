@@ -80,8 +80,9 @@ export const Summary: React.FC<{
                         .filter((x) => x.isAnswered)
                         .map((answer) => {
                           let answerValue = '';
-                          if (answer.value && answer.nodeType === "DateEnter") {
-                            answerValue = (new Intl.DateTimeFormat().format(Date.parse(answer.value))).toString()  + ' ';
+                          if (answer.value && answer.nodeType === 'DateEnter') {
+                            answerValue = (new Intl.DateTimeFormat()
+                            .format(Date.parse(answer.value))).toString()  + ' ';
                           }
                           else if (answer.value) {
                             answerValue = answer.value + ' ';
@@ -90,9 +91,7 @@ export const Summary: React.FC<{
                           <comps.AnswerText
                             key={`${question.algoId}_${question.nodeId}_${answer.answerId}`}
                             dangerouslySetInnerHTML={{
-                              __html: `${
-                                answerValue
-                              }${answer.displayText}`,
+                              __html: `${answerValue}${answer.displayText}`,
                             }}
                           />
                         )})}
