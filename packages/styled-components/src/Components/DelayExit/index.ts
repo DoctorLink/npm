@@ -1,1 +1,1 @@
-export { default } from './DelayExit';
+export { default, DelayExitProps } from './DelayExit';
