@@ -21,33 +21,32 @@ ModalMotion.defaultProps = {
   theme: defaultTheme,
 };
 
-export const ModalWindow = React.forwardRef<HTMLDivElement>(function ModalBody(
-  { children },
-  ref
-) {
-  return (
-    <ModalMotion
-      ref={ref}
-      variants={{
-        enter: {
-          y: 0,
-          opacity: 1,
-          transition: {
-            y: { type: 'spring', stiffness: 1000, damping: 15, delay: 0.1 },
-            default: { duration: 0.3, delay: 0.1 },
+export const ModalWindow = React.forwardRef<HTMLDivElement>(
+  function ModalWindow({ children }, ref) {
+    return (
+      <ModalMotion
+        ref={ref}
+        variants={{
+          enter: {
+            y: 0,
+            opacity: 1,
+            transition: {
+              y: { type: 'spring', stiffness: 1000, damping: 15, delay: 0.1 },
+              default: { duration: 0.3, delay: 0.1 },
+            },
           },
-        },
-        exit: {
-          y: 50,
-          opacity: 0,
-          transition: { duration: 0.3 },
-        },
-      }}
-      initial="exit"
-      animate="enter"
-      exit="exit"
-    >
-      {children}
-    </ModalMotion>
-  );
-});
+          exit: {
+            y: 50,
+            opacity: 0,
+            transition: { duration: 0.3 },
+          },
+        }}
+        initial="exit"
+        animate="enter"
+        exit="exit"
+      >
+        {children}
+      </ModalMotion>
+    );
+  }
+);
