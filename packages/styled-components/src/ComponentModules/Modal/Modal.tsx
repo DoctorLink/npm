@@ -45,7 +45,7 @@ export const Modal: React.FC<{
     <comps.Wrapper>
       {modal && [
         <comps.DelayExit key="global">
-          <comps.BodyOverflowHidden />
+          <comps.GlobalStyle />
         </comps.DelayExit>,
         <comps.BackDrop key="backdrop" />,
         <comps.TransparentCurtain key="curtain">
