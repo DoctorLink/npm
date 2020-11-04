@@ -18,12 +18,7 @@ export const Wrap = styled.div`
   animation-iteration-count: 2;
   zoom: 1;
   transform-style: preserve-3d;
-
-  ::before {
-    content: '';
-    display: inline-block;
-    height: 100%;
-    vertical-align: middle;
-    margin-right: -0.25em;
-  }
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;
