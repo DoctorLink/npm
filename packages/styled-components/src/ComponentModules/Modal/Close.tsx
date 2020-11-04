@@ -1,15 +1,20 @@
 import React from 'react';
 import styled from 'styled-components';
+import { defaultTheme } from '../../Theme';
 
 const Icon = styled.svg`
   fill: none;
-  stroke: black;
+  stroke: ${(p) => p.theme.modal.header.closeIconColor};
   stroke-width: 2px;
   stroke-linecap: round;
   stroke-linejoin: round;
   cursor: pointer;
   width: 24px;
 `;
+
+Icon.defaultProps = {
+  theme: defaultTheme,
+};
 
 export interface CloseProps {
   onClick: () => void;

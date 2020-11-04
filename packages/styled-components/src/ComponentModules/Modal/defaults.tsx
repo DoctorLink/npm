@@ -1,5 +1,4 @@
 import { AnimatePresence } from 'framer-motion';
-import styled from 'styled-components';
 
 import {
   BodyOverflowHidden,
@@ -9,14 +8,13 @@ import {
 import { Container } from './Container';
 import { Close } from './Close';
 import { BackDrop } from './BackDrop';
+import { Body } from './Body';
 import { Header } from './Header';
 import { ModalWindow } from './ModalWindow';
 import { Title } from './Title';
 import { Wrap } from './Wrap';
 import { ModalCallbacks } from './ModalCallbacks';
 import { ModalComponents } from './ModalComponents';
-
-const Body = styled.div``;
 
 export const defaultModalComponents: ModalComponents = {
   Wrapper: AnimatePresence,

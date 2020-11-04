@@ -1,5 +1,6 @@
 export interface ColorsTheme {
   white: string;
+  black: string;
   grey100: string;
   grey200: string;
   grey250: string;
@@ -41,6 +42,7 @@ export interface ColorsTheme {
 
 const colors: ColorsTheme = {
   white: '#ffffff',
+  black: '#000000',
   grey100: '#fcfcfc',
   grey200: '#dedede',
   grey250: '#9a9a9a',
