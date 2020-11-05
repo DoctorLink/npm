@@ -20,8 +20,6 @@ const IconButton = styled.button.attrs({ type: 'button' })`
   height: 48px;
   padding: 0;
   transition: all 150ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
-
-  z-index: 1;
 `;
 
 export default IconButton;
