@@ -1,1 +1,9 @@
-{ "extends": "../../.babelrc", "presets": ["@babel/preset-react"] }
+{
+  "extends": "../../.babelrc",
+  "presets": [
+    "@babel/preset-react"
+  ],
+  "plugins": [
+    "babel-plugin-styled-components"
+  ]
+}
