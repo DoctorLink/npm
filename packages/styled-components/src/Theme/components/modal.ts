@@ -6,6 +6,7 @@ export interface ModalTheme {
   fontSize: number;
   lineHeight: number;
   borderRadius: number;
+  marginX: number;
   header: {
     background: string;
     color: string;
@@ -19,6 +20,7 @@ export default (baseTheme: BaseTheme): ModalTheme => ({
   fontSize: baseTheme.typography.regular.size,
   lineHeight: baseTheme.typography.regular.lineHeight,
   borderRadius: 10,
+  marginX: 40,
   header: {
     background: baseTheme.colors.white,
     color: 'inherit',
