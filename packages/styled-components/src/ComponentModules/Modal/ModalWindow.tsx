@@ -11,7 +11,7 @@ const ModalMotion = styled(motion.div)`
   text-align: left;
   position: relative;
   max-width: 650px;
-  margin: ${(p) => p.theme.modal.marginX}px auto;
+  margin: ${(p) => p.theme.modal.marginY}px auto;
   font-family: ${(p) => p.theme.modal.fontFamily};
   font-size: ${(p) => p.theme.modal.fontSize}px;
   line-height: ${(p) => p.theme.modal.lineHeight}px;
