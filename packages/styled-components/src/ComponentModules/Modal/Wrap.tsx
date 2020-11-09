@@ -18,6 +18,7 @@ export const Wrap = styled.div`
   zoom: 1;
   transform-style: preserve-3d;
 
+  /* This keeps smaller modals centered vertically and prevents tall ones from disappearing off the top of the screen */
   ::before {
     content: '';
     display: inline-block;
