@@ -1,3 +1,4 @@
+export * from './useChatMinHeight';
 export * from './useChatScroll';
 export * from './useHealthAge';
 export * from './useHRARoutes';
