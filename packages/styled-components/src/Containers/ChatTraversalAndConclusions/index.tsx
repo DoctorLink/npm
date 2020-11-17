@@ -1,11 +1,10 @@
-import React, { useRef } from 'react';
+import React from 'react';
 import { useSelector } from 'react-redux';
 import { ConclusionReportConnected as Conclusions } from '../ConclusionReport';
 import { ChatTraversal, useChatActions } from '../../ComponentModules';
 import { ChatTraversalRootState } from '@doctorlink/traversal-core';
 
 export const ChatTraversalAndConclusionsConnected: React.FC = () => {
-  const ref = useRef();
   const traversal = useSelector(
     (state: ChatTraversalRootState) => state.chatTraversal
   );
@@ -28,11 +27,7 @@ export const ChatTraversalAndConclusionsConnected: React.FC = () => {
 
   return (
     <>
-      <ChatTraversal
-        traversal={traversal}
-        containerRef={ref}
-        actions={actions}
-      />
+      <ChatTraversal traversal={traversal} actions={actions} />
     </>
   );
 };
