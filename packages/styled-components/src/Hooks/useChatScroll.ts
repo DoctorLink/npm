@@ -1,29 +1,18 @@
-import { MutableRefObject, useState, useEffect } from 'react';
+import { RefObject, useEffect } from 'react';
 import usePrevious from './usePrevious';
 
-export const useChatScroll = function (
-  loading: boolean,
+export const useChatScroll = function <E extends HTMLElement>(
   totalQuestions: number,
-  ref?: MutableRefObject<any>
-): number {
-  const [height, setHeight] = useState(0);
-  const [minHeight, setMinHeight] = useState(0);
-  const prevHeight = usePrevious(height);
+  ref: RefObject<E>
+): void {
   const prevTotalQuestions = usePrevious(totalQuestions);
+
   useEffect(() => {
-    if (!ref) return;
-    if (ref.current && ref.current.clientHeight) {
-      setHeight(ref.current.clientHeight);
-      if (loading) setMinHeight(prevHeight ?? 0);
-    }
     if (prevTotalQuestions !== totalQuestions) {
-      const children = ref && ref.current && ref.current.children;
-      if (children) {
-        const lastChild = children.length > 0 && children[children.length - 1];
-        if (lastChild) lastChild.scrollIntoView({ behavior: 'smooth' });
+      const lastChild = ref.current?.lastElementChild;
+      if (lastChild) {
+        lastChild.scrollIntoView({ behavior: 'smooth' });
       }
     }
-  }, [loading, ref, totalQuestions, prevTotalQuestions, prevHeight]);
-
-  return minHeight;
+  }, [ref, totalQuestions, prevTotalQuestions]);
 };
