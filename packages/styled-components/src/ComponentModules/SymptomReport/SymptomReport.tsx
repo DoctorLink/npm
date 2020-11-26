@@ -1,10 +1,13 @@
 import { SymptomReportModel } from '@doctorlink/traversal-core';
 import React from 'react';
 import colors from '../../Theme/base/colors';
+import { BulletsPanel } from './BulletsPanel';
+import { ConclusionsPanel } from './ConclusionsPanel';
 import {
   defaultSymptomReportActions,
   defaultSymptomReportComponents,
 } from './defaults';
+import { MessagePanel } from './MessagePanel';
 import { SymptomReportCallbacks } from './SymptomReportCallbacks';
 import { SymptomReportComponents } from './SymptomReportComponents';
 
@@ -19,145 +22,73 @@ export const SymptomReport: React.FC<{
 }) => {
   const comps = { ...defaultSymptomReportComponents, ...components };
 
-  const level = () => {
-    switch (symptomReport.messageLevel) {
-      case 3:
-        return colors.normal;
-      case 2:
-        return colors.moderate;
-      default:
-        return colors.danger;
-    }
-  };
+  const {
+    dangerBullets,
+    dangerBulletTitle,
+    contactBullets,
+    contactBulletTitle,
+    reasonConclusions,
+    reasonConclusionTitle,
+    otherConclusions,
+    otherConclusionTitle,
+    informationConclusions,
+    informationConclusionTitle,
+    reasonBullets,
+    reasonBulletTitle,
+  } = symptomReport;
 
   return (
     <>
       <comps.Blocks key="panel" staggerChildren={0.2} style={{ margin: 0 }}>
-        <comps.Panel key="header" id="Traversal">
-          <comps.Header color={level()}>
-            <comps.Icon state={symptomReport.messageLevel} />
-            <comps.Title>{symptomReport.messageTitle}</comps.Title>
-          </comps.Header>
-          <comps.Content>
-            <comps.BodyText
-              dangerouslySetInnerHTML={{
-                __html: symptomReport.messageDescription,
-              }}
-            />
-          </comps.Content>
-        </comps.Panel>
+        <MessagePanel symptomReport={symptomReport} components={components} />
       </comps.Blocks>
       <comps.Blocks key="bullets" staggerChildren={0.2}>
         <comps.Container float={'right'}>
-          {symptomReport.dangerBullets &&
-            symptomReport.dangerBullets.length > 0 && (
-              <comps.Panel>
-                <comps.Header color={colors.danger}>
-                  <comps.Title>{symptomReport.dangerBulletTitle}</comps.Title>
-                </comps.Header>
-                {symptomReport.dangerBullets.map((bullet) => (
-                  <comps.Conclusion key={bullet.bulletUniqueId}>
-                    <comps.BodyText>{bullet.displayText}</comps.BodyText>
-                  </comps.Conclusion>
-                ))}
-              </comps.Panel>
-            )}
-          {symptomReport.contactBullets &&
-            symptomReport.contactBullets.length > 0 && (
-              <comps.Panel>
-                <comps.Header color={colors.moderate}>
-                  <comps.Title>{symptomReport.contactBulletTitle}</comps.Title>
-                </comps.Header>
-                {symptomReport.contactBullets.map((bullet) => (
-                  <comps.Conclusion key={bullet.bulletUniqueId}>
-                    <comps.BodyText>{bullet.displayText}</comps.BodyText>
-                  </comps.Conclusion>
-                ))}
-              </comps.Panel>
-            )}
+          <BulletsPanel
+            bullets={dangerBullets}
+            title={dangerBulletTitle}
+            headerColor={colors.danger}
+            components={comps}
+          />
+          <BulletsPanel
+            bullets={contactBullets}
+            title={contactBulletTitle}
+            headerColor={colors.moderate}
+            components={comps}
+          />
         </comps.Container>
         <comps.Container key="concs">
-          {symptomReport.reasonConclusions &&
-            symptomReport.reasonConclusions.length > 0 && (
-              <comps.Panel>
-                <comps.Header color={colors.brand100}>
-                  <comps.Title>
-                    {symptomReport.reasonConclusionTitle}
-                  </comps.Title>
-                </comps.Header>
-                {symptomReport.reasonConclusions.map((conclusion) => (
-                  <comps.Conclusion key={conclusion.assetId}>
-                    <comps.ConclusionTitle>
-                      {conclusion.displayText}
-                    </comps.ConclusionTitle>
-                    <comps.Info
-                      onClick={actions.showExplanation}
-                      explanation={conclusion.explanation}
-                    />
-                    <comps.BodyText>{conclusion.truncated}</comps.BodyText>
-                  </comps.Conclusion>
-                ))}
-              </comps.Panel>
-            )}
-          {symptomReport.otherConclusions &&
-            symptomReport.otherConclusions.length > 0 && (
-              <comps.Panel>
-                <comps.Header color={colors.brand100}>
-                  <comps.Title>
-                    {symptomReport.otherConclusionTitle}
-                  </comps.Title>
-                </comps.Header>
-                {symptomReport.otherConclusions.map((conclusion) => (
-                  <comps.Conclusion key={conclusion.assetId}>
-                    <comps.ConclusionTitle>
-                      {conclusion.displayText}
-                    </comps.ConclusionTitle>
-                    <comps.Info
-                      onClick={actions.showExplanation}
-                      explanation={conclusion.explanation}
-                    />
-                  </comps.Conclusion>
-                ))}
-              </comps.Panel>
-            )}
-          {symptomReport.informationConclusions &&
-            symptomReport.informationConclusions.length > 0 && (
-              <comps.Panel>
-                <comps.Header color={colors.brand100}>
-                  <comps.Title>
-                    {symptomReport.informationConclusionTitle}
-                  </comps.Title>
-                </comps.Header>
-                {symptomReport.informationConclusions.map((conclusion) => (
-                  <comps.Conclusion key={conclusion.assetId}>
-                    <comps.ConclusionTitle>
-                      {conclusion.displayText}
-                    </comps.ConclusionTitle>
-                    <comps.Info
-                      onClick={actions.showExplanation}
-                      explanation={conclusion.explanation}
-                    />
-                  </comps.Conclusion>
-                ))}
-              </comps.Panel>
-            )}
+          <ConclusionsPanel
+            showTruncated
+            conclusions={reasonConclusions}
+            title={reasonConclusionTitle}
+            headerColor={colors.brand100}
+            actions={actions}
+            components={comps}
+          />
+          <ConclusionsPanel
+            conclusions={otherConclusions}
+            title={otherConclusionTitle}
+            headerColor={colors.brand100}
+            actions={actions}
+            components={comps}
+          />
+          <ConclusionsPanel
+            conclusions={informationConclusions}
+            title={informationConclusionTitle}
+            headerColor={colors.brand100}
+            actions={actions}
+            components={comps}
+          />
         </comps.Container>
         <comps.Container key="reasons">
-          {symptomReport.reasonBullets &&
-            symptomReport.reasonBullets.length > 0 && (
-              <comps.Panel>
-                <comps.Header color={colors.lightBlue100}>
-                  <comps.Title>{symptomReport.reasonBulletTitle}</comps.Title>
-                </comps.Header>
-                {symptomReport.reasonBullets.map((bullet, i) => (
-                  <comps.Conclusion key={bullet.bulletUniqueId}>
-                    <comps.BodyText bold={i === 0}>
-                      {bullet.displayText}
-                    </comps.BodyText>
-                  </comps.Conclusion>
-                ))}
-              </comps.Panel>
-            )}
+          <BulletsPanel
+            bullets={reasonBullets}
+            title={reasonBulletTitle}
+            headerColor={colors.lightBlue100}
+            firstItemBold
+            components={comps}
+          />
         </comps.Container>
       </comps.Blocks>
     </>
