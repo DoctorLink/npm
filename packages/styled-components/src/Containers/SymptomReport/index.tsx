@@ -12,7 +12,7 @@ import {
 import { RootState } from '@doctorlink/traversal-core';
 
 export const SymptomReportConnected: React.FC<{
-  traversalId: any;
+  traversalId: string;
   chat?: boolean;
 }> = ({ traversalId, chat = false }) => {
   const getAction = chat

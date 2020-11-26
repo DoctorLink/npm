@@ -8,6 +8,7 @@ export interface Conclusion {
   subCategory: string;
   explanation: string;
   moreDetail: string;
+  truncated: string;
   bullets: ConclusionBullet[];
 }
 
@@ -22,8 +23,33 @@ export interface ConclusionBullet {
   displayText: string;
 }
 
+export interface SymptomReportModel {
+  highestPriority: number;
+  symptomConclusions: Conclusion[];
+  reasonConclusionTitle: string;
+  reasonConclusions: Conclusion[];
+  otherConclusionTitle: string;
+  otherConclusions: Conclusion[];
+  informationConclusionTitle: string;
+  informationConclusions: Conclusion[];
+  contactBulletTitle: string;
+  contactBullets: ConclusionBullet[];
+  dangerBulletTitle: string;
+  dangerBullets: ConclusionBullet[];
+  reasonBulletTitle: string;
+  reasonBullets: ConclusionBullet[];
+  mainBullets: ConclusionBullet[];
+  reasonCategory: string;
+  reasonSubCat1: string;
+  reasonDisposition: string;
+  messageTitle: string;
+  messageLevel: number;
+  messageDescription: string;
+  reasonTimeInMinutes: number;
+}
+
 export interface ConclusionModel {
   traversalId?: string;
   conclusions?: Array<Conclusion>;
-  symptomReport?: any;
+  symptomReport?: SymptomReportModel;
 }

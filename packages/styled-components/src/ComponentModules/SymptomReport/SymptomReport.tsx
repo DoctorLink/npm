@@ -1,14 +1,17 @@
+import { SymptomReportModel } from '@doctorlink/traversal-core';
 import React from 'react';
 import colors from '../../Theme/base/colors';
 import {
   defaultSymptomReportActions,
   defaultSymptomReportComponents,
 } from './defaults';
+import { SymptomReportCallbacks } from './SymptomReportCallbacks';
+import { SymptomReportComponents } from './SymptomReportComponents';
 
 export const SymptomReport: React.FC<{
-  symptomReport: any;
-  actions?: any;
-  components?: any;
+  symptomReport: SymptomReportModel;
+  actions?: SymptomReportCallbacks;
+  components?: SymptomReportComponents;
 }> = ({
   symptomReport,
   actions = defaultSymptomReportActions,
@@ -30,7 +33,7 @@ export const SymptomReport: React.FC<{
   return (
     <>
       <comps.Blocks key="panel" staggerChildren={0.2} style={{ margin: 0 }}>
-        <comps.Panel fullWidth={true} key="header" id="Traversal">
+        <comps.Panel key="header" id="Traversal">
           <comps.Header color={level()}>
             <comps.Icon state={symptomReport.messageLevel} />
             <comps.Title>{symptomReport.messageTitle}</comps.Title>
@@ -52,8 +55,8 @@ export const SymptomReport: React.FC<{
                 <comps.Header color={colors.danger}>
                   <comps.Title>{symptomReport.dangerBulletTitle}</comps.Title>
                 </comps.Header>
-                {symptomReport.dangerBullets.map((bullet: any, i: any) => (
-                  <comps.Conclusion key={i}>
+                {symptomReport.dangerBullets.map((bullet) => (
+                  <comps.Conclusion key={bullet.bulletUniqueId}>
                     <comps.BodyText>{bullet.displayText}</comps.BodyText>
                   </comps.Conclusion>
                 ))}
@@ -65,8 +68,8 @@ export const SymptomReport: React.FC<{
                 <comps.Header color={colors.moderate}>
                   <comps.Title>{symptomReport.contactBulletTitle}</comps.Title>
                 </comps.Header>
-                {symptomReport.contactBullets.map((bullet: any, i: any) => (
-                  <comps.Conclusion key={i}>
+                {symptomReport.contactBullets.map((bullet) => (
+                  <comps.Conclusion key={bullet.bulletUniqueId}>
                     <comps.BodyText>{bullet.displayText}</comps.BodyText>
                   </comps.Conclusion>
                 ))}
@@ -82,20 +85,18 @@ export const SymptomReport: React.FC<{
                     {symptomReport.reasonConclusionTitle}
                   </comps.Title>
                 </comps.Header>
-                {symptomReport.reasonConclusions.map(
-                  (conclusion: any, i: any) => (
-                    <comps.Conclusion key={i}>
-                      <comps.ConclusionTitle>
-                        {conclusion.displayText}
-                      </comps.ConclusionTitle>
-                      <comps.Info
-                        onClick={actions.showExplanation}
-                        explanation={conclusion.explanation}
-                      />
-                      <comps.BodyText>{conclusion.truncated}</comps.BodyText>
-                    </comps.Conclusion>
-                  )
-                )}
+                {symptomReport.reasonConclusions.map((conclusion) => (
+                  <comps.Conclusion key={conclusion.assetId}>
+                    <comps.ConclusionTitle>
+                      {conclusion.displayText}
+                    </comps.ConclusionTitle>
+                    <comps.Info
+                      onClick={actions.showExplanation}
+                      explanation={conclusion.explanation}
+                    />
+                    <comps.BodyText>{conclusion.truncated}</comps.BodyText>
+                  </comps.Conclusion>
+                ))}
               </comps.Panel>
             )}
           {symptomReport.otherConclusions &&
@@ -106,19 +107,17 @@ export const SymptomReport: React.FC<{
                     {symptomReport.otherConclusionTitle}
                   </comps.Title>
                 </comps.Header>
-                {symptomReport.otherConclusions.map(
-                  (conclusion: any, i: any) => (
-                    <comps.Conclusion key={i}>
-                      <comps.ConclusionTitle>
-                        {conclusion.displayText}
-                      </comps.ConclusionTitle>
-                      <comps.Info
-                        onClick={actions.showExplanation}
-                        explanation={conclusion.explanation}
-                      />
-                    </comps.Conclusion>
-                  )
-                )}
+                {symptomReport.otherConclusions.map((conclusion) => (
+                  <comps.Conclusion key={conclusion.assetId}>
+                    <comps.ConclusionTitle>
+                      {conclusion.displayText}
+                    </comps.ConclusionTitle>
+                    <comps.Info
+                      onClick={actions.showExplanation}
+                      explanation={conclusion.explanation}
+                    />
+                  </comps.Conclusion>
+                ))}
               </comps.Panel>
             )}
           {symptomReport.informationConclusions &&
@@ -129,19 +128,17 @@ export const SymptomReport: React.FC<{
                     {symptomReport.informationConclusionTitle}
                   </comps.Title>
                 </comps.Header>
-                {symptomReport.informationConclusions.map(
-                  (conclusion: any, i: any) => (
-                    <comps.Conclusion key={i}>
-                      <comps.ConclusionTitle>
-                        {conclusion.displayText}
-                      </comps.ConclusionTitle>
-                      <comps.Info
-                        onClick={actions.showExplanation}
-                        explanation={conclusion.explanation}
-                      />
-                    </comps.Conclusion>
-                  )
-                )}
+                {symptomReport.informationConclusions.map((conclusion) => (
+                  <comps.Conclusion key={conclusion.assetId}>
+                    <comps.ConclusionTitle>
+                      {conclusion.displayText}
+                    </comps.ConclusionTitle>
+                    <comps.Info
+                      onClick={actions.showExplanation}
+                      explanation={conclusion.explanation}
+                    />
+                  </comps.Conclusion>
+                ))}
               </comps.Panel>
             )}
         </comps.Container>
@@ -152,8 +149,8 @@ export const SymptomReport: React.FC<{
                 <comps.Header color={colors.lightBlue100}>
                   <comps.Title>{symptomReport.reasonBulletTitle}</comps.Title>
                 </comps.Header>
-                {symptomReport.reasonBullets.map((bullet: any, i: any) => (
-                  <comps.Conclusion key={i}>
+                {symptomReport.reasonBullets.map((bullet, i) => (
+                  <comps.Conclusion key={bullet.bulletUniqueId}>
                     <comps.BodyText bold={i === 0}>
                       {bullet.displayText}
                     </comps.BodyText>

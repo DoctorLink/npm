@@ -1,1 +1,1 @@
-export { default } from './PanelContainer';
+export { default, PanelContainerProps } from './PanelContainer';

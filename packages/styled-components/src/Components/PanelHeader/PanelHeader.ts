@@ -1,7 +1,11 @@
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
-const PanelHeader = styled.div`
+export interface PanelHeaderProps {
+  color?: string;
+}
+
+const PanelHeader = styled.div<PanelHeaderProps>`
   box-sizing: border-box;
   display: flex;
   align-items: center;

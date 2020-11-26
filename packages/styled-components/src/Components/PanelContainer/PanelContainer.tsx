@@ -1,9 +1,9 @@
 import React from 'react';
 import styled from 'styled-components';
-import { motion } from 'framer-motion';
+import { HTMLMotionProps, motion } from 'framer-motion';
 
-export interface PanelContainerProps {
-  float: string;
+export interface PanelContainerProps extends HTMLMotionProps<'div'> {
+  float?: string;
 }
 
 const Styled = styled(motion.div)<PanelContainerProps>`
@@ -26,7 +26,10 @@ const variants = {
   hide: { opacity: 0, y: '250px' },
 };
 
-export const Panel: React.FC<any> = ({ children, ...props }) => (
+export const Panel: React.FC<PanelContainerProps> = ({
+  children,
+  ...props
+}) => (
   <Styled variants={variants} {...props}>
     {children}
   </Styled>
