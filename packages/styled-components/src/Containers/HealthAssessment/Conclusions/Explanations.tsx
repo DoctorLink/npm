@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import styled from 'styled-components';
 import {
   AccordionHeader,
   AccordionBody,
@@ -9,6 +10,10 @@ import {
   PanelConclusion,
 } from '../../../Components';
 import { Conclusion } from '@doctorlink/traversal-core';
+
+const StyledBody = styled.div`
+  padding-top: 1.5rem;
+`;
 
 const Explanation: React.FC<{
   conclusion: Conclusion;
@@ -23,7 +28,9 @@ const Explanation: React.FC<{
         </HealthReportExplanationBody>
       </AccordionHeader>
       <AccordionBody open={open}>
-        <HealthReportExplanation conclusion={conclusion} />
+        <StyledBody>
+          <HealthReportExplanation conclusion={conclusion} />
+        </StyledBody>
       </AccordionBody>
     </PanelConclusion>
   );

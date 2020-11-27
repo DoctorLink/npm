@@ -14,7 +14,7 @@ import { SymptomReportComponents } from './SymptomReportComponents';
 export const SymptomReport: React.FC<{
   symptomReport: SymptomReportModel;
   actions?: SymptomReportCallbacks;
-  components?: SymptomReportComponents;
+  components?: Partial<SymptomReportComponents>;
 }> = ({
   symptomReport,
   actions = defaultSymptomReportActions,
@@ -38,59 +38,53 @@ export const SymptomReport: React.FC<{
   } = symptomReport;
 
   return (
-    <>
-      <comps.Blocks key="panel" staggerChildren={0.2} style={{ margin: 0 }}>
-        <MessagePanel symptomReport={symptomReport} components={components} />
-      </comps.Blocks>
-      <comps.Blocks key="bullets" staggerChildren={0.2}>
-        <comps.Container float={'right'}>
-          <BulletsPanel
-            bullets={dangerBullets}
-            title={dangerBulletTitle}
-            headerColor={colors.danger}
-            components={comps}
-          />
-          <BulletsPanel
-            bullets={contactBullets}
-            title={contactBulletTitle}
-            headerColor={colors.moderate}
-            components={comps}
-          />
-        </comps.Container>
-        <comps.Container key="concs">
-          <ConclusionsPanel
-            showTruncated
-            conclusions={reasonConclusions}
-            title={reasonConclusionTitle}
-            headerColor={colors.brand100}
-            actions={actions}
-            components={comps}
-          />
-          <ConclusionsPanel
-            conclusions={otherConclusions}
-            title={otherConclusionTitle}
-            headerColor={colors.brand100}
-            actions={actions}
-            components={comps}
-          />
-          <ConclusionsPanel
-            conclusions={informationConclusions}
-            title={informationConclusionTitle}
-            headerColor={colors.brand100}
-            actions={actions}
-            components={comps}
-          />
-        </comps.Container>
-        <comps.Container key="reasons">
-          <BulletsPanel
-            bullets={reasonBullets}
-            title={reasonBulletTitle}
-            headerColor={colors.lightBlue100}
-            firstItemBold
-            components={comps}
-          />
-        </comps.Container>
-      </comps.Blocks>
-    </>
+    <comps.Blocks key="panel" staggerChildren={0.2} style={{ margin: 0 }}>
+      <MessagePanel symptomReport={symptomReport} components={comps} />
+      <ConclusionsPanel
+        showTruncated
+        conclusions={reasonConclusions}
+        title={reasonConclusionTitle}
+        headerColor={colors.brand100}
+        actions={actions}
+        components={comps}
+      />
+      <ConclusionsPanel
+        conclusions={otherConclusions}
+        title={otherConclusionTitle}
+        headerColor={colors.brand100}
+        actions={actions}
+        components={comps}
+      />
+      <BulletsPanel
+        collapse
+        bullets={dangerBullets}
+        title={dangerBulletTitle}
+        headerColor={colors.danger}
+        components={comps}
+      />
+      <BulletsPanel
+        collapse
+        bullets={contactBullets}
+        title={contactBulletTitle}
+        headerColor={colors.moderate}
+        components={comps}
+      />
+      <BulletsPanel
+        collapse
+        bullets={reasonBullets}
+        title={reasonBulletTitle}
+        headerColor={colors.lightBlue100}
+        firstItemBold
+        components={comps}
+      />
+      <ConclusionsPanel
+        collapse
+        conclusions={informationConclusions}
+        title={informationConclusionTitle}
+        headerColor={colors.brand100}
+        actions={actions}
+        components={comps}
+      />
+    </comps.Blocks>
   );
 };

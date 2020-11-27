@@ -7,6 +7,7 @@ const StyledHeader = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
 `;
 
 interface AccordionHeaderProps {
@@ -21,7 +22,7 @@ const AccordionHeader: React.FC<AccordionHeaderProps> = ({
 }) => (
   <StyledHeader onClick={toggleOpen}>
     {children}
-    <OpenIcon open={open} />
+    <OpenIcon open={open} onClick={toggleOpen} />
   </StyledHeader>
 );
 

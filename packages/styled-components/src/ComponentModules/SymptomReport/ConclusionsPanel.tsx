@@ -1,5 +1,7 @@
 import { Conclusion } from '@doctorlink/traversal-core';
 import React from 'react';
+import { AccordionBody, AccordionHeader } from '../../Components';
+import { useToggle } from '../../Hooks';
 import { SymptomReportCallbacks } from './SymptomReportCallbacks';
 import { SymptomReportComponents } from './SymptomReportComponents';
 
@@ -8,6 +10,7 @@ interface ConclusionPanelProps {
   conclusions: Conclusion[];
   headerColor: string;
   showTruncated?: boolean;
+  collapse?: boolean;
   actions: SymptomReportCallbacks;
   components: SymptomReportComponents;
 }
@@ -17,9 +20,12 @@ export const ConclusionsPanel: React.FC<ConclusionPanelProps> = ({
   title,
   headerColor,
   showTruncated,
+  collapse,
   actions,
   components,
 }) => {
+  const [open, toggleOpen] = useToggle(!collapse);
+
   if (!conclusions?.length) {
     return null;
   }
@@ -37,18 +43,22 @@ export const ConclusionsPanel: React.FC<ConclusionPanelProps> = ({
   return (
     <Panel>
       <Header color={headerColor}>
-        <Title>{title}</Title>
+        <AccordionHeader open={open} toggleOpen={toggleOpen}>
+          <Title>{title}</Title>
+        </AccordionHeader>
       </Header>
-      {conclusions.map((conclusion) => (
-        <Conclusion key={conclusion.assetId}>
-          <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
-          <Info
-            onClick={actions.showExplanation}
-            explanation={conclusion.explanation}
-          />
-          {showTruncated && <BodyText>{conclusion.truncated}</BodyText>}
-        </Conclusion>
-      ))}
+      <AccordionBody open={open}>
+        {conclusions.map((conclusion) => (
+          <Conclusion key={conclusion.assetId}>
+            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
+            <Info
+              onClick={actions.showExplanation}
+              explanation={conclusion.explanation}
+            />
+            {showTruncated && <BodyText>{conclusion.truncated}</BodyText>}
+          </Conclusion>
+        ))}
+      </AccordionBody>
     </Panel>
   );
 };

@@ -1,14 +1,28 @@
 import { ConclusionBullet } from '@doctorlink/traversal-core';
 import React from 'react';
+import { AccordionBody, AccordionHeader } from '../../Components';
+import { useToggle } from '../../Hooks';
 import { SymptomReportComponents } from './SymptomReportComponents';
 
-export const BulletsPanel: React.FC<{
+interface BulletsPanelProps {
   bullets: ConclusionBullet[];
   title: string;
   headerColor: string;
   firstItemBold?: boolean;
+  collapse?: boolean;
   components: SymptomReportComponents;
-}> = ({ bullets, title, headerColor, firstItemBold, components }) => {
+}
+
+export const BulletsPanel: React.FC<BulletsPanelProps> = ({
+  bullets,
+  title,
+  headerColor,
+  firstItemBold,
+  collapse,
+  components,
+}) => {
+  const [open, toggleOpen] = useToggle(!collapse);
+
   if (!bullets?.length) {
     return null;
   }
@@ -18,15 +32,19 @@ export const BulletsPanel: React.FC<{
   return (
     <Panel>
       <Header color={headerColor}>
-        <Title>{title}</Title>
+        <AccordionHeader open={open} toggleOpen={toggleOpen}>
+          <Title>{title}</Title>
+        </AccordionHeader>
       </Header>
-      {bullets.map((bullet, i) => (
-        <Conclusion key={bullet.bulletUniqueId}>
-          <BodyText bold={firstItemBold && i === 0}>
-            {bullet.displayText}
-          </BodyText>
-        </Conclusion>
-      ))}
+      <AccordionBody open={open}>
+        {bullets.map((bullet, i) => (
+          <Conclusion key={bullet.bulletUniqueId}>
+            <BodyText bold={firstItemBold && i === 0}>
+              {bullet.displayText}
+            </BodyText>
+          </Conclusion>
+        ))}
+      </AccordionBody>
     </Panel>
   );
 };
