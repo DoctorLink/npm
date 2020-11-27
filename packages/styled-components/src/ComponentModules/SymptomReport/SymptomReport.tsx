@@ -41,7 +41,6 @@ export const SymptomReport: React.FC<{
     <comps.Blocks key="panel" staggerChildren={0.2} style={{ margin: 0 }}>
       <MessagePanel symptomReport={symptomReport} components={comps} />
       <ConclusionsPanel
-        showTruncated
         conclusions={reasonConclusions}
         title={reasonConclusionTitle}
         headerColor={colors.brand100}

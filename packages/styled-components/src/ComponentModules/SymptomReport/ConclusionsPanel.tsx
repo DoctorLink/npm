@@ -9,7 +9,6 @@ interface ConclusionPanelProps {
   title: string;
   conclusions: Conclusion[];
   headerColor: string;
-  showTruncated?: boolean;
   collapse?: boolean;
   actions: SymptomReportCallbacks;
   components: SymptomReportComponents;
@@ -19,7 +18,6 @@ export const ConclusionsPanel: React.FC<ConclusionPanelProps> = ({
   conclusions,
   title,
   headerColor,
-  showTruncated,
   collapse,
   actions,
   components,
@@ -37,7 +35,6 @@ export const ConclusionsPanel: React.FC<ConclusionPanelProps> = ({
     Conclusion,
     ConclusionTitle,
     Info,
-    BodyText,
   } = components;
 
   return (
@@ -55,7 +52,6 @@ export const ConclusionsPanel: React.FC<ConclusionPanelProps> = ({
               onClick={actions.showExplanation}
               explanation={conclusion.explanation}
             />
-            {showTruncated && <BodyText>{conclusion.truncated}</BodyText>}
           </Conclusion>
         ))}
       </AccordionBody>
