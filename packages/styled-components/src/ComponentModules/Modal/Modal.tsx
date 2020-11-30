@@ -8,7 +8,7 @@ import { ModalComponents } from './ModalComponents';
 export const Modal: React.FC<{
   modal: ModalModel | null;
   actions?: ModalCallbacks;
-  components?: ModalComponents;
+  components?: Partial<ModalComponents>;
 }> = ({
   modal,
   children,
