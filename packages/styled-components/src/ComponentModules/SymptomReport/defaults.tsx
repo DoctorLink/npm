@@ -9,6 +9,7 @@ import {
   PanelConclusion as Conclusion,
   PanelBodyText as BodyText,
   PanelConclusionTitle as ConclusionTitle,
+  SymptomReportMessage as Message,
 } from '../../Components';
 import { SymptomReportCallbacks } from './SymptomReportCallbacks';
 import { Icon } from './Icon';
@@ -26,6 +27,7 @@ export const defaultSymptomReportComponents: SymptomReportComponents = {
   Conclusion,
   ConclusionTitle,
   Info,
+  Message,
 };
 
 export const defaultSymptomReportActions: SymptomReportCallbacks = {

@@ -6,6 +6,7 @@ import { PanelBodyTextProps } from '../../Components/PanelBodyText';
 import { PanelContainerProps } from '../../Components/PanelContainer';
 import { PanelHeaderProps } from '../../Components/PanelHeader';
 import { PanelTitleProps } from '../../Components/PanelTitle';
+import { SymptomReportMessageProps } from '../../Components/SymptomReportMessage';
 import { IconProps } from './Icon';
 
 export interface SymptomReportComponents {
@@ -20,4 +21,5 @@ export interface SymptomReportComponents {
   Conclusion: ComponentType;
   ConclusionTitle: ComponentType;
   Info: ComponentType<InfoIconProps>;
+  Message: ComponentType<SymptomReportMessageProps>;
 }

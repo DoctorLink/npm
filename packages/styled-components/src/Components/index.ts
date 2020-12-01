@@ -88,3 +88,4 @@ export { default as CompareNumbers } from './ComparisonReport/CompareNumbers';
 export { default as SummaryDivider } from './SummaryDivider';
 
 export * from './HealthReportExplanation';
+export * from './SymptomReportMessage';

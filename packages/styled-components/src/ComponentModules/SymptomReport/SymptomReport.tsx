@@ -1,6 +1,5 @@
 import { SymptomReportModel } from '@doctorlink/traversal-core';
 import React from 'react';
-import colors from '../../Theme/base/colors';
 import { BulletsPanel } from './BulletsPanel';
 import { ConclusionsPanel } from './ConclusionsPanel';
 import {
@@ -10,6 +9,7 @@ import {
 import { MessagePanel } from './MessagePanel';
 import { SymptomReportCallbacks } from './SymptomReportCallbacks';
 import { SymptomReportComponents } from './SymptomReportComponents';
+import { useTheme } from 'styled-components';
 
 export const SymptomReport: React.FC<{
   symptomReport: SymptomReportModel;
@@ -21,6 +21,7 @@ export const SymptomReport: React.FC<{
   components = defaultSymptomReportComponents,
 }) => {
   const comps = { ...defaultSymptomReportComponents, ...components };
+  const theme = useTheme();
 
   const {
     dangerBullets,
@@ -36,6 +37,7 @@ export const SymptomReport: React.FC<{
     reasonBullets,
     reasonBulletTitle,
   } = symptomReport;
+  const { panelHeaders } = theme.symptomReport;
 
   return (
     <comps.Blocks key="panel" staggerChildren={0.2} style={{ margin: 0 }}>
@@ -43,14 +45,14 @@ export const SymptomReport: React.FC<{
       <ConclusionsPanel
         conclusions={reasonConclusions}
         title={reasonConclusionTitle}
-        headerColor={colors.brand100}
+        headerColor={panelHeaders.reasonConclusions}
         actions={actions}
         components={comps}
       />
       <ConclusionsPanel
         conclusions={otherConclusions}
         title={otherConclusionTitle}
-        headerColor={colors.brand100}
+        headerColor={panelHeaders.otherConclusions}
         actions={actions}
         components={comps}
       />
@@ -58,21 +60,21 @@ export const SymptomReport: React.FC<{
         collapse
         bullets={dangerBullets}
         title={dangerBulletTitle}
-        headerColor={colors.danger}
+        headerColor={panelHeaders.dangerBullets}
         components={comps}
       />
       <BulletsPanel
         collapse
         bullets={contactBullets}
         title={contactBulletTitle}
-        headerColor={colors.moderate}
+        headerColor={panelHeaders.contactBullets}
         components={comps}
       />
       <BulletsPanel
         collapse
         bullets={reasonBullets}
         title={reasonBulletTitle}
-        headerColor={colors.lightBlue100}
+        headerColor={panelHeaders.reasonBullets}
         firstItemBold
         components={comps}
       />
@@ -80,7 +82,7 @@ export const SymptomReport: React.FC<{
         collapse
         conclusions={informationConclusions}
         title={informationConclusionTitle}
-        headerColor={colors.brand100}
+        headerColor={panelHeaders.informationConclusions}
         actions={actions}
         components={comps}
       />

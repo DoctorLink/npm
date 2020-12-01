@@ -43,6 +43,7 @@ import comparisonreporttitle, {
 } from './comparisonreporttitle';
 import summarydivider, { SummaryDividerTheme } from './summarydivider';
 import toggleassessment, { ToggleAssessmentTheme } from './toggleassessment';
+import symptomReport, { SymptomReportTheme } from './symptomReport';
 
 export interface ComponentTheme {
   algoname: AlgoNameTheme;
@@ -73,6 +74,7 @@ export interface ComponentTheme {
   radio: RadioTheme;
   summary: SummaryTheme;
   summaryDivider: SummaryDividerTheme;
+  symptomReport: SymptomReportTheme;
   tableanswercell: TableAnswerCellTheme;
   tableheadercell: TableHeaderCellTheme;
   tablerow: TableRowTheme;
@@ -110,6 +112,7 @@ const componentTheme = (baseTheme: BaseTheme): ComponentTheme => ({
   radio: radio(baseTheme),
   summary: summary(baseTheme),
   summaryDivider: summarydivider(baseTheme),
+  symptomReport: symptomReport(baseTheme),
   tableanswercell: tableanswercell(baseTheme),
   tableheadercell: tableheadercell(baseTheme),
   tablerow: tablerow(baseTheme),
