@@ -1,7 +1,6 @@
 import { Conclusion } from '@doctorlink/traversal-core';
 import React from 'react';
-import { AccordionBody, AccordionHeader } from '../../Components';
-import { useToggle } from '../../Hooks';
+import { CollapsiblePanel } from './CollapsiblePanel';
 import { SymptomReportCallbacks } from './SymptomReportCallbacks';
 import { SymptomReportComponents } from './SymptomReportComponents';
 
@@ -22,39 +21,29 @@ export const ConclusionsPanel: React.FC<ConclusionPanelProps> = ({
   actions,
   components,
 }) => {
-  const [open, toggleOpen] = useToggle(!collapse);
-
   if (!conclusions?.length) {
     return null;
   }
 
-  const {
-    Panel,
-    Header,
-    Title,
-    Conclusion,
-    ConclusionTitle,
-    Info,
-  } = components;
-
+  const { Conclusion, BodyText, Info } = components;
   return (
-    <Panel>
-      <Header color={headerColor}>
-        <AccordionHeader open={open} toggleOpen={toggleOpen}>
-          <Title>{title}</Title>
-        </AccordionHeader>
-      </Header>
-      <AccordionBody open={open}>
-        {conclusions.map((conclusion) => (
-          <Conclusion key={conclusion.assetId}>
-            <ConclusionTitle>{conclusion.displayText}</ConclusionTitle>
+    <CollapsiblePanel
+      title={title}
+      headerColor={headerColor}
+      collapse={collapse}
+      components={components}
+    >
+      {conclusions.map((conclusion) => (
+        <Conclusion key={conclusion.assetId}>
+          <BodyText bullet="default">
+            {conclusion.displayText}
             <Info
               onClick={actions.showExplanation}
               explanation={conclusion.explanation}
             />
-          </Conclusion>
-        ))}
-      </AccordionBody>
-    </Panel>
+          </BodyText>
+        </Conclusion>
+      ))}
+    </CollapsiblePanel>
   );
 };

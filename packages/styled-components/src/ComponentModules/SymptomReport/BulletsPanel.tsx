@@ -1,7 +1,6 @@
 import { ConclusionBullet } from '@doctorlink/traversal-core';
 import React from 'react';
-import { AccordionBody, AccordionHeader } from '../../Components';
-import { useToggle } from '../../Hooks';
+import { CollapsiblePanel } from './CollapsiblePanel';
 import { SymptomReportComponents } from './SymptomReportComponents';
 
 interface BulletsPanelProps {
@@ -21,30 +20,34 @@ export const BulletsPanel: React.FC<BulletsPanelProps> = ({
   collapse,
   components,
 }) => {
-  const [open, toggleOpen] = useToggle(!collapse);
-
   if (!bullets?.length) {
     return null;
   }
 
-  const { Panel, Header, Title, Conclusion, BodyText } = components;
+  const { Conclusion, BodyText } = components;
 
   return (
-    <Panel>
-      <Header color={headerColor}>
-        <AccordionHeader open={open} toggleOpen={toggleOpen}>
-          <Title>{title}</Title>
-        </AccordionHeader>
-      </Header>
-      <AccordionBody open={open}>
-        {bullets.map((bullet, i) => (
+    <CollapsiblePanel
+      title={title}
+      headerColor={headerColor}
+      collapse={collapse}
+      components={components}
+    >
+      {bullets.map((bullet, i) => {
+        const bold = firstItemBold && i === 0;
+        const bulletStyle = bold
+          ? undefined
+          : bullet.category2.startsWith('Alert: Danger Signs')
+          ? 'warning'
+          : 'default';
+        return (
           <Conclusion key={bullet.bulletUniqueId}>
-            <BodyText bold={firstItemBold && i === 0}>
+            <BodyText bullet={bulletStyle} bold={bold}>
               {bullet.displayText}
             </BodyText>
           </Conclusion>
-        ))}
-      </AccordionBody>
-    </Panel>
+        );
+      })}
+    </CollapsiblePanel>
   );
 };

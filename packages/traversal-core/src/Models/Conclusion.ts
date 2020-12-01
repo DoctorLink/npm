@@ -20,7 +20,10 @@ export interface NumberConclusion extends Conclusion {
 export interface ConclusionBullet {
   bulletId: number;
   bulletUniqueId: number;
+  conclusionId: number;
   displayText: string;
+  priority: number;
+  category2: string;
 }
 
 export interface SymptomReportModel {
