@@ -11,7 +11,7 @@ export const PanelBodyText = styled.div<PanelBodyTextProps>`
   margin: 0;
   display: block;
   color: ${(p) =>
-    p.contrastText ? p.theme.colors.white : 'rgba(0, 0, 0, 0.87)'};
+    p.contrastText ? p.theme.colors.white : p.theme.panelbodytext.color};
   font-size: ${(p) => p.theme.panelbodytext.fontSize}px;
   font-family: ${(p) => p.theme.panelbodytext.fontFamily};
   line-height: ${(p) => p.theme.panelbodytext.lineHeight}px;

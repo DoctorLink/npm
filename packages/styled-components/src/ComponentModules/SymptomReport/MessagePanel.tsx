@@ -12,9 +12,8 @@ export const MessagePanel: React.FC<{
   return (
     <Message level={messageLevel}>
       <Content>
-        <Title>{messageTitle}</Title>
+        <Title color="inherit">{messageTitle}</Title>
         <BodyText
-          contrastText
           dangerouslySetInnerHTML={{
             __html: messageDescription,
           }}

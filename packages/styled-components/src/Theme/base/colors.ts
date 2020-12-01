@@ -65,7 +65,7 @@ const colors: ColorsTheme = {
   green200: '#24a31b',
   greenyellow: '#b6ef17',
   danger: '#e42817',
-  moderate: '#ffa200',
+  moderate: '#ff7a00',
   normal: '#008000',
   chartTurquoise: '#1eddc5',
   chartPink: '#e42dad',

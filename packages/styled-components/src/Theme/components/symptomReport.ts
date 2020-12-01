@@ -3,9 +3,9 @@ import colors from '../base/colors';
 
 export interface SymptomReportTheme {
   message: {
-    backgroundNormal: string;
-    backgroundModerate: string;
-    backgroundDanger: string;
+    colorNormal: string;
+    colorModerate: string;
+    colorDanger: string;
   };
   panelHeaders: {
     textColor: string;
@@ -20,9 +20,9 @@ export interface SymptomReportTheme {
 
 export default (baseTheme: BaseTheme): SymptomReportTheme => ({
   message: {
-    backgroundNormal: baseTheme.colors.normal,
-    backgroundModerate: baseTheme.colors.moderate,
-    backgroundDanger: baseTheme.colors.danger,
+    colorNormal: baseTheme.colors.normal,
+    colorModerate: baseTheme.colors.moderate,
+    colorDanger: baseTheme.colors.danger,
   },
   panelHeaders: {
     textColor: baseTheme.colors.white,
