@@ -7,6 +7,13 @@ export interface SymptomReportTheme {
     colorModerate: string;
     colorDanger: string;
   };
+  messageTitle: {
+    fontSize: number;
+    fontWeight: number;
+    fontFamily: string;
+    lineHeight: number;
+    paddingBottom: number;
+  };
   panelHeaders: {
     textColor: string;
     reasonConclusions: string;
@@ -23,6 +30,13 @@ export default (baseTheme: BaseTheme): SymptomReportTheme => ({
     colorNormal: baseTheme.colors.normal,
     colorModerate: baseTheme.colors.moderate,
     colorDanger: baseTheme.colors.danger,
+  },
+  messageTitle: {
+    fontSize: baseTheme.typography.title.medium.size * 1.2,
+    fontWeight: 400,
+    fontFamily: baseTheme.typography.fontFamily,
+    lineHeight: baseTheme.typography.title.medium.lineHeight * 1.2,
+    paddingBottom: baseTheme.spacing.padding,
   },
   panelHeaders: {
     textColor: baseTheme.colors.white,

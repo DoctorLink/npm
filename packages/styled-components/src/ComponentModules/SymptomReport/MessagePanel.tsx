@@ -1,18 +1,22 @@
 import { SymptomReportModel } from '@doctorlink/traversal-core';
 import React from 'react';
 import { SymptomReportComponents } from './SymptomReportComponents';
+import { useMessageColor } from './useMessageColor';
 
 export const MessagePanel: React.FC<{
   symptomReport: SymptomReportModel;
   components: SymptomReportComponents;
 }> = ({ symptomReport, components }) => {
-  const { Message, Title, Content, BodyText } = components;
+  const { Message, MessageTitle, Content, BodyText, Icon } = components;
   const { messageLevel, messageTitle, messageDescription } = symptomReport;
+  const color = useMessageColor(messageLevel);
 
   return (
-    <Message level={messageLevel}>
+    <Message color={color}>
       <Content>
-        <Title color="inherit">{messageTitle}</Title>
+        <MessageTitle>
+          <Icon state={messageLevel} /> {messageTitle}
+        </MessageTitle>
         <BodyText
           dangerouslySetInnerHTML={{
             __html: messageDescription,

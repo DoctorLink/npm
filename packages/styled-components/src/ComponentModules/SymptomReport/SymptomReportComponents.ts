@@ -22,4 +22,5 @@ export interface SymptomReportComponents {
   ConclusionTitle: ComponentType;
   Info: ComponentType<InfoIconProps>;
   Message: ComponentType<SymptomReportMessageProps>;
+  MessageTitle: ComponentType;
 }

@@ -7,8 +7,7 @@ export interface PanelTitleProps {
 
 const PanelTitle = styled.div<PanelTitleProps>`
   color: ${(p) => p.color || 'white'};
-  font-size: 0.875rem;
-  font-weight: 400;
+  font-weight: ${(p) => p.theme.paneltitle.fontWeight};
   font-size: ${(p) => p.theme.paneltitle.fontSize}px;
   font-family: ${(p) => p.theme.paneltitle.fontFamily};
   line-height: ${(p) => p.theme.paneltitle.lineHeight}px;
