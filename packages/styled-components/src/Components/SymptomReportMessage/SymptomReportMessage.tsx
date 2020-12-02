@@ -13,7 +13,6 @@ const StyledPanel = styled(motion.div)<SymptomReportMessageProps>`
   border: 1px solid #dbdbdb;
   border-radius: 8px;
   border-left: 8px solid ${(p) => p.color};
-  color: ${(p) => p.color};
 `;
 
 const variants = {
