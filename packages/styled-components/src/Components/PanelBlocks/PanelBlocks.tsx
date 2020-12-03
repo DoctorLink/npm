@@ -1,7 +1,11 @@
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, HTMLMotionProps } from 'framer-motion';
 
-export const PanelBlocks: React.FC<any> = ({
+export interface PanelBlocksProps extends HTMLMotionProps<'div'> {
+  staggerChildren?: number;
+}
+
+export const PanelBlocks: React.FC<PanelBlocksProps> = ({
   children,
   staggerChildren = 0,
   ...props

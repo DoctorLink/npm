@@ -1,1 +1,1 @@
-export { default } from './PanelBlocks';
+export { default, PanelBlocksProps } from './PanelBlocks';

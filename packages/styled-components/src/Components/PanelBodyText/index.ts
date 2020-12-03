@@ -1,1 +1,1 @@
-export { default } from './PanelBodyText';
+export { default, PanelBodyTextProps } from './PanelBodyText';

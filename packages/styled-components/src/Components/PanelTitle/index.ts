@@ -1,1 +1,1 @@
-export { default } from './PanelTitle';
+export { default, PanelTitleProps } from './PanelTitle';

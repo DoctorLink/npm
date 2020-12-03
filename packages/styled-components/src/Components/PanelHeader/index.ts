@@ -1,1 +1,1 @@
-export { default } from './PanelHeader';
+export { default, PanelHeaderProps } from './PanelHeader';

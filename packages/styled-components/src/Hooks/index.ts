@@ -5,5 +5,6 @@ export * from './useHRARoutes';
 export * from './usePrevious';
 export * from './useRestrictedList';
 export * from './useRiskSummary';
+export * from './useToggle';
 export * from './useTraversalScroll';
 export * from './useWellness';
