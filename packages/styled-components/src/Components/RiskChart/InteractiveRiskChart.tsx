@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { HealthRisksModel } from '@doctorlink/traversal-core';
 import { InlineDropdown } from '../Dropdown';
 import RiskChart from './RiskChart';
+import { defaultTheme } from '../../Theme';
 
 const AgeOptions = [50, 60, 70, 80, 90, 100, 110];
 
@@ -16,6 +17,10 @@ const FlexBox = styled.div`
   font-weight: 600;
   margin-bottom: ${(p) => p.theme.spacing.padding}px;
 `;
+
+FlexBox.defaultProps = {
+  theme: defaultTheme,
+};
 
 const Right = styled.div`
   padding-right: 1%;
