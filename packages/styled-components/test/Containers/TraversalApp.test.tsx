@@ -12,14 +12,13 @@ import { createTraversalModel } from '../utils';
 const mockFetch: () => Promise<any> = () => Promise.resolve({ data: {} });
 
 const mockService = {
-  // fetch: jest.fn(mockFetch),
   respond: jest.fn(mockFetch),
   previous: jest.fn(mockFetch),
 };
 
 jest.mock('@doctorlink/traversal-core', () => ({
+  ...jest.requireActual('@doctorlink/traversal-core'),
   TraversalsService: class {
-    // fetch = mockService.fetch;
     respond = mockService.respond;
     previous = mockService.previous;
   },
