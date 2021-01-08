@@ -1,13 +1,16 @@
 import React from 'react';
-import { fireEvent, RenderResult } from '@testing-library/react';
+import { fireEvent, screen } from '@testing-library/react';
 import '@testing-library/jest-dom/extend-expect';
 import { traversalRootReducersMapObject } from '@doctorlink/traversal-redux';
 import { renderWithRedux } from './utils';
-import RiskScores from '../src/Containers/HealthAssessment/Risks/RiskScores';
+import { RiskScoresConnected } from '../src/Containers/HealthAssessment/Risks/RiskScores';
 import { combineReducers } from 'redux';
+import {
+  HealthRisksModel,
+  TraversalRootState,
+} from '@doctorlink/traversal-core';
 
-// TODO unskip
-describe.skip('RiskScores component', () => {
+describe('RiskScores component', () => {
   const riskSummary = {
     age: 67,
     risks: [
@@ -18,14 +21,14 @@ describe.skip('RiskScores component', () => {
       { time: 13, name: 'Lung Cancer', current: 0.3, minimum: 0.2 },
       { time: 23, name: 'Lung Cancer', current: 0.4, minimum: 0.3 },
     ],
-  };
+  } as HealthRisksModel;
 
   const state = {
     healthAssessment: {
       riskSummary,
       checkedConclusions: [],
     },
-  };
+  } as TraversalRootState;
 
   // Mock getBoundingClientRect to make UpdateWhenVisible work. The default jsdom implementation returns zero for all properties.
   const defaultGetBoundingClientRect =
@@ -43,19 +46,19 @@ describe.skip('RiskScores component', () => {
 
   const renderComponent = () =>
     renderWithRedux(
-      <RiskScores traversalId="test" />,
+      <RiskScoresConnected traversalId="test" />,
       rootTraversalReducer,
       state
     );
 
-  const getDropdown = (result: RenderResult) =>
-    result
+  const getDropdown = () =>
+    screen
       .getByText(/Your risks before the age of/)
-      .getElementsByTagName('select')[0];
+      .parentElement.getElementsByTagName('select')[0];
 
   test("shows the age options that are greater than the user's age", () => {
-    const result = renderComponent();
-    const options = getDropdown(result).getElementsByTagName('option');
+    renderComponent();
+    const options = getDropdown().getElementsByTagName('option');
     expect(Array.from(options).map((opt) => opt.value)).toEqual([
       '70',
       '80',
@@ -66,29 +69,29 @@ describe.skip('RiskScores component', () => {
   });
 
   test('age defaults to 90', () => {
-    const result = renderComponent();
-    expect(getDropdown(result)).toHaveValue('90');
+    renderComponent();
+    expect(getDropdown()).toHaveValue('90');
   });
 
   test('shows risks for the selected age', () => {
-    const result = renderComponent();
-    expect(result.getByText('Heart Disease').parentElement).toHaveTextContent(
+    renderComponent();
+    expect(screen.getByText('Heart Disease').parentElement).toHaveTextContent(
       'Current: 0.4%, minimum: 0.3%'
     );
-    expect(result.getByText('Lung Cancer').parentElement).toHaveTextContent(
+    expect(screen.getByText('Lung Cancer').parentElement).toHaveTextContent(
       'Current: 0.4%, minimum: 0.3%'
     );
   });
 
   test('changing the selected age updates the risks', () => {
-    const result = renderComponent();
-    const dropdown = getDropdown(result);
+    renderComponent();
+    const dropdown = getDropdown();
     fireEvent.change(dropdown, { target: { value: '70' } });
 
-    expect(result.getByText('Heart Disease').parentElement).toHaveTextContent(
+    expect(screen.getByText('Heart Disease').parentElement).toHaveTextContent(
       'Current: 0.2%, minimum: 0.1%'
     );
-    expect(result.getByText('Lung Cancer').parentElement).toHaveTextContent(
+    expect(screen.getByText('Lung Cancer').parentElement).toHaveTextContent(
       'Current: 0.2%, minimum: 0.1%'
     );
   });

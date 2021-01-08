@@ -7,8 +7,7 @@ import { combineReducers } from 'redux';
 import { renderWithRedux } from './utils';
 import HealthAge from '../src/Containers/HealthAssessment/HealthAge/HealthAge';
 
-// TODO unskip
-describe.skip('HealthAge component', () => {
+describe('HealthAge component', () => {
   const state = {
     healthAssessment: {
       healthAge: {
@@ -50,12 +49,10 @@ describe.skip('HealthAge component', () => {
   test('Renders health age dial with correct ages', () => {
     const result = renderComponent();
 
-    expect(result.getByText(/Your health age is/).textContent).toBe(
-      'Your health age is' // TODO assert correct age
-    );
-    expect(result.getByText(/But you could be/).textContent).toBe(
-      'But you could be up to 5 years younger'
-    );
+    expect(result.getByTitle('Your health age is 35')).toBeInTheDocument();
+    expect(
+      result.getByText('But you could be up to 5 years younger')
+    ).toBeInTheDocument();
   });
 
   test('Renders risk conclusions', () => {
