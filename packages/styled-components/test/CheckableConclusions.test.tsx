@@ -5,7 +5,7 @@ import { traversalRootReducersMapObject } from '@doctorlink/traversal-redux';
 import { combineReducers } from 'redux';
 import { renderWithRedux } from './utils';
 import CheckableConclusions from '../src/Containers/HealthAssessment/Conclusions/CheckableConclusions';
-import { Conclusion } from '@doctorlink/traversal-core';
+import { Conclusion, TraversalRootState } from '@doctorlink/traversal-core';
 
 describe('CheckableConclusions component', () => {
   const conclusions: Array<Partial<Conclusion>> = [
@@ -36,7 +36,7 @@ describe('CheckableConclusions component', () => {
 
   const initialState = {
     healthAssessment: { checkedConclusions: [] },
-  };
+  } as TraversalRootState;
 
   const rootTraversalReducer = combineReducers(traversalRootReducersMapObject);
   const renderComponent = (props: any) =>
