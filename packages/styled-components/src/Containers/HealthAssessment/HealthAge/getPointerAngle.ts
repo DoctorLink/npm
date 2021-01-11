@@ -2,7 +2,7 @@ export function getPointerAngle(
   age: number,
   healthAge: number,
   minHealthAge: number
-) {
+): number {
   const healthAgeDiff = Math.abs(age - healthAge);
   const minimumAgeDiff = age - minHealthAge;
   const maxDiff = Math.max(minimumAgeDiff, healthAgeDiff);
