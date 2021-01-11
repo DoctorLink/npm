@@ -26,6 +26,7 @@ const createAnswer = (
 });
 
 const defaultQuestion: TraversalsResponseQuestion = {
+  algoId: 1001,
   nodeId: 2,
   questionId: 1234,
   displayText: 'Question text',
