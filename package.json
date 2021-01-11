@@ -104,7 +104,6 @@
     "start:redux": "lerna run start --scope @doctorlink/traversal-redux --stream",
     "start:sc": "lerna run start --scope @doctorlink/styled-components --stream",
     "test": "lerna run test --stream",
-    "test:sc": "lerna run test --scope @doctorlink/styled-components --stream",
     "prepare": "npm run bootstrap && npm run build",
     "publish": "lerna publish from-package -y --ignore-scripts --no-git-reset",
     "prelink": "rimraf node_modules/react && rimraf node_modules/react-dom && rimraf node_modules/react-redux && rimraf node_modules/styled-componenets"
