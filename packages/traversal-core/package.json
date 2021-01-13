@@ -28,10 +28,13 @@
     "build:types": "tsc --emitDeclarationOnly",
     "build:js": "babel src --out-dir lib --extensions \".ts,.tsx\" --source-maps inline",
     "start": "run-p \"build:** -- --watch\"",
-    "test": "tsc --noEmit && jest test"
+    "test": "jest"
   },
   "dependencies": {
     "axios": "^0.19.2",
     "normalizr": "^3.6.0"
+  },
+  "devDependencies": {
+    "jest": "^26.4.0"
   }
 }

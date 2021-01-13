@@ -39,6 +39,7 @@ export interface TraversalsResponseAnswer {
  * Traversal Response Question.
  */
 export interface TraversalsResponseQuestion {
+  algoId: number;
   nodeId: number;
   questionId: number;
   displayText: string;
