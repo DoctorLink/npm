@@ -9,6 +9,7 @@ describe('health assessment selectors', () => {
       ${45}     | ${'Somewhat better'}
       ${48}     | ${'Somewhat better'}
       ${49}     | ${'Around average'}
+      ${50}     | ${'Around average'}
       ${51}     | ${'Around average'}
       ${52}     | ${'Somewhat worse'}
       ${55}     | ${'Somewhat worse'}
