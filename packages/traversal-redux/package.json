@@ -1,6 +1,6 @@
 {
   "name": "@doctorlink/traversal-redux",
-  "version": "0.8.4",
+  "version": "0.8.5",
   "description": "Doctorlink traversal redux package",
   "author": "DoctorLink Team <ben.redmond-benham@doctorlink.com>",
   "homepage": "https://github.com/DoctorLink/npm#readme",
@@ -31,7 +31,7 @@
     "test": "jest"
   },
   "dependencies": {
-    "@doctorlink/traversal-core": "^0.8.4",
+    "@doctorlink/traversal-core": "^0.8.5",
     "axios": "^0.19.2",
     "normalizr": "^3.6.0",
     "redux": "^4.0.5",

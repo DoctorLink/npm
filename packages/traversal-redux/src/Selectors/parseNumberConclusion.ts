@@ -8,6 +8,6 @@ export function parseNumberConclusion(
   return {
     ...conclusion,
     value: xmlRules.value || '?',
-    color: xmlRules.getRuleValue(xmlRules.value),
+    color: xmlRules.getRuleValue() as string,
   };
 }
