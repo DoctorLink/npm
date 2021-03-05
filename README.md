@@ -54,3 +54,6 @@ npm install
 This will reinstall the dev dependencies so tests will pass again.
 
 **If you get an error about duplicate types run the command** `npm run bootstrap`
+
+
+Text
