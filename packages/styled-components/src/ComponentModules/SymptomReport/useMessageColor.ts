@@ -1,4 +1,4 @@
-import { useTheme } from 'styled-components';
+import { useTheme } from '../../Theme';
 
 export const useMessageColor = (level: number): string => {
   const theme = useTheme();

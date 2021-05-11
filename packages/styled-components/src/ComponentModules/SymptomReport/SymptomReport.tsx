@@ -9,7 +9,7 @@ import {
 import { MessagePanel } from './MessagePanel';
 import { SymptomReportCallbacks } from './SymptomReportCallbacks';
 import { SymptomReportComponents } from './SymptomReportComponents';
-import { useTheme } from 'styled-components';
+import { useTheme } from '../../Theme';
 
 export const SymptomReport: React.FC<{
   symptomReport: SymptomReportModel;

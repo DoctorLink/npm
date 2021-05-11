@@ -4,13 +4,14 @@ import { HealthReportTitle, PanelContent } from '../../../Components';
 import NonCheckableConclusions from '../Conclusions/NonCheckableConclusions';
 import { ConclusionContent } from '../Conclusions/Conclusion';
 import { useRestrictedList } from '../../../Hooks';
+import { withDefaultTheme } from '../../../Theme';
 import styled from 'styled-components';
 
-const StyledLink = styled.a`
+const StyledLink = withDefaultTheme(styled.a`
   cursor: pointer;
   color: ${(p) => p.theme.colors.linkBlue};
   text-decoration: underline;
-`;
+`);
 
 export const AdditionalInfo: React.FC<{
   additionalConclusions: Conclusion[];

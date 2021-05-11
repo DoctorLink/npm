@@ -17,6 +17,7 @@ import { InfoIconConnected as InfoButton } from '../../InfoIcon';
 import { ConclusionContainer } from './Conclusion';
 
 import { useRestrictedList } from '../../../Hooks';
+import { withDefaultTheme } from '../../../Theme';
 import { RootState } from '@doctorlink/traversal-core';
 
 const ConclusionLabel = styled(Label)`
@@ -24,12 +25,12 @@ const ConclusionLabel = styled(Label)`
   box-shadow: none;
 `;
 
-const StyledLink = styled.a`
+const StyledLink = withDefaultTheme(styled.a`
   cursor: pointer;
   color: ${(p) => p.theme.colors.linkBlue};
   text-decoration: underline;
   font-size: ${(p) => p.theme.healthReportConclusion.fontSize}px;
-`;
+`);
 
 const CheckableConclusion: React.FC<{
   conclusion: Conclusion;
