@@ -1,7 +1,7 @@
 import React from 'react';
-import { useTheme } from 'styled-components';
 import { AccordionBody, AccordionHeader } from '../../Components';
 import { useToggle } from '../../Hooks';
+import { useTheme } from '../../Theme';
 import { SymptomReportComponents } from './SymptomReportComponents';
 
 interface CollapsiblePanelProps {

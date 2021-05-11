@@ -5,12 +5,13 @@ import styled from 'styled-components';
 import { useDispatch } from 'react-redux';
 import { hraComparisonReportGetRequest } from '@doctorlink/traversal-redux';
 import { InlineDropdown } from '../Dropdown';
+import { withDefaultTheme } from '../../Theme';
 import CompareRiskChart from './CompareRiskChart';
 import ToggleAssessment from './ToggleAssessment';
 
 const ageOptions = [80, 90, 100, 110];
 
-const FlexBox = styled.div<{ mobileView?: boolean }>`
+const FlexBox = withDefaultTheme(styled.div<{ mobileView?: boolean }>`
   width: 100%;
   display: flex;
   flex-direction: row;
@@ -19,7 +20,7 @@ const FlexBox = styled.div<{ mobileView?: boolean }>`
   font-size: ${(p) => p.theme.typography.regular.size}px;
   font-weight: 600;
   margin-bottom: ${(p) => p.theme.spacing.padding}px;
-`;
+`);
 
 const Right = styled.div`
   padding-left: 10px;
