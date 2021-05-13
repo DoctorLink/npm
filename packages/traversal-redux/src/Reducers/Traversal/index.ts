@@ -15,7 +15,8 @@ import {
   TRAVERSAL_RESPOND_POST_RESPONSE,
   TRAVERSAL_REVISIT_POST_RESPONSE,
   TRAVERSAL_PREVIOUS_POST_RESPONSE,
-} from '../../Actions/Traversal';
+  SERVICE_SAGA_ERROR,
+} from '../../Actions';
 import { answersReducer } from '../Answers';
 
 export type TraversalReducer = Reducer<TraversalState, TraversalAction>;
@@ -57,6 +58,11 @@ export const traversalReducer: TraversalReducer = (
         ...action.traversal,
         loading: false,
         answers: answersReducer(action.traversal.answers, action),
+      };
+    case SERVICE_SAGA_ERROR:
+      return {
+        ...state,
+        loading: false,
       };
     default:
       return state;

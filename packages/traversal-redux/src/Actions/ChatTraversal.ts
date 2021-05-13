@@ -6,6 +6,7 @@ import {
   ChatModel,
   SummaryQuestion,
 } from '@doctorlink/traversal-core';
+import { ServiceSagaError } from './ServiceError';
 
 export const CHATTRAVERSAL_SET_BASE_URL = 'CHATTRAVERSAL_SET_BASE_URL';
 export interface ChatTraversalSetBaseUrl
@@ -315,4 +316,5 @@ export type ChatTraversalAction =
   | ChatTraversalConclusionsGetRequest
   | ChatTraversalConclusionsGetResponse
   | ChatTraversalConclusionReportGetRequest
-  | ChatTraversalConclusionReportGetResponse;
+  | ChatTraversalConclusionReportGetResponse
+  | ServiceSagaError;

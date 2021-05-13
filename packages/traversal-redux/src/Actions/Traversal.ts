@@ -7,6 +7,7 @@ import {
   TraversalOrChat,
   SummaryQuestion,
 } from '@doctorlink/traversal-core';
+import { ServiceSagaError } from './ServiceError';
 
 export const TRAVERSAL_SET_BASE_URL = 'TRAVERSAL_SET_BASE_URL';
 export interface TraversalSetBaseUrl
@@ -310,4 +311,5 @@ export type TraversalAction =
   | TraversalConclusionsGetRequest
   | TraversalConclusionsGetResponse
   | TraversalConclusionReportGetRequest
-  | TraversalConclusionReportGetResponse;
+  | TraversalConclusionReportGetResponse
+  | ServiceSagaError;
