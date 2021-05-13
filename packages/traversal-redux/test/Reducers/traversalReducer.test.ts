@@ -5,9 +5,11 @@ import {
   traversalPreviousPostRequest,
   traversalRevisitPostRequest,
   traversalPostResponse,
+  serviceSagaError,
 } from '../../src/Actions';
 import { TraversalState, TraversalModel } from '@doctorlink/traversal-core';
 import { traversalReducer } from '../../src/Reducers';
+import { AxiosError } from 'axios';
 
 describe('Traversal reducer', () => {
   describe('traversalPostRequest', () => {
@@ -97,6 +99,19 @@ describe('Traversal reducer', () => {
 
     test('should set loading = false', () => {
       const updatedState = traversalReducer(state, action);
+
+      expect(updatedState.loading).toBe(false);
+    });
+  });
+
+  describe('serviceSagaError', () => {
+    const action = serviceSagaError({} as AxiosError);
+
+    test('should set loading to false', () => {
+      const updatedState = traversalReducer(
+        { loading: true } as TraversalState,
+        action
+      );
 
       expect(updatedState.loading).toBe(false);
     });

@@ -16,6 +16,9 @@ import {
   CHATTRAVERSAL_GET_RESPONSE,
   CHATTRAVERSAL_RESPOND_POST_RESPONSE,
   CHATTRAVERSAL_REVISIT_POST_RESPONSE,
+  CHATTRAVERSAL_GET_REQUEST,
+  CHATTRAVERSAL_POST_REQUEST,
+  SERVICE_SAGA_ERROR,
 } from '../../Actions';
 import { chatAnswersReducer } from '../Answers';
 
@@ -36,19 +39,21 @@ export const chatReducer: ChatReducer = (
       return { ...state, answers: chatAnswersReducer(state.answers, action) };
     case CHATTRAVERSAL_RESPOND_POST_REQUEST:
     case CHATTRAVERSAL_REVISIT_POST_REQUEST:
+    case CHATTRAVERSAL_GET_REQUEST:
+    case CHATTRAVERSAL_POST_REQUEST:
       return {
         ...state,
         loading: true,
       };
-    case CHATTRAVERSAL_RESPOND_POST_RESPONSE:
+    case CHATTRAVERSAL_RESPOND_POST_RESPONSE: {
       let nextQuestionIds = state.questionIds;
       let nextQuestions = state.questions;
       let nextAnswers = state.answers;
-      let chat = action.traversal as ChatModel;
+      const chat = action.traversal as ChatModel;
       if (action.traversal.questions) {
         nextQuestionIds = [
           ...state.questionIds.concat(
-            chat.questionIds.filter((x: any) => !state.questionIds.includes(x))
+            chat.questionIds.filter((x) => !state.questionIds.includes(x))
           ),
         ];
         nextQuestions = Object.assign({}, state.questions, chat.questions);
@@ -68,8 +73,9 @@ export const chatReducer: ChatReducer = (
         assessmentType: chat.assessmentType,
         loading: false,
       };
-    case CHATTRAVERSAL_REVISIT_POST_RESPONSE:
-      chat = action.traversal as ChatModel;
+    }
+    case CHATTRAVERSAL_REVISIT_POST_RESPONSE: {
+      const chat = action.traversal as ChatModel;
       const ids = [...state.questionIds];
       ids.length = ids.indexOf(chat.questionIds[0]) + 1;
       const questions: Record<string, TraversalQuestion> = {};
@@ -77,7 +83,7 @@ export const chatReducer: ChatReducer = (
       ids.forEach((qid: string) => {
         questions[qid] =
           qid in chat.questions ? chat.questions[qid] : state.questions[qid];
-        questions[qid].answers.forEach((aid: any) => {
+        questions[qid].answers.forEach((aid) => {
           newAnswers[aid] =
             chat.answers && aid in chat.answers
               ? chat.answers[aid]
@@ -95,6 +101,7 @@ export const chatReducer: ChatReducer = (
         assessmentType: chat.assessmentType,
         loading: false,
       };
+    }
     case CHATTRAVERSAL_POST_RESPONSE:
     case CHATTRAVERSAL_GET_RESPONSE:
       return {
@@ -102,6 +109,11 @@ export const chatReducer: ChatReducer = (
         minHeight: 0,
         loading: false,
         answers: chatAnswersReducer(action.traversal.answers, action),
+      };
+    case SERVICE_SAGA_ERROR:
+      return {
+        ...state,
+        loading: false,
       };
     default:
       return state;
