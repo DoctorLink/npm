@@ -1,1 +1,1 @@
-export { default, ChatTextWrapperProps } from './ChatTextField';
+export { default, ChatTextWrapperProps } from './ChatTextWrapper';
