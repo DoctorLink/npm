@@ -89,3 +89,4 @@ export { default as SummaryDivider } from './SummaryDivider';
 
 export * from './HealthReportExplanation';
 export * from './SymptomReportMessage';
+export * from './Autocomplete';
