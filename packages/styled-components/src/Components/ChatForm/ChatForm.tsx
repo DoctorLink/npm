@@ -22,7 +22,7 @@ const Form = styled(motion.form)`
 `;
 
 export interface ChatFormProps extends HTMLMotionProps<'form'> {
-  disableSubmit: boolean;
+  disableSubmit?: boolean;
 }
 
 const ChatForm = React.forwardRef<HTMLFormElement, ChatFormProps>(

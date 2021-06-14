@@ -8,7 +8,6 @@ import { ChatStep } from './ChatStep';
 
 interface ChatTraversalProps {
   traversal: ChatTraversalState;
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   actions?: ChatTraversalCallbacks;
   components?: Partial<ChatComponents>;
 }
