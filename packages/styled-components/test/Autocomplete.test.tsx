@@ -9,7 +9,7 @@ type Option = { id: number; label: string };
 type OptionWithKeywords = { id: number; label: string; keywords: string[] };
 
 describe('Autocomplete component', () => {
-  const getInput = () => screen.getByRole('combobox');
+  const getInput = () => screen.getByRole('textbox');
   const getOption = (name: string) => screen.getByRole('option', { name });
 
   describe('With default filter', () => {

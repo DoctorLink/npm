@@ -4,7 +4,7 @@ import ChatTextField from '../ChatTextField';
 import ChatTextWrapper from '../ChatTextWrapper';
 import { CloseIcon } from '../CloseIcon';
 
-const Wrapper = styled.div`
+const Wrapper = styled.div.attrs({ role: 'combobox' })`
   position: relative;
   width: '100%';
 `;
@@ -58,7 +58,7 @@ export function Autocomplete<T>({
   getOptionLabel,
   filterOptions,
   placeholder,
-  id,
+  id = 'autocomplete',
   disabled,
 }: AutocompleteProps<T>): JSX.Element {
   const [inputValue, setInputValue] = useState('');
@@ -127,8 +127,9 @@ export function Autocomplete<T>({
 
   const showDropdown = !disabled && (inputFocused || mouseOverOptions);
 
+  const listId = `${id}-options-list`;
   return (
-    <Wrapper>
+    <Wrapper aria-expanded={showDropdown}>
       <ChatTextWrapper text="">
         <ChatTextField
           value={inputValue}
@@ -140,7 +141,10 @@ export function Autocomplete<T>({
           id={id}
           disabled={disabled}
           onKeyDown={onKeyDown}
-          role="combobox"
+          aria-controls={listId}
+          aria-activedescendant={
+            focusedIndex !== null ? `${id}-option-${focusedIndex}` : ''
+          }
         />
         {inputValue && (
           <CloseIcon aria-label="Clear" onClick={() => setInputValue('')} />
@@ -148,6 +152,7 @@ export function Autocomplete<T>({
       </ChatTextWrapper>
       {showDropdown && (
         <OptionsList
+          id={listId}
           onMouseOver={() => setMouseOverOptions(true)}
           onMouseOut={() => setMouseOverOptions(false)}
           ref={optionListRef}
@@ -158,6 +163,7 @@ export function Autocomplete<T>({
             return (
               <Option
                 key={label}
+                id={`${id}-option-${i}`}
                 className={focused ? 'focused' : ''}
                 onClick={() => selectOption(opt)}
                 onMouseOver={() => setFocusedIndex(i)}
