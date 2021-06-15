@@ -2,6 +2,7 @@ import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import styled from 'styled-components';
 import ChatTextField from '../ChatTextField';
 import ChatTextWrapper from '../ChatTextWrapper';
+import { CloseIcon } from '../CloseIcon';
 
 const Wrapper = styled.div`
   position: relative;
@@ -141,6 +142,9 @@ export function Autocomplete<T>({
           onKeyDown={onKeyDown}
           role="combobox"
         />
+        {inputValue && (
+          <CloseIcon aria-label="Clear" onClick={() => setInputValue('')} />
+        )}
       </ChatTextWrapper>
       {showDropdown && (
         <OptionsList

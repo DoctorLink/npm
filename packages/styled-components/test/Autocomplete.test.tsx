@@ -77,6 +77,22 @@ describe('Autocomplete component', () => {
       expect(getOption('Breathing problems')).toBeInTheDocument();
     });
 
+    test('should show clear button when input is populated', () => {
+      // Act
+      userEvent.type(input, 'b');
+
+      // Assert
+      const button = screen.getByRole('button', { name: 'Clear' });
+      expect(button).toBeInTheDocument();
+
+      // Act
+      userEvent.click(button);
+
+      // Assert
+      expect(input).toHaveValue('');
+      expect(button).not.toBeInTheDocument();
+    });
+
     test('clicking on option should call onSelect', () => {
       // Arrange
       userEvent.type(input, 'abd');
