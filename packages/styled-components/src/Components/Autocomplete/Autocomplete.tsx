@@ -86,6 +86,8 @@ export function Autocomplete<T>({
   useEffect(() => {
     if (focusedIndex !== null && focusedIndex > -1 && optionListRef.current) {
       const option = optionListRef.current.children[focusedIndex];
+      if (!option) return;
+
       const listRect = optionListRef.current.getBoundingClientRect();
       const optionRect = option.getBoundingClientRect();
       if (
