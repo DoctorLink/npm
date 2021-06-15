@@ -10,28 +10,29 @@ const Wrapper = styled.div`
 
 const OptionsList = styled.ul`
   position: absolute;
-  top: 55px;
+  top: 55px; // Height of ChatTextWrapper + 1px
   left: 0;
-  width: 438px;
+  width: 100%;
   max-height: 300px;
   list-style: none;
-  border: 1px solid #ccc;
+  border: 1px solid rgb(222, 222, 222);
   border-radius: 3px;
   margin: 0;
   padding: 0;
   z-index: 100;
   overflow-y: auto;
-  background-color: #fff;
+  background-color: rgb(255, 255, 255);
 `;
 
 const Option = styled.li`
   margin: 0;
-  padding: 10px 20px;
+  padding: 8px 16px;
   line-height: 24px;
+  font-size: 16px;
   cursor: pointer;
 
   &.focused {
-    background-color: #f1f1ff;
+    background-color: #f1f1fd;
   }
 `;
 
@@ -61,6 +62,7 @@ export function Autocomplete<T>({
   const [mouseOverOptions, setMouseOverOptions] = useState(false);
   const optionListRef = useRef<HTMLUListElement>(null);
 
+  // Filter options on input change
   useEffect(() => {
     if (filterOptions) {
       setFilteredOptions(filterOptions(options, inputValue));
@@ -74,6 +76,7 @@ export function Autocomplete<T>({
     }
   }, [options, inputValue]);
 
+  // Scroll focused input into view when navigating with the arrow keys
   useEffect(() => {
     if (focusedIndex !== null && focusedIndex > -1 && optionListRef.current) {
       const option = optionListRef.current.children[focusedIndex];
@@ -89,7 +92,6 @@ export function Autocomplete<T>({
   }, [focusedIndex, optionListRef.current]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    // console.log('keycode', e.keyCode, 'selectedIndex', selectedIndex);
     switch (e.keyCode) {
       case 40: // Arrow down
         setSelectedIndex((i) =>
