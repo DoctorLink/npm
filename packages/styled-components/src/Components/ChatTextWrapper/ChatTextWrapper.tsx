@@ -9,6 +9,7 @@ const TextFieldPadding = styled.div`
 const TextFieldInner = styled.div`
   vertical-align: baseline;
   display: flex;
+  align-items: center;
   height: 54px;
   background-color: rgb(255, 255, 255);
   box-sizing: content-box;

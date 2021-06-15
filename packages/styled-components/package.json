@@ -1,6 +1,6 @@
 {
   "name": "@doctorlink/styled-components",
-  "version": "0.8.7",
+  "version": "0.8.8",
   "description": "Doctorlink styled components",
   "keywords": [
     "styled-components"
@@ -33,9 +33,14 @@
     "start": "run-p \"build:** -- --watch\"",
     "test": "jest"
   },
+  "jest": {
+    "setupFilesAfterEnv": [
+      "./jest-setup.js"
+    ]
+  },
   "dependencies": {
-    "@doctorlink/traversal-core": "^0.8.7",
-    "@doctorlink/traversal-redux": "^0.8.7",
+    "@doctorlink/traversal-core": "^0.8.8",
+    "@doctorlink/traversal-redux": "^0.8.8",
     "@types/react-redux": "^7.1.9",
     "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.5",
@@ -50,6 +55,7 @@
   "devDependencies": {
     "@testing-library/jest-dom": "^5.11.2",
     "@testing-library/react": "^10.4.8",
+    "@testing-library/user-event": "^13.1.9",
     "jest": "^26.4.0",
     "jest-styled-components": "^7.0.2"
   },

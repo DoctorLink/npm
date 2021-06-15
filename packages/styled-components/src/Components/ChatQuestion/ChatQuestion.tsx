@@ -58,7 +58,7 @@ const ErrorText = styled.div`
 
 export interface ChatQuestionProps extends HTMLMotionProps<'div'> {
   displayText: string;
-  error: TraversalError;
+  error?: TraversalError;
   current: boolean;
 }
 

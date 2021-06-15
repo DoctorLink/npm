@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { InputHTMLAttributes } from 'react';
 import styled from 'styled-components';
 import { defaultTheme } from '../../Theme';
 
@@ -22,8 +22,10 @@ StyledInput.defaultProps = {
   theme: defaultTheme,
 };
 
-const TextField: React.FC<any> = ({ className, checked, ...props }) => (
-  <StyledInput className={className} {...props} />
-);
+const TextField: React.FC<InputHTMLAttributes<HTMLInputElement>> = ({
+  className,
+  checked,
+  ...props
+}) => <StyledInput className={className} {...props} />;
 
 export default TextField;
