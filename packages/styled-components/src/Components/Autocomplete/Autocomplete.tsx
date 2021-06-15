@@ -8,7 +8,7 @@ const Wrapper = styled.div`
   width: '100%';
 `;
 
-const OptionsList = styled.ul`
+const OptionsList = styled.ul.attrs({ role: 'listbox' })`
   position: absolute;
   top: 55px; // Height of ChatTextWrapper + 1px
   left: 0;
@@ -24,7 +24,7 @@ const OptionsList = styled.ul`
   background-color: rgb(255, 255, 255);
 `;
 
-const Option = styled.li`
+const Option = styled.li.attrs({ role: 'option' })`
   margin: 0;
   padding: 8px 16px;
   line-height: 24px;
@@ -34,6 +34,11 @@ const Option = styled.li`
   &.focused {
     background-color: #f1f1fd;
   }
+`;
+
+const PlaceholderOption = styled(Option)`
+  color: rgb(154, 154, 154);
+  font-style: italic;
 `;
 
 export interface AutocompleteProps<TOption> {
@@ -57,7 +62,7 @@ export function Autocomplete<T>({
 }: AutocompleteProps<T>): JSX.Element {
   const [inputValue, setInputValue] = useState('');
   const [filteredOptions, setFilteredOptions] = useState<T[]>([]);
-  const [focusedIndex, setSelectedIndex] = useState<number | null>(null);
+  const [focusedIndex, setFocusedIndex] = useState<number | null>(null);
   const [inputFocused, setInputFocused] = useState(false);
   const [mouseOverOptions, setMouseOverOptions] = useState(false);
   const optionListRef = useRef<HTMLUListElement>(null);
@@ -92,14 +97,15 @@ export function Autocomplete<T>({
   }, [focusedIndex, optionListRef.current]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (filteredOptions.length === 0) return;
     switch (e.keyCode) {
       case 40: // Arrow down
-        setSelectedIndex((i) =>
+        setFocusedIndex((i) =>
           i === null || i === filteredOptions.length - 1 ? 0 : i + 1
         );
         break;
       case 38: // Arrow up
-        setSelectedIndex((i) =>
+        setFocusedIndex((i) =>
           i === null || i <= 0 ? filteredOptions.length - 1 : i - 1
         );
         break;
@@ -114,14 +120,11 @@ export function Autocomplete<T>({
 
   const selectOption = (option: T) => {
     setInputValue(getOptionLabel(option));
-    setSelectedIndex(null);
+    setFocusedIndex(null);
     onSelect(option);
   };
 
-  const showDropdown =
-    !disabled &&
-    filteredOptions.length > 0 &&
-    (inputFocused || mouseOverOptions);
+  const showDropdown = !disabled && (inputFocused || mouseOverOptions);
 
   return (
     <Wrapper>
@@ -141,7 +144,6 @@ export function Autocomplete<T>({
       </ChatTextWrapper>
       {showDropdown && (
         <OptionsList
-          role="listbox"
           onMouseOver={() => setMouseOverOptions(true)}
           onMouseOut={() => setMouseOverOptions(false)}
           ref={optionListRef}
@@ -152,15 +154,19 @@ export function Autocomplete<T>({
             return (
               <Option
                 key={label}
-                role="option"
                 className={focused ? 'focused' : ''}
                 onClick={() => selectOption(opt)}
-                onMouseOver={() => setSelectedIndex(i)}
+                onMouseOver={() => setFocusedIndex(i)}
               >
                 {label}
               </Option>
             );
           })}
+          {filteredOptions.length === 0 && (
+            <PlaceholderOption aria-disabled={true}>
+              No results found
+            </PlaceholderOption>
+          )}
         </OptionsList>
       )}
     </Wrapper>

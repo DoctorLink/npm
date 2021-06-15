@@ -189,6 +189,29 @@ describe('Autocomplete component', () => {
       // Assert
       expect(onSelect).toHaveBeenCalledWith(options[1]);
     });
+
+    test('should show a message if no options match', () => {
+      // Act
+      userEvent.type(input, 'xyzzy');
+
+      // Assert
+      expect(
+        within(screen.getByRole('listbox')).getByText('No results found')
+      ).toBeInTheDocument();
+    });
+
+    test('arrow keys should have no effect if no options match', () => {
+      // Arrange
+      userEvent.type(input, 'xyzzy');
+
+      // Act
+      userEvent.keyboard('[ArrowDown]');
+      userEvent.keyboard('[ArrowDown]');
+
+      // Assert
+      expect(input).toBeInTheDocument();
+      expect(screen.getByText('No results found')).toBeInTheDocument();
+    });
   });
 
   describe('With custom filter', () => {
