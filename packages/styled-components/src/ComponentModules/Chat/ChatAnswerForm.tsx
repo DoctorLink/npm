@@ -7,6 +7,7 @@ import {
 import { ChatTraversalCallbacks } from './ChatCallbacks';
 import { ChatComponents } from './ChatComponents';
 import { ChatAnswer } from './ChatAnswer';
+import { ApiAnswer } from './ApiAnswer';
 
 const extractAnswerId = (answerKey: string) => Number(answerKey.split('_')[3]);
 
@@ -54,6 +55,18 @@ export const ChatAnswerForm: React.FC<ChatAnswerFormProps> = ({
               <Section text={section.header} />
               {sectionAnswerKeys.map((answerId) => {
                 const answer = answers[answerId];
+
+                if (question.data.Properties?.CallData) {
+                  return (
+                    <ApiAnswer
+                      value={answer.controlValue}
+                      onChange={(value) =>
+                        actions.updateValue(answerId, question.answers, value)
+                      }
+                    />
+                  );
+                }
+
                 return (
                   <ChatAnswer
                     key={answerId}

@@ -10,6 +10,7 @@ import {
 } from '@doctorlink/traversal-core';
 import { TraversalCallbacks } from './TraversalCallbacks';
 import { TraversalComponents } from './TraversalComponents';
+import { ApiAnswer } from '../Chat/ApiAnswer';
 
 export interface TraversalResponseProps {
   question: TraversalQuestion;
@@ -58,6 +59,16 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
             <comps.Section text={section.header} />
             {sectionAnswerKeys.map((answerId: any) => {
               const answer = answers[answerId];
+              if (question.data.Properties?.CallData) {
+                return (
+                  <ApiAnswer
+                    value={answer.controlValue}
+                    onChange={(value) =>
+                      actions.updateValue(answerId, question.answers, value)
+                    }
+                  />
+                );
+              }
               return (
                 <comps.Label key={answerId}>
                   {answer.controlType === 'Radio' && (

@@ -44,6 +44,7 @@ const PlaceholderOption = styled(Option)`
 
 export interface AutocompleteProps<TOption> {
   options: TOption[];
+  value: TOption | null;
   onSelect: (selectedOption: TOption) => void;
   getOptionLabel: (option: TOption) => string;
   filterOptions?: (options: TOption[], inputValue: string) => TOption[];
@@ -54,6 +55,7 @@ export interface AutocompleteProps<TOption> {
 
 export function Autocomplete<T>({
   options,
+  value,
   onSelect,
   getOptionLabel,
   filterOptions,
@@ -98,6 +100,12 @@ export function Autocomplete<T>({
       }
     }
   }, [focusedIndex, optionListRef.current]);
+
+  useEffect(() => {
+    if (value) {
+      setInputValue(getOptionLabel(value));
+    }
+  }, [value]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (filteredOptions.length === 0) return;
