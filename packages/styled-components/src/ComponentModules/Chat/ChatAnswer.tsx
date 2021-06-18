@@ -2,6 +2,7 @@ import React from 'react';
 import { TraversalAnswer } from '@doctorlink/traversal-core';
 import { ChatTraversalCallbacks } from './ChatCallbacks';
 import { ChatComponents } from './ChatComponents';
+import { DropdownAnswer } from './DropdownAnswer';
 
 export const ChatAnswer: React.FC<{
   answer: TraversalAnswer;
@@ -80,6 +81,23 @@ export const ChatAnswer: React.FC<{
             infoIcon={infoIcon}
           />
         </ChoiceContainer>
+      );
+    }
+    case 'Dropdown': {
+      // TODO find a more robust way to identify the text answer
+      const textAnswerId = questionAnswerIds.find((id) => id !== answerId);
+      return (
+        <DropdownAnswer
+          value={answer.controlValue}
+          onValueChange={(value) =>
+            actions.updateValue(answerId, questionAnswerIds, value)
+          }
+          onTextChange={(text) => {
+            if (textAnswerId) {
+              actions.updateValue(textAnswerId, questionAnswerIds, text);
+            }
+          }}
+        />
       );
     }
     default:

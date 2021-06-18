@@ -10,7 +10,7 @@ import {
 } from '@doctorlink/traversal-core';
 import { TraversalCallbacks } from './TraversalCallbacks';
 import { TraversalComponents } from './TraversalComponents';
-import { ApiAnswer } from '../Chat/ApiAnswer';
+import { DropdownAnswer } from '../Chat/DropdownAnswer';
 
 export interface TraversalResponseProps {
   question: TraversalQuestion;
@@ -59,18 +59,30 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
             <comps.Section text={section.header} />
             {sectionAnswerKeys.map((answerId: any) => {
               const answer = answers[answerId];
-              if (question.data.Properties?.CallData) {
-                return (
-                  <ApiAnswer
-                    value={answer.controlValue}
-                    onChange={(value) =>
-                      actions.updateValue(answerId, question.answers, value)
-                    }
-                  />
-                );
-              }
+              if (answer.controlType === 'Hidden') return null;
+
+              const textAnswerId = question.answers.find(
+                (id) => id !== answerId
+              );
               return (
                 <comps.Label key={answerId}>
+                  {answer.controlType === 'Dropdown' && (
+                    <DropdownAnswer
+                      value={answer.controlValue}
+                      onValueChange={(value) =>
+                        actions.updateValue(answerId, question.answers, value)
+                      }
+                      onTextChange={(text) => {
+                        if (textAnswerId) {
+                          actions.updateValue(
+                            textAnswerId,
+                            question.answers,
+                            text
+                          );
+                        }
+                      }}
+                    />
+                  )}
                   {answer.controlType === 'Radio' && (
                     <comps.TraversalRadio
                       Comp={comps.Radio}

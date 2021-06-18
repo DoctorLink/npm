@@ -68,7 +68,11 @@ const value = (
         controlChecked: !!action.value,
         controlValue: action.value,
       };
-    else if (!['Text', 'Number', 'Date'].includes(state[answerId].controlType!))
+    else if (
+      !['Text', 'Number', 'Date', 'Dropdown'].includes(
+        state[answerId].controlType!
+      )
+    )
       state[answerId] = {
         ...state[answerId],
         controlChecked: false,

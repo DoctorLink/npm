@@ -6,3 +6,4 @@ export * from './Modal';
 export * from './State';
 export * from './Service';
 export * from './Utility';
+export * from './AlgoSearch';
