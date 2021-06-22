@@ -45,7 +45,7 @@ const PlaceholderOption = styled(Option)`
 export interface AutocompleteProps<TOption> {
   options: TOption[];
   value: TOption | null;
-  onSelect: (selectedOption: TOption) => void;
+  onSelect: (selectedOption: TOption | null) => void;
   getOptionLabel: (option: TOption) => string;
   filterOptions?: (options: TOption[], inputValue: string) => TOption[];
   placeholder?: string;
@@ -157,7 +157,13 @@ export function Autocomplete<T>({
           }
         />
         {inputValue && (
-          <CloseIcon aria-label="Clear" onClick={() => setInputValue('')} />
+          <CloseIcon
+            aria-label="Clear"
+            onClick={() => {
+              setInputValue('');
+              onSelect(null);
+            }}
+          />
         )}
       </ChatTextWrapper>
       {showDropdown && (

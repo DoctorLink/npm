@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { TraversalAnswer } from '@doctorlink/traversal-core';
+import { ControlType, TraversalAnswer } from '@doctorlink/traversal-core';
 import {
   TRAVERSAL_RADIO_TOGGLE,
   TRAVERSAL_CHECKBOX_TOGGLE,
@@ -69,9 +69,7 @@ const value = (
         controlValue: action.value,
       };
     else if (
-      !['Text', 'Number', 'Date', 'Dropdown'].includes(
-        state[answerId].controlType!
-      )
+      ['Checkbox', 'Radio'].includes(state[answerId].controlType as ControlType)
     )
       state[answerId] = {
         ...state[answerId],

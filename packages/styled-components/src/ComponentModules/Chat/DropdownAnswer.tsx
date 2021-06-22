@@ -29,12 +29,12 @@ export const DropdownAnswer: FC<DropdownAnswerProps> = ({
   return (
     <Autocomplete
       placeholder="Search, e.g. headache sore throat"
-      // disabled={!!value}
+      disabled={!!value}
       value={algos.find((a) => a.assetId.toString() === value) ?? null}
       options={algos}
       onSelect={(algo) => {
-        onValueChange(algo.assetId.toString());
-        onTextChange(algo.algoName);
+        onValueChange(algo?.assetId.toString() ?? '');
+        onTextChange(algo?.algoName ?? '');
       }}
       getOptionLabel={(opt) => opt.algoName}
       filterOptions={(options, inputValue) => searchAlgos(options, inputValue)}
