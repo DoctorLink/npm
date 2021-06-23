@@ -1,29 +1,24 @@
-import React, { FC, useEffect, useState } from 'react';
+import React, { FC, useEffect } from 'react';
 import { AlgoSearchModel } from '@doctorlink/traversal-core';
 import { Autocomplete } from '../../Components';
 
 interface DropdownAnswerProps {
+  algos: AlgoSearchModel[];
+  loadAlgos: () => void;
   value: string | null | undefined;
   onValueChange: (value: string) => void;
   onTextChange: (value: string) => void;
 }
 
-const url =
-  '/api/content/8e9068139c624c6a8928cebf33a4b3e6/Algos?assessmentType=1';
-
 export const DropdownAnswer: FC<DropdownAnswerProps> = ({
+  algos,
+  loadAlgos,
   value,
   onValueChange,
   onTextChange,
 }) => {
-  const [algos, setAlgos] = useState<AlgoSearchModel[]>([]);
   useEffect(() => {
-    (async () => {
-      const resp = await fetch(url);
-      if (resp.ok) {
-        setAlgos(await resp.json());
-      }
-    })();
+    loadAlgos();
   }, []);
 
   return (

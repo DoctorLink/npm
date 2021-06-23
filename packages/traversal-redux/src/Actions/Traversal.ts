@@ -8,6 +8,7 @@ import {
   SummaryQuestion,
 } from '@doctorlink/traversal-core';
 import { ServiceSagaError } from './ServiceError';
+import { AlgoSearchDataGetResponse } from './OnlineTriage';
 
 export const TRAVERSAL_SET_BASE_URL = 'TRAVERSAL_SET_BASE_URL';
 export interface TraversalSetBaseUrl
@@ -312,4 +313,5 @@ export type TraversalAction =
   | TraversalConclusionsGetResponse
   | TraversalConclusionReportGetRequest
   | TraversalConclusionReportGetResponse
-  | ServiceSagaError;
+  | ServiceSagaError
+  | AlgoSearchDataGetResponse;

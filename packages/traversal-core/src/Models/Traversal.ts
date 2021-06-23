@@ -1,3 +1,4 @@
+import { AlgoSearchModel } from './AlgoSearch';
 import { ControlType } from './Service/traversalsBase';
 
 interface TraversalBaseModel {
@@ -56,9 +57,10 @@ export interface TraversalAnswer {
   controlType?: ControlType;
   controlValue?: string | null;
   controlChecked?: boolean;
+  data: AnswerData;
 }
 
-export interface QuestionData extends Record<string, any> {
+export interface QuestionData extends Record<string, unknown> {
   display?: DisplaySection[];
 }
 
@@ -67,16 +69,17 @@ export interface DisplaySection {
   answers: number[];
 }
 
-/**
- * The assessment type of a traversal.
- */
+export interface AnswerData extends Record<string, unknown> {
+  algos?: AlgoSearchModel[];
+}
+
 export interface TraversalError {
   questionId: number;
   text: string;
 }
 
 /**
- * The assessmnet type of a traversal.
+ * The assessment type of a traversal.
  */
 export enum AssessmentType {
   SymptomChecker = 1,

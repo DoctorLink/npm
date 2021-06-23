@@ -7,6 +7,7 @@ import {
   SummaryQuestion,
 } from '@doctorlink/traversal-core';
 import { ServiceSagaError } from './ServiceError';
+import { AlgoSearchDataGetResponse } from './OnlineTriage';
 
 export const CHATTRAVERSAL_SET_BASE_URL = 'CHATTRAVERSAL_SET_BASE_URL';
 export interface ChatTraversalSetBaseUrl
@@ -317,4 +318,5 @@ export type ChatTraversalAction =
   | ChatTraversalConclusionsGetResponse
   | ChatTraversalConclusionReportGetRequest
   | ChatTraversalConclusionReportGetResponse
-  | ServiceSagaError;
+  | ServiceSagaError
+  | AlgoSearchDataGetResponse;

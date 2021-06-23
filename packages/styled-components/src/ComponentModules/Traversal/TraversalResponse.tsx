@@ -50,14 +50,14 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
       {comps.ErrorText && error && (
         <comps.ErrorText>{error.text}</comps.ErrorText>
       )}
-      {display.map((section: any, i: any) => {
-        const sectionAnswerKeys = question.answers.filter((x: any) =>
+      {display.map((section, i) => {
+        const sectionAnswerKeys = question.answers.filter((x) =>
           section.answers.includes(Number(x.split('_')[2]))
         );
         return (
           <React.Fragment key={i}>
-            <comps.Section text={section.header} />
-            {sectionAnswerKeys.map((answerId: any) => {
+            <comps.Section text={section.header ?? ''} />
+            {sectionAnswerKeys.map((answerId) => {
               const answer = answers[answerId];
               if (answer.controlType === 'Hidden') return null;
 
@@ -68,6 +68,8 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
                 <comps.Label key={answerId}>
                   {answer.controlType === 'Dropdown' && (
                     <DropdownAnswer
+                      algos={answer.data?.algos ?? []}
+                      loadAlgos={() => actions.loadAlgoSearchData(answerId)}
                       value={answer.controlValue}
                       onValueChange={(value) =>
                         actions.updateValue(answerId, question.answers, value)

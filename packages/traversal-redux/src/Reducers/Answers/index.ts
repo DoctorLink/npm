@@ -15,6 +15,8 @@ import {
   ChatTraversalCheckboxToggle,
   ChatTraversalValueChange,
   ChatTraversalAction,
+  ALGO_SEARCH_DATA_GET_RESPONSE,
+  AlgoSearchDataGetResponse,
 } from '../../Actions';
 
 const radio = (
@@ -80,6 +82,24 @@ const value = (
   return state;
 };
 
+const data = (
+  action: AlgoSearchDataGetResponse,
+  state: Record<string, TraversalAnswer>
+) => {
+  const { answerId, algos } = action;
+  const answer = state[answerId];
+  return {
+    ...state,
+    [answerId]: {
+      ...answer,
+      data: {
+        ...answer.data,
+        algos,
+      },
+    },
+  };
+};
+
 export const answersReducer: Reducer<
   Record<string, TraversalAnswer>,
   TraversalAction
@@ -91,6 +111,8 @@ export const answersReducer: Reducer<
       return checkbox(action, state);
     case TRAVERSAL_VALUE_CHANGE:
       return value(action, state);
+    case ALGO_SEARCH_DATA_GET_RESPONSE:
+      return data(action, state);
     default:
       return state;
   }
@@ -107,6 +129,8 @@ export const chatAnswersReducer: Reducer<
       return checkbox(action, state);
     case CHATTRAVERSAL_VALUE_CHANGE:
       return value(action, state);
+    case ALGO_SEARCH_DATA_GET_RESPONSE:
+      return data(action, state);
     default:
       return state;
   }

@@ -16,6 +16,7 @@ import {
   TRAVERSAL_REVISIT_POST_RESPONSE,
   TRAVERSAL_PREVIOUS_POST_RESPONSE,
   SERVICE_SAGA_ERROR,
+  ALGO_SEARCH_DATA_GET_RESPONSE,
 } from '../../Actions';
 import { answersReducer } from '../Answers';
 
@@ -58,6 +59,12 @@ export const traversalReducer: TraversalReducer = (
         ...action.traversal,
         loading: false,
         answers: answersReducer(action.traversal.answers, action),
+      };
+    case ALGO_SEARCH_DATA_GET_RESPONSE:
+      return {
+        ...state,
+        loading: false,
+        answers: answersReducer(state.answers, action),
       };
     case SERVICE_SAGA_ERROR:
       return {

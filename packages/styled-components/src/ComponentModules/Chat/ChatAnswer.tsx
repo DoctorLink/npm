@@ -88,6 +88,8 @@ export const ChatAnswer: React.FC<{
       const textAnswerId = questionAnswerIds.find((id) => id !== answerId);
       return (
         <DropdownAnswer
+          algos={answer.data?.algos ?? []}
+          loadAlgos={() => actions.loadAlgoSearchData(answerId)}
           value={answer.controlValue}
           onValueChange={(value) =>
             actions.updateValue(answerId, questionAnswerIds, value)

@@ -9,6 +9,7 @@ import {
   chatTraversalValueChange,
   chatTraversalCheckboxToggle,
   chatTraversalRadioToggle,
+  algoSearchDataGetRequest,
 } from '@doctorlink/traversal-redux';
 import { isClickEvent } from '../isClickEvent';
 
@@ -50,5 +51,7 @@ export const useChatActions = (
         );
       }
     },
+    loadAlgoSearchData: (answerId) =>
+      dispatch(algoSearchDataGetRequest(answerId)),
   };
 };

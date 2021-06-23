@@ -43,4 +43,5 @@ export const defaultChatActions: ChatTraversalCallbacks = {
   updateValue: () => undefined,
   toggleCheckbox: () => undefined,
   toggleRadio: () => undefined,
+  loadAlgoSearchData: () => undefined,
 };
