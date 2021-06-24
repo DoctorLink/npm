@@ -61,6 +61,9 @@ export const traversalReducer: TraversalReducer = (
         answers: answersReducer(action.traversal.answers, action),
       };
     case ALGO_SEARCH_DATA_GET_RESPONSE:
+      if (!state.answers || !state.answers[action.answerId]) {
+        return state;
+      }
       return {
         ...state,
         loading: false,
