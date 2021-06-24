@@ -130,9 +130,11 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
                       action={actions.updateValue}
                     />
                   )}
-                  <comps.DisplayText
-                    dangerouslySetInnerHTML={{ __html: answer.displayText }}
-                  />
+                  {answer.controlType !== 'Dropdown' && (
+                    <comps.DisplayText
+                      dangerouslySetInnerHTML={{ __html: answer.displayText }}
+                    />
+                  )}
                   <comps.InfoIcon
                     onClick={actions.showExplanation}
                     explanation={answer.explanation}
