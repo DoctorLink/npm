@@ -10,7 +10,7 @@ import {
 } from '@doctorlink/traversal-core';
 import { TraversalCallbacks } from './TraversalCallbacks';
 import { TraversalComponents } from './TraversalComponents';
-import { DropdownAnswer } from '../Chat/DropdownAnswer';
+import { AlgoSearchAnswer } from '../../Components';
 
 export interface TraversalResponseProps {
   question: TraversalQuestion;
@@ -61,28 +61,15 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
               const answer = answers[answerId];
               if (answer.controlType === 'Hidden') return null;
 
-              const textAnswerId = question.answers.find(
-                (id) => id !== answerId
-              );
               return (
                 <comps.Label key={answerId}>
                   {answer.controlType === 'Dropdown' && (
-                    <DropdownAnswer
-                      algos={answer.data?.algos ?? []}
-                      loadAlgos={() => actions.loadAlgoSearchData(answerId)}
-                      value={answer.controlValue}
-                      onValueChange={(value) =>
-                        actions.updateValue(answerId, question.answers, value)
-                      }
-                      onTextChange={(text) => {
-                        if (textAnswerId) {
-                          actions.updateValue(
-                            textAnswerId,
-                            question.answers,
-                            text
-                          );
-                        }
-                      }}
+                    <AlgoSearchAnswer
+                      answer={answer}
+                      answerId={answerId}
+                      questionAnswerIds={question.answers}
+                      loadAlgos={actions.loadAlgoSearchData}
+                      updateValue={actions.updateValue}
                     />
                   )}
                   {answer.controlType === 'Radio' && (

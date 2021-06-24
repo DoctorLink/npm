@@ -2,7 +2,7 @@ import React from 'react';
 import { TraversalAnswer } from '@doctorlink/traversal-core';
 import { ChatTraversalCallbacks } from './ChatCallbacks';
 import { ChatComponents } from './ChatComponents';
-import { DropdownAnswer } from './DropdownAnswer';
+import { AlgoSearchAnswer } from '../../Components';
 
 export const ChatAnswer: React.FC<{
   answer: TraversalAnswer;
@@ -84,21 +84,13 @@ export const ChatAnswer: React.FC<{
       );
     }
     case 'Dropdown': {
-      // TODO find a more robust way to identify the text answer
-      const textAnswerId = questionAnswerIds.find((id) => id !== answerId);
       return (
-        <DropdownAnswer
-          algos={answer.data?.algos ?? []}
-          loadAlgos={() => actions.loadAlgoSearchData(answerId)}
-          value={answer.controlValue}
-          onValueChange={(value) =>
-            actions.updateValue(answerId, questionAnswerIds, value)
-          }
-          onTextChange={(text) => {
-            if (textAnswerId) {
-              actions.updateValue(textAnswerId, questionAnswerIds, text);
-            }
-          }}
+        <AlgoSearchAnswer
+          answer={answer}
+          answerId={answerId}
+          questionAnswerIds={questionAnswerIds}
+          loadAlgos={actions.loadAlgoSearchData}
+          updateValue={actions.updateValue}
         />
       );
     }
