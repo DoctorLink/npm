@@ -57,7 +57,7 @@ export interface TraversalAnswer {
   controlType?: ControlType;
   controlValue?: string | null;
   controlChecked?: boolean;
-  data: AnswerData;
+  data?: AnswerData;
 }
 
 export interface QuestionData extends Record<string, unknown> {
