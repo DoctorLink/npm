@@ -20,6 +20,7 @@ describe('searchAlgos', () => {
       keywords: [(null as unknown) as string],
     },
     { assetId: 6, algoName: 'Ear or hearing', keywords: ['Ear', 'hearing'] },
+    { assetId: 999, algoName: 'Anything else', keywords: ['*'] },
   ];
 
   test.each`
@@ -38,6 +39,14 @@ describe('searchAlgos', () => {
     }
   );
 
+  test('When no keywords match, returns algo with * keyword', () => {
+    // Act
+    const result = searchAlgos(algos, 'xyzzy');
+
+    // Assert
+    expect(result.map((a) => a.algoName)).toEqual(['Anything else']);
+  });
+
   test('Given a single keyword, returns all algos with that keyword, sorted by algo name', () => {
     // Act
     const result = searchAlgos(algos, 'headache');
@@ -47,6 +56,7 @@ describe('searchAlgos', () => {
       'Anxiety',
       'Cold or cough',
       'Head problems',
+      'Anything else',
     ]);
   });
 
@@ -60,6 +70,7 @@ describe('searchAlgos', () => {
       'Burns',
       'Cold or cough',
       'Head problems',
+      'Anything else',
     ]);
   });
 
@@ -73,6 +84,7 @@ describe('searchAlgos', () => {
       'Burns',
       'Cold or cough',
       'Head problems',
+      'Anything else',
     ]);
   });
 
@@ -85,6 +97,7 @@ describe('searchAlgos', () => {
       'Cold or cough',
       'Anxiety',
       'Head problems',
+      'Anything else',
     ]);
   });
 
@@ -97,6 +110,7 @@ describe('searchAlgos', () => {
       'Head problems',
       'Anxiety',
       'Cold or cough',
+      'Anything else',
     ]);
   });
 
@@ -113,7 +127,10 @@ describe('searchAlgos', () => {
       const result = searchAlgos(algos, searchTerm);
 
       // Assert
-      expect(result.map((a) => a.algoName)).toEqual(['Ear or hearing']);
+      expect(result.map((a) => a.algoName)).toEqual([
+        'Ear or hearing',
+        'Anything else',
+      ]);
     }
   );
 });
