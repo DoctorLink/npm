@@ -2,12 +2,7 @@ import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
 import ChatTextField from '../ChatTextField';
 import ChatTextWrapper from '../ChatTextWrapper';
 import { CloseIcon } from '../CloseIcon';
-import {
-  ComboBoxList,
-  ComboBoxOption,
-  ComboBoxPlaceholderOption,
-  ComboBoxWrapper,
-} from '../ComboBox';
+import { ComboBoxList, ComboBoxOption, ComboBoxWrapper } from '../ComboBox';
 
 export interface AutocompleteProps<TOption> {
   options: TOption[];
@@ -100,7 +95,11 @@ export function Autocomplete<T>({
     onSelect(option);
   };
 
-  const showDropdown = !disabled && (inputFocused || mouseOverOptions);
+  const showDropdown =
+    !disabled &&
+    // inputValue.length > 0 &&
+    filteredOptions.length > 0 &&
+    (inputFocused || mouseOverOptions);
 
   const listId = `${id}-options-list`;
   return (
@@ -153,11 +152,6 @@ export function Autocomplete<T>({
               </ComboBoxOption>
             );
           })}
-          {filteredOptions.length === 0 && (
-            <ComboBoxPlaceholderOption aria-disabled={true}>
-              No results found
-            </ComboBoxPlaceholderOption>
-          )}
         </ComboBoxList>
       )}
     </ComboBoxWrapper>
