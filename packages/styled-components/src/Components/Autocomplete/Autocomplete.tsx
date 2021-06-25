@@ -69,9 +69,7 @@ export function Autocomplete<T>({
   }, [focusedIndex, optionListRef.current]);
 
   useEffect(() => {
-    if (value) {
-      setInputValue(getOptionLabel(value));
-    }
+    setInputValue(value ? getOptionLabel(value) : '');
   }, [value]);
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
