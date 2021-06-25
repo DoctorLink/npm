@@ -97,7 +97,6 @@ export function Autocomplete<T>({
 
   const showDropdown =
     !disabled &&
-    // inputValue.length > 0 &&
     filteredOptions.length > 0 &&
     (inputFocused || mouseOverOptions);
 
