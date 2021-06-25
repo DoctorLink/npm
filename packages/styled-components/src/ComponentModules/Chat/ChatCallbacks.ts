@@ -20,4 +20,5 @@ export interface ChatTraversalCallbacks {
     answerId: string,
     questionAnswerIds: string[]
   ) => void;
+  loadAlgoSearchData: (answerId: string) => void;
 }

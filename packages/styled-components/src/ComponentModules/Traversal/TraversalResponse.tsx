@@ -10,6 +10,7 @@ import {
 } from '@doctorlink/traversal-core';
 import { TraversalCallbacks } from './TraversalCallbacks';
 import { TraversalComponents } from './TraversalComponents';
+import { AlgoSearchAnswer } from '../../Components';
 
 export interface TraversalResponseProps {
   question: TraversalQuestion;
@@ -49,17 +50,28 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
       {comps.ErrorText && error && (
         <comps.ErrorText>{error.text}</comps.ErrorText>
       )}
-      {display.map((section: any, i: any) => {
-        const sectionAnswerKeys = question.answers.filter((x: any) =>
+      {display.map((section, i) => {
+        const sectionAnswerKeys = question.answers.filter((x) =>
           section.answers.includes(Number(x.split('_')[2]))
         );
         return (
           <React.Fragment key={i}>
-            <comps.Section text={section.header} />
-            {sectionAnswerKeys.map((answerId: any) => {
+            <comps.Section text={section.header ?? ''} />
+            {sectionAnswerKeys.map((answerId) => {
               const answer = answers[answerId];
+              if (answer.controlType === 'Hidden') return null;
+
               return (
                 <comps.Label key={answerId}>
+                  {answer.controlType === 'Dropdown' && (
+                    <AlgoSearchAnswer
+                      answer={answer}
+                      answerId={answerId}
+                      questionAnswerIds={question.answers}
+                      loadAlgos={actions.loadAlgoSearchData}
+                      updateValue={actions.updateValue}
+                    />
+                  )}
                   {answer.controlType === 'Radio' && (
                     <comps.TraversalRadio
                       Comp={comps.Radio}
@@ -105,9 +117,11 @@ export const TraversalResponse: React.FC<TraversalResponseProps> = ({
                       action={actions.updateValue}
                     />
                   )}
-                  <comps.DisplayText
-                    dangerouslySetInnerHTML={{ __html: answer.displayText }}
-                  />
+                  {answer.controlType !== 'Dropdown' && (
+                    <comps.DisplayText
+                      dangerouslySetInnerHTML={{ __html: answer.displayText }}
+                    />
+                  )}
                   <comps.InfoIcon
                     onClick={actions.showExplanation}
                     explanation={answer.explanation}

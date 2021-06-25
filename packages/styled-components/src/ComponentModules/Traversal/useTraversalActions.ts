@@ -12,6 +12,7 @@ import {
   traversalValueChange,
   traversalCheckboxToggle,
   traversalRadioToggle,
+  algoSearchDataGetRequest,
 } from '@doctorlink/traversal-redux';
 import { isClickEvent } from '../isClickEvent';
 
@@ -61,5 +62,7 @@ export const useTraversalActions = (
           );
       }
     },
+    loadAlgoSearchData: (answerId) =>
+      dispatch(algoSearchDataGetRequest(answerId)),
   };
 };

@@ -2,6 +2,7 @@ import React from 'react';
 import { TraversalAnswer } from '@doctorlink/traversal-core';
 import { ChatTraversalCallbacks } from './ChatCallbacks';
 import { ChatComponents } from './ChatComponents';
+import { AlgoSearchAnswer } from '../../Components';
 
 export const ChatAnswer: React.FC<{
   answer: TraversalAnswer;
@@ -80,6 +81,17 @@ export const ChatAnswer: React.FC<{
             infoIcon={infoIcon}
           />
         </ChoiceContainer>
+      );
+    }
+    case 'Dropdown': {
+      return (
+        <AlgoSearchAnswer
+          answer={answer}
+          answerId={answerId}
+          questionAnswerIds={questionAnswerIds}
+          loadAlgos={actions.loadAlgoSearchData}
+          updateValue={actions.updateValue}
+        />
       );
     }
     default:

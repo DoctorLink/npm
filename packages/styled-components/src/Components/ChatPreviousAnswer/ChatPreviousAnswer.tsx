@@ -79,7 +79,7 @@ const ChatPreviousAnswer = React.forwardRef<
   HTMLButtonElement,
   ChatPreviousAnswerProps
 >(function ChatPreviousAnswer({ answer, jumpBack }, ref) {
-  if (!answer.controlChecked) return null;
+  if (!answer.controlChecked || answer.controlType === 'Dropdown') return null;
   const text = `${answer.controlValue ? answer.controlValue + ' ' : ''}${
     answer.displayText
   }`;
