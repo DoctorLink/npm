@@ -6,21 +6,21 @@ import {
 import { chatRootReducersMapObject } from '../../Reducers/root';
 import { ChatTraversalsServiceSagas } from '../../Sagas/ChatTraversals';
 import { TraversalBaseStore } from '../TraversalBaseStore';
-import { ApiUrls } from '../ApiUrls';
 
 export class ChatTraversalStore extends TraversalBaseStore<
   ChatTraversalRootState,
   ChatTraversalsService
 > {
   constructor(
-    urls: ApiUrls,
+    engineBase: string,
+    hraBase?: string,
     moreEffects?: ForkEffect<never>[],
     tokenFactory?: () => Promise<string | null>
   ) {
     const traversalService = new ChatTraversalsServiceSagas(
-      urls.engine,
+      engineBase,
       tokenFactory
     );
-    super(traversalService, chatRootReducersMapObject, urls, moreEffects);
+    super(traversalService, chatRootReducersMapObject, hraBase, moreEffects);
   }
 }

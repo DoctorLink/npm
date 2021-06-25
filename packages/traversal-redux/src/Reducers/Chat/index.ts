@@ -19,7 +19,6 @@ import {
   CHATTRAVERSAL_GET_REQUEST,
   CHATTRAVERSAL_POST_REQUEST,
   SERVICE_SAGA_ERROR,
-  ALGO_SEARCH_DATA_GET_RESPONSE,
 } from '../../Actions';
 import { chatAnswersReducer } from '../Answers';
 
@@ -110,14 +109,6 @@ export const chatReducer: ChatReducer = (
         minHeight: 0,
         loading: false,
         answers: chatAnswersReducer(action.traversal.answers, action),
-      };
-    case ALGO_SEARCH_DATA_GET_RESPONSE:
-      if (!state.answers || !state.answers[action.answerId]) {
-        return state;
-      }
-      return {
-        ...state,
-        answers: chatAnswersReducer(state.answers, action),
       };
     case SERVICE_SAGA_ERROR:
       return {

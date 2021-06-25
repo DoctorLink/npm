@@ -6,25 +6,22 @@ import {
 import { traversalRootReducersMapObject } from '../../Reducers/root';
 import { TraversalsServiceSagas } from '../../Sagas/Traversals';
 import { TraversalBaseStore } from '../../Store/TraversalBaseStore';
-import { ApiUrls } from '../ApiUrls';
 
 export class TraversalStore extends TraversalBaseStore<
   TraversalRootState,
   TraversalsService
 > {
   constructor(
-    urls: ApiUrls,
+    engineBase: string,
+    hraBase?: string,
     moreEffects?: ForkEffect<never>[],
     tokenFactory?: () => Promise<string | null>
   ) {
-    const traversalSagas = new TraversalsServiceSagas(
-      urls.engine,
-      tokenFactory
-    );
+    const traversalSagas = new TraversalsServiceSagas(engineBase, tokenFactory);
     super(
       traversalSagas,
       traversalRootReducersMapObject,
-      urls,
+      hraBase,
       moreEffects,
       tokenFactory
     );

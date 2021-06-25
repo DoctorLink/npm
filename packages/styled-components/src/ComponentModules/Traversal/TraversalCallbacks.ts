@@ -27,5 +27,4 @@ export interface TraversalCallbacks {
   updateValue: UpdateValueCallback;
   toggleCheckbox: ToggleCheckboxCallback;
   toggleRadio: ToggleRadioCallback;
-  loadAlgoSearchData: (answerId: string) => void;
 }

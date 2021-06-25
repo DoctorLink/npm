@@ -4,4 +4,3 @@ export * from './HRA';
 export * from './ServiceSagaErrorHandler';
 export * from './BaseServiceSagas';
 export * from './TraversalsBaseServiceSagas';
-export * from './OnlineTriageSagas';

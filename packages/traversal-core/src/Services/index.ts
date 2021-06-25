@@ -4,4 +4,3 @@ export * from './Members';
 export * from './HRA';
 export * from './BaseService';
 export * from './TraversalsBaseService';
-export * from './OnlineTriage';

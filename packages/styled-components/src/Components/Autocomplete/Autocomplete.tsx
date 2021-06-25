@@ -1,13 +1,50 @@
 import React, { KeyboardEvent, useEffect, useRef, useState } from 'react';
+import styled from 'styled-components';
 import ChatTextField from '../ChatTextField';
 import ChatTextWrapper from '../ChatTextWrapper';
 import { CloseIcon } from '../CloseIcon';
-import { ComboBoxList, ComboBoxOption, ComboBoxWrapper } from '../ComboBox';
+
+const Wrapper = styled.div.attrs({ role: 'combobox' })`
+  position: relative;
+  width: '100%';
+`;
+
+const OptionsList = styled.ul.attrs({ role: 'listbox' })`
+  position: absolute;
+  top: 55px; // Height of ChatTextWrapper + 1px
+  left: 0;
+  width: 100%;
+  max-height: 300px;
+  list-style: none;
+  border: 1px solid rgb(222, 222, 222);
+  border-radius: 3px;
+  margin: 0;
+  padding: 0;
+  z-index: 100;
+  overflow-y: auto;
+  background-color: rgb(255, 255, 255);
+`;
+
+const Option = styled.li.attrs({ role: 'option' })`
+  margin: 0;
+  padding: 8px 16px;
+  line-height: 24px;
+  font-size: 16px;
+  cursor: pointer;
+
+  &.focused {
+    background-color: #f1f1fd;
+  }
+`;
+
+const PlaceholderOption = styled(Option)`
+  color: rgb(154, 154, 154);
+  font-style: italic;
+`;
 
 export interface AutocompleteProps<TOption> {
   options: TOption[];
-  value: TOption | null;
-  onSelect: (selectedOption: TOption | null) => void;
+  onSelect: (selectedOption: TOption) => void;
   getOptionLabel: (option: TOption) => string;
   filterOptions?: (options: TOption[], inputValue: string) => TOption[];
   placeholder?: string;
@@ -17,7 +54,6 @@ export interface AutocompleteProps<TOption> {
 
 export function Autocomplete<T>({
   options,
-  value,
   onSelect,
   getOptionLabel,
   filterOptions,
@@ -63,10 +99,6 @@ export function Autocomplete<T>({
     }
   }, [focusedIndex, optionListRef.current]);
 
-  useEffect(() => {
-    setInputValue(value ? getOptionLabel(value) : '');
-  }, [value]);
-
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
     if (filteredOptions.length === 0) return;
     switch (e.keyCode) {
@@ -95,14 +127,11 @@ export function Autocomplete<T>({
     onSelect(option);
   };
 
-  const showDropdown =
-    !disabled &&
-    filteredOptions.length > 0 &&
-    (inputFocused || mouseOverOptions);
+  const showDropdown = !disabled && (inputFocused || mouseOverOptions);
 
   const listId = `${id}-options-list`;
   return (
-    <ComboBoxWrapper aria-expanded={showDropdown}>
+    <Wrapper aria-expanded={showDropdown}>
       <ChatTextWrapper text="">
         <ChatTextField
           value={inputValue}
@@ -120,17 +149,11 @@ export function Autocomplete<T>({
           }
         />
         {inputValue && (
-          <CloseIcon
-            aria-label="Clear"
-            onClick={() => {
-              setInputValue('');
-              onSelect(null);
-            }}
-          />
+          <CloseIcon aria-label="Clear" onClick={() => setInputValue('')} />
         )}
       </ChatTextWrapper>
       {showDropdown && (
-        <ComboBoxList
+        <OptionsList
           id={listId}
           onMouseOver={() => setMouseOverOptions(true)}
           onMouseOut={() => setMouseOverOptions(false)}
@@ -140,7 +163,7 @@ export function Autocomplete<T>({
             const label = getOptionLabel(opt);
             const focused = i === focusedIndex;
             return (
-              <ComboBoxOption
+              <Option
                 key={label}
                 id={`${id}-option-${i}`}
                 className={focused ? 'focused' : ''}
@@ -148,11 +171,16 @@ export function Autocomplete<T>({
                 onMouseOver={() => setFocusedIndex(i)}
               >
                 {label}
-              </ComboBoxOption>
+              </Option>
             );
           })}
-        </ComboBoxList>
+          {filteredOptions.length === 0 && (
+            <PlaceholderOption aria-disabled={true}>
+              No results found
+            </PlaceholderOption>
+          )}
+        </OptionsList>
       )}
-    </ComboBoxWrapper>
+    </Wrapper>
   );
 }

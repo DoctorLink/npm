@@ -4,7 +4,6 @@ import {
   HealthRiskAssessmentService,
   TraversalsService,
   ChatTraversalsService,
-  OnlineTriageService,
 } from '@doctorlink/traversal-core';
 import { BaseStore } from '../BaseStore';
 import { HealthRiskAssessmentServiceSagas } from '../../Sagas/HRA';
@@ -13,54 +12,43 @@ import {
   TraversalsServiceSagas,
 } from '../../Sagas';
 import { dualRootReducersMapObject } from '../../Reducers/root';
-import { ApiUrls } from '../ApiUrls';
-import { OnlineTriageServiceSagas } from '../../Sagas/OnlineTriageSagas';
 
 export class DualTraversalStore extends BaseStore<DualTraversalRootState> {
   constructor(
-    urls: ApiUrls,
+    engineBase: string,
+    hraBase?: string,
     moreEffects: ForkEffect<never>[] = [],
     tokenFactory?: () => Promise<string | null>
   ) {
     const traversalServiceSagas = new TraversalsServiceSagas(
-      urls.engine,
+      engineBase,
       tokenFactory
     );
-    const chatTraversalServiceSagas = new ChatTraversalsServiceSagas(
-      urls.engine,
+    const chatTraversalServiceSags = new ChatTraversalsServiceSagas(
+      engineBase,
       tokenFactory
     );
     let hraServiceSagas: HealthRiskAssessmentServiceSagas | undefined;
-    let otServiceSagas: OnlineTriageServiceSagas | undefined;
     let effects = [
       ...moreEffects,
       ...traversalServiceSagas.effects,
-      ...chatTraversalServiceSagas.effects,
+      ...chatTraversalServiceSags.effects,
     ];
-    if (urls.hra) {
+    if (hraBase) {
       hraServiceSagas = new HealthRiskAssessmentServiceSagas(
-        urls.hra,
+        hraBase,
         tokenFactory
       );
       effects = [...effects, ...hraServiceSagas.effects];
     }
-    if (urls.onlineTriage) {
-      otServiceSagas = new OnlineTriageServiceSagas(
-        urls.onlineTriage,
-        tokenFactory
-      );
-      effects = [...effects, ...otServiceSagas.effects];
-    }
     super(effects, dualRootReducersMapObject);
 
     this.hraService = hraServiceSagas?.service;
-    this.otService = otServiceSagas?.service;
     this.traversalService = traversalServiceSagas.service;
-    this.chatTraversalService = chatTraversalServiceSagas.service;
+    this.chatTraversalService = chatTraversalServiceSags.service;
 
     this.setToken = (token: string | null) => {
       this.hraService?.setToken(token);
-      this.otService?.setToken(token);
       this.traversalService.setToken(token);
       this.chatTraversalService.setToken(token);
     };
@@ -71,5 +59,4 @@ export class DualTraversalStore extends BaseStore<DualTraversalRootState> {
   public traversalService: TraversalsService;
   public chatTraversalService: ChatTraversalsService;
   public hraService: HealthRiskAssessmentService | undefined;
-  public otService: OnlineTriageService | undefined;
 }

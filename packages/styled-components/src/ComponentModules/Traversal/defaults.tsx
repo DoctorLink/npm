@@ -76,5 +76,4 @@ export const defaultTraversalActions: TraversalCallbacks = {
   updateValue: () => undefined,
   toggleCheckbox: () => undefined,
   toggleRadio: () => undefined,
-  loadAlgoSearchData: () => undefined,
 };

@@ -2,7 +2,6 @@ import {
   traversalRadioToggle,
   traversalCheckboxToggle,
   traversalValueChange,
-  algoSearchDataGetResponse,
 } from '../../src/Actions';
 import { answersReducer } from '../../src/Reducers';
 import { TraversalAnswer } from '@doctorlink/traversal-core';
@@ -60,13 +59,6 @@ describe('Answers reducer', () => {
         displayText: 'That',
         controlType: 'Checkbox',
         explanation: null,
-      },
-      '4_1_1': {
-        nodeId: 4,
-        questionId: 1,
-        answerId: 1,
-        displayText: 'Select an option',
-        controlType: 'Dropdown',
       },
     };
   });
@@ -152,21 +144,6 @@ describe('Answers reducer', () => {
 
       expect(updatedState['3_3_4'].controlChecked).toBe(true);
       expect(updatedState['3_3_5'].controlChecked).toBe(true);
-    });
-  });
-
-  describe('algoSearchDataGetResponse', () => {
-    const answerId = '4_1_1';
-    const action = algoSearchDataGetResponse(answerId, [
-      { assetId: 123, algoName: 'Test Algo', keywords: [] },
-    ]);
-
-    test('should populate specified answer with data', () => {
-      const updatedState = answersReducer(state, action);
-
-      const answer = updatedState[answerId];
-      expect(answer.data).toBeTruthy();
-      expect(answer.data.algos).toEqual(action.algos);
     });
   });
 });

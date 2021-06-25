@@ -1,32 +1,27 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import {
-  defaultTheme,
-  RootTheme,
-  ThemeCreator,
-  TraversalApp,
-} from '@doctorlink/styled-components';
+import { defaultTheme, TraversalApp } from '@doctorlink/styled-components';
 import { TraversalsBaseCreate } from '@doctorlink/traversal-core';
 import {
   traversalPostRequest,
   traversalGetRequest,
   TraversalStore,
-  ApiUrls,
 } from '@doctorlink/traversal-redux';
 
 export { createTheme } from '@doctorlink/styled-components';
 
 export interface Config {
   elementId: string;
-  urls: ApiUrls;
-  theme?: RootTheme | ThemeCreator;
+  urls: { engine: string; hra: string };
+  theme?: any;
   tokenFactory?: () => Promise<string | null>;
 }
 
-export function create(config: Config, body: TraversalsBaseCreate): void {
+export function create(config: Config, body: TraversalsBaseCreate) {
   const theme = config.theme ? config.theme : defaultTheme;
   const traversalStore = new TraversalStore(
-    config.urls,
+    config.urls.engine,
+    config.urls.hra,
     undefined,
     config.tokenFactory
   );
@@ -37,10 +32,11 @@ export function create(config: Config, body: TraversalsBaseCreate): void {
   );
 }
 
-export function get(config: Config, traversalId: string): void {
+export function get(config: Config, traversalId: string) {
   const theme = config.theme ? config.theme : defaultTheme;
   const traversalStore = new TraversalStore(
-    config.urls,
+    config.urls.engine,
+    config.urls.hra,
     undefined,
     config.tokenFactory
   );

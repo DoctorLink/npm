@@ -1,5 +1,5 @@
 import { Reducer } from 'redux';
-import { ControlType, TraversalAnswer } from '@doctorlink/traversal-core';
+import { TraversalAnswer } from '@doctorlink/traversal-core';
 import {
   TRAVERSAL_RADIO_TOGGLE,
   TRAVERSAL_CHECKBOX_TOGGLE,
@@ -15,8 +15,6 @@ import {
   ChatTraversalCheckboxToggle,
   ChatTraversalValueChange,
   ChatTraversalAction,
-  ALGO_SEARCH_DATA_GET_RESPONSE,
-  AlgoSearchDataGetResponse,
 } from '../../Actions';
 
 const radio = (
@@ -70,9 +68,7 @@ const value = (
         controlChecked: !!action.value,
         controlValue: action.value,
       };
-    else if (
-      ['Checkbox', 'Radio'].includes(state[answerId].controlType as ControlType)
-    )
+    else if (!['Text', 'Number', 'Date'].includes(state[answerId].controlType!))
       state[answerId] = {
         ...state[answerId],
         controlChecked: false,
@@ -80,24 +76,6 @@ const value = (
       };
   });
   return state;
-};
-
-const data = (
-  action: AlgoSearchDataGetResponse,
-  state: Record<string, TraversalAnswer>
-) => {
-  const { answerId, algos } = action;
-  const answer = state[answerId];
-  return {
-    ...state,
-    [answerId]: {
-      ...answer,
-      data: {
-        ...answer.data,
-        algos,
-      },
-    },
-  };
 };
 
 export const answersReducer: Reducer<
@@ -111,8 +89,6 @@ export const answersReducer: Reducer<
       return checkbox(action, state);
     case TRAVERSAL_VALUE_CHANGE:
       return value(action, state);
-    case ALGO_SEARCH_DATA_GET_RESPONSE:
-      return data(action, state);
     default:
       return state;
   }
@@ -129,8 +105,6 @@ export const chatAnswersReducer: Reducer<
       return checkbox(action, state);
     case CHATTRAVERSAL_VALUE_CHANGE:
       return value(action, state);
-    case ALGO_SEARCH_DATA_GET_RESPONSE:
-      return data(action, state);
     default:
       return state;
   }

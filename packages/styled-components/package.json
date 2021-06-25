@@ -1,6 +1,6 @@
 {
   "name": "@doctorlink/styled-components",
-  "version": "1.0.0",
+  "version": "0.8.8",
   "description": "Doctorlink styled components",
   "keywords": [
     "styled-components"
@@ -39,8 +39,8 @@
     ]
   },
   "dependencies": {
-    "@doctorlink/traversal-core": "^1.0.0",
-    "@doctorlink/traversal-redux": "^1.0.0",
+    "@doctorlink/traversal-core": "^0.8.8",
+    "@doctorlink/traversal-redux": "^0.8.8",
     "@types/react-redux": "^7.1.9",
     "@types/react-responsive": "^8.0.2",
     "@types/react-router-dom": "^5.1.5",

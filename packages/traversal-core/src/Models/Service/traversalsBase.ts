@@ -105,11 +105,4 @@ export interface TraversalsBaseRevisit {
 /**
  * The Control Type of a [[TraversalsResponseAnswer]] or [[ChatTraversalsResponseAnswer]]
  */
-export type ControlType =
-  | 'Checkbox'
-  | 'Radio'
-  | 'Number'
-  | 'Date'
-  | 'Text'
-  | 'Dropdown'
-  | 'Hidden';
+export type ControlType = 'Checkbox' | 'Radio' | 'Number' | 'Date' | 'Text';

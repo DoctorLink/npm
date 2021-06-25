@@ -32,7 +32,6 @@ describe('Autocomplete component', () => {
       render(
         <Autocomplete
           options={options}
-          value={null}
           getOptionLabel={(opt) => opt.label}
           onSelect={onSelect}
           placeholder="Search"
@@ -206,6 +205,29 @@ describe('Autocomplete component', () => {
       // Assert
       expect(onSelect).toHaveBeenCalledWith(options[1]);
     });
+
+    test('should show a message if no options match', () => {
+      // Act
+      userEvent.type(input, 'xyzzy');
+
+      // Assert
+      expect(
+        within(screen.getByRole('listbox')).getByText('No results found')
+      ).toBeInTheDocument();
+    });
+
+    test('arrow keys should have no effect if no options match', () => {
+      // Arrange
+      userEvent.type(input, 'xyzzy');
+
+      // Act
+      userEvent.keyboard('[ArrowDown]');
+      userEvent.keyboard('[ArrowDown]');
+
+      // Assert
+      expect(input).toBeInTheDocument();
+      expect(screen.getByText('No results found')).toBeInTheDocument();
+    });
   });
 
   describe('With custom filter', () => {
@@ -222,7 +244,6 @@ describe('Autocomplete component', () => {
       render(
         <Autocomplete
           options={options}
-          value={null}
           getOptionLabel={(opt) => opt.label}
           onSelect={onSelect}
           filterOptions={(opts, value) =>
@@ -258,59 +279,6 @@ describe('Autocomplete component', () => {
       expect(screen.getAllByRole('option')).toHaveLength(2);
       expect(getOption('Abdominal pain')).toBeInTheDocument();
       expect(getOption('Eye problems')).toBeInTheDocument();
-    });
-  });
-
-  describe('When rendering with value set', () => {
-    // Arrange
-    const onSelect = jest.fn();
-
-    const options: OptionWithKeywords[] = [
-      { id: 1, label: 'Abdominal pain', keywords: ['stomach', 'pain'] },
-      { id: 2, label: 'Eye problems', keywords: ['eye', 'pain'] },
-    ];
-
-    test('should populate input with label of selected value', () => {
-      // Arrange
-      const value = options[0];
-
-      // Act
-      render(
-        <Autocomplete
-          options={options}
-          value={value}
-          getOptionLabel={(opt) => opt.label}
-          onSelect={onSelect}
-        />
-      );
-
-      // Assert
-      expect(getInput()).toHaveValue(value.label);
-    });
-
-    test('setting value to null should clear input', () => {
-      // Arrange
-      const { rerender } = render(
-        <Autocomplete
-          options={options}
-          value={options[0]}
-          getOptionLabel={(opt) => opt.label}
-          onSelect={onSelect}
-        />
-      );
-
-      // Act
-      rerender(
-        <Autocomplete
-          options={options}
-          value={null}
-          getOptionLabel={(opt) => opt.label}
-          onSelect={onSelect}
-        />
-      );
-
-      // Assert
-      expect(getInput()).toHaveValue('');
     });
   });
 });
