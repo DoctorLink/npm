@@ -42,9 +42,11 @@ export const BulletsPanel: React.FC<BulletsPanelProps> = ({
           : 'default';
         return (
           <Conclusion key={bullet.bulletUniqueId}>
-            <BodyText bullet={bulletStyle} bold={bold}>
-              {bullet.displayText}
-            </BodyText>
+            <BodyText
+              bullet={bulletStyle}
+              bold={bold}
+              dangerouslySetInnerHTML={{ __html: bullet.displayText }}
+            />
           </Conclusion>
         );
       })}
